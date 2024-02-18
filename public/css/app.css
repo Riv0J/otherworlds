@@ -251,10 +251,15 @@ position: relative;
         border-bottom: none;
         border-left: 0.3rem solid var(--main);
     }
-
+    .window{
+        height: 50svh;
+    }
 
 }
-
+.divider{
+    border-radius: 1rem;
+    border-bottom: 0.3rem solid var(--alt_dark);
+}
 /* xs */
 @media screen and (max-width: 576px){
     :root {

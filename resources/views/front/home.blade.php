@@ -115,7 +115,7 @@ Otherworlds
                 <h3 class="regular d-flex align-items-center gap-2 ">
                     <i class="ri-compass-3-line"></i>Discover
                 </h3>
-                <p class="light">Look out for places you have never seen or heard about before</p>
+                <p class="light">Places you have never seen or heard about before</p>
             </div>
         </div>
 
@@ -135,12 +135,33 @@ Otherworlds
     </div>
 </section>
 
-<section class="bg_light text-justify px-3 px-lg-5 py-5">
-    <div>
-        Prepare to be enchanted by the breathtaking beauty of some of the most remarkable places on our planet.
-        From stunning vistas to landscapes that defy belief, we present destinations that will transport you to another world.
-        Join us as we embark on a journey to uncover the hidden wonders of nature, from majestic mountains to awe-inspiring waterfalls and beyond.
+<div class="divider col-9 col-md-6 col-lg-4"></div>
 
+<section class="bg_light text-justify px-3 px-lg-5 py-5 row flex-column flex-md-row">
+    <div class="d-flex align-items-center justify-content-center col-12 col-md-3">
+        <img src="{{asset('img/antelope.jpg')}}" alt="">
     </div>
+    <h3 class="text-center py-5 col-12 col-md-9">
+        Prepare to be enchanted by the breathtaking beauty of some of the most remarkable places on our planet.
+    </h3>
 </section>
+
+<div class="divider col-9 col-md-6 col-lg-4"></div>
+
+<section class="bg_light text-justify px-3 px-lg-5 py-5 row flex-column flex-md-row">
+    <h3 class="text-center py-5 col-12 col-md-9">
+        Stunning landscape that defy belief, destinations that will transport you to another world.
+    </h3>
+    <div class="d-flex align-items-center justify-content-center col-12 col-md-3">
+        <img src="{{asset('img/antelope.jpg')}}" alt="">
+    </div>
+
+</section>
+
+<div class="divider col-9 col-md-6 col-lg-4"></div>
+
+<p class="text-center py-5 col-12 col-md-8">
+    Join us as we embark on a journey to uncover the hidden wonders of nature, from majestic mountains to awe-inspiring waterfalls and beyond.
+</p>
+
 @endsection

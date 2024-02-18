@@ -35,7 +35,7 @@
     <body>
         @include('layout.header')
 
-        <main>
+        <main class="flex_center flex-column">
             @yield('content')
         </main>
 
