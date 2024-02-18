@@ -16,6 +16,11 @@
 *{
     font-family: 'QuickSand';
 }
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
 .flex_center{
     display: flex;
     justify-content: center;
@@ -295,6 +300,19 @@ position: relative;
 .bg_gradient_black{
     background: rgb(29, 29, 29);
     background: linear-gradient(180deg, rgb(29, 29, 29) 1%, rgba(0,212,255,0) 100%);
+    color: white;
+}
+
+.bg_gradient_black_bot_top{
+    position: relative;
+    color: white;
+}
+.bg_gradient_black_bot_top::after{
+    position: absolute;
+    content: '';
+    inset: 0;
+    background: rgb(29, 29, 29);
+    background: linear-gradient(0deg, rgb(29, 29, 29) 20%, rgba(0,212,255,0) 40%);
     color: white;
 }
 

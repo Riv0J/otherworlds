@@ -23,12 +23,8 @@ Otherworlds
 
 <script>
     const home_window_title = document.getElementById('home_window_title');
-    const phrases = [
-        'Ever wondered why... *| some places just feel out of this world...?',
-        'We have places to be... *| And people to meet.',
-        'Discover the unknown beauty... *| In the same planet we call home.'
-    ];
-
+    const phrases = {!! json_encode($phrases) !!};
+    console.log(phrases);
     const random_phrase = phrases[Math.floor(Math.random() * phrases.length)];
     escribirCodigo(random_phrase, home_window_title);
 
@@ -100,9 +96,10 @@ Otherworlds
         ">
             <div class="d-flex flex-column align-items-start justify-content-end text-left h-100">
                 <h3 class="regular d-flex align-items-center gap-2 ">
-                    <i class="ri-compass-3-line"></i>Explore
+                    <i class="ri-compass-3-line"></i>
+                    @lang('otherworlds.explore')
                 </h3>
-                <p class="light">Search for magical places all over our planet</p>
+                <p class="light">@lang('otherworlds.explore_body')</p>
             </div>
         </div>
 
@@ -113,9 +110,10 @@ Otherworlds
         ">
             <div class="d-flex flex-column align-items-start justify-content-end text-left h-100">
                 <h3 class="regular d-flex align-items-center gap-2 ">
-                    <i class="ri-compass-3-line"></i>Discover
+                    <i class="ri-compass-3-line"></i>
+                    @lang('otherworlds.discover')
                 </h3>
-                <p class="light">Places you have never seen or heard about before</p>
+                <p class="light">@lang('otherworlds.discover_body')</p>
             </div>
         </div>
 
@@ -126,31 +124,32 @@ Otherworlds
         ">
             <div class="d-flex flex-column align-items-start justify-content-end text-left h-100">
                 <h3 class="regular d-flex align-items-center gap-2 ">
-                    <i class="ri-profile-line"></i>Request
+                    <i class="ri-profile-line"></i>
+                    @lang('otherworlds.request')
                 </h3>
-                <p class="light">Vote to add new places for others to enjoy</p>
+                <p class="light">@lang('otherworlds.request_body')</p>
             </div>
         </div>
 
     </div>
 </section>
 
-<div class="divider col-9 col-md-6 col-lg-4"></div>
+<div class="divider col-9 col-md-6 col-lg-4 my-md-5"></div>
 
 <section class="bg_light text-justify px-3 px-lg-5 py-5 row flex-column flex-md-row">
     <div class="d-flex align-items-center justify-content-center col-12 col-md-3">
         <img src="{{asset('img/antelope.jpg')}}" alt="">
     </div>
-    <h3 class="text-center py-5 col-12 col-md-9">
-        Prepare to be enchanted by the breathtaking beauty of some of the most remarkable places on our planet.
+    <h3 class="text-left py-5 col-12 col-md-9">
+        @lang('otherworlds.quote_1')
     </h3>
 </section>
 
-<div class="divider col-9 col-md-6 col-lg-4"></div>
+<div class="divider col-9 col-md-6 col-lg-4 my-md-5"></div>
 
 <section class="bg_light text-justify px-3 px-lg-5 py-5 row flex-column flex-md-row">
-    <h3 class="text-center py-5 col-12 col-md-9">
-        Stunning landscape that defy belief, destinations that will transport you to another world.
+    <h3 class="text-left py-5 col-12 col-md-9">
+        @lang('otherworlds.quote_2')
     </h3>
     <div class="d-flex align-items-center justify-content-center col-12 col-md-3">
         <img src="{{asset('img/antelope.jpg')}}" alt="">
@@ -158,10 +157,10 @@ Otherworlds
 
 </section>
 
-<div class="divider col-9 col-md-6 col-lg-4"></div>
+<div class="divider col-9 col-md-6 col-lg-4 my-md-5"></div>
 
-<p class="text-center py-5 col-12 col-md-8">
-    Join us as we embark on a journey to uncover the hidden wonders of nature, from majestic mountains to awe-inspiring waterfalls and beyond.
+<p class="text-center py-5 px-3 px-md-5 col-12 col-md-8">
+    @lang('otherworlds.quote_3')
 </p>
 
 @endsection

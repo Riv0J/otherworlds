@@ -39,8 +39,9 @@
             @yield('content')
         </main>
 
-
         @include('layout.footer')
     </body>
     <script src="{{ asset('js/app.js') }}"></script>
+
+    @yield('script')
 </html>

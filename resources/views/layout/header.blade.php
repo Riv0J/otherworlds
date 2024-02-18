@@ -24,15 +24,20 @@
             <a class="
             p-3 p-lg-1
             px-4 px-lg-2
-            regular @php if('Home' == $current_section){ echo('active_link'); } @endphp" href="{{route('home')}}">
-                Home
-            </a>
-            <a class="
-            p-3 p-lg-1
-            px-4 px-lg-2
             regular @php if('Places' == $current_section){ echo('active_link'); } @endphp" href="{{route('places')}}">
-                Places
+                @lang('otherworlds.places')
             </a>
+            <div class="flex_center gap-2">
+                @foreach ( config('translatable.locales') as $locale)
+                    @if($locale != app()->getLocale())
+                        <a href="{{route('setLocale', ['locale' => $locale])}}">{{strtoupper($locale)}}</a>
+
+                        @endif
+                @endforeach
+
+
+
+            </div>
         </nav>
     </div>
 </header>
@@ -41,15 +46,12 @@
     const responsive_nav_toggler = document.getElementById('responsive_nav_toggler');
     const responsive_nav = document.getElementById('responsive_nav');
     const mask = document.getElementById('mask');
-    let height = responsive_nav.offsetHeight;
-    console.log(height);
 
     responsive_nav_toggler.addEventListener('click', function(){
 
         responsive_nav.classList.toggle('d-flex');
         responsive_nav.classList.toggle('d-none');
         mask.classList.toggle('d-none');
-
     });
 
 </script>

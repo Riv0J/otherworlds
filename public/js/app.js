@@ -1,9 +1,13 @@
-function SetHeaderOffSet(){
+// aplicar un header offset con el margin, cuando el main tiene la clase 'header_offset'
+function set_header_offset(){
     let header_element = document.getElementsByTagName('header')[0];
-    const alturaHeader = header_element.offsetHeight;
+    const offset_height = header_element.offsetHeight;
 
     //apply offset to main element
-    document.querySelector('main').style.marginTop = `${alturaHeader}px`;
+    if(document.querySelector('main.header_offset')){
+        document.querySelector('main.header_offset').style.marginTop = `${offset_height}px`;
+    }
 
 }
-// document.addEventListener('DOMContentLoaded', SetHeaderOffSet);
+
+document.addEventListener('DOMContentLoaded', set_header_offset);
