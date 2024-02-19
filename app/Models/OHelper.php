@@ -16,6 +16,9 @@ class OHelper extends Model
         // Reemplazar espacios en blanco con guiones bajos
         $filename = str_replace(' ', '_', $filename);
 
+        // Reemplazar comillas simples con un string vacío
+        $filename = str_replace("'", '', $filename);
+
         // Convertir todo a minúsculas
         $filename = strtolower($filename);
 

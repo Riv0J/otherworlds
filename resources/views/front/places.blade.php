@@ -13,25 +13,27 @@
 
 <div class="divider col-9 col-md-6 col-lg-4 my-md-3"></div>
 
-<section class="bg_light px-lg-5 py-5">
+<section class="bg_light px-lg-2 py-3">
 
-    <div class="row gap-3 flex-lg-nowrap flex-wrap justify-content-center align-items-stretch">
+    <div class="row gap-1 gap-md-2 justify-content-center align-items-stretch">
 
         @foreach ($all_places as $place)
 
-        <a href="{{route('view_place', ['place_name' => $place->name])}}" class="places_card rounded-3 col-12 col-md-3 align-items-end white justify-content-start text-left px-3 pt-5">
+        <a href="{{route('view_place', ['place_name' => $place->name])}}" class="places_card rounded-3 col-12 col-sm-5 col-lg-3 align-items-end white justify-content-start text-left">
             <div class="image_background" image_path="{{asset('img/places/'.$place->id.'/t.png')}}"></div>
 
-            <div class="places_card_info d-flex flex-column align-items-start justify-content-end text-left h-100 px-2">
-                <h3 class="text-nowrap text-truncate regular d-flex align-items-center gap-2 ">
+            <div class="places_card_info d-flex flex-column align-items-start justify-content-end text-left h-100 p-5 p-sm-2">
+                <h3 class="text-nowrap text-truncate regular">
                     {{$place->name}}
                 </h3>
-                <p class="flex_center gap-2"><i class="ri-map-pin-line"></i>{{$place->country->name}}</p>
-
+                <p class="flex_center gap-2"><i class="ri-map-pin-line"></i>
+                    {{$place->country->name}}
+                </p>
                 <p class="light">
                     {{$place->synopsis}}
                 </p>
             </div>
+
         </a>
 
         @endforeach
@@ -44,7 +46,7 @@
 <script>
 function set_header_offset(){
     let header_element = document.getElementsByTagName('header')[0];
-    const offset_height = header_element.offsetHeight;
+    const offset_height = header_element.offsetHeight * 0.8;
 
     //apply offset to main element
     document.querySelector('main').style.marginTop = `${offset_height}px`;
@@ -77,7 +79,7 @@ document.addEventListener('DOMContentLoaded', set_header_offset);
         content: '';
         inset: 0;
         background: rgb(29, 29, 29);
-        background: linear-gradient(0deg, rgb(29, 29, 29) 20%, rgba(0,212,255,0) 40%);
+        background: linear-gradient(0deg, rgb(29, 29, 29) 25%, rgba(0,212,255,0) 45%);
         color: white;
         z-index: 1000;
     }

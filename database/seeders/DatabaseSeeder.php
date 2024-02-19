@@ -105,23 +105,76 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'es' => [
-                    'name' => 'Parque Nacional Canaima',
-                    'synopsis' => 'Sumérgete en un lago de agua de color rosa.',
+                    'name' => 'Monte Roraima',
+                    'synopsis' => 'Alta meseta de roca, con millones de años de antigüedad',
                     'description' => 'Descripción en español',
                 ],
                 'en' => [
-                    'name' => 'Canaima National Park',
-                    'synopsis' => "Occupied by plateaus of rock, with millions of years old",
+                    'name' => 'Mount Roraima',
+                    'synopsis' => "Tall, millions of years old rock plateau",
                     'description' => 'Descripción en ingles',
                 ],
-                'country_name' => 'Spain',
+                'country_name' => 'Venezuela',
+            ],
+            [
+                'es' => [
+                    'name' => 'Gruta de Fingal',
+                    'synopsis' => 'Cueva formada por columnas de basalto hexagonales',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => "Fingal's Cave",
+                    'synopsis' => "Cave formed from Hexagonal basalt columns",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Scotland',
+            ],
+            [
+                'es' => [
+                    'name' => 'Cataratas del Niágara',
+                    'synopsis' => 'Las tres hermosas cascadas en el rio Niágara',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Niagara Falls',
+                    'synopsis' => "The three beautiful waterfalls at the southern end of Niagara Gorge",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Canada',
+            ],
+            [
+                'es' => [
+                    'name' => 'Lago de Nicaragua & Ometepe',
+                    'synopsis' => 'El lago más grande de america central con su isla volcánica',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Lake Cocibolca & Ometepe',
+                    'synopsis' => "Central America's largest lake and it's volcanic island",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Nicaragua',
+            ],
+            [
+                'es' => [
+                    'name' => 'Montañas Zangye Danxia',
+                    'synopsis' => 'Formaciones geológicas de arenisca multicolor',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Zangye Danxia Mountains',
+                    'synopsis' => "Colorful sandstone rock formations",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'China',
             ],
         ];
+
 
         foreach ($places as $place_entry) {
 
             $place_data = [
-                'country_id' => Country::where('name', $place_entry['country_name'])->value('id'),
+                'country_id' => Country::where('name', $place_entry['country_name'])->value('id') ?? Country::where('name', 'Unknown')->value('id'),
                 'es' => $place_entry['es'],
                 'en' => $place_entry['en'],
             ];
@@ -137,10 +190,13 @@ class DatabaseSeeder extends Seeder
             // ver si hay fotos seeder guardadas con el name en ingles
             $seeder_images_path = public_path('img/place_seeders/'.OHelper::makeUrlFriendly($place_entry['en']['name']));
 
+            $this->command->info($seeder_images_path);
+
             if(File::exists($seeder_images_path)){
                 //copiar los contenidos de seeder_images_path a $path
                 File::copyDirectory($seeder_images_path, $path);
             }
+
 
         }
     }

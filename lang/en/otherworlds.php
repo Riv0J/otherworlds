@@ -9,7 +9,7 @@ return [
     'discover' => 'Discover',
     'request' => 'Request',
     'explore_body' => 'Magical places all over our planet',
-    'discover_body' => 'Places you have never seen or heard about before',
+    'discover_body' => 'Places you have never seen before',
     'request_body' => 'Add new places for others to discover',
 
     'quote_1' => 'Prepare to be enchanted by the breathtaking beauty of some of the most remarkable places on our planet.',

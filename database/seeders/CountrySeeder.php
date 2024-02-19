@@ -16,6 +16,7 @@ class CountrySeeder extends Seeder
     public function run()
     {
         $countries = [
+            ['name' => 'Unknown'],
             ['name' => 'Afghanistan'],
             ['name' => 'Albania'],
             ['name' => 'Algeria'],
@@ -165,6 +166,7 @@ class CountrySeeder extends Seeder
             ['name' => 'San Marino'],
             ['name' => 'Sao Tome and Principe'],
             ['name' => 'Saudi Arabia'],
+            ['name' => 'Scotland'],
             ['name' => 'Senegal'],
             ['name' => 'Serbia'],
             ['name' => 'Seychelles'],
