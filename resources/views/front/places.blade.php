@@ -6,24 +6,24 @@
 
 @section('content')
 <section class="bg_light px-lg-5 pb-2">
-    <h1 class="semibold text-center display-5 flex_center gap-2 col-12 py-2">
+    <h2 class="semibold text-center display-5 flex_center gap-2 col-12 py-2">
         @lang('otherworlds.unique_places')
-    </h1>
+    </h2>
 </section>
 
 <div class="divider col-9 col-md-6 col-lg-4 my-md-3"></div>
 
 <section class="bg_light px-lg-2 py-3">
 
-    <div class="row gap-1 gap-md-2 justify-content-center align-items-stretch">
+    <div class="row gap-1 gap-sm-2 gap-md-3 justify-content-center align-items-stretch">
 
         @foreach ($all_places as $place)
 
-        <a href="{{route('view_place', ['place_name' => $place->name])}}" class="places_card rounded-3 col-12 col-sm-5 col-lg-3 align-items-end white justify-content-start text-left">
+        <a href="{{route('view_place', ['place_name' => $place->name])}}" class="places_card rounded-3 col-12 col-sm-5 col-md-5 col-lg-3 col-xl-2 align-items-end white justify-content-start text-left">
             <div class="image_background" image_path="{{asset('img/places/'.$place->id.'/t.png')}}"></div>
 
             <div class="places_card_info d-flex flex-column align-items-start justify-content-end text-left h-100 p-5 p-sm-2">
-                <h3 class="text-nowrap text-truncate regular">
+                <h3 class=" regular mb-2">
                     {{$place->name}}
                 </h3>
                 <p class="flex_center gap-2"><i class="ri-map-pin-line"></i>

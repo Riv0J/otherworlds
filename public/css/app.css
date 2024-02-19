@@ -45,7 +45,13 @@ h1{
 }
 h2{
     font-family: 'Quicksand';
-    font-size: 2.5rem;
+    font-size: 2.25rem;
+    letter-spacing: 0.2rem;
+    margin: 0;
+}
+h3{
+    font-family: 'Quicksand';
+    font-size: 1.75rem;
     letter-spacing: 0.1rem;
     margin: 0;
 }
@@ -188,7 +194,10 @@ position: relative;
 /* pantallas mayores de 1921px */
 @media screen and (min-width: 1921px) {
     :root {
-        font-size: 14px;
+        font-size: 16px;
+    }
+    .places_card{
+        aspect-ratio: 0.5 !important;
     }
 }
 
@@ -197,6 +206,9 @@ position: relative;
     :root {
         font-size: 14px;
     }
+    .places_card{
+        aspect-ratio: 0.5 !important;
+    }
 }
 
 /* xl */
@@ -204,12 +216,18 @@ position: relative;
     :root {
         font-size: 14px;
     }
+    .places_card{
+        aspect-ratio: 0.5 !important;
+    }
 }
 
 /* lg */
 @media screen and (max-width: 1200px) {
     :root {
         font-size: 14px;
+    }
+    .places_card{
+        aspect-ratio: 0.75 !important;
     }
 }
 
@@ -223,7 +241,7 @@ position: relative;
 /* sm */
 @media screen and (max-width: 768px ) {
     :root {
-        font-size: 14px;
+        font-size: 12px;
     }
     header{
         position: relative;
