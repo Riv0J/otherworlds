@@ -79,7 +79,7 @@ Otherworlds
     }
 </script>
 
-<section class="bg_light px-lg-5 py-5">
+<section class="bg_light px-md-5 py-5">
 
     <h1 class="semibold text-center display-5 flex_center gap-2 col-12 py-4">
         @include('icons.moon_black')
@@ -87,9 +87,9 @@ Otherworlds
     </h1>
 
     <!-- Page Features-->
-    <div class="row gap-3 flex-lg-nowrap flex-wrap justify-content-center align-items-stretch">
+    <div class="row gap-2 gap-xl-5 flex-lg-nowrap flex-wrap justify-content-center align-items-stretch">
 
-        <div class="rounded-3 col-12 col-md-4 align-items-end white justify-content-start text-left px-3 pt-5"
+        <div class="rounded-3 col-12 col-lg-4 align-items-end white justify-content-start text-left px-3 pt-5"
         style="
             background-image: url('{{asset('img/antelope.jpg')}}');
             background-size: cover;
@@ -103,7 +103,7 @@ Otherworlds
             </div>
         </div>
 
-        <div class="rounded-3 col-12 col-md-4 align-items-end white justify-content-start text-left px-3 pt-5"
+        <div class="rounded-3 col-12 col-lg-4 align-items-end white justify-content-start text-left px-3 pt-5"
         style="
             background-image: url('{{asset('img/antelope.jpg')}}');
             background-size: cover;
@@ -117,7 +117,7 @@ Otherworlds
             </div>
         </div>
 
-        <div class="rounded-3 col-12 col-md-4 align-items-end white justify-content-start text-left px-3 pt-5"
+        <div class="rounded-3 col-12 col-lg-4 align-items-end white justify-content-start text-left px-3 pt-5"
         style="
             background-image: url('{{asset('img/antelope.jpg')}}');
             background-size: cover;

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\File;
 use App\Models\Country;
 use App\Models\Place;
 
+use App\Models\OHelper;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -20,29 +22,28 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        // // Ruta del directorio
-        // $directory = public_path('img/places');
+        //1. borrar el contenido de la carpeta places
+        $directory = public_path('img/places');
 
-        // // Verificar si el directorio existe
-        // if (File::isDirectory($directory)) {
-        //     // Obtener una lista de todos los archivos y directorios dentro del directorio
-        //     $files = File::allFiles($directory);
-        //     $directories = File::directories($directory);
+        // Verificar si el directorio existe
+        if (File::isDirectory($directory)) {
+            // Obtener una lista de todos los archivos y directorios dentro del directorio
+            $files = File::allFiles($directory);
+            $directories = File::directories($directory);
 
-        //     // Borrar todos los archivos dentro del directorio
-        //     foreach ($files as $file) {
-        //         File::delete($file);
-        //     }
+            // Borrar todos los archivos dentro del directorio
+            foreach ($files as $file) {
+                File::delete($file);
+            }
 
-        //     // Borrar todos los directorios dentro del directorio
-        //     foreach ($directories as $dir) {
-        //         File::deleteDirectory($dir);
-        //     }
+            // Borrar todos los directorios dentro del directorio
+            foreach ($directories as $dir) {
+                File::deleteDirectory($dir);
+            }
 
-        //     echo "Archivos y directorios borrados correctamente.";
-        // } else {
-        //     echo "El directorio no existe.";
-        // }
+        } else {
+            echo "El directorio no existe.";
+        }
 
         // execute the independent seeders
         $this->call([
@@ -53,12 +54,12 @@ class DatabaseSeeder extends Seeder
             [
                 'es' => [
                     'name' => 'Cañón del Antílope',
-                    'synopsis' => 'Cañón en el suroeste de Estados Unidos, en tierras navajos al este de Lechee, Arizona.',
+                    'synopsis' => 'Cañón en el suroeste de Estados Unidos, en tierras navajos al este de Lechee, Arizona',
                     'description' => 'Descripción en español',
                 ],
                 'en' => [
                     'name' => 'Antelope Canyon',
-                    'synopsis' => 'A slot canyon in the American Southwest, on Navajo land east of Lechee, Arizona.',
+                    'synopsis' => 'A slot canyon in the American Southwest, on Navajo land east of Lechee, Arizona',
                     'description' => 'Description in English',
                 ],
                 'country_name' => 'United States',
@@ -71,10 +72,49 @@ class DatabaseSeeder extends Seeder
                 ],
                 'en' => [
                     'name' => 'Grand Prismatic Spring',
-                    'synopsis' => 'The largest hot spring in the United States, and the third largest in the world.',
+                    'synopsis' => 'The largest hot spring in the United States, and the third largest in the world',
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'United States',
+            ],
+            [
+                'es' => [
+                    'name' => 'Salar de Uyuni',
+                    'synopsis' => 'El mayor desierto de sal continuo y alto del mundo',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Uyuni Salt Flat',
+                    'synopsis' => "The world's largest salt flat playa",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Bolivia',
+            ],
+            [
+                'es' => [
+                    'name' => 'Laguna Rosa de Torrevieja',
+                    'synopsis' => 'Sumérgete en un lago de agua de color rosa',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Pink Lake of Torrevieja',
+                    'synopsis' => "Submerge yourself into a pink-water lake",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Spain',
+            ],
+            [
+                'es' => [
+                    'name' => 'Parque Nacional Canaima',
+                    'synopsis' => 'Sumérgete en un lago de agua de color rosa.',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Canaima National Park',
+                    'synopsis' => "Occupied by plateaus of rock, with millions of years old",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Spain',
             ],
         ];
 
@@ -92,6 +132,14 @@ class DatabaseSeeder extends Seeder
             $path = public_path('img/places/'.$new_place->id);
             if (!File::exists($path)) {
                 File::makeDirectory($path, 0777, true, true);
+            }
+
+            // ver si hay fotos seeder guardadas con el name en ingles
+            $seeder_images_path = public_path('img/place_seeders/'.OHelper::makeUrlFriendly($place_entry['en']['name']));
+
+            if(File::exists($seeder_images_path)){
+                //copiar los contenidos de seeder_images_path a $path
+                File::copyDirectory($seeder_images_path, $path);
             }
 
         }
