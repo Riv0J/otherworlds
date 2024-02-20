@@ -144,7 +144,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'es' => [
-                    'name' => 'Lago de Nicaragua & Ometepe',
+                    'name' => 'Lago Cocibolca & Ometepe',
                     'synopsis' => 'El lago más grande de america central con su isla volcánica',
                     'description' => 'Descripción en español',
                 ],
@@ -167,6 +167,19 @@ class DatabaseSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'China',
+            ],
+            [
+                'es' => [
+                    'name' => 'Cañón del Colca',
+                    'synopsis' => 'Montañas con profundidad de 3250m a lo largo del río Colca',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Colca Canyon',
+                    'synopsis' => "Mountains with a depth of 3250 meters along the Colca River",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Peru',
             ],
         ];
 
