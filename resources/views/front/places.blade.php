@@ -26,10 +26,16 @@
                 <h3 class=" regular mb-2">
                     {{$place->name}}
                 </h3>
-                <p class="flex_center gap-2"><i class="ri-map-pin-line"></i>
+                <p class="flex_center gap-2" ><i class="ri-map-pin-line"></i>
                     {{$place->country->name}}
                 </p>
-                <p class="light">
+                <p class="light" style="
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+
+                ">
                     {{$place->synopsis}}
                 </p>
             </div>
