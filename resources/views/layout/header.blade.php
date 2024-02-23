@@ -1,6 +1,6 @@
 <!-- Responsive navbar-->
 <header class="fixed-top navbar bg_gradient_black">
-    <div class="container py-2 py-lg-3 px-3 px-lg-5 white">
+    <div class="container py-1 py-lg-2 px-3 px-lg-5 white">
         {{-- home anchor --}}
         <a class="brand_anchor white gap-2" href="{{route('home')}}">
             @include('icons.moon_white')
