@@ -13,24 +13,30 @@
 
 <div class="divider col-9 col-md-6 col-lg-4 my-md-3"></div>
 
-<section class="bg_light px-lg-2 py-3">
+<section class="col-12 bg_light px-1 px-lg-2 py-3">
 
-    <div class="row gap-1 gap-sm-2 gap-md-3 justify-content-center align-items-stretch" id="places">
+    <div class="gap-2 gap-md-3 justify-content-center align-items-stretch" id="places_container">
 
         @foreach ($all_places as $place)
-        <a href="{{route('view_place', ['place_name' => $place->name])}}" class="places_card rounded-3 col-12 col-sm-5 col-md-5 col-lg-3 col-xl-2 align-items-end justify-content-end text-left white d-flex justify-content-end p-0">
+        <a href="{{route('view_place', ['place_name' => $place->name])}}"
+            class="places_card d-flex align-items-end justify-content-end p-0 rounded-3 white text-left">
             <div class="image_background" image_path="{{asset('img/places/'.$place->id.'/t.png')}}"></div>
 
             <div class="places_card_info d-flex flex-column align-items-start text-left pt-5 px-3 pb-2 w-100">
                 <h3 class="regular mb-2">
                     {{$place->name}}
                 </h3>
-                <p class="flex_center gap-2 line_clamp"><i class="ri-map-pin-line"></i>
-                    {{$place->country->name}}
+
+                <p class="flex_center gap-2">
+                    <i class="ri-map-pin-line"></i>{{$place->country->name}}
                 </p>
-                <p class="light line_clamp_2 h-0">
-                    {{$place->synopsis}}
-                </p>
+                <div class="card_sinopsis flex_center row p-0">
+                    {{-- <div class="divider col-6 my-1"></div> --}}
+                    <p class="light col-12">
+                        {{$place->synopsis}}
+                    </p>
+                </div>
+
             </div>
 
         </a>
@@ -66,15 +72,16 @@ document.addEventListener('DOMContentLoaded', apply_bg_images);
 document.addEventListener('DOMContentLoaded', set_header_offset);
 </script>
 <style>
-    .line_clamp_2{
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+    #places_container{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
+    }
+    .card_sinopsis{
+        height: 0;
     }
     .places_card{
+        min-height: 500px;
         position: relative;
-        aspect-ratio: 0.75;
         overflow: hidden;
         color: white;
     }
@@ -92,14 +99,18 @@ document.addEventListener('DOMContentLoaded', set_header_offset);
         position: relative;
         z-index: 1000;
     }
-    .places_card p{
-        overflow: hidden;
-    }
     .places_card::after{
         transition: all
     }
     .places_card:hover>.image_background{
         scale: 1.1;
+    }
+    .card_sinopsis{
+        overflow: hidden;
+        transition: all 1s;
+    }
+    .places_card:hover .card_sinopsis{
+        height: 75px;
     }
     .image_background{
         position: absolute;
