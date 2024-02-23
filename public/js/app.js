@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', set_header_offset);
 
 
 document.addEventListener('scroll', function() {
+
     const header = document.getElementsByTagName('header')[0];
-    if(header){
+    if(header && window.innerWidth > 768){
         if (window.scrollY === 0) {
             console.log('El scroll está en la posición inicial');
             // Si el scroll está en la posición inicial, restaura el gradiente original

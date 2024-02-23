@@ -19,7 +19,7 @@
             gap-2 gap-lg-4
             py-3 py-lg-0
             d-none d-lg-flex
-            flex-md-row flex-column">
+            flex-column flex-lg-row">
 
             <a class="
             p-3 p-lg-1
@@ -27,7 +27,9 @@
             regular @php if('Places' == $current_section){ echo('active_link'); } @endphp" href="{{route('places')}}">
                 @lang('otherworlds.places')
             </a>
-            <div class="flex_center gap-2">
+
+            <div class="flex_center flex-column gap-2">
+                <div class="divider col-6 col-md-4 my-4 d-block d-lg-none"></div>
                 @foreach ( config('translatable.locales') as $locale)
                     @if($locale != app()->getLocale())
                         <a href="{{route('setLocale', ['locale' => $locale])}}">{{strtoupper($locale)}}</a>
@@ -35,13 +37,11 @@
                         @endif
                 @endforeach
 
-
-
             </div>
         </nav>
     </div>
 </header>
-<div id="mask" class="d-none bg_gradient_black"></div>
+<div id="mask" class="d-none"></div>
 <script>
     const responsive_nav_toggler = document.getElementById('responsive_nav_toggler');
     const responsive_nav = document.getElementById('responsive_nav');
@@ -58,9 +58,13 @@
 
 <style>
     #mask{
+        inset: 0;
         position: fixed;
         width: 100vw;
         height: 100svh;
+        z-index: 1000;
+        background: rgb(29, 29, 29);
+        background: linear-gradient(180deg, rgb(29, 29, 29) 30%, rgba(0,212,255,0) 100%);
     }
     header a{
     color: white;

@@ -19,10 +19,15 @@
 
         @foreach ($all_places as $place)
         <a href="{{route('view_place', ['place_name' => $place->name])}}"
-            class="places_card d-flex align-items-end justify-content-end p-0 rounded-3 white text-left">
+            class="places_card d-flex flex-column align-items-between justify-content-between p-0 rounded-3 white text-left">
             <div class="image_background" image_path="{{asset('img/places/'.$place->id.'/t.png')}}"></div>
 
-            <div class="places_card_info d-flex flex-column align-items-start text-left pt-5 px-3 pb-2 w-100">
+            <div class="card_stats gap-2 d-flex justify-content-end align-items-center px-3 py-2 w-100">
+                500<i class="ri-star-line"></i>
+
+                </div>
+
+            <div class="places_card_info d-flex flex-column align-items-start text-left px-3 pb-2 w-100">
                 <h3 class="regular mb-2">
                     {{$place->name}}
                 </h3>
@@ -76,6 +81,12 @@ document.addEventListener('DOMContentLoaded', set_header_offset);
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
     }
+    .card_stats{
+        z-index: 500;
+    }
+    .card_stats i{
+        color: yellow;
+    }
     .card_sinopsis{
         height: 0;
     }
@@ -97,7 +108,7 @@ document.addEventListener('DOMContentLoaded', set_header_offset);
     }
     .places_card_info{
         position: relative;
-        z-index: 1000;
+        z-index: 500;
     }
     .places_card::after{
         transition: all

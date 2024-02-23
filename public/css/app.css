@@ -237,16 +237,6 @@ position: relative;
     :root {
         font-size: 14px;
     }
-}
-
-/* sm */
-@media screen and (max-width: 768px ) {
-    :root {
-        font-size: 12px;
-    }
-    header{
-        position: relative;
-    }
     #responsive_nav {
         position: absolute;
         left: 0;
@@ -275,6 +265,18 @@ position: relative;
         border-bottom: none;
         border-left: 0.3rem solid var(--main);
     }
+}
+
+/* sm */
+@media screen and (max-width: 768px ) {
+    :root {
+        font-size: 12px;
+    }
+    header{
+        position: relative;
+        background: rgb(29, 29, 29) !important;
+    }
+
     .window{
         height: 50svh;
     }
