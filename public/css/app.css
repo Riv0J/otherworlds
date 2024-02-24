@@ -155,19 +155,6 @@ position: relative;
 .brand_anchor:hover>svg{
     transform: rotate(90deg);
 }
-
-/* .brand_anchor>span::after{
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 50;
-    width: 0;
-    height: 100%;
-    transition: all 0.5s;
-
-    border-bottom: 0.2rem solid var(--main);
-} */
-
 .brand_anchor:hover>span::after{
     left: 0;
     width: 100%;

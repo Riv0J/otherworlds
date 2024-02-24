@@ -21,23 +21,33 @@
             d-none d-lg-flex
             flex-column flex-lg-row">
 
-            <a class="
+            {{-- places link --}}
+            <a class="nav_link
             p-3 p-lg-1
             px-4 px-lg-2
             regular @php if('Places' == $current_section){ echo('active_link'); } @endphp" href="{{route('places')}}">
                 @lang('otherworlds.places')
             </a>
 
+            {{-- login button --}}
+            @if (Route::has('login'))
+            <a class="
+            p-3 p-lg-1
+            px-4 px-lg-2
+            regular"
+            href="{{ route('login') }}"><i class="ri-user-3-fill"></i></a>
+            @endif
+
+            {{-- lang buttons --}}
             <div class="flex_center flex-column gap-2">
                 <div class="divider col-6 col-md-4 my-4 d-block d-lg-none"></div>
                 @foreach ( config('translatable.locales') as $locale)
                     @if($locale != app()->getLocale())
-                        <a href="{{route('setLocale', ['locale' => $locale])}}">{{strtoupper($locale)}}</a>
-
-                        @endif
+                        <a class="nav_link" href="{{route('setLocale', ['locale' => $locale])}}">{{strtoupper($locale)}}</a>
+                    @endif
                 @endforeach
-
             </div>
+
         </nav>
     </div>
 </header>
@@ -87,8 +97,25 @@
         transition: height 1s ease;
     }
     #responsive_nav a{
+        position: relative;
         font-size: 1.3rem;
         letter-spacing: 0.03rem;
+    }
+    .nav_link::before{
+        position: absolute;
+        content: '';
+        top: 0;
+        left: 50%;
+        width: 0;
+        height: 100%;
+        transition: all 0.5s;
+
+        border-bottom: 0.2rem solid var(--main);
+        z-index: 1000;
+    }
+    .nav_link:hover::before{
+        left: 0;
+        width: 100%;
     }
 </style>
 
