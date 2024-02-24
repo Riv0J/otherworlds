@@ -6,7 +6,9 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
+use App\Models\User;
 use App\Models\Country;
 use App\Models\Place;
 
@@ -214,6 +216,13 @@ class DatabaseSeeder extends Seeder
 
 
         }
+
+
+        User::create([
+            'name' => 'user',
+            'email' => 'user@gmail.com',
+            'password' => Hash::make('user'),
+        ]);
     }
 
 }
