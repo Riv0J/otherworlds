@@ -12,7 +12,7 @@ function set_header_offset(){
 
 document.addEventListener('DOMContentLoaded', set_header_offset);
 
-
+//on scroll
 document.addEventListener('scroll', function() {
 
     const header = document.getElementsByTagName('header')[0];

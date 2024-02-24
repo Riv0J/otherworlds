@@ -25,6 +25,7 @@ return array(
     'App\\Models\\Country' => $baseDir . '/app/Models/Country.php',
     'App\\Models\\OHelper' => $baseDir . '/app/Models/OHelper.php',
     'App\\Models\\Place' => $baseDir . '/app/Models/Place.php',
+    'App\\Models\\PlaceTranslation' => $baseDir . '/app/Models/PlaceTranslation.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

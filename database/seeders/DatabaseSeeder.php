@@ -187,6 +187,8 @@ class DatabaseSeeder extends Seeder
         foreach ($places as $place_entry) {
 
             $place_data = [
+                'views_count'=> rand(100,1000),
+                'favorites_count'=> rand(100,1000),
                 'country_id' => Country::where('name', $place_entry['country_name'])->value('id') ?? Country::where('name', 'Unknown')->value('id'),
                 'es' => $place_entry['es'],
                 'en' => $place_entry['en'],

@@ -15,8 +15,12 @@ return new class extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->id();
+            $table->integer('views_count')->default(0);
+            $table->integer('favorites_count')->default(0);
+
             $table->unsignedBigInteger('country_id');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+
             $table->timestamps();
         });
 

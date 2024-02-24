@@ -23,11 +23,11 @@
             <div class="image_background" image_path="{{asset('img/places/'.$place->id.'/t.png')}}"></div>
 
             <div class="card_stats gap-2 d-flex justify-content-end align-items-center px-3 py-2 w-100">
-                500<i class="ri-star-line"></i>
+                <p>{{$place->favorites_count}}</p> <i class="fa-regular fa-star"></i>
 
-                </div>
+            </div>
 
-            <div class="places_card_info d-flex flex-column align-items-start text-left px-3 pb-2 w-100">
+            <div class="places_card_info d-flex flex-column align-items-start text-left px-3 py-2 pt-5 w-100">
                 <h3 class="regular mb-2">
                     {{$place->name}}
                 </h3>
@@ -86,6 +86,10 @@ document.addEventListener('DOMContentLoaded', set_header_offset);
     }
     .card_stats i{
         color: yellow;
+        transition: all 1s;
+    }
+    .card_stats:hover{
+        background-color: gray;
     }
     .card_sinopsis{
         height: 0;
