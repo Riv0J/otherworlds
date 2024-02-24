@@ -5,7 +5,9 @@
 @endsection
 
 @section('content')
-<section class="bg_light px-lg-5 pb-2">
+<div class="spacer mt-3 pt-5"></div>
+
+<section class="px-lg-5 pb-2 header_offset">
     <h2 class="semibold text-center display-5 flex_center gap-2 col-12 py-2">
         @lang('otherworlds.unique_places')
     </h2>
@@ -13,7 +15,7 @@
 
 <div class="divider col-9 col-md-6 col-lg-4 my-md-3"></div>
 
-<section class="col-12 bg_light px-1 px-lg-2 py-3">
+<section class="col-12 px-1 px-lg-2 py-3">
 
     <div class="gap-2 gap-md-3 justify-content-center align-items-stretch" id="places_container">
 
@@ -54,15 +56,6 @@
 
 @section('script')
 <script>
-function set_header_offset(){
-    let header_element = document.getElementsByTagName('header')[0];
-    const offset_height = header_element.offsetHeight * 0.8;
-
-    //apply offset to main element
-    document.querySelector('main').style.marginTop = `${offset_height}px`;
-    console.log(offset_height);
-}
-
 function apply_bg_images() {
     const places_images = document.querySelectorAll('div[image_path]');
 
@@ -74,7 +67,7 @@ function apply_bg_images() {
 }
 
 document.addEventListener('DOMContentLoaded', apply_bg_images);
-document.addEventListener('DOMContentLoaded', set_header_offset);
+
 </script>
 <style>
     #places_container{

@@ -5,7 +5,7 @@ Otherworlds
 @endsection
 
 @section('content')
-<!-- welcome -->
+{{-- window welcome --}}
 <section class="window col-12 home_window flex_center white">
     <div class="translucent py-2 px-4 rounded-3 overflow-hidden">
         <h2 class="text-center semibold display-6" id="home_window_title"></h2>
