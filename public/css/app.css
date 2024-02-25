@@ -162,31 +162,11 @@ position: relative;
 }
 /* brand anchor end*/
 
-.app_hover{
-    color: black;
-    fill: black;
-}
-
-.active_link{
-    position: relative;
-    padding-bottom: 0.2rem;
-}
-.active_link::after{
-    position: absolute;
-    content: '';
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border-bottom: 0.2rem solid var(--main);
-}
 /* media queries */
 /* pantallas mayores de 1921px */
 @media screen and (min-width: 1921px) {
     :root {
         font-size: 16px;
-    }
-    .places_card{
-        /* aspect-ratio: 0.5 !important; */
     }
 }
 
@@ -195,18 +175,12 @@ position: relative;
     :root {
         font-size: 14px;
     }
-    .places_card{
-        /* aspect-ratio: 0.5 !important; */
-    }
 }
 
 /* xl */
 @media screen and (max-width: 1400px) {
     :root {
         font-size: 14px;
-    }
-    .places_card{
-        /* aspect-ratio: 0.5 !important; */
     }
 }
 
@@ -215,43 +189,12 @@ position: relative;
     :root {
         font-size: 14px;
     }
-    .places_card{
-        /* aspect-ratio: 0.75 !important; */
-    }
 }
 
 /* md */
 @media screen and (max-width: 992px) {
     :root {
         font-size: 14px;
-    }
-    #responsive_nav {
-        position: absolute;
-        left: 0;
-        top: 100%;
-        right: 0;
-    }
-    .responsive_nav::before{
-        position: absolute;
-        content: '';
-        left: 0;
-        top: 100%;
-        right: 0;
-        background-color: var(--black);
-        opacity: 0.5;
-    }
-    #responsive_nav a{
-        font-size: 1.75rem !important;
-        letter-spacing: 0.1rem !important;
-    }
-    .active_link::after{
-        position: absolute;
-        content: '';
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        border-bottom: none;
-        border-left: 0.3rem solid var(--main);
     }
 }
 
@@ -260,11 +203,6 @@ position: relative;
     :root {
         font-size: 12px;
     }
-    header{
-        position: relative;
-        background: rgb(29, 29, 29) !important;
-    }
-
     .window{
         height: 50svh;
     }

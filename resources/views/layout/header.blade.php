@@ -2,7 +2,7 @@
 <header class="fixed-top navbar bg_gradient_black">
     <div class="container py-1 py-lg-2 px-3 px-lg-5 white">
         {{-- home anchor --}}
-        <a class="brand_anchor white gap-2" href="{{route('home')}}">
+        <a class="brand_anchor white gap-2" href="{{ route('home') }}">
             @include('icons.moon_white')
             <span>therworlds</span>
         </a>
@@ -14,7 +14,8 @@
         </button>
 
         {{-- nav --}}
-        <nav id="responsive_nav" class="
+        <nav id="responsive_nav"
+            class="
             px-3 px-lg-0
             gap-2 gap-lg-4
             py-3 py-lg-0
@@ -25,64 +26,79 @@
             <a class="nav_link
             p-3 p-lg-1
             px-4 px-lg-2
-            regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp" href="{{route('places')}}">
+            regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp"
+                href="{{ route('places') }}">
                 @lang('otherworlds.places')
             </a>
-
-            {{-- login button --}}
-            @if (Route::has('login') && Auth::user() == null)
             <a class="nav_link
             p-3 p-lg-1
             px-4 px-lg-2
+            regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp"
+                href="{{ route('places') }}">
+                @lang('otherworlds.places')
+            </a>
+            <a class="nav_link
+            p-3 p-lg-1
+            px-4 px-lg-2
+            regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp"
+                href="{{ route('places') }}">
+                @lang('otherworlds.places')
+            </a>
+            {{-- login button --}}
+            @if (Route::has('login') && Auth::user() == null)
+                <a class="nav_link
+            p-3 p-lg-1
+            px-4 px-lg-2
             regular"
-            href="{{ route('login') }}">Login</a>
+                    href="{{ route('login') }}">Login</a>
             @endif
 
             {{-- user options --}}
-            @if(Auth::user())
-            <form id="logout_form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
+            @if (Auth::user())
+                <form id="logout_form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
 
-            <div class="dropdown
+                <div class="dropdown
             p-3 p-lg-1
             px-4 px-lg-3
             regular">
-                <a href="javascript:void(0)" class="flex_center gap-2 dropdown_toggler">
-                    <i class="ri-user-3-fill d-block d-lg-none"></i>
-                    {{Auth::user()->name}}
-                    <i class="fa-solid fa-angle-down"></i>
-                </a>
+                    <a href="javascript:void(0)" class="flex_center gap-2 dropdown_toggler">
+                        <i class="fa-solid fa-angle-down"></i>
+                        {{ Auth::user()->name }}
 
-                <div class="dropdown_options">
-
-                    <a href="{{ route('logout') }}" class="p-2 px-4"
-                    onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
-                    @lang('Logout')
                     </a>
 
-                    <div class="dropdown_divider mt-1"></div>
+                    <div class="dropdown_options">
 
-                    <a href="{{ route('logout') }}" class="p-2 px-4"
-                        onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
-                        @lang('Logout')
-                    </a>
+                        <a href="{{ route('logout') }}" class="p-2 px-4"
+                            onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
+                            @lang('Logout')
+                        </a>
+
+                        <div class="dropdown_divider mt-1"></div>
+
+                        <a href="{{ route('logout') }}" class="p-2 px-4"
+                            onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
+                            @lang('Logout')
+                        </a>
+                    </div>
                 </div>
-            </div>
             @endif
 
-                        {{-- places link --}}
-                        <a class="nav_link
+            {{-- places link --}}
+            <a class="nav_link
                         p-3 p-lg-1
                         px-4 px-lg-2
-                        regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp" href="{{route('places')}}">
-                            Requests
-                        </a>
+                        regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp"
+                href="{{ route('places') }}">
+                Requests
+            </a>
             {{-- lang buttons --}}
             {{-- <div class="flex_center flex-column gap-2">
                 <div class="divider col-6 col-md-4 my-4 d-block d-lg-none"></div>
-                @foreach ( config('translatable.locales') as $locale)
-                    @if($locale != app()->getLocale())
+                @foreach (config('translatable.locales') as $locale)
+                    @if ($locale != app()->getLocale())
                         <a class="nav_link" href="{{route('setLocale', ['locale' => $locale])}}">{{strtoupper($locale)}}</a>
                     @endif
                 @endforeach
@@ -91,111 +107,109 @@
         </nav>
     </div>
 </header>
-<div id="mask" class="d-none"></div>
 <script>
     const responsive_nav_toggler = document.getElementById('responsive_nav_toggler');
     const responsive_nav = document.getElementById('responsive_nav');
-    const mask = document.getElementById('mask');
 
-    responsive_nav_toggler.addEventListener('click', function(){
+    responsive_nav_toggler.addEventListener('click', function() {
 
         responsive_nav.classList.toggle('d-flex');
         responsive_nav.classList.toggle('d-none');
-        mask.classList.toggle('d-none');
     });
-
 </script>
-
 <style>
-                .dropdown {
-                    position: relative;
-                }
+    /* dropdown styles */
+    .dropdown {
+        position: relative;
+    }
 
-                .dropdown_toggler {
-                    cursor: pointer;
-                    position: relative;
-                    cursor: pointer;
-                }
+    .dropdown_toggler {
+        cursor: pointer;
+        position: relative;
+        cursor: pointer;
 
-                .dropdown_options {
-                    overflow: hidden;
-                    visibility: hidden;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+    }
 
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
+    .dropdown_options {
+        overflow: hidden;
+        visibility: hidden;
 
-                    position: absolute;
-                    top: 100%;
-                    left: 0;
-                    width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
 
-                    background-color: var(--black);
-                    border-radius: 0.5rem;
-                    transition: all 0.5s ease;
-                }
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
 
-                .dropdown_options a {
-                    display: block;
-                    color: var(--white);
-                    transition: all 0.3s ease;
-                    z-index: 1000;
-                    min-height: 40px;
-                }
-                .dropdown_options a:hover{
-                    background-color: var(--gray);
-                }
-                .dropdown_divider{
-                    width: 90%;
-                    height: 1px;
-                    border-top: 0.1rem solid white;
-                }
+        background-color: var(--black);
+        border-radius: 0.5rem;
+        transition: all 0.5s ease;
+    }
 
-                @media screen and (max-width: 992px) {
-                    .dropdown_options{
-                        display: block;
-                        position: relative;
-                        background-color: none;
-                    }
-                }
-
-    /* esta mask se muestra cuando se abre el menu responsive */
-    #mask{
-        inset: 0;
-        position: fixed;
-        width: 100vw;
-        height: 100svh;
+    .dropdown_options a {
+        display: block;
+        color: var(--white);
+        transition: all 0.3s ease;
         z-index: 1000;
-        background: rgb(29, 29, 29);
-        background: linear-gradient(180deg, rgb(29, 29, 29) 50%, rgba(0,212,255,0) 100%);
+        min-height: 40px;
     }
-    header a{
-    color: white;
-    text-decoration: none;
+
+    .dropdown_options a:hover {
+        background-color: var(--gray);
     }
-    #responsive_nav_toggler{
+
+    .dropdown_divider {
+        width: 90%;
+        height: 1px;
+        border-top: 0.1rem solid white;
+    }
+
+    @media screen and (max-width: 992px) {
+        .dropdown_options {
+            display: block;
+            position: relative;
+            background-color: unset;
+        }
+
+        .dropdown_divider {
+            width: 100%;
+        }
+    }
+</style>
+<style>
+    /* header - nav styles */
+    header a {
+        color: white;
+        text-decoration: none;
+    }
+
+    #responsive_nav_toggler {
         background: none;
         border: none;
         color: white;
         transform: scale(1.25);
     }
-    #responsive_nav{
-        background: none;
+
+    #responsive_nav {
         border: none;
         color: white;
         overflow: visible;
-        -webkit-transition: height 1s ease;
-        -moz-transition: height 1s ease;
-        -o-transition: height 1s ease;
-        transition: height 1s ease;
     }
-    #responsive_nav a{
+
+    #responsive_nav a {
         position: relative;
         font-size: 1.3rem;
         letter-spacing: 0.03rem;
     }
-    .nav_link::before{
+
+    .nav_link::before {
         position: absolute;
         content: '';
         top: 0;
@@ -207,25 +221,66 @@
         border-bottom: 0.2rem solid var(--main);
         z-index: 1000;
     }
-    .nav_link:hover::before{
-        left: 0;
+
+    .active_link {
+        position: relative;
+        padding-bottom: 0.2rem;
+    }
+
+    .active_link::after {
+        position: absolute;
+        content: '';
+        inset: 0;
         width: 100%;
+        height: 100%;
+        border-bottom: 0.2rem solid var(--main);
+    }
+
+    /* mobile breakpoint */
+    @media screen and (max-width: 992px) {
+        header {
+            position: relative;
+            background: rgb(29, 29, 29) !important;
+        }
+
+        #responsive_nav {
+            position: absolute;
+            left: 0;
+            top: 100%;
+            right: 0;
+            background: linear-gradient(180deg, rgb(29, 29, 29) 50%, rgba(29, 29, 29, 0.71) 90%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        #responsive_nav>* {
+            padding-right: 10% !important;
+            text-align: right;
+        }
+
+        #responsive_nav a {
+            font-size: 1.75rem !important;
+            letter-spacing: 0.1rem !important;
+        }
+
+        .nav_link:hover::before {
+            background-color: var(--gray);
+        }
+
+        .active_link::after {
+            position: absolute;
+            content: '';
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border-bottom: none;
+            border-right: 0.3rem solid var(--main);
+        }
+    }
+
+    /* desktop */
+    @media screen and (min-width: 993px) {
+        .nav_link:hover::before {
+            left: 0;
+            width: 100%;
+        }
     }
 </style>
-
-{{-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container px-lg-5">
-        <a class="navbar-brand" href="#!">
-            <img class="app_icon" src="{{asset('img/moon.svg')}}" alt="">
-            Otherworlds
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-            </ul>
-        </div>
-    </div>
-</nav> --}}
