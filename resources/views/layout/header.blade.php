@@ -63,10 +63,9 @@
             p-3 p-lg-1
             px-4 px-lg-3
             regular">
-                    <a href="javascript:void(0)" class="flex_center gap-2 dropdown_toggler">
+                    <a href="javascript:void(0)" class="dropdown_toggler gap-2">
                         <i class="fa-solid fa-angle-down"></i>
                         {{ Auth::user()->name }}
-
                     </a>
 
                     <div class="dropdown_options">
@@ -185,7 +184,7 @@
 </style>
 <style>
     /* header - nav styles */
-    header a {
+    header a{
         color: white;
         text-decoration: none;
     }
@@ -208,7 +207,6 @@
         font-size: 1.3rem;
         letter-spacing: 0.03rem;
     }
-
     .nav_link::before {
         position: absolute;
         content: '';
@@ -243,6 +241,16 @@
             background: rgb(29, 29, 29) !important;
         }
 
+        header a {
+            font-size: 1.75rem !important;
+            letter-spacing: 0.1rem !important;
+            transition: background-color 0.5s;
+        }
+
+        header a:hover{
+            background-color: rgba(80, 80, 80, 0.45);
+        }
+
         #responsive_nav {
             position: absolute;
             left: 0;
@@ -254,15 +262,6 @@
         #responsive_nav>* {
             padding-right: 10% !important;
             text-align: right;
-        }
-
-        #responsive_nav a {
-            font-size: 1.75rem !important;
-            letter-spacing: 0.1rem !important;
-        }
-
-        .nav_link:hover::before {
-            background-color: var(--gray);
         }
 
         .active_link::after {
