@@ -3,14 +3,13 @@ function init_dropdowns(){
 
     Array.from(togglers).forEach(function(toggler) {
         const options = toggler.nextElementSibling;
-        const max_height = options.offsetHeight;
-
-        options.style.visibility = "visible";
-        options.style.height = '0px';
+        const max_height = options.scrollHeight; //get the options max height
         console.log(max_height);
+        options.style.visibility = "visible";
+        options.style.height = 0;
 
         toggler.addEventListener('click', function(){
-            console.log(options.style.height);
+
             if(options.style.height == '0px'){
                 options.style.height = max_height+'px';
             } else {

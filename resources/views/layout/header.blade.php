@@ -53,6 +53,7 @@
                     {{Auth::user()->name}}
                     <i class="fa-solid fa-angle-down"></i>
                 </a>
+
                 <div class="dropdown_options">
 
                     <a href="{{ route('logout') }}" class="p-2 px-4"
@@ -68,56 +69,15 @@
                     </a>
                 </div>
             </div>
-            <style>
-                .dropdown {
-                    position: relative; /* Establece el contexto de posición para el dropdown */
-                }
-
-                .dropdown_toggler {
-                    cursor: pointer; /* Cambia el cursor a un puntero al pasar sobre el elemento */
-                }
-
-                .dropdown_options {
-                    visibility: hidden;
-
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-
-                    position: absolute;
-                    top: 100%;
-                    left: 0;
-                    width: 100%;
-
-                    background-color: var(--black);
-                    border-radius: 0.5rem;
-                    overflow: hidden;
-                    transition: all 0.5s ease;
-
-                    pointer-events: none;
-                }
-
-                .dropdown_options a {
-                    display: block;
-                    color: var(--white);
-                    transition: all 0.3s ease;
-                    z-index: 1000;
-                    pointer-events: auto;
-                }
-                .dropdown_options a:hover{
-                    color: var(--white);
-                    background-color: var(--red);
-                }
-                .dropdown_divider{
-                    width: 90%;
-                    height: 1px;
-                    border-top: 0.1rem solid white;
-                }
-
-            </style>
             @endif
 
+                        {{-- places link --}}
+                        <a class="nav_link
+                        p-3 p-lg-1
+                        px-4 px-lg-2
+                        regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp" href="{{route('places')}}">
+                            Requests
+                        </a>
             {{-- lang buttons --}}
             {{-- <div class="flex_center flex-column gap-2">
                 <div class="divider col-6 col-md-4 my-4 d-block d-lg-none"></div>
@@ -147,13 +107,60 @@
 </script>
 
 <style>
-    .dropdown_toggler{
-        position: relative;
-        cursor: pointer;
-    }
-    .dropdown_options{
-        position: absolute;
-    }
+                .dropdown {
+                    position: relative;
+                }
+
+                .dropdown_toggler {
+                    cursor: pointer;
+                    position: relative;
+                    cursor: pointer;
+                }
+
+                .dropdown_options {
+                    overflow: hidden;
+                    visibility: hidden;
+
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    width: 100%;
+
+                    background-color: var(--black);
+                    border-radius: 0.5rem;
+                    transition: all 0.5s ease;
+                }
+
+                .dropdown_options a {
+                    display: block;
+                    color: var(--white);
+                    transition: all 0.3s ease;
+                    z-index: 1000;
+                    min-height: 40px;
+                }
+                .dropdown_options a:hover{
+                    background-color: var(--gray);
+                }
+                .dropdown_divider{
+                    width: 90%;
+                    height: 1px;
+                    border-top: 0.1rem solid white;
+                }
+
+                @media screen and (max-width: 992px) {
+                    .dropdown_options{
+                        display: block;
+                        position: relative;
+                        background-color: none;
+                    }
+                }
+
+    /* esta mask se muestra cuando se abre el menu responsive */
     #mask{
         inset: 0;
         position: fixed;
@@ -161,7 +168,7 @@
         height: 100svh;
         z-index: 1000;
         background: rgb(29, 29, 29);
-        background: linear-gradient(180deg, rgb(29, 29, 29) 30%, rgba(0,212,255,0) 100%);
+        background: linear-gradient(180deg, rgb(29, 29, 29) 50%, rgba(0,212,255,0) 100%);
     }
     header a{
     color: white;
