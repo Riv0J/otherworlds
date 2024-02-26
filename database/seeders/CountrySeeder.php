@@ -935,6 +935,411 @@ class CountrySeeder extends Seeder
                 'name' => 'Poland'
             ],
         ],
+        [
+            'en' => [
+                'name' => 'Portugal'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Catar'
+            ],
+            'en' => [
+                'name' => 'Qatar'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Rumania'
+            ],
+            'en' => [
+                'name' => 'Romania'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Rusia'
+            ],
+            'en' => [
+                'name' => 'Russia'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Ruanda'
+            ],
+            'en' => [
+                'name' => 'Rwanda'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'San Cristóbal y Nieves'
+            ],
+            'en' => [
+                'name' => 'Saint Kitts and Nevis'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Santa Lucía'
+            ],
+            'en' => [
+                'name' => 'Saint Lucia'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'San Vicente y las Granadinas'
+            ],
+            'en' => [
+                'name' => 'Saint Vincent and the Grenadines'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Samoa'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'San Marino'
+            ],
+            'en' => [
+                'name' => 'San Marino'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Santo Tomé y Príncipe'
+            ],
+            'en' => [
+                'name' => 'Sao Tome and Principe'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Arabia Saudita'
+            ],
+            'en' => [
+                'name' => 'Saudi Arabia'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Escocia'
+            ],
+            'en' => [
+                'name' => 'Scotland'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Senegal'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Serbia'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Seychelles'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Sierra Leona'
+            ],
+            'en' => [
+                'name' => 'Sierra Leone'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Singapur'
+            ],
+            'en' => [
+                'name' => 'Singapore'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Eslovaquia'
+            ],
+            'en' => [
+                'name' => 'Slovakia'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Eslovenia'
+            ],
+            'en' => [
+                'name' => 'Slovenia'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Islas Salomón'
+            ],
+            'en' => [
+                'name' => 'Solomon Islands'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Somalia'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Sudáfrica'
+            ],
+            'en' => [
+                'name' => 'South Africa'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Corea del Sur'
+            ],
+            'en' => [
+                'name' => 'South Korea'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Sudán del Sur'
+            ],
+            'en' => [
+                'name' => 'South Sudan'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'España'
+            ],
+            'en' => [
+                'name' => 'Spain'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Sri Lanka'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Sudán'
+            ],
+            'en' => [
+                'name' => 'Sudan'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Surinam'
+            ],
+            'en' => [
+                'name' => 'Suriname'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Suecia'
+            ],
+            'en' => [
+                'name' => 'Sweden'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Suiza'
+            ],
+            'en' => [
+                'name' => 'Switzerland'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Siria'
+            ],
+            'en' => [
+                'name' => 'Syria'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Tayikistán'
+            ],
+            'en' => [
+                'name' => 'Tajikistan'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Tanzania'
+            ],
+            'en' => [
+                'name' => 'Tanzania'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Tailandia'
+            ],
+            'en' => [
+                'name' => 'Thailand'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Timor Oriental'
+            ],
+            'en' => [
+                'name' => 'Timor-Leste'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Togo'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Tonga'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Trinidad y Tobago'
+            ],
+            'en' => [
+                'name' => 'Trinidad and Tobago'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Túnez'
+            ],
+            'en' => [
+                'name' => 'Tunisia'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Turquía'
+            ],
+            'en' => [
+                'name' => 'Turkey'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Turkmenistán'
+            ],
+            'en' => [
+                'name' => 'Turkmenistan'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Tuvalu'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Uganda'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Ucrania'
+            ],
+            'en' => [
+                'name' => 'Ukraine'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Emiratos Árabes Unidos'
+            ],
+            'en' => [
+                'name' => 'United Arab Emirates'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Reino Unido'
+            ],
+            'en' => [
+                'name' => 'United Kingdom'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Estados Unidos'
+            ],
+            'en' => [
+                'name' => 'United States'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Uruguay'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Uzbekistán'
+            ],
+            'en' => [
+                'name' => 'Uzbekistan'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Vanuatu'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Ciudad del Vaticano'
+            ],
+            'en' => [
+                'name' => 'Vatican City'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Venezuela'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Vietnam'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Yemen'
+            ],
+        ],
+        [
+            'en' => [
+                'name' => 'Zambia'
+            ],
+        ],
+        [
+            'es' => [
+                'name' => 'Zimbabue'
+            ],
+            'en' => [
+                'name' => 'Zimbabwe'
+            ],
+        ],
 
         ];
 
@@ -952,56 +1357,7 @@ class CountrySeeder extends Seeder
 
         $countries = [
 
-            ['name' => 'Saint Vincent and the Grenadines'],
-            ['name' => 'Samoa'],
-            ['name' => 'San Marino'],
-            ['name' => 'Sao Tome and Principe'],
-            ['name' => 'Saudi Arabia'],
-            ['name' => 'Scotland'],
-            ['name' => 'Senegal'],
-            ['name' => 'Serbia'],
-            ['name' => 'Seychelles'],
-            ['name' => 'Sierra Leone'],
-            ['name' => 'Singapore'],
-            ['name' => 'Slovakia'],
-            ['name' => 'Slovenia'],
-            ['name' => 'Solomon Islands'],
-            ['name' => 'Somalia'],
-            ['name' => 'South Africa'],
-            ['name' => 'South Korea'],
-            ['name' => 'South Sudan'],
-            ['name' => 'Spain'],
-            ['name' => 'Sri Lanka'],
-            ['name' => 'Sudan'],
-            ['name' => 'Suriname'],
-            ['name' => 'Sweden'],
-            ['name' => 'Switzerland'],
-            ['name' => 'Syria'],
-            ['name' => 'Tajikistan'],
-            ['name' => 'Tanzania'],
-            ['name' => 'Thailand'],
-            ['name' => 'Timor-Leste'],
-            ['name' => 'Togo'],
-            ['name' => 'Tonga'],
-            ['name' => 'Trinidad and Tobago'],
-            ['name' => 'Tunisia'],
-            ['name' => 'Turkey'],
-            ['name' => 'Turkmenistan'],
-            ['name' => 'Tuvalu'],
-            ['name' => 'Uganda'],
-            ['name' => 'Ukraine'],
-            ['name' => 'United Arab Emirates'],
-            ['name' => 'United Kingdom'],
-            ['name' => 'United States'],
-            ['name' => 'Uruguay'],
-            ['name' => 'Uzbekistan'],
-            ['name' => 'Vanuatu'],
-            ['name' => 'Vatican City'],
-            ['name' => 'Venezuela'],
-            ['name' => 'Vietnam'],
-            ['name' => 'Yemen'],
-            ['name' => 'Zambia'],
-            ['name' => 'Zimbabwe'],
+
         ];
     }
 }
