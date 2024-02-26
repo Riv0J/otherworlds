@@ -2,7 +2,16 @@
 
 return [
     // section titles
+    'lang' => 'Lang',
     'places' => 'Lugares',
+    'requests' => 'Solicitudes',
+
+    // user options
+    'sign_in' => 'Acceder',
+    'login' => 'Iniciar sesión',
+    'logout' => 'Cerrar sesión',
+    'profile' => 'Perfil',
+    'favorites' => 'Favoritos',
 
     // section home
     'explore' => 'Explora',
@@ -18,5 +27,10 @@ return [
 
     // section places
     'unique_places' => 'Lugares únicos',
-    'places_small' => 'Descubre lugares mágicos, alrededor del mundo.'
+    'places_small' => 'Descubre lugares mágicos, alrededor del mundo.',
+
+    // general
+    'email' => 'Correo Electrónico',
+    'password' => 'Contraseña',
+    'remember_me' => 'Recuérdame',
 ];

@@ -42,11 +42,13 @@
 
             {{-- login button --}}
             @if (Route::has('login') && Auth::user() == null)
-                <a class="nav_link
-            p-3 p-lg-1
-            px-4 px-lg-2
-            regular"
-                    href="{{ route('login') }}">Login</a>
+            <a class="nav_link
+                p-3 p-lg-1
+                px-4 px-lg-2
+                regular"
+                href="{{ route('login') }}">
+                <i class="ri-user-3-fill m-2"></i></i>@lang('otherworlds.sign_in')
+            </a>
             @endif
 
             {{-- user options --}}
@@ -78,7 +80,7 @@
 
                     <a href="{{ route('logout') }}" class="p-2 px-4"
                         onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
-                        @lang('Logout')
+                        @lang('otherworlds.logout')
                     </a>
                 </div>
             </div>

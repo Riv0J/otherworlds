@@ -1,7 +1,7 @@
 @extends('layout.masterpage')
 
 @section('title')
-Login | Otherworlds
+@lang('otherworlds.sign_in') | Otherworlds
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@ Login | Otherworlds
 <section class="row col-12 px-2 px-lg-5 py-2 flex_center">
 
     <h2 class="semibold text-center display-5 flex_center gap-2 col-12 py-2">
-        @lang('otherworlds.login')
+        @lang('otherworlds.sign_in')
     </h2>
 
     <form class="col-12 col-lg-8 py-5" method="POST" action="{{ route('login') }}">
@@ -67,7 +67,7 @@ Login | Otherworlds
         {{-- buttons --}}
         <div class="flex_center pb-3">
             <button type="submit" class="app_button">
-                @lang('Login')
+                @lang('otherworlds.login')
             </button>
         </div>
 

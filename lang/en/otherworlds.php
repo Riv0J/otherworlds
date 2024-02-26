@@ -2,7 +2,16 @@
 
 return [
     // section titles
+    'lang' => 'Lang',
     'places' => 'Places',
+    'requests' => 'Requests',
+
+    // user options
+    'sign_in' => 'Login',
+    'login' => 'Login',
+    'logout' => 'Logout',
+    'profile' => 'Profile',
+    'favorites' => 'Favorites',
 
     // section home
     'explore' => 'Explore',
@@ -18,5 +27,10 @@ return [
 
     // section places
     'unique_places' => 'Unique places',
-    'places_small' => 'Discover magical places around the world.'
+    'places_small' => 'Discover magical places around the world.',
+
+    // general
+    'email' => 'Email',
+    'password' => 'Password',
+    'remember_me' => 'Remember me',
 ];
