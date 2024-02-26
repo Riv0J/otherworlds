@@ -187,6 +187,7 @@
     header a{
         color: white;
         text-decoration: none;
+        outline: none;
     }
 
     #responsive_nav_toggler {

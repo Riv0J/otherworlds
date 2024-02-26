@@ -6,7 +6,6 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
 use App\Models\Country;
@@ -49,9 +48,12 @@ class DatabaseSeeder extends Seeder
 
         // execute the independent seeders
         $this->call([
+            RoleSeeder::class,
+            UserSeeder::class,
             CountrySeeder::class,
         ]);
 
+        // places data
         $places = [
             [
                 'es' => [
@@ -217,12 +219,6 @@ class DatabaseSeeder extends Seeder
 
         }
 
-
-        User::create([
-            'name' => 'user',
-            'email' => 'user@gmail.com',
-            'password' => Hash::make('user'),
-        ]);
     }
 
 }
