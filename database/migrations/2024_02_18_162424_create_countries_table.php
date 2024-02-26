@@ -15,8 +15,19 @@ return new class extends Migration
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->timestamps();
+        });
+
+        Schema::create('countries_translations', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('country_id');
+            $table->string('locale');
+
+            //translatable attributes
+            $table->string('name');
+
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            $table->unique(['country_id', 'locale']);
         });
     }
 
@@ -28,5 +39,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('countries');
+        Schema::dropIfExists('countries_translations');
     }
 };

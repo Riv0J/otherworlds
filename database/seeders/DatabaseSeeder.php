@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\File;
 
 use App\Models\User;
 use App\Models\Country;
+use App\Models\CountryTranslation;
 use App\Models\Place;
-
 use App\Models\OHelper;
 
 class DatabaseSeeder extends Seeder
@@ -187,13 +187,14 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
+        $unknown_country_id = CountryTranslation::where('name', 'Unknown')->value('country_id');
 
         foreach ($places as $place_entry) {
 
             $place_data = [
                 'views_count'=> rand(100,1000),
                 'favorites_count'=> rand(100,1000),
-                'country_id' => Country::where('name', $place_entry['country_name'])->value('id') ?? Country::where('name', 'Unknown')->value('id'),
+                'country_id' => CountryTranslation::where('name', $place_entry['country_name'])->value('country_id') ?? $unknown_country_id,
                 'es' => $place_entry['es'],
                 'en' => $place_entry['en'],
             ];

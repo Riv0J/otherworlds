@@ -48,5 +48,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('places');
+        Schema::dropIfExists('places_translations');
     }
 };
