@@ -24,7 +24,7 @@
             class="places_card d-flex flex-column align-items-between justify-content-between p-0 rounded-3 white text-left">
             <div class="image_background" image_path="{{asset('img/places/'.$place->id.'/t.png')}}"></div>
 
-            <div class="card_stats gap-2 d-flex justify-content-end align-items-center px-3 py-2 w-100">
+            <div class="card_stats gap-2 d-flex justify-content-end align-items-center px-3 py-2">
                 <p>{{$place->favorites_count}}</p> <i class="fa-regular fa-star"></i>
 
             </div>
@@ -75,14 +75,16 @@ document.addEventListener('DOMContentLoaded', apply_bg_images);
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
     }
     .card_stats{
+        position: relative;
         z-index: 500;
+        background: linear-gradient(180deg, rgb(29, 29, 29) 0%, rgba(255, 255, 255, 0) 100%);
     }
     .card_stats i{
         color: yellow;
         transition: all 1s;
     }
     .card_stats:hover{
-        background-color: gray;
+        /* background-color: gray; */
     }
     .card_sinopsis{
         height: 0;

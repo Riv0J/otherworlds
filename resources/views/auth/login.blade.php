@@ -71,47 +71,6 @@
             </button>
         </div>
 
-        <style>
-            .app_button{
-                position: relative;
-
-                font-size: 1.25rem;
-                font-weight: 700;
-                letter-spacing: 0.15rem;
-
-                border: 0;
-                border-radius: 2rem;
-                padding-inline: 1.5rem;
-                padding-block: 0.3rem;
-                color: black;
-                isolation: isolate;
-                overflow: hidden;
-                background-color: var(--main);
-                color: var(--black);
-
-
-                transition: all 0.75s;
-            }
-            .app_button::after{
-                content: '';
-                position: absolute;
-                inset: 100%;
-                width: 100%;
-                aspect-ratio: 1;
-                border-radius: 50%;
-
-                background-color: var(--main_dark);
-                z-index: -1;
-                transition: all 0.75s;
-            }
-            .app_button:hover{
-                color: var(--white);
-                background-color: var(--main_dark);
-            }
-            .app_button:hover::after{
-                scale: 5;
-            }
-        </style>
     </form>
 </section>
 

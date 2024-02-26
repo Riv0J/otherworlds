@@ -31,15 +31,6 @@
                 @lang('otherworlds.places')
             </a>
 
-            {{-- requests link --}}
-            <a class="nav_link
-                p-3 p-lg-1
-                px-4 px-lg-2
-                regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp"
-                href="{{ route('places') }}">
-                @lang('otherworlds.requests')[NYI]
-            </a>
-
             {{-- login button --}}
             @if (Route::has('login') && Auth::user() == null)
             <a class="nav_link
