@@ -37,7 +37,7 @@
                 px-4 px-lg-2
                 regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp"
                 href="{{ route('places') }}">
-                Requests[NYI]
+                @lang('otherworlds.requests')[NYI]
             </a>
 
             {{-- login button --}}
@@ -66,14 +66,12 @@
 
                 <div class="dropdown_options">
 
-                    <a href="{{ route('logout') }}" class="p-2 px-4"
-                        onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
-                        @lang('Profile')[NYI]
+                    <a href="javascript:void(0)" class="p-2 px-4">
+                        @lang('otherworlds.profile')[NYI]
                     </a>
 
-                    <a href="{{ route('logout') }}" class="p-2 px-4"
-                        onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
-                        @lang('Favorites')[NYI]
+                    <a href="javascript:void(0)" class="p-2 px-4">
+                        @lang('otherworlds.favorites')[NYI]
                     </a>
 
                     <div class="dropdown_divider mt-1"></div>
