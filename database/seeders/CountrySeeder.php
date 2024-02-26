@@ -1343,7 +1343,6 @@ class CountrySeeder extends Seeder
 
         ];
 
-
         // create the countries using translations
         foreach ($countries as $country_entry) {
 
@@ -1355,9 +1354,5 @@ class CountrySeeder extends Seeder
             $new_country = Country::create($country_data);
         }
 
-        $countries = [
-
-
-        ];
     }
 }

@@ -30,20 +30,16 @@
                 href="{{ route('places') }}">
                 @lang('otherworlds.places')
             </a>
+
+            {{-- requests link --}}
             <a class="nav_link
-            p-3 p-lg-1
-            px-4 px-lg-2
-            regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp"
+                p-3 p-lg-1
+                px-4 px-lg-2
+                regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp"
                 href="{{ route('places') }}">
-                @lang('otherworlds.places')
+                Requests[NYI]
             </a>
-            <a class="nav_link
-            p-3 p-lg-1
-            px-4 px-lg-2
-            regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp"
-                href="{{ route('places') }}">
-                @lang('otherworlds.places')
-            </a>
+
             {{-- login button --}}
             @if (Route::has('login') && Auth::user() == null)
                 <a class="nav_link
@@ -55,54 +51,59 @@
 
             {{-- user options --}}
             @if (Auth::user())
-                <form id="logout_form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
+            <form id="logout_form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
 
-                <div class="dropdown
-            p-3 p-lg-1
-            px-4 px-lg-3
-            regular">
-                    <a href="javascript:void(0)" class="dropdown_toggler gap-2">
-                        <i class="fa-solid fa-angle-down"></i>
-                        {{ Auth::user()->name }}
+            <div class="dropdown
+                p-3 p-lg-1
+                px-4 px-lg-3
+                regular">
+                <a href="javascript:void(0)" class="dropdown_toggler gap-2">
+                    {{ Auth::user()->name }}
+                    <i class="fa-solid fa-angle-down"></i>
+                </a>
+
+                <div class="dropdown_options">
+
+                    <a href="{{ route('logout') }}" class="p-2 px-4"
+                        onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
+                        @lang('Profile')[NYI]
                     </a>
 
-                    <div class="dropdown_options">
+                    <a href="{{ route('logout') }}" class="p-2 px-4"
+                        onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
+                        @lang('Favorites')[NYI]
+                    </a>
 
-                        <a href="{{ route('logout') }}" class="p-2 px-4"
-                            onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
-                            @lang('Logout')
-                        </a>
+                    <div class="dropdown_divider mt-1"></div>
 
-                        <div class="dropdown_divider mt-1"></div>
-
-                        <a href="{{ route('logout') }}" class="p-2 px-4"
-                            onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
-                            @lang('Logout')
-                        </a>
-                    </div>
+                    <a href="{{ route('logout') }}" class="p-2 px-4"
+                        onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
+                        @lang('Logout')
+                    </a>
                 </div>
+            </div>
             @endif
 
-            {{-- places link --}}
-            <a class="nav_link
-                        p-3 p-lg-1
-                        px-4 px-lg-2
-                        regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp"
-                href="{{ route('places') }}">
-                Requests
-            </a>
-            {{-- lang buttons --}}
-            {{-- <div class="flex_center flex-column gap-2">
-                <div class="divider col-6 col-md-4 my-4 d-block d-lg-none"></div>
+            {{-- lang dropdown --}}
+            <div class="dropdown
+                p-3 p-lg-1
+                px-4 px-lg-3
+                regular">
+                <a href="javascript:void(0)" class="dropdown_toggler gap-2">
+                    @lang('otherworlds.lang')
+                    <i class="fa-solid fa-angle-down"></i>
+                </a>
+
+                <div class="dropdown_options">
                 @foreach (config('translatable.locales') as $locale)
                     @if ($locale != app()->getLocale())
-                        <a class="nav_link" href="{{route('setLocale', ['locale' => $locale])}}">{{strtoupper($locale)}}</a>
+                        <a class="p-2 px-4" href="{{route('setLocale', ['locale' => $locale])}}">{{strtoupper($locale)}}</a>
                     @endif
                 @endforeach
-            </div> --}}
-
+                </div>
+            </div>
         </nav>
     </div>
 </header>
@@ -139,13 +140,13 @@
 
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: start;
         justify-content: center;
 
         position: absolute;
         top: 100%;
         left: 0;
-        width: 100%;
+        width: auto;
 
         background-color: var(--black);
         border-radius: 0.5rem;
