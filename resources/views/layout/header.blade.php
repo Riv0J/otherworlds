@@ -39,7 +39,7 @@
                 regular"
                 href="{{ route('login') }}">
                 <i class="ri-user-3-fill"></i>
-                <span class="ml-1">
+                <span class="mx-1">
                     @lang('otherworlds.sign_in')
                 </span>
             </a>
@@ -51,17 +51,16 @@
                 @csrf
             </form>
 
-            <div class="dropdown
+            <div class="dropdown">
+                <a href="javascript:void(0)" class="dropdown_toggler gap-2
                 p-3 p-lg-1
                 px-4 px-lg-3
                 regular">
-                <a href="javascript:void(0)" class="dropdown_toggler gap-2">
                     {{ Auth::user()->name }}
                     <i class="fa-solid fa-angle-down"></i>
                 </a>
 
                 <div class="dropdown_options">
-
                     <a href="javascript:void(0)" class="p-2 px-4">
                         @lang('otherworlds.profile')[NYI]
                     </a>
@@ -81,11 +80,11 @@
             @endif
 
             {{-- lang dropdown --}}
-            <div class="dropdown
+            <div class="dropdown">
+                <a href="javascript:void(0)" class="dropdown_toggler gap-2
                 p-3 p-lg-1
                 px-4 px-lg-3
                 regular">
-                <a href="javascript:void(0)" class="dropdown_toggler gap-2">
                     @lang('otherworlds.lang')
                     <i class="fa-solid fa-angle-down"></i>
                 </a>
@@ -98,6 +97,7 @@
                 @endforeach
                 </div>
             </div>
+
         </nav>
     </div>
 </header>
@@ -113,11 +113,8 @@
 </script>
 <style>
     /* dropdown styles */
-    .dropdown {
-        position: relative;
-    }
-
     .dropdown_toggler {
+        width: 100%;
         position: relative;
         cursor: pointer;
 
@@ -143,18 +140,17 @@
 
         background-color: var(--black);
         border-radius: 0.5rem;
-        transition: all 0.5s ease;
+        transition: all 0.5s;
     }
 
     .dropdown_options a {
         display: block;
         color: var(--white);
-        transition: all 0.3s ease;
         z-index: 1000;
     }
 
     .dropdown_options a:hover {
-        background-color: var(--gray);
+        background-color: rgba(80, 80, 80, 0.45) !important;
     }
 
     .dropdown_divider {
@@ -172,19 +168,6 @@
 </style>
 <style>
     /* header - nav styles */
-    header a{
-        color: white;
-        text-decoration: none;
-        outline: none;
-    }
-
-    #responsive_nav_toggler {
-        background: none;
-        border: none;
-        color: white;
-        transform: scale(1.25);
-    }
-
     #responsive_nav {
         border: none;
         color: white;
@@ -195,6 +178,14 @@
         position: relative;
         font-size: 1.3rem;
         letter-spacing: 0.03rem;
+        transition: all 0.5s;
+    }
+
+    #responsive_nav_toggler {
+        background: none;
+        border: none;
+        color: white;
+        transform: scale(1.25);
     }
     .nav_link::before {
         position: absolute;
@@ -207,6 +198,7 @@
 
         border-bottom: 0.2rem solid var(--main);
         z-index: 1000;
+        pointer-events: none
     }
 
     .active_link {
@@ -233,10 +225,11 @@
         header a {
             font-size: 1.75rem !important;
             letter-spacing: 0.1rem !important;
-            transition: background-color 0.5s;
+            padding-right: 10% !important;
+            text-align: right;
         }
 
-        header nav a:hover{
+        header a:hover{
             background-color: rgba(80, 80, 80, 0.45);
         }
 
@@ -245,12 +238,7 @@
             left: 0;
             top: 100%;
             right: 0;
-            background: linear-gradient(180deg, rgb(29, 29, 29) 50%, rgba(29, 29, 29, 0.71) 90%, rgba(0, 0, 0, 0) 100%);
-        }
-
-        #responsive_nav>* {
-            padding-right: 10% !important;
-            text-align: right;
+            background: linear-gradient(180deg, rgb(29, 29, 29) 50%, rgba(29, 29, 29, 0.71) 95%, rgba(0, 0, 0, 0) 100%);
         }
 
         .active_link::after {
