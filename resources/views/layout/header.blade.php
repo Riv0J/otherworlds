@@ -38,7 +38,10 @@
                 px-4 px-lg-2
                 regular"
                 href="{{ route('login') }}">
-                <i class="ri-user-3-fill m-2"></i></i>@lang('otherworlds.sign_in')
+                <i class="ri-user-3-fill"></i>
+                <span class="ml-1">
+                    @lang('otherworlds.sign_in')
+                </span>
             </a>
             @endif
 
@@ -67,7 +70,7 @@
                         @lang('otherworlds.favorites')[NYI]
                     </a>
 
-                    <div class="dropdown_divider mt-1"></div>
+                    <div class="dropdown_divider mt-1 mx-5 mx-md-2"></div>
 
                     <a href="{{ route('logout') }}" class="p-2 px-4"
                         onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
@@ -115,7 +118,6 @@
     }
 
     .dropdown_toggler {
-        cursor: pointer;
         position: relative;
         cursor: pointer;
 
@@ -131,8 +133,8 @@
 
         display: flex;
         flex-direction: column;
-        align-items: start;
         justify-content: center;
+        align-items: stretch;
 
         position: absolute;
         top: 100%;
@@ -149,7 +151,6 @@
         color: var(--white);
         transition: all 0.3s ease;
         z-index: 1000;
-        min-height: 40px;
     }
 
     .dropdown_options a:hover {
@@ -157,7 +158,6 @@
     }
 
     .dropdown_divider {
-        width: 90%;
         height: 1px;
         border-top: 0.1rem solid white;
     }
@@ -167,10 +167,6 @@
             display: block;
             position: relative;
             background-color: unset;
-        }
-
-        .dropdown_divider {
-            width: 100%;
         }
     }
 </style>
@@ -240,7 +236,7 @@
             transition: background-color 0.5s;
         }
 
-        header a:hover{
+        header nav a:hover{
             background-color: rgba(80, 80, 80, 0.45);
         }
 

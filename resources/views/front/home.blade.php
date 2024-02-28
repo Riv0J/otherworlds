@@ -30,8 +30,8 @@ Otherworlds
 
     async function escribirCodigo(texto, elementoHTML) {
         let indice = 0;
-        let velocidadMinima = 45; // Tiempo mínimo entre cada letra (en milisegundos)
-        let velocidadMaxima = 100; // Tiempo máximo entre cada letra (en milisegundos)
+        let velocidadMinima = 40; // Tiempo mínimo entre cada letra (en milisegundos)
+        let velocidadMaxima = 95; // Tiempo máximo entre cada letra (en milisegundos)
         let last_char;
 
         // Verificar si el texto es un título (menos de 15 caracteres)
