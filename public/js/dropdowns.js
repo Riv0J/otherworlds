@@ -3,7 +3,7 @@ function init_dropdowns(){
 
     Array.from(togglers).forEach(function(toggler) {
         const options = toggler.nextElementSibling;
-        const max_height = options.scrollHeight; //get the options max height
+        const max_height = options.offsetHeight; //get the options max height
 
         options.style.visibility = "visible";
         options.style.height = 0;

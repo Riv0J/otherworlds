@@ -185,6 +185,19 @@ class DatabaseSeeder extends Seeder
                 ],
                 'country_name' => 'Peru',
             ],
+            [
+                'es' => [
+                    'name' => 'Isla de Socotra',
+                    'synopsis' => 'Santuario natural de flora y geografía de otro planeta',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Socotra Island',
+                    'synopsis' => "Natural sanctuary of flora and grography from another planet",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Yemen',
+            ],
         ];
 
         $unknown_country_id = CountryTranslation::where('name', 'Unknown')->value('country_id');
