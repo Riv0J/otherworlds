@@ -193,12 +193,53 @@ class DatabaseSeeder extends Seeder
                 ],
                 'en' => [
                     'name' => 'Socotra Island',
-                    'synopsis' => "Natural sanctuary of flora and grography from another planet",
+                    'synopsis' => "Natural sanctuary of flora and geography from another planet",
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Yemen',
             ],
+            [
+                'es' => [
+                    'name' => 'Río Tinto',
+                    'synopsis' => 'Vertiente de aguas rojizas por alta concentración de minerales',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Tinto River',
+                    'synopsis' => 'Spring of red waters due to high mineral levels',
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Spain',
+            ],
+            [
+                'es' => [
+                    'name' => 'Monte Neme',
+                    'synopsis' => 'Monte rico en wolframio, con lagos tóxicos de agua turquesa',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Mount Neme',
+                    'synopsis' => 'Mountain rich in tungsten, with toxic lakes of turquoise water',
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Spain',
+            ],
+            [
+                'es' => [
+                    'name' => 'Cueva de los cristales',
+                    'synopsis' => 'Los cristales naturales más grandes jamás encontrados, a una profundidad de 300 metros',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Cave of the crystals',
+                    'synopsis' => 'The largest natural crystals ever found, at a depth of 300 meters',
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Mexico',
+            ],
         ];
+
+
 
         $unknown_country_id = CountryTranslation::where('name', 'Unknown')->value('country_id');
 

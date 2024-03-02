@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Place;
+use App\Models\PlaceTranslation;
 use App\Models\Country;
 
 class FrontController extends Controller
@@ -12,7 +13,7 @@ class FrontController extends Controller
     function home(){
         $variables = [
             'current_section' => 'Home',
-            'phrases' => FrontController::getPhrases(app()->getLocale()),
+            'place' => Place::inRandomOrder()->take(1)->first(),
         ];
         return view('front.home', $variables);
     }
@@ -24,10 +25,28 @@ class FrontController extends Controller
         ];
         return view('front.places', $variables);
     }
-    function view_place(string $place_name){
-        return view('front.places', $variables);
 
+    function view_place(string $place_name){
+        //try to get the place:
+        $place_translation = PlaceTranslation::where('name', $place_name)->first();
+        if($place_translation == null){
+            return redirect()->route('places');
+        }
+
+        $place = Place::find($place_translation->place_id);
+        if($place == null){
+            return redirect()->route('places');
+        }
+
+        app()->setLocale($place_translation->locale);
+
+        $variables = [
+            'place' => $place,
+        ];
+
+        return view('front.view_place', $variables);
     }
+
     public static function getPhrases(string $locale){
         $phrases =[
             'en' => [

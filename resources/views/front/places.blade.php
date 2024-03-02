@@ -74,6 +74,12 @@ document.addEventListener('DOMContentLoaded', apply_bg_images);
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
     }
+    @media screen and (min-width: 1921px) {
+        #places_container {
+            grid-template-columns: repeat(6, 1fr); /* Máximo de 6 elementos por fila */
+        }
+    }
+
     .card_stats{
         position: relative;
         z-index: 500;
@@ -95,7 +101,11 @@ document.addEventListener('DOMContentLoaded', apply_bg_images);
         overflow: hidden;
         color: white;
     }
-
+    @media screen and (min-width: 1921px) {
+        .places_card {
+            min-height: 700px;
+        }
+    }
     .places_card_info::before{
         position: absolute;
         content: '';
