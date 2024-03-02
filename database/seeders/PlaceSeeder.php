@@ -226,6 +226,21 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Mexico',
+                'source' => 'https://en.wikipedia.org/wiki/Cave_of_the_Crystals'
+            ],
+            [
+                'es' => [
+                    'name' => 'Valle de la muerte',
+                    'synopsis' => 'Valle desértico con una de las temperaturas más altas del mundo durante el verano',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Death Valley',
+                    'synopsis' => 'Desert valley thought to be the hottest place on earth during summer',
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'United States',
+                'source' => 'https://en.wikipedia.org/wiki/Death_Valley_National_Park'
             ],
         ];
 
@@ -239,6 +254,7 @@ class PlaceSeeder extends Seeder
                 'views_count' => rand(100, 1000),
                 'favorites_count' => rand(100, 1000),
                 'country_id' => CountryTranslation::where('name', $place_entry['country_name'])->value('country_id') ?? $unknown_country_id,
+                'source' => $place_entry['source'] ?? null,
                 'es' => $place_entry['es'],
                 'en' => $place_entry['en'],
             ];

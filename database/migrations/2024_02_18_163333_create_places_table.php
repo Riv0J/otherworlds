@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->integer('views_count')->default(0);
             $table->integer('favorites_count')->default(0);
+            $table->boolean('natural')->default(true);
+            $table->string('source')->nullable();
 
             $table->unsignedBigInteger('country_id');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
