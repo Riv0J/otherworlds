@@ -5,37 +5,59 @@ Otherworlds
 @endsection
 
 @section('content')
+
+<div class="spacer mt-3 pt-5"></div>
+
 {{-- window welcome --}}
-<section class="window col-12 home_window flex_center white" id="home_window">
-    <div class="translucent py-2 px-4 rounded-3 overflow-hidden">
+<section class="window col-12 mt-lg-5 d-flex align-items-end justify-content-center white">
+    <div class="col-12" id="home_window_bg"></div>
+
+    <div class="translucent py-2 px-4 mb-5 rounded-3 overflow-hidden">
         <h2 class="text-center semibold display-6" id="home_window_title"></h2>
     </div>
-    {{-- asset('img/places/'.$place->id.'/t.png') --}}
 </section>
 
 <style>
-    .home_window{
+    #home_window_bg{
+        position: absolute;
+        top: 0;
+        height: 100%;
         background-image: url('{{asset('img/home/antelope.jpg')}}');
-        background-size: cover;
+        background-position: center;
         background-repeat: no-repeat;
         transition: all 0.25s;
+    }
+    /* desktop */
+    @media screen and (min-width: 993px) {
+        #home_window_bg{
+            background-size: contain;
+        }
+    }
+
+    /* mobile */
+    @media screen and (max-width: 992px) {
+        #home_window_bg{
+            background-size: cover;
+        }
     }
 </style>
 
 <script>
     const home_window_title = document.getElementById('home_window_title');
 
-    const home_window = document.getElementById('home_window');
-    home_window.style.backgroundImage = 'url(img/places/{{$place->id}}/t.png)';
+    const home_window_bg = document.getElementById('home_window_bg');
+    home_window_bg.style.backgroundImage = 'url(img/places/{{$place->id}}/t.png)';
 
     let phrases = {
         'en': [
-            'Ever wondered why... *| some places just feel out of this world...?',
+            'Otherworldy places... *| on earth.',
+            'Ever visited places... *| that just look out of this world...?',
             'We have places to be... *| and people to meet.',
             'Discover the unknown beauty... *| in the same planet we call home.'
         ],
         'es': [
-            'Alguna vez te has preguntado... *| sobre los lugares que parecen de otro mundo...?',
+            'Sitios extraterrestres... *| en la tierra.',
+            'Alguna vez has visitado... *| algún lugar parece de otro mundo...?',
             'Tenemos lugares en los que estar... *| y personas que conocer.',
             'Descubre la belleza escondida... *| en el mismo planeta que llamamos hogar.'
         ]

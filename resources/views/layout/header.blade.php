@@ -230,7 +230,7 @@
         }
 
         header a:hover{
-            background-color: rgba(80, 80, 80, 0.45);
+            background-color: rgba(80, 80, 80, 0.75);
         }
 
         #responsive_nav {

@@ -28,7 +28,8 @@ a {
     align-items: center;
 }
 .window{
-    height: 100svh;
+    position: relative;
+    height: 60svh;
 }
 .navbar-brand{
     letter-spacing: 0.05rem;
