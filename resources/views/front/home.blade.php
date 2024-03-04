@@ -9,44 +9,39 @@ Otherworlds
 <div class="spacer mt-3 pt-5"></div>
 
 {{-- window welcome --}}
-<section class="window col-12 mt-lg-5 d-flex align-items-end justify-content-center white">
-    <div class="col-12" id="home_window_bg"></div>
+<section class="window col-12 mt-2 mt-md-5 d-flex flex-column align-items-center justify-content-center white">
+    <img class="rounded-4" src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="">
 
-    <div class="translucent py-2 px-4 mb-5 rounded-3 overflow-hidden">
+    <div class="translucent py-2 px-4 m-5 rounded-3 overflow-hidden" id="home_window_title_container">
         <h2 class="text-center semibold display-6" id="home_window_title"></h2>
     </div>
+
 </section>
 
 <style>
-    #home_window_bg{
+    .window img {
+        max-width: 100%; /* La imagen no puede exceder el ancho del contenedor */
+        max-height: 100%; /* La imagen no puede exceder la altura del contenedor */
+        width: auto; /* La imagen mantiene su ancho original */
+        height: auto; /* La imagen mantiene su altura original */
+    }
+
+    #home_window_title_container{
         position: absolute;
-        top: 0;
-        height: 100%;
-        background-image: url('{{asset('img/home/antelope.jpg')}}');
-        background-position: center;
-        background-repeat: no-repeat;
-        transition: all 0.25s;
     }
     /* desktop */
     @media screen and (min-width: 993px) {
-        #home_window_bg{
-            background-size: contain;
-        }
+
     }
 
     /* mobile */
     @media screen and (max-width: 992px) {
-        #home_window_bg{
-            background-size: cover;
-        }
+
     }
 </style>
 
 <script>
     const home_window_title = document.getElementById('home_window_title');
-
-    const home_window_bg = document.getElementById('home_window_bg');
-    home_window_bg.style.backgroundImage = 'url(img/places/{{$place->id}}/t.png)';
 
     let phrases = {
         'en': [
