@@ -14,9 +14,14 @@ return [
     'favorites' => 'Favoritos',
 
     // section home
+    'what_is_this_place' => '¿Qué es este lugar?',
+    'features' => 'Características',
     'explore' => 'Explora',
     'discover' => 'Descubre',
     'request' => 'Solicita',
+    'about_1' => '`Otherworlds` es una colección de impresionantes lugares naturales de todo el mundo. Algunos más extraordinarios que otros, pero todos únicos a su manera.',
+    'about_2' => 'Nuestro objetivo es presentarte todos estos lugares ocultos, entre los cuales es posible que ya conozcas algunos de ellos, pero todos seguro que no. A cambio pedimos admirar la belleza y ser conscientes de la forma en que tratamos a nuestro planeta. Todos podemos contribuir (aunque sea un poco) a preservar el equilibrio natural de nuestro mundo y crear un futuro mejor para las generaciones por venir.',
+    'about_3' => 'Saber más sobre el desarrollo sostenible',
     'explore_body' => 'Sitios mágicos a lo largo de nuestro planeta',
     'discover_body' => 'Lugares que nunca habias visto antes',
     'request_body' => 'Nuevos lugares para descubrir',

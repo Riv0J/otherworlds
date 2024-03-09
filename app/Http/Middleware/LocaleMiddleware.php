@@ -16,7 +16,7 @@ class LocaleMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $locale = $request->cookie('locale', 'en'); // Obtén el valor de la cookie 'locale' o usa 'es' como valor predeterminado
+        $locale = $request->cookie('o_locale', 'en'); // Obtén el valor de la cookie 'locale' o usa 'es' como valor predeterminado
         app()->setLocale($locale); // Establece el locale para la aplicación
 
         return $next($request);

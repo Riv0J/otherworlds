@@ -6,29 +6,75 @@ Otherworlds
 
 @section('content')
 
+<script src="
+https://cdn.jsdelivr.net/npm/flag-icon-css@4.1.7/svgo.config.min.js
+"></script>
+<link href="
+https://cdn.jsdelivr.net/npm/flag-icon-css@4.1.7/css/flag-icons.min.css
+" rel="stylesheet">
+
 <div class="spacer mt-3 pt-5"></div>
+<div class="gradient">
 
+</div>
 {{-- window welcome --}}
-<section class="window col-12 mt-2 mt-md-5 d-flex flex-column align-items-center justify-content-center white">
-    <img class="rounded-4" src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="">
-
-    <div class="translucent py-2 px-4 m-5 rounded-3 overflow-hidden" id="home_window_title_container">
-        <h2 class="text-center semibold display-6" id="home_window_title"></h2>
+<section class="window col-12 mt-2 mt-md-5 py-3 py-md-0 d-flex flex-column align-items-center justify-content-center white">
+    <h4 class="medium pb-1">
+        {{$place->name}}
+    </h4>
+    <h5 class="light pb-3 flex_center gap-2">
+        <span class="flag-icon flag-icon-{{$place->country->code ?? 'us'}}"></span>{{$place->country->name}}
+    </h5>
+    <div class="app_bg_overlay" id=home_window_container>
+        <img class="rounded-4" src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="">
+        <div class="translucent rounded-3 px-4 py-2 overflow-hidden" id="home_window_title_container">
+            <h2 class="text-center semibold display-6" id="home_window_title"></h2>
+        </div>
     </div>
-
+    <a class="mt-4 px-2 py-1" href="{{route('view_place', $place->name)}}">
+        @lang('otherworlds.what_is_this_place')
+    </a>
 </section>
-
 <style>
-    .window img {
-        max-width: 100%; /* La imagen no puede exceder el ancho del contenedor */
-        max-height: 100%; /* La imagen no puede exceder la altura del contenedor */
-        width: auto; /* La imagen mantiene su ancho original */
-        height: auto; /* La imagen mantiene su altura original */
+    #home_window_container img {
+        /* max-width: 60svh; */
+        max-height: 60svh;
+        width: auto;
+        height: auto;
     }
-
     #home_window_title_container{
         position: absolute;
+        /* center */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-wrap: nowrap;
     }
+    .window{
+        position: relative;
+
+    }
+    .app_bg_overlay{
+        position: relative;
+    }
+    .app_bg_overlay::before{
+        content: '';
+        display: block;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(rgba(255, 255, 255, 0.01) 30%, var(--main_dark_bg_color) 70%);
+        outline: 1px solid var(--main_dark_bg_color);
+
+    }
+    .app_bg{
+        background: var(--test2);
+        box-shadow: 0 0 25px var(--test2);
+
+        scale: 1.05 1;
+    }
+
     /* desktop */
     @media screen and (min-width: 993px) {
 
@@ -36,7 +82,9 @@ Otherworlds
 
     /* mobile */
     @media screen and (max-width: 992px) {
+        .window{
 
+        }
     }
 </style>
 
@@ -46,14 +94,16 @@ Otherworlds
     let phrases = {
         'en': [
             'Otherworldy places... *| on earth.',
-            'Ever visited places... *| that just look out of this world...?',
+            'Ever visited places... *| that just look out of this world?',
             'We have places to be... *| and people to meet.',
+            'AI generated?... *| No, these are actually real.',
             'Discover the unknown beauty... *| in the same planet we call home.'
         ],
         'es': [
-            'Sitios extraterrestres... *| en la tierra.',
-            'Alguna vez has visitado... *| algún lugar parece de otro mundo...?',
+            'Lugares de otros mundos... *| en la tierra.',
+            'Alguna vez has visitado... *| algún lugar que parezca de otro mundo?',
             'Tenemos lugares en los que estar... *| y personas que conocer.',
+            'Generados por IA?... *| No, estos son reales.',
             'Descubre la belleza escondida... *| en el mismo planeta que llamamos hogar.'
         ]
     };
@@ -120,17 +170,54 @@ Otherworlds
     }
 </script>
 
-<section class="col-12 px-md-5 py-5">
+<section class="col-12 px-md-5 py-5 flex_center flex-column gap-5">
 
-    <h1 class="semibold text-center display-5 flex_center gap-2 col-12 py-4">
-        @include('icons.moon_black')
+    <h1 class="semibold text-center flex_center gap-3 col-12 py-4 white app_bg">
+        <span class="spin_anim">
+            @include('icons.moon_white')
+        </span>
         therworlds
     </h1>
 
-    <!-- Page Features-->
-    <div class="row gap-2 flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-center align-items-stretch mx-lg-5">
+    <div class="px-4 d-flex flex-column gap-5 col-12 col-lg-8">
+        <p class="light white">@lang('otherworlds.about_1')</p>
+        <p class="light white">@lang('otherworlds.about_2')</p>
+        <p class="light white text-center">
+            <a class="anchor px-2 py-1" href="https://www.un.org/sustainabledevelopment/" target="_blank">
+                @lang('otherworlds.about_3')
+            </a>
+        </p>
+    </div>
 
-        <div class="rounded-3 col-12 col-md-4 col-lg-4 align-items-end white justify-content-start text-left px-3 pt-5"
+
+    <style>
+        .spin_anim {
+            display: flex;
+            animation: spin 40s linear alternate;
+            scale: 1.15;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+</section>
+
+<div class="divider col-9 col-md-6 col-lg-4 my-md-5"></div>
+
+<section class="white">
+    <h2 class="text-center my-5">
+        @lang('otherworlds.features')
+    </h2>
+
+    <div class="row gap-2 gap-md-4 flex-wrap flex-md-wrap flex-lg-nowrap justify-content-center align-items-stretch mx-lg-5 white">
+        <div class="rounded-3 col-12 col-md-8 col-lg-4 text-left px-3 pt-5"
         style="
             background-image: url('{{asset('img/antelope.jpg')}}');
             background-size: cover;
@@ -144,10 +231,11 @@ Otherworlds
             </div>
         </div>
 
-        <div class="rounded-3 col-12 col-md-4 col-lg-4 align-items-end white justify-content-start text-left px-3 pt-5"
+        <div class="rounded-3 col-12 col-md-8 col-lg-4 text-left px-3 pt-5"
         style="
-            background-image: url('{{asset('img/antelope.jpg')}}');
+            background-image: url('{{asset('img/socotra.png')}}');
             background-size: cover;
+            background-position: center;
         ">
             <div class="d-flex flex-column align-items-start justify-content-end text-left h-100 p-2">
                 <h3 class="regular d-flex align-items-center gap-2 ">
@@ -158,7 +246,7 @@ Otherworlds
             </div>
         </div>
 
-        <div class="rounded-3 col-12 col-md-4 col-lg-4 align-items-end white justify-content-start text-left px-3 pt-5"
+        <div class="rounded-3 col-12 col-md-8 col-lg-4 align-items-end white justify-content-start text-left px-3 pt-5"
         style="
             background-image: url('{{asset('img/antelope.jpg')}}');
             background-size: cover;
@@ -171,13 +259,13 @@ Otherworlds
                 <p class="light">@lang('otherworlds.request_body')</p>
             </div>
         </div>
-
     </div>
+
 </section>
 
 <div class="divider col-9 col-md-6 col-lg-4 my-md-5"></div>
 
-<section class="bg_light text-justify px-3 px-lg-5 py-5 row flex-column flex-md-row">
+<section class="bg_light text-justify px-3 px-lg-5 py-5 row flex-column flex-md-row white">
     <div class="d-flex align-items-center justify-content-center col-12 col-md-3">
         <img src="{{asset('img/antelope.jpg')}}" alt="">
     </div>
@@ -188,7 +276,7 @@ Otherworlds
 
 <div class="divider col-9 col-md-6 col-lg-4 my-md-5"></div>
 
-<section class="bg_light text-justify px-3 px-lg-5 py-5 row flex-column flex-md-row">
+<section class="bg_light text-justify px-3 px-lg-5 py-5 row flex-column flex-md-row white">
     <h3 class="text-left py-5 col-12 col-md-9">
         @lang('otherworlds.quote_2')
     </h3>

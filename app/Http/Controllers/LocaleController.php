@@ -16,7 +16,7 @@ class LocaleController extends Controller
             \App::setLocale($locale);
 
             // Crea una cookie con el idioma preferido del usuario
-            $cookie = cookie('locale', $locale, 60 * 24 * 30); // 30 días
+            $cookie = cookie('o_locale', $locale, 60 * 24 * 30); // 30 días
 
             // Devuelve una respuesta con la cookie establecida
             return back()->withCookie($cookie);

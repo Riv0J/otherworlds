@@ -10,9 +10,15 @@
 
     --black: rgb(29, 29, 29);
     --white: rgb(245, 245, 245);
+
+    --test1: #1c2538;
+    --test2: #2f4472;
+    --test3: rgb(128, 157, 219);
+    --main_dark_bg_color: #1e222b;
+    --hover_gray: rgba(80, 80, 80, 0.45);
 }
-.white{
-    color: white;
+body{
+    background: var(--main_dark_bg_color);
 }
 *{
     font-family: 'QuickSand';
@@ -22,22 +28,23 @@ a {
     color: inherit;
     cursor: pointer;
 }
+main a{
+    border-bottom: 2px rgb(255, 255, 255) solid;
+}
+main a:hover{
+    background-color: var(--hover_gray);
+}
+
 .flex_center{
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.window{
-    position: relative;
-    height: 60svh;
 }
 .navbar-brand{
     letter-spacing: 0.05rem;
 }
 main{
     overflow-x: hidden;
-    /* background: rgb(255,255,255);
-    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(139,232,255,1) 50%, rgba(85,38,100,1) 100%); */
 }
 img{
     width: 100%;
@@ -60,7 +67,7 @@ h3{
     margin: 0;
 }
 p{
-    font-family: 'Lato';
+    font-family: 'Montserrat';
     font-size: 1.25rem;
     letter-spacing: 0rem;
     margin-bottom: 0;
@@ -129,7 +136,7 @@ i, .brand_svg{
     width: 100%;
     height: 100%;
     background-color: var(--black);
-    opacity: 0.5;
+    opacity: 0.65;
 }
 
 /* brand anchor start*/
@@ -165,6 +172,7 @@ i, .brand_svg{
 }
 /* brand anchor end*/
 
+
 /* media queries */
 /* pantallas mayores de 1921px */
 @media screen and (min-width: 1921px) {
@@ -199,9 +207,7 @@ i, .brand_svg{
     :root {
         font-size: 14px;
     }
-    .window{
-        height: 40svh;
-    }
+
 }
 
 /* sm */
