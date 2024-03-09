@@ -6,13 +6,6 @@ Otherworlds
 
 @section('content')
 
-<script src="
-https://cdn.jsdelivr.net/npm/flag-icon-css@4.1.7/svgo.config.min.js
-"></script>
-<link href="
-https://cdn.jsdelivr.net/npm/flag-icon-css@4.1.7/css/flag-icons.min.css
-" rel="stylesheet">
-
 <div class="spacer mt-3 pt-5"></div>
 <div class="gradient">
 
@@ -66,25 +59,20 @@ https://cdn.jsdelivr.net/npm/flag-icon-css@4.1.7/css/flag-icons.min.css
         height: 100%;
         background: radial-gradient(rgba(255, 255, 255, 0.01) 30%, var(--main_dark_bg_color) 70%);
         outline: 1px solid var(--main_dark_bg_color);
+        scale: 1.05 1;
 
     }
     .app_bg{
         background: var(--test2);
         box-shadow: 0 0 25px var(--test2);
-
-        scale: 1.05 1;
     }
 
     /* desktop */
     @media screen and (min-width: 993px) {
-
     }
 
     /* mobile */
     @media screen and (max-width: 992px) {
-        .window{
-
-        }
     }
 </style>
 
@@ -189,7 +177,6 @@ https://cdn.jsdelivr.net/npm/flag-icon-css@4.1.7/css/flag-icons.min.css
         </p>
     </div>
 
-
     <style>
         .spin_anim {
             display: flex;
@@ -209,21 +196,22 @@ https://cdn.jsdelivr.net/npm/flag-icon-css@4.1.7/css/flag-icons.min.css
 
 </section>
 
-<div class="divider col-9 col-md-6 col-lg-4 my-md-5"></div>
+<div class="divider col-9 col-md-6 col-lg-4 my-md-5 mb-5"></div>
 
-<section class="white">
+<section class="col-12 white">
     <h2 class="text-center my-5">
         @lang('otherworlds.features')
     </h2>
+    <div id="features_grid" class="gap-3 mx-3 mx-md-5">
 
-    <div class="row gap-2 gap-md-4 flex-wrap flex-md-wrap flex-lg-nowrap justify-content-center align-items-stretch mx-lg-5 white">
-        <div class="rounded-3 col-12 col-md-8 col-lg-4 text-left px-3 pt-5"
-        style="
-            background-image: url('{{asset('img/antelope.jpg')}}');
-            background-size: cover;
-        ">
-            <div class="d-flex flex-column align-items-start justify-content-end text-left h-100 p-2">
-                <h3 class="regular d-flex align-items-center gap-2 ">
+        <div class="features_card">
+            <div class="img_container" style="
+            background-image: url('{{asset('img/home/antelope.jpg')}}');
+            ">
+
+            </div>
+            <div class="body_container p-3">
+                <h3 class="regular d-flex align-items-center gap-2">
                     <i class="ri-compass-3-line"></i>
                     @lang('otherworlds.explore')
                 </h3>
@@ -231,14 +219,14 @@ https://cdn.jsdelivr.net/npm/flag-icon-css@4.1.7/css/flag-icons.min.css
             </div>
         </div>
 
-        <div class="rounded-3 col-12 col-md-8 col-lg-4 text-left px-3 pt-5"
-        style="
-            background-image: url('{{asset('img/socotra.png')}}');
-            background-size: cover;
-            background-position: center;
-        ">
-            <div class="d-flex flex-column align-items-start justify-content-end text-left h-100 p-2">
-                <h3 class="regular d-flex align-items-center gap-2 ">
+        <div class="features_card">
+            <div class="img_container" style="
+            background-image: url('{{asset('img/home/socotra.png')}}');
+            ">
+
+            </div>
+            <div class="body_container p-3">
+                <h3 class="regular d-flex align-items-center gap-2">
                     <i class="ri-compass-3-line"></i>
                     @lang('otherworlds.discover')
                 </h3>
@@ -246,30 +234,88 @@ https://cdn.jsdelivr.net/npm/flag-icon-css@4.1.7/css/flag-icons.min.css
             </div>
         </div>
 
-        <div class="rounded-3 col-12 col-md-8 col-lg-4 align-items-end white justify-content-start text-left px-3 pt-5"
-        style="
-            background-image: url('{{asset('img/antelope.jpg')}}');
-            background-size: cover;
-        ">
-            <div class="d-flex flex-column align-items-start justify-content-end text-left h-100 p-2">
-                <h3 class="regular d-flex align-items-center gap-2 ">
+        <div class="features_card">
+            <div class="img_container" style="
+            background-image: url('{{asset('img/home/uyuni.png')}}');
+            ">
+
+            </div>
+            <div class="body_container p-3">
+                <h3 class="regular d-flex align-items-center gap-2">
                     <i class="ri-profile-line"></i>
                     @lang('otherworlds.request')
                 </h3>
                 <p class="light">@lang('otherworlds.request_body')</p>
             </div>
         </div>
+
+    </div>
+
+    <style>
+        #features_grid{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
+        }
+        .features_card{
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+        .img_container{
+            width: 100%;
+            aspect-ratio: 1.5;
+            background-size: cover;
+            background-position: center;
+        }
+        .img_container::before{
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(5deg, rgb(29, 29, 29) 20%, rgba(0,212,255,0) 40%);
+        }
+        .body_container{
+            width: 100%;
+            z-index: 1000;
+            position: absolute;
+            bottom: 0;
+
+        }
+
+        /* desktop */
+        @media screen and (min-width: 993px) {
+        }
+
+        /* mobile */
+        @media screen and (max-width: 992px) {
+            #features_grid{
+                display: grid;
+                grid-template-columns: repeat(1, 1fr); /* Máximo de 1 elementos por fila */
+            }
+            .img_container{
+                aspect-ratio: 3;
+            }
+        }
+    </style>
+
+    <div class="mx-5 px-4 my-5 d-flex flex-column gap-5">
+        <p class="light white">@lang('otherworlds.features_1')</p>
     </div>
 
 </section>
 
-<div class="divider col-9 col-md-6 col-lg-4 my-md-5"></div>
+<section class="col-12 px-md-5 py-5 flex_center flex-column gap-5 mt-5">
+    <h2 class="semibold text-center flex_center gap-3 col-12 py-4 white app_bg">
+        @lang('otherworlds.hype_up')
+    </h2>
+</section>
 
 <section class="bg_light text-justify px-3 px-lg-5 py-5 row flex-column flex-md-row white">
     <div class="d-flex align-items-center justify-content-center col-12 col-md-3">
-        <img src="{{asset('img/antelope.jpg')}}" alt="">
+        <img src="{{asset('img/home/antelope.jpg')}}" alt="">
     </div>
-    <h3 class="text-left py-5 col-12 col-md-9">
+    <h3 class="text-left py-5 col-12 col-md-9 light">
         @lang('otherworlds.quote_1')
     </h3>
 </section>
@@ -277,18 +323,18 @@ https://cdn.jsdelivr.net/npm/flag-icon-css@4.1.7/css/flag-icons.min.css
 <div class="divider col-9 col-md-6 col-lg-4 my-md-5"></div>
 
 <section class="bg_light text-justify px-3 px-lg-5 py-5 row flex-column flex-md-row white">
-    <h3 class="text-left py-5 col-12 col-md-9">
+    <h3 class="text-left py-5 col-12 col-md-9 light">
         @lang('otherworlds.quote_2')
     </h3>
     <div class="d-flex align-items-center justify-content-center col-12 col-md-3">
-        <img src="{{asset('img/antelope.jpg')}}" alt="">
+        <img src="{{asset('img/home/antelope.jpg')}}" alt="">
     </div>
 
 </section>
 
 <div class="divider col-9 col-md-6 col-lg-4 my-md-5"></div>
 
-<p class="text-center py-5 px-3 px-md-5 col-12 col-md-8">
+<p class="text-center py-5 px-3 px-md-5 col-12 col-md-8 white">
     @lang('otherworlds.quote_3')
 </p>
 

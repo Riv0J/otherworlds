@@ -44,6 +44,15 @@
 
         @include('layout.footer')
     </body>
+
+    {{-- flags --}}
+    <script src="
+    https://cdn.jsdelivr.net/npm/flag-icon-css@4.1.7/svgo.config.min.js
+    "></script>
+    <link href="
+    https://cdn.jsdelivr.net/npm/flag-icon-css@4.1.7/css/flag-icons.min.css
+    " rel="stylesheet">
+
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/dropdowns.js') }}"></script>
     @yield('script')
