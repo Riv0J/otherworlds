@@ -35,7 +35,7 @@
                 </h3>
 
                 <p class="flex_center gap-2">
-                    <i class="ri-map-pin-line"></i>{{$place->country->name}}
+                    <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
                 </p>
                 <div class="card_sinopsis flex_center row p-0">
                     {{-- <div class="divider col-6 my-1"></div> --}}

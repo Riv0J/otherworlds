@@ -16,7 +16,7 @@ Otherworlds
         {{$place->name}}
     </h4>
     <h5 class="light pb-3 flex_center gap-2">
-        <span class="flag-icon flag-icon-{{$place->country->code ?? 'us'}}"></span>{{$place->country->name}}
+        <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
     </h5>
     <div class="app_bg_overlay" id=home_window_container>
         <img class="rounded-4" src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="">
@@ -313,7 +313,7 @@ Otherworlds
 
 <section class="bg_light text-justify px-3 px-lg-5 py-5 row flex-column flex-md-row white">
     <div class="d-flex align-items-center justify-content-center col-12 col-md-3">
-        <img src="{{asset('img/home/antelope.jpg')}}" alt="">
+        <img src="{{asset('img/home/spring.png')}}" alt="">
     </div>
     <h3 class="text-left py-5 col-12 col-md-9 light">
         @lang('otherworlds.quote_1')
@@ -327,7 +327,7 @@ Otherworlds
         @lang('otherworlds.quote_2')
     </h3>
     <div class="d-flex align-items-center justify-content-center col-12 col-md-3">
-        <img src="{{asset('img/home/antelope.jpg')}}" alt="">
+        <img src="{{asset('img/home/death_valley.png')}}" alt="">
     </div>
 
 </section>
