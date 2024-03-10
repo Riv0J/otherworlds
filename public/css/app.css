@@ -318,3 +318,8 @@ i, .brand_svg{
 }
 /* app button end */
 
+.app_bg{
+    background: var(--test2);
+    box-shadow: 0 0 25px var(--test2);
+}
+

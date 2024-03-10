@@ -20,8 +20,13 @@ return new class extends Migration
             $table->boolean('natural')->default(true);
             $table->string('source')->nullable();
 
+            //foreign country_id
             $table->unsignedBigInteger('country_id');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+
+            //foreign classification_id
+            $table->unsignedBigInteger('classification_id');
+            $table->foreign('classification_id')->references('id')->on('classifications')->onDelete('cascade');
 
             $table->timestamps();
         });

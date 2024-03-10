@@ -19,5 +19,9 @@ class Place extends Model
     {
         return $this->belongsTo(Country::class, 'country_id');
     }
+    public function classification()
+    {
+        return $this->belongsTo(Classification::class, 'classification_id');
+    }
 }
 

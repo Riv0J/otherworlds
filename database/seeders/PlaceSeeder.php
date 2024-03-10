@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 
 use App\Models\CountryTranslation;
+use App\Models\ClassificationTranslation;
 use App\Models\Place;
 use App\Models\OHelper;
 
@@ -57,6 +58,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Description in English',
                 ],
                 'country_name' => 'United States',
+                'classification_keyword' => 'Mountains',
             ],
             [
                 'es' => [
@@ -70,6 +72,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'United States',
+                'classification_keyword' => 'Volcanic',
             ],
             [
                 'es' => [
@@ -83,6 +86,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Bolivia',
+                'classification_keyword' => 'Valleys',
             ],
             [
                 'es' => [
@@ -96,6 +100,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Spain',
+                'classification_keyword' => 'Water',
             ],
             [
                 'es' => [
@@ -109,6 +114,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Venezuela',
+                'classification_keyword' => 'Mountains',
             ],
             [
                 'es' => [
@@ -122,6 +128,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Scotland',
+                'classification_keyword' => 'Caves',
             ],
             [
                 'es' => [
@@ -135,6 +142,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Canada',
+                'classification_keyword' => 'Water',
             ],
             [
                 'es' => [
@@ -148,6 +156,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Nicaragua',
+                'classification_keyword' => 'Volcanic',
             ],
             [
                 'es' => [
@@ -161,6 +170,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'China',
+                'classification_keyword' => 'Mountains',
             ],
             [
                 'es' => [
@@ -174,6 +184,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Peru',
+                'classification_keyword' => 'Mountains',
             ],
             [
                 'es' => [
@@ -187,6 +198,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Yemen',
+                'classification_keyword' => 'Coastal',
             ],
             [
                 'es' => [
@@ -200,6 +212,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Spain',
+                'classification_keyword' => 'Water',
             ],
             [
                 'es' => [
@@ -213,6 +226,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Spain',
+                'classification_keyword' => 'Mountains',
             ],
             [
                 'es' => [
@@ -226,6 +240,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Mexico',
+                'classification_keyword' => 'Caves',
                 'source' => 'https://en.wikipedia.org/wiki/Cave_of_the_Crystals'
             ],
             [
@@ -240,6 +255,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'United States',
+                'classification_keyword' => 'Valleys',
                 'source' => 'https://en.wikipedia.org/wiki/Death_Valley_National_Park'
             ],
         ];
@@ -247,6 +263,7 @@ class PlaceSeeder extends Seeder
 
 
         $unknown_country_id = CountryTranslation::where('name', 'Unknown')->value('country_id');
+        $unknown_classification_id = ClassificationTranslation::where('keyword', 'Unknown')->value('classification_id');
 
         foreach ($places_data as $place_entry) {
 
@@ -254,6 +271,7 @@ class PlaceSeeder extends Seeder
                 'views_count' => rand(100, 1000),
                 'favorites_count' => rand(100, 1000),
                 'country_id' => CountryTranslation::where('name', $place_entry['country_name'])->value('country_id') ?? $unknown_country_id,
+                'classification_id' => ClassificationTranslation::where('keyword', $place_entry['classification_keyword'])->value('classification_id') ?? $unknown_classification_id,
                 'source' => $place_entry['source'] ?? null,
                 'es' => $place_entry['es'],
                 'en' => $place_entry['en'],

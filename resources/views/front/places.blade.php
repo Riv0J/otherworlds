@@ -5,15 +5,15 @@
 @endsection
 
 @section('content')
-<div class="spacer mt-3 pt-5"></div>
+<div class="spacer mt-4 pt-5"></div>
 
-<section class="px-lg-5 pb-2 header_offset">
-    <h2 class="semibold text-center display-5 flex_center gap-2 col-12 py-2">
+<section class="col-12 px-lg-5 pb-2 header_offset app_bg">
+    <h2 class="semibold text-center display-5 flex_center gap-2 col-12 py-2 white">
         @lang('otherworlds.unique_places')
     </h2>
 </section>
 
-<div class="divider col-9 col-md-6 col-lg-4 my-md-3"></div>
+{{-- <div class="divider col-9 col-md-6 col-lg-4 my-md-3"></div> --}}
 
 <section class="col-12 px-1 px-lg-2 py-3">
 
@@ -21,7 +21,7 @@
 
         @foreach ($all_places as $place)
         <a href="{{route('view_place', ['place_name' => $place->name])}}"
-            class="places_card d-flex flex-column align-items-between justify-content-between p-0 rounded-3 white text-left">
+            class="places_card d-flex flex-column align-items-between justify-content-between p-0 rounded-4 white text-left">
             <div class="image_background" image_path="{{asset('img/places/'.$place->id.'/t.png')}}"></div>
 
             <div class="card_stats gap-2 d-flex justify-content-end align-items-center px-3 py-2">
@@ -100,6 +100,8 @@ document.addEventListener('DOMContentLoaded', apply_bg_images);
         position: relative;
         overflow: hidden;
         color: white;
+        border-width: 2px;
+        border-color: gray;
     }
     @media screen and (min-width: 1921px) {
         .places_card {

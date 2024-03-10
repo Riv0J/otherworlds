@@ -62,10 +62,6 @@ Otherworlds
         scale: 1.05 1;
 
     }
-    .app_bg{
-        background: var(--test2);
-        box-shadow: 0 0 25px var(--test2);
-    }
 
     /* desktop */
     @media screen and (min-width: 993px) {
@@ -84,15 +80,17 @@ Otherworlds
             'Otherworldy places... *| on earth.',
             'Ever visited places... *| that just look out of this world?',
             'We have places to be... *| and people to meet.',
-            'AI generated?... *| No, these are actually real.',
-            'Discover the unknown beauty... *| in the same planet we call home.'
+            'AI generated?... *| Nope, these are actually real.',
+            'Discover the unknown beauty... *| in the same planet we call home.',
+            'Small humans... *| gigantic universe.'
         ],
         'es': [
             'Lugares de otros mundos... *| en la tierra.',
             'Alguna vez has visitado... *| algún lugar que parezca de otro mundo?',
             'Tenemos lugares en los que estar... *| y personas que conocer.',
             'Generados por IA?... *| No, estos son reales.',
-            'Descubre la belleza escondida... *| en el mismo planeta que llamamos hogar.'
+            'Descubre la belleza escondida... *| en el mismo planeta que llamamos hogar.',
+            'Humanos pequeños... *| universo gigantesco.'
         ]
     };
     const lang = `{{app()->getLocale()}}`;
