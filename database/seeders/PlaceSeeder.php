@@ -59,6 +59,67 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'United States',
                 'classification_keyword' => 'Mountains',
+                'source' => 'https://en.wikipedia.org/wiki/Antelope_Canyon',
+            ],
+            [
+                'es' => [
+                    'name' => 'Punto Bryce',
+                    'synopsis' => 'Increible vista de formaciones de roca en forma de torres "hoodos"',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Bryce Point',
+                    'synopsis' => 'Incredible vistas of "hoodoo" rock formations',
+                    'description' => 'Description in English',
+                ],
+                'country_name' => 'United States',
+                'classification_keyword' => 'Mountains',
+                'source' => 'https://en.wikipedia.org/wiki/Bryce_Canyon_National_Park'
+            ],
+            [
+                'es' => [
+                    'name' => 'Valle de los monumentos',
+                    'synopsis' => 'Conjunto de formaciones rocosas "butte" en el valle del Colorado',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Monument Valley',
+                    'synopsis' => 'Cluster of sandstone "buttes" rock formations in the Colorado plateau',
+                    'description' => 'Description in English',
+                ],
+                'country_name' => 'United States',
+                'classification_keyword' => 'Mountains',
+                'source' => 'https://en.wikipedia.org/wiki/Monument_Valley'
+            ],
+            [
+                'es' => [
+                    'name' => 'Gran Cañón del Colorado',
+                    'synopsis' => 'Vistosa y escarpada garganta de roca excavada por el río Colorado a lo largo de millones de años',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Grand Canyon',
+                    'synopsis' => 'A steep-sided canyon carved by the Colorado River over millions of years',
+                    'description' => 'Description in English',
+                ],
+                'country_name' => 'United States',
+                'classification_keyword' => 'Mountains',
+                'source' => 'https://en.wikipedia.org/wiki/Grand_Canyon',
+            ],
+            [
+                'es' => [
+                    'name' => 'Acantilados de Nullarbor',
+                    'synopsis' => 'Linea costera de 210Km de acantilados rocosos de 60 metros de altura',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Nullarbor Cliffs',
+                    'synopsis' => '210 km of coastline featuring rocky cliffs towering 60 meters in height',
+                    'description' => 'Description in English',
+                ],
+                'country_name' => 'Australia',
+                'classification_keyword' => 'Mountains',
+                'source' => 'https://en.wikipedia.org/wiki/Bunda_Cliffs',
             ],
             [
                 'es' => [
@@ -73,6 +134,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'United States',
                 'classification_keyword' => 'Volcanic',
+                'source' => 'https://en.wikipedia.org/wiki/Grand_Prismatic_Spring',
             ],
             [
                 'es' => [
@@ -87,6 +149,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Bolivia',
                 'classification_keyword' => 'Valleys',
+                'source' => 'https://en.wikipedia.org/wiki/Salar_de_Uyuni',
             ],
             [
                 'es' => [
@@ -251,7 +314,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'en' => [
                     'name' => 'Death Valley',
-                    'synopsis' => 'Desert valley thought to be the hottest place on earth during summer',
+                    'synopsis' => 'Desertic valley thought to be the hottest place on earth during summer',
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'United States',
@@ -268,8 +331,8 @@ class PlaceSeeder extends Seeder
         foreach ($places_data as $place_entry) {
 
             $place_data = [
-                'views_count' => rand(100, 1000),
-                'favorites_count' => rand(100, 1000),
+                'views_count' => rand(100, 1000000),
+                'favorites_count' => rand(100, 100000),
                 'country_id' => CountryTranslation::where('name', $place_entry['country_name'])->value('country_id') ?? $unknown_country_id,
                 'classification_id' => ClassificationTranslation::where('keyword', $place_entry['classification_keyword'])->value('classification_id') ?? $unknown_classification_id,
                 'source' => $place_entry['source'] ?? null,

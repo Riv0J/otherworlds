@@ -24,7 +24,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Unknown'
             ],
-            'code' => 'xx',
+            'code' => 'xxx',
         ],
         [
             'es' => [
@@ -33,13 +33,13 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Afghanistán'
             ],
-            'code' => 'af',
+            'code' => 'afg',
         ],
         [
             'en' => [
                 'name' => 'Albania'
             ],
-            'code' => 'al',
+            'code' => 'alb',
         ],
         [
             'es' => [
@@ -48,12 +48,13 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Argelia'
             ],
-            'code' => 'dz',
+            'code' => 'dza',
         ],
         [
             'en' => [
                 'name' => 'Andorra'
             ],
+            'code' => 'and',
         ],
         [
             'en' => [
@@ -72,6 +73,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Argentina'
             ],
+            'code' => 'arg',
         ],
         [
             'en' => [
@@ -82,6 +84,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Australia'
             ],
+            'code' => 'aus',
         ],
         [
             'en' => [
@@ -161,7 +164,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Bolivia'
             ],
-            'code' => 'bo'
+            'code' => 'bol'
         ],
         [
             'es' => [
@@ -239,7 +242,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Canada'
             ],
-            'code' => 'ca'
+            'code' => 'can'
         ],
         [
             'es' => [
@@ -262,7 +265,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'China'
             ],
-            'code' => 'cn',
+            'code' => 'chn',
         ],
         [
             'en' => [
@@ -742,7 +745,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Mexico'
             ],
-            'code' => 'mx'
+            'code' => 'mex'
         ],
         [
             'en' => [
@@ -828,7 +831,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Nicaragua'
             ],
-            'code' => 'ni',
+            'code' => 'nic',
         ],
         [
             'es' => [
@@ -927,7 +930,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Peru'
             ],
-            'code' => 'pe',
+            'code' => 'per',
         ],
         [
             'es' => [
@@ -1042,6 +1045,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Scotland'
             ],
+            'code' => 'sco',
         ],
         [
             'en' => [
@@ -1134,7 +1138,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Spain'
             ],
-            'code' => 'es',
+            'code' => 'esp',
         ],
         [
             'en' => [
@@ -1296,7 +1300,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'United States'
             ],
-            'code' => 'us',
+            'code' => 'usa',
         ],
         [
             'en' => [
@@ -1328,7 +1332,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Venezuela'
             ],
-            'code' => 've'
+            'code' => 'ven'
         ],
         [
             'en' => [
@@ -1339,7 +1343,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Yemen'
             ],
-            'code' => 'ye',
+            'code' => 'yem',
         ],
         [
             'en' => [
@@ -1363,7 +1367,7 @@ class CountrySeeder extends Seeder
             $country_data = [
                 'es' => $country_entry['es'] ?? $country_entry['en'],
                 'en' => $country_entry['en'],
-                'code' => $country_entry['code'] ?? 'xx',
+                'code' => $country_entry['code'] ?? 'xxx',
             ];
 
             $new_country = Country::create($country_data);

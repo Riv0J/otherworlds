@@ -23,7 +23,7 @@ return [
     'about_1' => '`Otherworlds` is a collection of natural, wonderful places all around the world. Some more extraordinary than others, but all of them beautiful in their own way.',
     'about_2' => "We aim to present all these hidden places, that you may or may not know of. And we ask in return, to admire the beauty and be mindful about the way we are treating our planet. Everyone can contribute (even if it's just a little) to preserve the natural balance of our world and create a better for future generations to come",
     'about_3' => 'Learn more about sustainable development',
-    'explore_body' => 'Otherwordly places',
+    'explore_body' => 'Landscapes from another world',
     'discover_body' => 'Places you have never seen before',
     'request_body' => 'Add new places for others to discover',
 

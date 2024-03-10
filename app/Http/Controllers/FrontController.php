@@ -21,7 +21,7 @@ class FrontController extends Controller
     function places_index(){
         $variables = [
             'current_section' => 'Places',
-            'all_places' => Place::all(),
+            'all_places' => Place::all()->sortBy('name'),
         ];
         return view('front.places', $variables);
     }

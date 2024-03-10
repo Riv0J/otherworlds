@@ -5,11 +5,11 @@
 @endsection
 
 @section('content')
-<div class="spacer mt-3 pt-5"></div>
+<div class="spacer mt-5 pt-5"></div>
 
 <section class="row col-12 px-2 px-lg-5 py-2 flex_center">
 
-    <h2 class="semibold text-center display-5 flex_center gap-2 col-12 py-2">
+    <h2 class="semibold text-center display-5 flex_center gap-2 col-12 py-2 white app_bg">
         @lang('otherworlds.sign_in')
     </h2>
 
@@ -18,7 +18,7 @@
 
         {{-- login email --}}
         <div class="row col-12 justify-content-start mb-3">
-            <label class="col-md-4 col-form-label text-md-end" for="email">
+            <label class="col-md-4 col-form-label text-md-end white" for="email">
                 @lang('otherworlds.email')
             </label>
             <div class="col-md-6">
@@ -26,7 +26,7 @@
 
                 {{-- show email error, if any --}}
                 @error('email')
-                <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback white" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
@@ -36,7 +36,7 @@
 
         {{-- login pass --}}
         <div class="row col-12 justify-content-start mb-3">
-            <label class="col-md-4 col-form-label text-md-end" for="password" >
+            <label class="col-md-4 col-form-label text-md-end white" for="password" >
                 @lang('otherworlds.password')
             </label>
             <div class="col-md-6">
@@ -44,7 +44,7 @@
 
                 {{-- show pass error, if any --}}
                 @error('password')
-                <span class="invalid-feedback" role="alert">
+                <span class="invalid-feedback white" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
@@ -57,7 +57,7 @@
                 <div class="form-check">
                     <input style="scale: 1.3;" class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                    <label class="form-check-label" for="remember">
+                    <label class="form-check-label white" for="remember">
                         @lang('otherworlds.remember_me')
                     </label>
                 </div>
