@@ -24,8 +24,13 @@
             class="places_card d-flex flex-column align-items-between justify-content-between p-0 rounded-4 white text-left">
             <div class="image_background" image_path="{{asset('img/places/'.$place->id.'/t.png')}}"></div>
 
-            <div class="card_stats gap-2 d-flex justify-content-end align-items-center px-3 py-2">
-                <p>{{$place->favorites_count}}</p> <i class="fa-regular fa-star"></i>
+            <div class="card_stats gap-2 d-flex justify-content-between align-items-center p-2">
+                <div>
+                    <img class="img_icon" title="{{$place->classification->keyword}} ({{$place->classification->name}})" src="{{asset('img/classifications/'.strtolower($place->classification->translate('en')->keyword)).'.png'}}" alt="">
+                </div>
+                <div class="d-flex flex-row gap-2 align-items-center pr-3">
+                    <p>{{$place->favorites_count}}</p> <i class="fa-regular fa-star"></i>
+                </div>
 
             </div>
 
@@ -70,6 +75,10 @@ document.addEventListener('DOMContentLoaded', apply_bg_images);
 
 </script>
 <style>
+    .img_icon{
+        width: 2.5rem;
+        aspect-ratio: 1;
+    }
     #places_container{
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
@@ -81,6 +90,7 @@ document.addEventListener('DOMContentLoaded', apply_bg_images);
     }
 
     .card_stats{
+        padding-right: 1rem !important;
         position: relative;
         z-index: 500;
         background: linear-gradient(180deg, rgb(29, 29, 29) 0%, rgba(255, 255, 255, 0) 100%);

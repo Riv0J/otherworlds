@@ -58,7 +58,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Description in English',
                 ],
                 'country_name' => 'United States',
-                'classification_keyword' => 'Mountains',
+                'classification_keyword' => 'Valleys',
                 'source' => 'https://en.wikipedia.org/wiki/Antelope_Canyon',
             ],
             [
@@ -88,7 +88,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Description in English',
                 ],
                 'country_name' => 'United States',
-                'classification_keyword' => 'Mountains',
+                'classification_keyword' => 'Valleys',
                 'source' => 'https://en.wikipedia.org/wiki/Monument_Valley'
             ],
             [
@@ -103,7 +103,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Description in English',
                 ],
                 'country_name' => 'United States',
-                'classification_keyword' => 'Mountains',
+                'classification_keyword' => 'Valleys',
                 'source' => 'https://en.wikipedia.org/wiki/Grand_Canyon',
             ],
             [
@@ -118,7 +118,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Description in English',
                 ],
                 'country_name' => 'Australia',
-                'classification_keyword' => 'Mountains',
+                'classification_keyword' => 'Coastal',
                 'source' => 'https://en.wikipedia.org/wiki/Bunda_Cliffs',
             ],
             [
@@ -247,21 +247,22 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Peru',
-                'classification_keyword' => 'Mountains',
+                'classification_keyword' => 'Valleys',
             ],
             [
                 'es' => [
                     'name' => 'Isla de Socotra',
-                    'synopsis' => 'Santuario natural de flora y geografía de otro planeta',
+                    'synopsis' => 'Santuario natural de flora y paisajes de otro planeta',
                     'description' => 'Descripción en español',
                 ],
                 'en' => [
                     'name' => 'Socotra Island',
-                    'synopsis' => "Natural sanctuary of flora and geography from another planet",
+                    'synopsis' => "Natural sanctuary of flora and landscapes from another planet",
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Yemen',
-                'classification_keyword' => 'Coastal',
+                'classification_keyword' => 'Vegetation',
+                'source' => 'https://es.wikipedia.org/wiki/Socotra'
             ],
             [
                 'es' => [

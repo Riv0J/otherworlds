@@ -32,7 +32,7 @@ class ClassificationSeeder extends Seeder
             [
                 'es' => [
                     'keyword' => 'Agua',
-                    'name' => 'Masas de Agua',
+                    'name' => 'Cuerpos de Agua',
                     'description' => 'Cuerpos de agua naturales como océanos, mares, lagos, ríos, etc.',
                 ],
                 'en' => [
@@ -116,12 +116,12 @@ class ClassificationSeeder extends Seeder
             [
                 'es' => [
                     'keyword' => 'Vegetación',
-                    'name' => 'Vegetación y Cobertura Terrestre',
+                    'name' => 'Santuario de Flora',
                     'description' => 'Diferentes tipos de vegetación y cobertura terrestre, como bosques, selvas, praderas, etc.',
                 ],
                 'en' => [
                     'keyword' => 'Vegetation',
-                    'name' => 'Vegetation and Land Cover',
+                    'name' => 'Sanctuary of Flora',
                     'description' => 'Different types of vegetation and land cover, such as forests, jungles, grasslands, etc.',
                 ],
             ],
