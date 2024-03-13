@@ -224,6 +224,10 @@ i, .brand_svg{
     border-radius: 1rem;
     border-bottom: 0.3rem solid var(--alt_dark);
 }
+.divider_light{
+    border-radius: 1rem;
+    border-bottom: 0.15rem solid var(--alt_dark);
+}
 /* xs */
 @media screen and (max-width: 576px){
     :root {

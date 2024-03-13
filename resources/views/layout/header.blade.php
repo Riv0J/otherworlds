@@ -229,7 +229,7 @@
             text-align: right;
         }
 
-        header a:hover{
+        header nav a:hover{
             background-color: rgba(80, 80, 80, 0.75);
         }
 
