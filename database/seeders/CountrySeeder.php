@@ -387,6 +387,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Ethiopia'
             ],
+            'code' => 'eth'
         ],
         [
             'es' => [
@@ -520,6 +521,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Indonesia'
             ],
+            'code' => 'idn'
         ],
         [
             'es' => [
@@ -826,6 +828,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'New Zealand'
             ],
+            'code' => 'nzl'
         ],
         [
             'en' => [
@@ -1250,6 +1253,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Turkey'
             ],
+            'code' => 'tur'
         ],
         [
             'es' => [
@@ -1338,6 +1342,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Vietnam'
             ],
+            'code' => 'vnm'
         ],
         [
             'en' => [

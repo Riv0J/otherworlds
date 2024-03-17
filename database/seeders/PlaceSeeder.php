@@ -153,18 +153,33 @@ class PlaceSeeder extends Seeder
             ],
             [
                 'es' => [
-                    'name' => 'Laguna Rosa de Torrevieja',
-                    'synopsis' => 'Sumérgete en un lago de agua de color rosa',
+                    'name' => 'Salinas de Torrevieja',
+                    'synopsis' => 'Lago de agua salada rosa en España',
                     'description' => 'Descripción en español',
                 ],
                 'en' => [
-                    'name' => 'Pink Lake of Torrevieja',
-                    'synopsis' => "Submerge yourself into a pink-water lake",
+                    'name' => 'Torrevieja Salt Lake',
+                    'synopsis' => "Pink water salt lake in Spain",
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Spain',
                 'classification_keyword' => 'Water',
-                'source' => 'https://en.wikipedia.org/wiki/Salar_de_Uyuni',
+                'source' => 'https://es.wikipedia.org/wiki/Parque_natural_de_las_Lagunas_de_La_Mata_y_Torrevieja',
+            ],
+            [
+                'es' => [
+                    'name' => 'Lago Hillier',
+                    'synopsis' => 'Lago de agua salada rosa en Australia',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Lake Hillier',
+                    'synopsis' => "Pink water salt lake in Australia",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Australia',
+                'classification_keyword' => 'Water',
+                'source' => 'https://en.wikipedia.org/wiki/Lake_Hillier',
             ],
             [
                 'es' => [
@@ -228,12 +243,12 @@ class PlaceSeeder extends Seeder
             ],
             [
                 'es' => [
-                    'name' => 'Montañas Zangye Danxia',
+                    'name' => 'Montañas Zhangye Danxia',
                     'synopsis' => 'Formaciones geológicas de arenisca multicolor',
                     'description' => 'Descripción en español',
                 ],
                 'en' => [
-                    'name' => 'Zangye Danxia Mountains',
+                    'name' => 'Zhangye Danxia Mountains',
                     'synopsis' => "Colorful sandstone rock formations",
                     'description' => 'Descripción en ingles',
                 ],
@@ -332,6 +347,97 @@ class PlaceSeeder extends Seeder
                 'classification_keyword' => 'Valleys',
                 'source' => 'https://en.wikipedia.org/wiki/Death_Valley_National_Park'
             ],
+            [
+                'es' => [
+                    'name' => 'Cuevas Luminosas de Waitomo',
+                    'synopsis' => 'Cueva conocida por sus especies de gusanos luminosos',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Waitomo Glowworm Caves',
+                    'synopsis' => "Cave known for its glowworm species",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'New Zealand',
+                'classification_keyword' => 'Caves',
+                'source' => 'https://en.wikipedia.org/wiki/Waitomo_Glowworm_Caves'
+            ],
+            [
+                'es' => [
+                    'name' => 'Depresión de Danakil',
+                    'synopsis' => 'Depresión geológica que da lugar a un paisaje volcánico de aspecto extraterrestre',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Danakil Depression',
+                    'synopsis' => "Geological depression resulting in an otherworldly volcanic landscape",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Ethiopia',
+                'classification_keyword' => 'Volcanic',
+                'source' => 'https://en.wikipedia.org/wiki/Danakil_Depression'
+            ],
+            [
+                'es' => [
+                    'name' => 'Pamukkale',
+                    'synopsis' => 'Terrazas de minerales de carbonato formadas por el flujo de aguas termales',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Pamukkale',
+                    'synopsis' => "Terraces of carbonate minerals created by the flow of thermal spring waters",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Turkey',
+                'classification_keyword' => 'Volcanic',
+                'source' => 'https://en.wikipedia.org/wiki/Pamukkale'
+            ],
+            [
+                'es' => [
+                    'name' => 'Cráter Ijen',
+                    'synopsis' => 'Cráter volcánico lleno de agua ácida, con vistas de fuego azul por las noches',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Ijen Crater',
+                    'synopsis' => "Acidic volcanic lake, with views of blue fire at night",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Indonesia',
+                'classification_keyword' => 'Volcanic',
+                'source' => 'https://en.wikipedia.org/wiki/Ijen'
+            ],
+            [
+                'es' => [
+                    'name' => 'Cueva de Son Doong',
+                    'synopsis' => 'La cueva natural más grande del mundo',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Son Doon Cave',
+                    'synopsis' => "World's largest natural cave",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Vietnam',
+                'classification_keyword' => 'Caves',
+                'source' => 'https://en.wikipedia.org/wiki/Hang_S%C6%A1n_%C4%90o%C3%B2ng'
+            ],
+            [
+                'es' => [
+                    'name' => 'Cañón de Zion',
+                    'synopsis' => 'Acantilados de arenisca roja y exuberante vegetación',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Zion Canyon',
+                    'synopsis' => "Red sandstone cliffs and lush vegetation",
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'United States',
+                'classification_keyword' => 'Mountains',
+                'source' => 'https://es.wikipedia.org/wiki/Parque_nacional_Zion'
+            ],
+
         ];
 
         $unknown_country_id = CountryTranslation::where('name', 'Unknown')->value('country_id');
