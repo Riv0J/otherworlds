@@ -35,7 +35,7 @@ return [
 
     'hype_up' => 'Small humans, gigantic universe',
     'quote_1' => 'Prepare to be enchanted by the breathtaking beauty of some of the most remarkable places on our planet.',
-    'quote_2' => 'Stunning landscape that defy belief, destinations that will transport you to another world.',
+    'quote_2' => 'Stunning landscapes that defy belief, destinations that will transport you to another world.',
     'quote_3' => 'Join us as we embark on a journey to uncover the hidden wonders of nature, from majestic mountains to awe-inspiring waterfalls and beyond.',
 
     // section places

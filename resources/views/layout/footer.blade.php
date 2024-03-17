@@ -20,18 +20,13 @@
 
                 {{-- places link --}}
                 <a class="regular p-2"
-                    href="{{ route('places') }}">
-                    @lang('otherworlds.places')
+                    href="{{ route('home') }}">
+                    Home
                 </a>
 
                 <a class="regular p-2"
                     href="{{ route('places') }}">
                     @lang('otherworlds.places')
-                </a>
-
-                <a class="regular p-2"
-                href="{{ route('places') }}">
-                @lang('otherworlds.places')
                 </a>
 
             </div>
@@ -53,7 +48,7 @@
             </div>
 
             <div class="flex_center flex-column gap-2">
-                <h5 class="my-2 mb-4 my-lg-0">@lang('otherworlds.development')</h5>
+                <h5 class="my-2 mt-lg-0">@lang('otherworlds.development')</h5>
 
                 <div class="d-flex flex-row gap-5 gap-lg-3">
                     <a class="regular p-2 icon_button" title="Laravel"
@@ -119,7 +114,9 @@
     }
     /* icon button end */
 
-
+    footer{
+        box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.5);
+    }
     footer nav{
         list-style-type: none;
         padding: 0;
@@ -145,21 +142,6 @@
         opacity: 0.25;
     }
 
-    .app_border{
-        border: 2px solid var(--alt_dark);
-    }
-    .app_border_top {
-        border-top: 2px solid var(--alt_dark);
-    }
-    .app_border_bottom {
-        border-bottom: 2px solid var(--alt_dark);
-    }
-    .app_border_left {
-        border-left: 2px solid var(--alt_dark);
-    }
-    .app_border_right {
-        border-right: 2px solid var(--alt_dark);
-    }
 
     /* desktop */
     @media screen and (min-width: 993px) {

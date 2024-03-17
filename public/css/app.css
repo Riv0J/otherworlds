@@ -6,14 +6,15 @@
     --alt: #fff5bd;
     --alt_dark: #e0d38b;
 
+    --alt2: #2f4472;
+    --alt2_dark: #1c2538;
+    --alt2_light: rgb(128, 157, 219);
+
     --mint: #dbffdf;
 
     --black: rgb(29, 29, 29);
     --white: rgb(245, 245, 245);
 
-    --test1: #1c2538;
-    --test2: #2f4472;
-    --test3: rgb(128, 157, 219);
     --main_dark_bg_color: #1e222b;
     --hover_gray: rgba(80, 80, 80, 0.45);
 }
@@ -267,19 +268,6 @@ i, .brand_svg{
     transition: all 0.5s ease;
 }
 
-.bg_gradient_black_bot_top{
-    position: relative;
-    color: white;
-}
-.bg_gradient_black_bot_top::after{
-    position: absolute;
-    content: '';
-    inset: 0;
-    background: rgb(29, 29, 29);
-    background: linear-gradient(0deg, rgb(29, 29, 29) 20%, rgba(0,212,255,0) 40%);
-    color: white;
-}
-
 /* app button start */
 .app_button{
     position: relative;
@@ -323,7 +311,22 @@ i, .brand_svg{
 /* app button end */
 
 .app_bg{
-    background: var(--test2);
-    box-shadow: 0 0 25px var(--test2);
+    background: var(--alt2);
+    box-shadow: 0 0 25px var(--alt2);
 }
 
+.app_border{
+    border: 2px solid var(--alt_dark);
+}
+.app_border_top {
+    border-top: 2px solid var(--alt_dark);
+}
+.app_border_bottom {
+    border-bottom: 2px solid var(--alt_dark);
+}
+.app_border_left {
+    border-left: 2px solid var(--alt_dark);
+}
+.app_border_right {
+    border-right: 2px solid var(--alt_dark);
+}
