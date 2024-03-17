@@ -164,6 +164,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Spain',
                 'classification_keyword' => 'Water',
+                'source' => 'https://en.wikipedia.org/wiki/Salar_de_Uyuni',
             ],
             [
                 'es' => [
@@ -178,6 +179,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Venezuela',
                 'classification_keyword' => 'Mountains',
+                'source' => 'https://en.wikipedia.org/wiki/Mount_Roraima',
             ],
             [
                 'es' => [
@@ -192,6 +194,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Scotland',
                 'classification_keyword' => 'Caves',
+                'source' => 'https://en.wikipedia.org/wiki/Fingal%27s_Cave',
             ],
             [
                 'es' => [
@@ -206,6 +209,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Canada',
                 'classification_keyword' => 'Water',
+                'source' => 'https://en.wikipedia.org/wiki/Niagara_Falls',
             ],
             [
                 'es' => [
@@ -220,6 +224,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Nicaragua',
                 'classification_keyword' => 'Volcanic',
+                'source' => 'https://en.wikipedia.org/wiki/Ometepe',
             ],
             [
                 'es' => [
@@ -234,6 +239,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'China',
                 'classification_keyword' => 'Mountains',
+                'source' => 'https://en.wikipedia.org/wiki/Zhangye_National_Geopark',
             ],
             [
                 'es' => [
@@ -248,6 +254,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Peru',
                 'classification_keyword' => 'Valleys',
+                'source' => 'https://es.wikipedia.org/wiki/Valle_del_Colca',
             ],
             [
                 'es' => [
@@ -277,6 +284,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Spain',
                 'classification_keyword' => 'Water',
+                'source' => 'https://en.wikipedia.org/wiki/Rio_Tinto_(river)',
             ],
             [
                 'es' => [
@@ -291,6 +299,8 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Spain',
                 'classification_keyword' => 'Mountains',
+                'source' => 'https://es.wikipedia.org/wiki/Monte_Neme',
+
             ],
             [
                 'es' => [
@@ -323,8 +333,6 @@ class PlaceSeeder extends Seeder
                 'source' => 'https://en.wikipedia.org/wiki/Death_Valley_National_Park'
             ],
         ];
-
-
 
         $unknown_country_id = CountryTranslation::where('name', 'Unknown')->value('country_id');
         $unknown_classification_id = ClassificationTranslation::where('keyword', 'Unknown')->value('classification_id');
