@@ -136,6 +136,8 @@
         position: absolute;
         top: 100%;
         left: 0;
+
+        min-width:100%;
         width: auto;
 
         background-color: var(--black);

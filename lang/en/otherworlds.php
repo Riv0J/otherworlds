@@ -6,6 +6,12 @@ return [
     'places' => 'Places',
     'requests' => 'Requests',
 
+    // footer titles
+    'sections'=> 'Sections',
+    'resources'=> 'Resources',
+    'development'=> 'Development',
+    'special_thanks'=> 'Special thanks to Wikipedia and its corresponding photographers for their invaluable contributions, providing freely usable content for everyone to enjoy.',
+
     // user options
     'sign_in' => 'Login',
     'login' => 'Login',
@@ -16,7 +22,7 @@ return [
     // section home
     'what_is_this_place' => 'What is this place?',
     'features' => 'Features',
-    'features_1' => "Otherworlds is in its baby stage, but we aspire to build a big repository of places from all around the world, and methods for users to share and bookmark their favorite locations.",
+    'features_1' => "Otherworlds is in its baby stages, but we aspire to build a big repository of places from all around the world, and methods for users to share and bookmark their favorite locations.",
     'explore' => 'Explore',
     'discover' => 'Discover',
     'request' => 'Request',

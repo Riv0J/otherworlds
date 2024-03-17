@@ -14,7 +14,6 @@ function init_dropdowns(){
 
             //open the clicked options if height = 0px
             if(options.style.height == '0px'){
-
                 //if max height === 0, aplicar auto, de lo contrario el height en px
                 const new_height = (max_height === 0) ? 'auto' : max_height + 'px';
 

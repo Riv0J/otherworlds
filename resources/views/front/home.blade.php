@@ -57,7 +57,7 @@ Otherworlds
         inset: 0;
         width: 100%;
         height: 100%;
-        background: radial-gradient(rgba(255, 255, 255, 0.01) 30%, var(--main_dark_bg_color) 70%);
+        background: radial-gradient(rgba(255, 255, 255, 0.01) 30%, var(--main_dark_bg_color) 65%);
         outline: 1px solid var(--main_dark_bg_color);
         scale: 1.05 1;
 
