@@ -52,19 +52,19 @@
 
                 <div class="d-flex flex-row gap-5 gap-lg-3">
                     <a class="regular p-2 icon_button" title="Laravel"
-                        href="https://laravel.com">
+                        href="https://laravel.com" target="_blank">
                         {{-- <i class="fa-brands fa-laravel"></i> --}}
                         @include('icons.laravel')
                     </a>
 
                     <a class="p-2 icon_button" title="Bootstrap"
-                        href="https://https://getbootstrap.com">
+                        href="https://getbootstrap.com/" target="_blank">
                         {{-- <i class="ri-bootstrap-line"></i> --}}
                         @include('icons.bootstrap')
                     </a>
 
                     <a class="p-2 icon_button" title="Github Repository"
-                        href="https://github.com/Riv0J/otherworlds">
+                        href="https://github.com/Riv0J/otherworlds" target="_blank">
                         {{-- <i class="ri-github-line"></i> --}}
                         @include('icons.github')
                     </a>
