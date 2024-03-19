@@ -9,8 +9,8 @@
             <span>therworlds</span>
         </a>
 
-        <div class="divider_light col-9 col-md-6 col-lg-4 my-2 mt-4 d-lg-none"></div>
-        <div class="divider_vertical_light col-1 d-none d-lg-inline"></div>
+        <div class="div_light col-9 col-md-6 col-lg-4 my-2 mt-4 d-lg-none"></div>
+        <div class="div_vertical_light col-1 d-none d-lg-inline"></div>
 
         {{-- sections --}}
         <nav class="text-center flex_center flex-column flex-lg-row align-items-center align-items-lg-start justify-content-around mt-lg-4 gap-5 gap-lg-1">
@@ -79,12 +79,12 @@
 </footer>
 
 <style>
-    .divider_vertical_light {
+    .div_vertical_light {
         position: relative;
         width: 10px;
         align-self: stretch;
     }
-    .divider_vertical_light::before {
+    .div_vertical_light::before {
         content: '';
         position: absolute;
         height: 100%;

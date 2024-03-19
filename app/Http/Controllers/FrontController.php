@@ -38,7 +38,9 @@ class FrontController extends Controller
             return redirect()->route('places');
         }
 
-        // app()->setLocale($place_translation->locale);
+        // add a view to the place
+        $place->views_count += 1;
+        $place->save();
 
         $variables = [
             'place' => $place,

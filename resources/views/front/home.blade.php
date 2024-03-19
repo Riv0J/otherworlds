@@ -43,10 +43,6 @@ Otherworlds
         transform: translate(-50%, -50%);
         text-wrap: nowrap;
     }
-    .window{
-        position: relative;
-
-    }
     .app_bg_overlay{
         position: relative;
     }
@@ -60,7 +56,6 @@ Otherworlds
         background: radial-gradient(rgba(255, 255, 255, 0.01) 30%, var(--main_dark_bg_color) 65%);
         outline: 1px solid var(--main_dark_bg_color);
         scale: 1.05 1;
-
     }
 
     /* desktop */
@@ -194,7 +189,7 @@ Otherworlds
 
 </section>
 
-<div class="divider col-9 col-md-6 col-lg-4 my-md-5 mb-5"></div>
+<div class="div col-9 col-md-6 col-lg-4 my-md-5 mb-5"></div>
 
 <section class="col-12 white">
     <h2 class="text-center my-5">
@@ -318,7 +313,7 @@ Otherworlds
     </h3>
 </section>
 
-<div class="divider col-9 col-md-6 col-lg-4 my-md-5"></div>
+<div class="div col-9 col-md-6 col-lg-4 my-md-5"></div>
 
 <section class="bg_light text-justify px-3 px-lg-5 py-5 row flex-column flex-md-row white">
     <h3 class="text-left py-5 col-12 col-md-9 light">
@@ -330,7 +325,7 @@ Otherworlds
 
 </section>
 
-<div class="divider col-9 col-md-6 col-lg-4 my-md-5"></div>
+<div class="div col-9 col-md-6 col-lg-4 my-md-5"></div>
 
 <p class="text-center py-5 px-3 px-md-5 col-12 col-md-8 white">
     @lang('otherworlds.quote_3')

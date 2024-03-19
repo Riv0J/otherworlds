@@ -13,8 +13,6 @@
     </h2>
 </section>
 
-{{-- <div class="divider col-9 col-md-6 col-lg-4 my-md-3"></div> --}}
-
 <section class="col-12 px-1 px-lg-2 py-3">
 
     <div class="gap-2 gap-md-3 justify-content-center align-items-stretch" id="places_container">
@@ -43,7 +41,6 @@
                     <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
                 </p>
                 <div class="card_sinopsis flex_center row p-0">
-                    {{-- <div class="divider col-6 my-1"></div> --}}
                     <p class="light col-12">
                         {{$place->synopsis}}
                     </p>

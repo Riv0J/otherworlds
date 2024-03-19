@@ -13,6 +13,7 @@
     --mint: #dbffdf;
 
     --black: rgb(29, 29, 29);
+    --gray: rgb(46, 43, 52);
     --white: rgb(245, 245, 245);
 
     --main_dark_bg_color: #1e222b;
@@ -35,7 +36,7 @@ main a{
 main a:hover{
     background-color: var(--hover_gray);
 }
-
+.big-icon { font-size: 1.75rem; }
 .flex_center{
     display: flex;
     justify-content: center;
@@ -73,7 +74,6 @@ p{
     letter-spacing: 0rem;
     margin-bottom: 0;
 }
-
 i, .brand_svg{
     font-size: 1.5rem;
     width: 1.5rem;
@@ -221,13 +221,20 @@ i, .brand_svg{
     }
 
 }
-.divider{
+
+.div{
     border-radius: 1rem;
     border-bottom: 0.3rem solid var(--alt_dark);
 }
-.divider_light{
+.div_light{
     border-radius: 1rem;
     border-bottom: 0.15rem solid var(--alt_dark);
+}
+.div_h{
+    border-bottom: 1px solid var(--alt_dark);
+}
+.div_gray{
+    border-color: gray;
 }
 /* xs */
 @media screen and (max-width: 576px){
@@ -246,28 +253,34 @@ i, .brand_svg{
 .bg_main_light{
     background-color: var(--main_light);
 }
-
 .bg_alt {
     background-color: var(--alt);
 }
 .bg_alt_dark {
     background-color: var(--alt_dark);
 }
-
+.bg_black {
+    background-color: var(--black);
+}
+.bg_gray{
+    background-color: var(--gray);
+}
 .bg_mint {
     background-color: var(--mint);
 }
 
-.bg_black {
-    background-color: var(--black);
-}
 .bg_gradient_black{
     background: rgb(29, 29, 29);
     background: linear-gradient(180deg, rgb(29, 29, 29) 1%, rgba(0,212,255,0) 100%);
     color: white;
     transition: all 0.5s ease;
 }
-
+.bg_gradient_black_2{
+    background: rgb(29, 29, 29);
+    background: linear-gradient(0deg, rgb(29, 29, 29) 40%, rgba(29, 29, 29,0.5) 90%, rgba(29, 29, 29,0) 100%);
+    color: white;
+    transition: all 0.5s ease;
+}
 /* app button start */
 .app_button{
     position: relative;
@@ -316,17 +329,17 @@ i, .brand_svg{
 }
 
 .app_border{
-    border: 2px solid var(--alt_dark);
+    border: 1px solid var(--alt_dark);
 }
 .app_border_top {
-    border-top: 2px solid var(--alt_dark);
+    border-top: 1px solid var(--alt_dark);
 }
 .app_border_bottom {
-    border-bottom: 2px solid var(--alt_dark);
+    border-bottom: 1px solid var(--alt_dark);
 }
 .app_border_left {
-    border-left: 2px solid var(--alt_dark);
+    border-left: 1px solid var(--alt_dark);
 }
 .app_border_right {
-    border-right: 2px solid var(--alt_dark);
+    border-right: 1px solid var(--alt_dark);
 }
