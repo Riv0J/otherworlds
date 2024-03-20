@@ -1,7 +1,11 @@
 @extends('layout.masterpage')
 
 @section('title')
-Otherworlds
+@lang('otherworlds.title_home')
+@endsection
+
+@section('description')
+@lang('otherworlds.description_home')
 @endsection
 
 @section('content')

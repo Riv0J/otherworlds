@@ -4,8 +4,12 @@
 {{$place->name}} | Otherworlds
 @endsection
 
-@section('content')
+@section('description')
+@lang('otherworlds.learn_more_about') {{$place->name}}. @lang('otherworlds.category'): {{$place->category->keyword}}({{$place->category->name}}).
+{{$place->synopsis}}
+@endsection
 
+@section('content')
 
 <section class="bg_black row mt-3 col-12 col-lg-8 px-1 px-lg-4 py-3 flex-column flex-md-row justify-content-center align-items-center white shadows_inline">
 

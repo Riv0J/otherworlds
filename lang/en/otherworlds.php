@@ -1,6 +1,16 @@
 <?php
 
 return [
+    // page titles
+    'title_home' => 'Otherworlds | Unique places around the world',
+    'title_places' => 'Explorar lugares increíbles',
+
+    // page descriptions
+    'learn_more_about' => 'Learn more about',
+    'description_home' => 'Explore a collection of extraordinary natural locations from all around the world. Discover majestic mountains, breathtaking waterfalls, and other wonderful places, while immersing yourself in the unique beauty of nature. Be amazed at the diversity and maybe even plan your next vacations to visit some of these places from another world',
+
+    'description_places' => "Explore a collection of extraordinary natural locations from around the world with Otherworlds' search engine. You can search for places by country, category, and the place's name",
+
     // section titles
     'lang' => 'Lang',
     'places' => 'Places',

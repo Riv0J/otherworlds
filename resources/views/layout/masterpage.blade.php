@@ -3,8 +3,13 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {{-- title, description & canonical href --}}
         <title>@yield('title')</title>
-        <!-- Favicon -->
+        <meta name="description" content="@yield('description')">
+        <link rel="canonical" href="{{ URL::current() }}"> {{--falta de que la url canonica se envíe desde el controller manualmente pq URL incluye los params get}}
+
+        {{-- favicon --}}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
         {{-- normalize CSS --}}
@@ -22,7 +27,7 @@
         {{-- remixicon CDN --}}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.1.0/remixicon.min.css" integrity="sha512-i5VzKip7owqOGjb0YTF8MR2J9yBVO3FLHeazKzLp354XYTmKcqEU3UeFYUw82R8tV6JqxeATOfstCfpfPhbyEA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-        {{-- fon CDN --}}
+        {{-- font-awesome CDN --}}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
         {{-- Google Fonts --}}
@@ -34,6 +39,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
         {{-- custom CSS --}}
         <link rel="stylesheet" href="{{ asset('css/app.css') }}"/>
 

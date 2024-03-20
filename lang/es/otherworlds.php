@@ -1,6 +1,16 @@
 <?php
 
 return [
+    // page titles
+    'title_home' => 'Otherworlds | Lugares únicos del mundo',
+    'title_places' => 'Explore extraordinary places',
+
+    // page descriptions
+    'learn_more_about' => 'Saber más sobre',
+    'description_home' => 'Explorar una colección de lugares naturales extraordinarios de todo el mundo. Descubre majestuosas montañas, cascadas impresionantes y demás lugares maravillosos, mientras te sumerges en la belleza única de la naturaleza. Busca sitios con los cuales puedas impresionarte e incluso planear tus siguientes vacaciones parar ir a visitarlos',
+
+    'description_places' => 'Explorar una colección de lugares naturales extraordinarios de todo el mundo, con el buscador de Otherworlds. Puedes buscar los lugares por su país, categoría y por nombre',
+
     // section titles
     'lang' => 'Lang',
     'places' => 'Lugares',
@@ -46,7 +56,7 @@ return [
     'email' => 'Correo Electrónico',
     'password' => 'Contraseña',
     'remember_me' => 'Recuérdame',
-    'country' => 'Pa+is',
+    'country' => 'País',
     'category'=> 'Categoría',
     'views'=> 'Vistas',
     'date_added' => 'Fecha agregado',
