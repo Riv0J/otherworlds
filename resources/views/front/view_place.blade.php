@@ -28,29 +28,31 @@
         {{-- img container--}}
         <div class="col-12 col-md-6 p-0 border bg_gray p-2 pb-4">
             <div class="img_container img_gradient_bottom img_gradient_top text-center">
-                <img class="" src="{{asset('img/places/'.$place->id.'/t.png')}}" style="max-height: 100%;" alt="">
+                <img src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="{{$place->name}} @lang('otherworlds.thumbnail')">
             </div>
             <p class="text-center my-2">{{$place->synopsis}}.</p>
 
             <div class="div_h div_gray mx-2 my-4"></div>
-            {{-- place stats --}}
+
+            {{-- place stats start--}}
             <div class="row p-0 m-0">
                 <div class="col-4 d-flex flex-column align-items-end gap-1 text-end">
                     <small>@lang('otherworlds.country'):</small>
-                    <small>@lang('otherworlds.classification'):</small>
+                    <small>@lang('otherworlds.category'):</small>
                     <small>@lang('otherworlds.views'):</small>
                     <small>@lang('otherworlds.date_added'):</small>
                     <small>@lang('otherworlds.source'):</small>
                 </div>
                 <div class="col-8 d-flex flex-column align-items-start gap-1">
                     <small class="flex_center gap-2"><span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}</small>
-                    <small>{{$place->classification->keyword}} ({{$place->classification->name}})</small>
+                    <small>{{$place->category->keyword}} ({{$place->category->name}})</small>
                     <small>{{$place->views_count}}</small>
                     <small>{{$place->created_at->format('d-m-Y')}}</small>
                     <small><a class="px-2" href="{{$place->source}}" target="_blank">{{$place->name}}</a></small>
                 </div>
-
             </div>
+            {{-- place stats end--}}
+
         </div>
 
         {{-- sinopsis --}}
@@ -59,7 +61,7 @@
             <p class="rounded-4 px-3 py-2">{{$place->description}}</p>
             <a class="btn" href="{{route('places')}}"><button>@lang('return')</button></a>
             <a class="btn" href="{{$place->source}}" target="_blank"><button>@lang('source')</button></a>
-            <div class="h_div mr-2"></div>
+            <div class="div_h mr-2"></div>
 
         </div>
 

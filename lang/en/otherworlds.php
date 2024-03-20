@@ -46,4 +46,9 @@ return [
     'email' => 'Email',
     'password' => 'Password',
     'remember_me' => 'Remember me',
+    'country' => 'Country',
+    'category'=> 'Category',
+    'views'=> 'Views',
+    'date_added' => 'Date added',
+    'source' => 'Source'
 ];

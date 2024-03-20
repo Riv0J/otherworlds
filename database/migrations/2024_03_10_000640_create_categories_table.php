@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('classifications', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
 
-        Schema::create('classifications_translations', function (Blueprint $table) {
+        Schema::create('categories_translations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('classification_id');
+            $table->unsignedBigInteger('category_id');
             $table->string('locale');
 
             //translatable attributes
@@ -28,8 +28,8 @@ return new class extends Migration
             $table->string('description');
             $table->string('keyword');
 
-            $table->foreign('classification_id')->references('id')->on('classifications')->onDelete('cascade');
-            $table->unique(['classification_id', 'locale']);
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->unique(['category_id', 'locale']);
         });
     }
 
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('classifications');
+        Schema::dropIfExists('categories');
     }
 };

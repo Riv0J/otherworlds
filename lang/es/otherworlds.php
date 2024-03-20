@@ -46,4 +46,9 @@ return [
     'email' => 'Correo Electrónico',
     'password' => 'Contraseña',
     'remember_me' => 'Recuérdame',
+    'country' => 'Pa+is',
+    'category'=> 'Categoría',
+    'views'=> 'Vistas',
+    'date_added' => 'Fecha agregado',
+    'source' => 'Fuente'
 ];

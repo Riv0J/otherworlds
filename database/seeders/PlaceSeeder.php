@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\File;
 
 use App\Models\CountryTranslation;
-use App\Models\ClassificationTranslation;
+use App\Models\CategoryTranslation;
 use App\Models\Place;
 use App\Models\OHelper;
 
@@ -47,9 +47,9 @@ class PlaceSeeder extends Seeder
         // Decodificar el contenido JSON en un array asociativo
         $places_data = PlaceSeeder::getPlacesData();
 
-        //2. get the ids for unknown country and unknown class
+        //2. get the ids for unknown country and unknown category
         $unknown_country_id = CountryTranslation::where('name', 'Unknown')->value('country_id');
-        $unknown_classification_id = ClassificationTranslation::where('keyword', 'Unknown')->value('classification_id');
+        $unknown_category_id = CategoryTranslation::where('keyword', 'Unknown')->value('category_id');
 
         //3. create all the places in $places_data
         foreach ($places_data as $place_entry) {
@@ -58,7 +58,7 @@ class PlaceSeeder extends Seeder
                 'views_count' => rand(100, 1000000),
                 'favorites_count' => rand(100, 100000),
                 'country_id' => CountryTranslation::where('name', $place_entry['country_name'])->value('country_id') ?? $unknown_country_id,
-                'classification_id' => ClassificationTranslation::where('keyword', $place_entry['classification_keyword'])->value('classification_id') ?? $unknown_classification_id,
+                'category_id' => CategoryTranslation::where('keyword', $place_entry['category_keyword'])->value('category_id') ?? $unknown_category_id,
                 'source' => $place_entry['source'] ?? null,
                 'es' => $place_entry['es'],
                 'en' => $place_entry['en'],
@@ -111,7 +111,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Description in English',
                 ],
                 'country_name' => 'United States',
-                'classification_keyword' => 'Valleys',
+                'category_keyword' => 'Valleys',
                 'source' => 'https://en.wikipedia.org/wiki/Antelope_Canyon',
             ],
             [
@@ -126,7 +126,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Description in English',
                 ],
                 'country_name' => 'United States',
-                'classification_keyword' => 'Mountains',
+                'category_keyword' => 'Mountains',
                 'source' => 'https://en.wikipedia.org/wiki/Bryce_Canyon_National_Park'
             ],
             [
@@ -141,7 +141,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Description in English',
                 ],
                 'country_name' => 'United States',
-                'classification_keyword' => 'Valleys',
+                'category_keyword' => 'Valleys',
                 'source' => 'https://en.wikipedia.org/wiki/Monument_Valley'
             ],
             [
@@ -156,7 +156,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Description in English',
                 ],
                 'country_name' => 'United States',
-                'classification_keyword' => 'Valleys',
+                'category_keyword' => 'Valleys',
                 'source' => 'https://en.wikipedia.org/wiki/Grand_Canyon',
             ],
             [
@@ -171,7 +171,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Description in English',
                 ],
                 'country_name' => 'Australia',
-                'classification_keyword' => 'Coastal',
+                'category_keyword' => 'Coastal',
                 'source' => 'https://en.wikipedia.org/wiki/Bunda_Cliffs',
             ],
             [
@@ -186,7 +186,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'United States',
-                'classification_keyword' => 'Volcanic',
+                'category_keyword' => 'Volcanic',
                 'source' => 'https://en.wikipedia.org/wiki/Grand_Prismatic_Spring',
             ],
             [
@@ -201,7 +201,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Bolivia',
-                'classification_keyword' => 'Valleys',
+                'category_keyword' => 'Valleys',
                 'source' => 'https://en.wikipedia.org/wiki/Salar_de_Uyuni',
             ],
             [
@@ -216,7 +216,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Spain',
-                'classification_keyword' => 'Water',
+                'category_keyword' => 'Water',
                 'source' => 'https://es.wikipedia.org/wiki/Parque_natural_de_las_Lagunas_de_La_Mata_y_Torrevieja',
             ],
             [
@@ -231,7 +231,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Australia',
-                'classification_keyword' => 'Water',
+                'category_keyword' => 'Water',
                 'source' => 'https://en.wikipedia.org/wiki/Lake_Hillier',
             ],
             [
@@ -246,7 +246,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Venezuela',
-                'classification_keyword' => 'Mountains',
+                'category_keyword' => 'Mountains',
                 'source' => 'https://en.wikipedia.org/wiki/Mount_Roraima',
             ],
             [
@@ -261,7 +261,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Scotland',
-                'classification_keyword' => 'Caves',
+                'category_keyword' => 'Caves',
                 'source' => 'https://en.wikipedia.org/wiki/Fingal%27s_Cave',
             ],
             [
@@ -276,7 +276,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Canada',
-                'classification_keyword' => 'Water',
+                'category_keyword' => 'Water',
                 'source' => 'https://en.wikipedia.org/wiki/Niagara_Falls',
             ],
             [
@@ -291,7 +291,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Nicaragua',
-                'classification_keyword' => 'Volcanic',
+                'category_keyword' => 'Volcanic',
                 'source' => 'https://en.wikipedia.org/wiki/Ometepe',
             ],
             [
@@ -306,7 +306,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'China',
-                'classification_keyword' => 'Mountains',
+                'category_keyword' => 'Mountains',
                 'source' => 'https://en.wikipedia.org/wiki/Zhangye_National_Geopark',
             ],
             [
@@ -321,7 +321,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Peru',
-                'classification_keyword' => 'Valleys',
+                'category_keyword' => 'Valleys',
                 'source' => 'https://es.wikipedia.org/wiki/Valle_del_Colca',
             ],
             [
@@ -336,7 +336,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Yemen',
-                'classification_keyword' => 'Vegetation',
+                'category_keyword' => 'Vegetation',
                 'source' => 'https://es.wikipedia.org/wiki/Socotra'
             ],
             [
@@ -351,7 +351,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Spain',
-                'classification_keyword' => 'Water',
+                'category_keyword' => 'Water',
                 'source' => 'https://en.wikipedia.org/wiki/Rio_Tinto_(river)',
             ],
             [
@@ -366,7 +366,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Spain',
-                'classification_keyword' => 'Mountains',
+                'category_keyword' => 'Mountains',
                 'source' => 'https://es.wikipedia.org/wiki/Monte_Neme',
             ],
             [
@@ -381,7 +381,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Mexico',
-                'classification_keyword' => 'Caves',
+                'category_keyword' => 'Caves',
                 'source' => 'https://en.wikipedia.org/wiki/Cave_of_the_Crystals'
             ],
             [
@@ -396,7 +396,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'United States',
-                'classification_keyword' => 'Valleys',
+                'category_keyword' => 'Valleys',
                 'source' => 'https://en.wikipedia.org/wiki/Death_Valley_National_Park'
             ],
             [
@@ -411,7 +411,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'New Zealand',
-                'classification_keyword' => 'Caves',
+                'category_keyword' => 'Caves',
                 'source' => 'https://en.wikipedia.org/wiki/Waitomo_Glowworm_Caves'
             ],
             [
@@ -426,7 +426,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Ethiopia',
-                'classification_keyword' => 'Volcanic',
+                'category_keyword' => 'Volcanic',
                 'source' => 'https://en.wikipedia.org/wiki/Danakil_Depression'
             ],
             [
@@ -441,7 +441,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Turkey',
-                'classification_keyword' => 'Volcanic',
+                'category_keyword' => 'Volcanic',
                 'source' => 'https://en.wikipedia.org/wiki/Pamukkale'
             ],
             [
@@ -456,7 +456,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Indonesia',
-                'classification_keyword' => 'Volcanic',
+                'category_keyword' => 'Volcanic',
                 'source' => 'https://en.wikipedia.org/wiki/Ijen'
             ],
             [
@@ -471,7 +471,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'Vietnam',
-                'classification_keyword' => 'Caves',
+                'category_keyword' => 'Caves',
                 'source' => 'https://en.wikipedia.org/wiki/Hang_S%C6%A1n_%C4%90o%C3%B2ng'
             ],
             [
@@ -486,7 +486,7 @@ class PlaceSeeder extends Seeder
                     'description' => 'Descripción en ingles',
                 ],
                 'country_name' => 'United States',
-                'classification_keyword' => 'Mountains',
+                'category_keyword' => 'Mountains',
                 'source' => 'https://es.wikipedia.org/wiki/Parque_nacional_Zion'
             ],
         ];

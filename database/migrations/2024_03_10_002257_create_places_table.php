@@ -24,9 +24,9 @@ return new class extends Migration
             $table->unsignedBigInteger('country_id');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
 
-            //foreign classification_id
-            $table->unsignedBigInteger('classification_id');
-            $table->foreign('classification_id')->references('id')->on('classifications')->onDelete('cascade');
+            //foreign category_id
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 
             $table->timestamps();
         });

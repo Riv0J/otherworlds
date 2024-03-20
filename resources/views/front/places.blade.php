@@ -24,7 +24,7 @@
 
             <div class="card_stats gap-2 d-flex justify-content-between align-items-center p-2">
                 <div>
-                    <img class="img_icon" title="{{$place->classification->keyword}} ({{$place->classification->name}})" src="{{asset('img/classifications/'.strtolower($place->classification->translate('en')->keyword)).'.png'}}" alt="">
+                    <img class="img_icon" title="{{$place->category->keyword}} ({{$place->category->name}})" src="{{asset('img/categories/'.strtolower($place->category->translate('en')->keyword)).'.png'}}" alt="">
                 </div>
                 <div class="d-flex flex-row gap-2 align-items-center pr-3">
                     <p>{{$place->favorites_count}}</p> <i class="fa-regular fa-star"></i>

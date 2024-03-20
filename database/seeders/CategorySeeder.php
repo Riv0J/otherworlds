@@ -5,9 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-use App\Models\Classification;
+use App\Models\Category;
 
-class ClassificationSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class ClassificationSeeder extends Seeder
      */
     public function run()
     {
-        $classifications = [
+        $categories = [
             [
                 'es' => [
                     'keyword' => 'Desconocido',
@@ -127,15 +127,15 @@ class ClassificationSeeder extends Seeder
             ],
         ];
 
-        // create the classifications using translations
-        foreach ($classifications as $classif_entry) {
+        // create the categories using translations
+        foreach ($categories as $cat_entry) {
 
-            $classif_data = [
-                'es' => $classif_entry['es'],
-                'en' => $classif_entry['en'],
+            $cat_data = [
+                'es' => $cat_entry['es'],
+                'en' => $cat_entry['en'],
             ];
 
-            $new_classif = Classification::create($classif_data);
+            $new_cat = Category::create($cat_data);
         }
     }
 }

@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ClassificationTranslation extends Model
+class CategoryTranslation extends Model
 {
-    protected $table = 'classifications_translations';
+    protected $table = 'categories_translations';
     public $timestamps = false;
     protected $fillable = ['name','description','keyword'];
 }
