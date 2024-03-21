@@ -5,8 +5,11 @@
 @endsection
 
 @section('description')
-@lang('otherworlds.learn_more_about') {{$place->name}}. @lang('otherworlds.category'): {{$place->category->keyword}}({{$place->category->name}}).
-{{$place->synopsis}}
+@lang('otherworlds.learn_more_about') {{$place->name}}. @lang('otherworlds.category'): {{$place->category->keyword}}({{$place->category->name}}).{{$place->synopsis}}
+@endsection
+
+@section('canonical')
+{{ URL::current() }}
 @endsection
 
 @section('content')

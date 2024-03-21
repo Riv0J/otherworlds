@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'keywords' => '"Otherworlds, maravillas naturales, natural, lugar, lugares, viaje, destino, paisaje, montaña, cascada, valle, lago, ubicaciones"',
+
     // page titles
     'title_home' => 'Otherworlds | Lugares únicos del mundo',
     'title_places' => 'Explore extraordinary places',

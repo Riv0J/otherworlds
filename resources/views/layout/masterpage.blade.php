@@ -4,10 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        {{-- title, description & canonical href --}}
+        {{-- title, description, keywords, canonical href --}}
         <title>@yield('title')</title>
         <meta name="description" content="@yield('description')">
-        <link rel="canonical" href="{{ URL::current() }}"> {{--falta de que la url canonica se envíe desde el controller manualmente pq URL incluye los params get}}
+        <meta name="keywords" content="@lang('otherworlds.keywords')">
+        <link rel="canonical" href="@yield('canonical')">
 
         {{-- favicon --}}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />

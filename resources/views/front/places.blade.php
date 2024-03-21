@@ -8,6 +8,10 @@
 @lang('otherworlds.description_places')
 @endsection
 
+@section('canonical')
+{{ route('places') }}
+@endsection
+
 @section('content')
 <div class="spacer mt-4 pt-5"></div>
 

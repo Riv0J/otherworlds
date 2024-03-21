@@ -8,6 +8,10 @@
 @lang('otherworlds.description_home')
 @endsection
 
+@section('canonical')
+{{ URL::current() }}
+@endsection
+
 @section('content')
 
 <div class="spacer mt-3 pt-5"></div>
