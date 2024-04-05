@@ -66,7 +66,7 @@
         <div class="col-12 col-md-6 p-0 ml-2">
 
             <p class="rounded-4 px-3 py-2">{{$place->description}}</p>
-            <a class="btn" href="{{route('places')}}"><button>@lang('return')</button></a>
+            <button onclick="window.history.back()">@lang('return')</button>
             <a class="btn" href="{{$place->source}}" target="_blank"><button>@lang('source')</button></a>
             <div class="div_h mr-2"></div>
 

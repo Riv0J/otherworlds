@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Place;
 use App\Models\PlaceTranslation;
-use App\Models\Country;
+use App\Models\Category;
 
-class FrontController extends Controller
-{
+class FrontController extends Controller{
+    protected $PER_PAGE = 10;
+
     function home(){
         $variables = [
             'current_section' => 'Home',
@@ -19,9 +20,17 @@ class FrontController extends Controller
     }
 
     function places_index(){
+        //get the places in the first page
+        $places = FrontController::getPlaces($page = 1, $per_page = $this->PER_PAGE);
+
+        //get the countries of the places
+        $countries = $places->pluck('country')->unique()->values()->all();
+
         $variables = [
             'current_section' => 'Places',
-            'all_places' => Place::all()->sortBy('name'),
+            'places' => $places,
+            'countries' => $countries,
+            'all_categories' => Category::all(),
         ];
         return view('front.places', $variables);
     }
@@ -49,19 +58,39 @@ class FrontController extends Controller
         return view('front.view_place', $variables);
     }
 
-    public static function getPhrases(string $locale){
-        $phrases =[
-            'en' => [
-                'Ever wondered why... *| some places just feel out of this world...?',
-                'We have places to be... *| And people to meet.',
-                'Discover the unknown beauty... *| In the same planet we call home.'
-            ],
-            'es' => [
-                'Alguna vez te has preguntado... *| sobre los lugares que parecen de otro mundo...?',
-                'Tenemos lugares en los que estar... *| Y personas que conocer.',
-                'Descubre la belleza escondida... *| En el mismo planeta que llamamos hogar.'
-            ]
+    function ajax_place_request(Request $request){
+        // Obtener los datos enviados mediante la solicitud POST
+        $request_data = $request->all();
+        $next_page = $request_data['current_page'] + 1; //advance page
+
+        //get the places for next page
+        $places = FrontController::getPlaces($page = $next_page, $per_page = $this->PER_PAGE);
+
+        //get the countries for these places
+        $countries = $places->pluck('country')->unique()->values()->all();
+
+        if(count($places) === 0){
+            //if no places, means there is no next page
+            $next_page = -1;
+        }
+
+        $variables = [
+            'current_page' => $next_page,
+            'places' => $places,
+            'countries' => $countries,
         ];
-        return $phrases[$locale];
+
+        // Convertir los datos en formato JSON y devolverlos como respuesta
+        return response()->json($variables);
+    }
+    //get places based on page
+    public static function getPlaces($page, $per_page){
+        // Calcular el índice de inicio para la consulta basado en el número de página
+        $startIndex = ($page - 1) * $per_page;
+
+        // Obtener los lugares ordenados por nombre
+        return Place::skip($startIndex)
+                    ->take($per_page)
+                    ->get();
     }
 }

@@ -24,6 +24,9 @@ Route::get('/', [FrontController::class, 'home'])->name('home');
 Route::get('/places', [FrontController::class, 'places_index'])->name('places');
 Route::get('/place/{place_name}', [FrontController::class, 'view_place'])->name('view_place');
 
+//ajax
+Route::post('/ajax/places/request', [FrontController::class, 'ajax_place_request']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -25,7 +25,7 @@
 
     <div class="gap-2 gap-md-3 justify-content-center align-items-stretch" id="places_container">
 
-        @foreach ($all_places as $place)
+        {{-- @foreach ($all_places as $place)
         <a href="{{route('view_place', ['place_name' => $place->name])}}"
             class="places_card d-flex flex-column align-items-between justify-content-between p-0 rounded-4 white text-left">
             <div class="image_background" image_path="{{asset('img/places/'.$place->id.'/t.png')}}"></div>
@@ -55,29 +55,204 @@
                 </div>
 
             </div>
-
         </a>
-        @endforeach
-
+        @endforeach --}}
+        <div class="places_card flex-column align-items-between justify-content-between p-0 rounded-4 white text-left" id="ajax_loading" style="order: 10000; display: flex;">
+            <div class="image_background" style="background-image: url('{{asset('img/loading.gif')}}'); background-size: contain; background-repeat: no-repeat;"></div>
+        </div>
     </div>
 </section>
 
 @endsection
 
+
 @section('script')
+
 <script>
-function apply_bg_images() {
-    const places_images = document.querySelectorAll('div[image_path]');
+    const places_container = document.getElementById('places_container');
+    const view_place_route = "{{ route('view_place', ['place_name' => 'null']) }}".replace('/null', '');
 
-    for (let i = 0; i < places_images.length; i++) {
-        const element = places_images[i];
-        element.style.backgroundImage = 'url('+element.getAttribute('image_path')+')';
-        console.log(element);
+    const loaded_places = {!! $places->values()->toJson() !!};
+    let loaded_countries = organize_dic({!! json_encode($countries) !!})
+    const loaded_categories = organize_dic({!! json_encode($all_categories) !!});
+
+    function organize_dic(dic){
+        const organized_dic = {};
+        for (let i = 0; i < Object.keys(dic).length; i++) {
+            const obj = dic[i];
+            organized_dic[obj.id] = obj;
+        }
+        return organized_dic;
     }
-}
 
-document.addEventListener('DOMContentLoaded', apply_bg_images);
+    async function create_places_divs(places_json) {
 
+        for (let i = 0; i < Object.keys(places_json).length; i++) {
+            const place = places_json[i];
+            const category = loaded_categories[place.category_id];
+            const country = loaded_countries[place.country_id];
+
+            const placeLink = document.createElement('a');
+            placeLink.href = view_place_route + '/' + place.name;
+            placeLink.classList.add('places_card', 'd-flex', 'flex-column', 'align-items-between', 'justify-content-between', 'p-0', 'rounded-4', 'white', 'text-left');
+
+            const imageBackground = document.createElement('div');
+            imageBackground.classList.add('image_background');
+
+            /* set the backgroundImage */
+            const url = '{{asset('img/places/')}}' + '/' + place.id + '/t.png';
+            imageBackground.style.backgroundImage = 'url('+url+')';
+
+            placeLink.appendChild(imageBackground);
+
+            const card_stats = document.createElement('div');
+            card_stats.classList.add('card_stats', 'gap-2', 'd-flex', 'justify-content-between', 'align-items-center', 'p-2');
+
+            const categoryIcon = document.createElement('div');
+            card_stats.appendChild(categoryIcon);
+
+            const iconImage = document.createElement('img');
+            iconImage.classList.add('img_icon');
+            iconImage.title = category.keyword + ' (' + category.name + ')';
+            iconImage.src = "{{asset('img/categories/')}}" + '/' + category.keyword.toLowerCase() + '.png';
+            categoryIcon.appendChild(iconImage);
+
+            const favorites_container = document.createElement('div');
+            favorites_container.className = "d-flex flex-row gap-2 align-items-center pr-3";
+            card_stats.appendChild(favorites_container);
+
+            const favorites_count = document.createElement('p');
+            favorites_count.textContent = place.favorites_count;
+            favorites_container.appendChild(favorites_count);
+
+            const star_icon = document.createElement('i');
+            star_icon.classList.add('fa-regular', 'fa-star');
+            favorites_container.appendChild(star_icon);
+
+            placeLink.appendChild(card_stats);
+
+            const placesCardInfo = document.createElement('div');
+            placesCardInfo.classList.add('places_card_info', 'd-flex', 'flex-column', 'align-items-start', 'text-left', 'px-3', 'py-2', 'pt-5', 'w-100');
+
+            const placeName = document.createElement('h3');
+            placeName.classList.add('regular', 'mb-2');
+            placeName.textContent = place.name;
+
+            const countryInfo = document.createElement('p');
+            countryInfo.className = "flex_center gap-2";
+
+            const countryFlag = document.createElement('span');
+            countryFlag.classList.add('flag-icon', 'flag-icon-' + country.code);
+            countryInfo.appendChild(countryFlag);
+
+            const countryName = document.createElement('span');
+            countryName.textContent = country.name;
+            countryInfo.appendChild(countryName);
+
+            const cardSinopsis = document.createElement('div');
+            cardSinopsis.classList.add('card_sinopsis', 'flex_center', 'row', 'p-0');
+
+            const sinopsisText = document.createElement('p');
+            sinopsisText.classList.add('light', 'col-12');
+            sinopsisText.textContent = place.synopsis;
+            cardSinopsis.appendChild(sinopsisText);
+
+            placesCardInfo.appendChild(placeName);
+            placesCardInfo.appendChild(countryInfo);
+            placesCardInfo.appendChild(cardSinopsis);
+            placeLink.appendChild(placesCardInfo);
+
+            places_container.appendChild(placeLink);
+        }
+    }
+
+    //on load event create place divs
+    document.addEventListener('DOMContentLoaded', function(){
+        create_places_divs(loaded_places);
+    });
+
+
+    //AJAX START
+    //ajax variables
+    let csrf_token = '{{ csrf_token() }}';
+    let current_page = 1;
+    let requesting = false;
+
+    //on scroll event check if the end of the places container is visible
+    window.addEventListener('scroll', function() {
+        var container = document.getElementById('places_container');
+        if (current_page == -1){
+            //means there are no more places for this query
+            return;
+        } else if (container.getBoundingClientRect().bottom <= window.innerHeight*1.5 && requesting == false) {
+            request_places();
+        }
+    });
+
+    function request_places(){
+        requesting = true;
+
+        //show the #ajax_loading div
+        const ajax_loading = document.getElementById('ajax_loading');
+        ajax_loading.style.display = 'flex';
+
+        const request_data = {
+            _token: csrf_token,
+            current_page: current_page,
+        };
+
+        // AJAX with fetch
+        fetch("{{ URL('/ajax/places/request') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrf_token
+            },
+            body: JSON.stringify(request_data),
+        })
+        // fetch response
+        .then(response => {
+            // if response is ok (status 200-299)
+            if (response.ok) {
+                return response.json();
+            }
+            // error request
+            else {
+                throw new Error('Error ' + response.statusText);
+            }
+        })
+        // fetch handle data
+        .then(response_data => {
+            current_page = response_data['current_page'];
+
+            response_data['countries'].forEach(function(country) {
+                if(loaded_countries[country.id] == null){
+                    loaded_countries[country.id] = country;
+                }
+            });
+
+            create_places_divs(response_data['places']);
+        })
+        // fetch error
+        .catch(error => {
+            console.error('Request Error:', error);
+        })
+        // fetch complete
+        .finally(() => {
+            console.log('Fetched');
+            ajax_loading.style.display = 'none';
+            request_cooldown();
+        });
+    }
+    //AJAX END
+
+    async function request_cooldown(){
+        await sleep(2000);
+        requesting = false;
+    }
+    async function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 </script>
 <style>
     .img_icon{
@@ -110,7 +285,7 @@ document.addEventListener('DOMContentLoaded', apply_bg_images);
     .card_sinopsis{
         height: 0;
     }
-    .places_card{
+    .places_card, #ajax_loading{
         min-height: 500px;
         position: relative;
         overflow: hidden;
@@ -142,6 +317,9 @@ document.addEventListener('DOMContentLoaded', apply_bg_images);
     .places_card:hover>.image_background{
         scale: 1.1;
     }
+    #ajax_loading:hover>.image_background{
+        scale: 1;
+    }
     .card_sinopsis{
         overflow: hidden;
         transition: all 1s;
@@ -160,4 +338,5 @@ document.addEventListener('DOMContentLoaded', apply_bg_images);
         transition: all 0.5s;
     }
 </style>
+
 @endsection
