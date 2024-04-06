@@ -69,12 +69,17 @@
 @section('script')
 
 <script>
-    const places_container = document.getElementById('places_container');
     const view_place_route = "{{ route('view_place', ['place_name' => 'null']) }}".replace('/null', '');
 
-    const loaded_places = {!! $places->values()->toJson() !!};
-    let loaded_countries = organize_dic({!! json_encode($countries) !!})
+    const loaded_countries = organize_dic({!! json_encode($countries) !!})
     const loaded_categories = organize_dic({!! json_encode($all_categories) !!});
+
+    const favorite_ids = {!! json_encode($fav_places_ids) !!};
+
+    //on load event create place divs
+    document.addEventListener('DOMContentLoaded', function(){
+        create_places_divs({!! $places->values()->toJson() !!});
+    });
 
     function organize_dic(dic){
         const organized_dic = {};
@@ -94,6 +99,7 @@
             const placeLink = document.createElement('a');
             placeLink.href = view_place_route + '/' + place.name;
             placeLink.classList.add('places_card', 'd-flex', 'flex-column', 'align-items-between', 'justify-content-between', 'p-0', 'rounded-4', 'white', 'text-left');
+            placeLink.id = place.id;
 
             const imageBackground = document.createElement('div');
             imageBackground.classList.add('image_background');
@@ -116,17 +122,23 @@
             iconImage.src = "{{asset('img/categories/')}}" + '/' + category.img_name.toLowerCase() + '.png';
             categoryIcon.appendChild(iconImage);
 
-            const favorites_container = document.createElement('div');
-            favorites_container.className = "d-flex flex-row gap-2 align-items-center pr-3";
-            card_stats.appendChild(favorites_container);
+            const fav_button = document.createElement('button');
+            fav_button.className = "d-flex flex-row gap-2 align-items-center pr-3 interaction_button fav_button";
+            card_stats.appendChild(fav_button);
 
-            const favorites_count = document.createElement('p');
+            const favorites_count = document.createElement('h5');
+            favorites_count.className = "m-0";
             favorites_count.textContent = formatNumber(place.favorites_count);
-            favorites_container.appendChild(favorites_count);
+            fav_button.appendChild(favorites_count);
 
             const star_icon = document.createElement('i');
-            star_icon.classList.add('fa-regular', 'fa-star');
-            favorites_container.appendChild(star_icon);
+            if(favorite_ids.includes(place.id) == false){
+                star_icon.classList.add('fa-regular', 'fa-star');
+            }else{
+                star_icon.classList.add('fa-solid', 'fa-star');
+                fav_button.classList.add('yellow');
+            }
+            fav_button.appendChild(star_icon);
 
             placeLink.appendChild(card_stats);
 
@@ -161,15 +173,9 @@
             placesCardInfo.appendChild(cardSinopsis);
             placeLink.appendChild(placesCardInfo);
 
-            places_container.appendChild(placeLink);
+            document.getElementById('places_container').appendChild(placeLink);
         }
     }
-
-    //on load event create place divs
-    document.addEventListener('DOMContentLoaded', function(){
-        create_places_divs(loaded_places);
-    });
-
 
     //AJAX START
     //ajax variables
@@ -261,6 +267,26 @@
     }
 </script>
 <style>
+    .interaction_button{
+        border: none;
+        background-color: transparent;
+        color: var(--white);
+        display: flex;
+        border-radius: 0.5rem;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        transition: all 0.15s;
+    }
+    .interaction_button>h5{
+        margin: 0
+    }
+    .yellow{
+        color: yellow;
+    }
+    .fav_button:hover{
+        background-color: var(--gray_opacity);
+        color: yellow;
+    }
     .img_icon{
         width: 2.5rem;
         aspect-ratio: 1;
@@ -344,5 +370,85 @@
         transition: all 0.5s;
     }
 </style>
+@endsection
 
+@section('script')
+<script>
+    document.querySelectorAll('.short_number').forEach(element => {
+        element.textContent = formatNumber(element.textContent);
+    });
+
+    function formatNumber(number) {
+        if (number < 1000) {
+            return number.toString();
+        } else {
+            const formattedNumber = Math.abs(number) >= 1.0e+9 ? (Math.abs(number) / 1.0e+9).toFixed(1) + 'B' : (Math.abs(number) >= 1.0e+6 ? (Math.abs(number) / 1.0e+6).toFixed(1) + 'M' : (Math.abs(number) >= 1.0e+3 ? (Math.abs(number) / 1.0e+3).toFixed(1) + 'k' : Math.abs(number)));
+            return formattedNumber;
+        }
+    }
+</script>
+<script>
+    @if(Auth::check() === true)
+
+    document.getElementById('fav_button').addEventListener('click', function(){
+        event.stopPropagation();
+        console.log('a');
+    });
+    function fav_ajax(){
+        // AJAX with fetch: favorite a place
+        const request_data = {
+            _token: '{{ csrf_token() }}',
+            place_id: 99,
+        };
+
+        fetch("{{ URL('/ajax/places/favorite') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': request_data['_token']
+            },
+            body: JSON.stringify(request_data),
+        })
+        // fetch response
+        .then(response => {
+            // if response is ok (status 200-299)
+            if (response.ok) {
+                return response.json();
+            }
+            // error request
+            else {
+                throw new Error('Error ' + response.statusText);
+            }
+        })
+        // fetch handle data
+        .then(response_data => {
+            const fav_button =  document.getElementById('fav_button');
+            const i = fav_button.querySelector('i');
+
+            if(response_data === false){
+                fav_button.classList.remove('yellow');
+                i.className = 'fa-regular fa-star';
+            }else{
+                fav_button.classList.add('yellow')
+                i.className = 'fa-solid fa-star';
+            }
+        })
+        // fetch error
+        .catch(error => {
+            console.error('Request Error:', error);
+        })
+        // fetch complete
+        .finally(() => {
+            console.log('Fetched');
+        });
+        //AJAX END
+    }
+
+    @else
+    document.getElementById('fav_button').addEventListener('click', function(){
+        event.stopPropagation();
+        window.location.href = '{{ route("login") }}';
+    });
+    @endif
+</script>
 @endsection

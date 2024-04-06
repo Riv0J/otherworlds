@@ -27,13 +27,19 @@ class FrontController extends Controller{
         //get the countries of the places
         $countries = $places->pluck('country')->unique()->values()->all();
 
+        $fav_places_ids = [];
+        $user = Auth::user();
+        if($user){
+            $fav_places_ids = $user->favorites->pluck('id');
+        }
         $variables = [
             'current_section' => 'Places',
             'places' => $places,
             'countries' => $countries,
             'all_categories' => Category::all(),
-        ];
 
+            'fav_places_ids' => $fav_places_ids,
+        ];
         return view('front.places', $variables);
     }
 

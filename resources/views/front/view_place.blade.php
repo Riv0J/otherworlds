@@ -25,7 +25,7 @@
             <h3 id="pl_name" class="regular">{{$place->name}}</h3>
         </div>
         <div>
-            {{-- #fav_button --}}
+            {{-- #fav_button START--}}
             @if(Auth::check() === false || $place->is_favorite(Auth::user()) === false)
                 <button title='@lang('otherworlds.fav_button')' class="interaction_button" id="fav_button">
                     <i class="fa-regular fa-star"></i>
@@ -37,6 +37,7 @@
                     <h5 class="short_number">{{$place->favorites_count}}</h5>
                 </button>
             @endif
+            {{-- #fav_button END--}}
         </div>
     </div>
 
@@ -77,7 +78,7 @@
         <div class="col-12 col-md p-0">
 
             <p class="rounded-4 px-3 py-2">{{$place->description}}</p>
-            <button onclick="window.history.back()">@lang('return')</button>
+            <a class="px-2" href="{{route('places')}}">@lang('return')</a>
             <a class="px-2" href="{{$place->source}}" target="_blank">@lang('otherworlds.learn_more', ['place_name' => $place->name])</a>
             <div class="div_h mr-2"></div>
 
@@ -96,15 +97,15 @@
         padding: 0.5rem;
         transition: all 0.15s;
     }
+    .interaction_button>h5{
+        margin: 0
+    }
     .yellow{
         color: yellow;
     }
     #fav_button:hover{
-        background-color: var(--gray);
+        background-color: var(--gray_opacity);
         color: yellow;
-    }
-    .interaction_button>h5{
-        margin: 0
     }
     .img_gradient_top{
         position: relative;
@@ -169,8 +170,8 @@
     }
 </script>
 <script>
+    @if(Auth::check() === true)
     document.getElementById('fav_button').addEventListener('click', fav_ajax);
-
     function fav_ajax(){
         // AJAX with fetch: favorite a place
         const request_data = {
@@ -220,5 +221,11 @@
         });
         //AJAX END
     }
+
+    @else
+    document.getElementById('fav_button').addEventListener('click', function(){
+        window.location.href = '{{ route("login") }}';
+    });
+    @endif
 </script>
 @endsection

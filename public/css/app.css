@@ -16,6 +16,7 @@
     --gray: rgb(46, 43, 52);
     --white: rgb(245, 245, 245);
 
+    --gray_opacity: rgba(46, 43, 52, 0.5);
     --main_dark_bg_color: #1e222b;
     --hover_gray: rgba(80, 80, 80, 0.45);
 }
