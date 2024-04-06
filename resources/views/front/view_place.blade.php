@@ -25,12 +25,23 @@
             <h3 id="pl_name" class="regular">{{$place->name}}</h3>
         </div>
         <div>
-            <h5 class="m-0">favs: {{$place->favorites_count}}</h5>
+            {{-- #fav_button --}}
+            @if(Auth::check() === false || $place->is_favorite(Auth::user()) === false)
+                <button title='@lang('otherworlds.fav_button')' class="interaction_button" id="fav_button">
+                    <i class="fa-regular fa-star"></i>
+                    <h5 class="short_number">{{$place->favorites_count}}</h5>
+                </button>
+            @else
+                <button title='@lang('otherworlds.fav_button')' class="interaction_button yellow" id="fav_button">
+                    <i class="fa-solid fa-star"></i>
+                    <h5 class="short_number">{{$place->favorites_count}}</h5>
+                </button>
+            @endif
         </div>
     </div>
 
     {{-- content body --}}
-    <div class="row my-4 p-0 justify-content-between">
+    <div class="row my-4 p-0 justify-content-between gap-2">
 
         {{-- img container--}}
         <div class="col-12 col-md-6 p-0 border bg_gray p-2 pb-4">
@@ -53,7 +64,7 @@
                 <div class="col-8 d-flex flex-column align-items-start gap-1">
                     <small class="flex_center gap-2"><span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}</small>
                     <small>{{$place->category->keyword}} ({{$place->category->name}})</small>
-                    <small>{{$place->views_count}}</small>
+                    <small class="short_number">{{$place->views_count}}</small>
                     <small>{{$place->created_at->format('d-m-Y')}}</small>
                     <small><a class="px-2" href="{{$place->source}}" target="_blank">{{$place->name}}</a></small>
                 </div>
@@ -62,20 +73,39 @@
 
         </div>
 
-        {{-- sinopsis --}}
-        <div class="col-12 col-md-6 p-0 ml-2">
+        {{-- synopsis --}}
+        <div class="col-12 col-md p-0">
 
             <p class="rounded-4 px-3 py-2">{{$place->description}}</p>
             <button onclick="window.history.back()">@lang('return')</button>
-            <a class="btn" href="{{$place->source}}" target="_blank"><button>@lang('source')</button></a>
+            <a class="px-2" href="{{$place->source}}" target="_blank">@lang('otherworlds.learn_more', ['place_name' => $place->name])</a>
             <div class="div_h mr-2"></div>
 
         </div>
 
     </div>
-
 </section>
 <style>
+    .interaction_button{
+        border: none;
+        background-color: transparent;
+        color: var(--white);
+        display: flex;
+        border-radius: 0.5rem;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        transition: all 0.15s;
+    }
+    .yellow{
+        color: yellow;
+    }
+    #fav_button:hover{
+        background-color: var(--gray);
+        color: yellow;
+    }
+    .interaction_button>h5{
+        margin: 0
+    }
     .img_gradient_top{
         position: relative;
     }
@@ -96,7 +126,7 @@
         z-index: 1000;
     }
     #pl_name{
-        scale: 1 1.1;
+        scale: 1 1.05;
         letter-spacing: 0.1rem;
     }
     .shadows_inline{
@@ -124,6 +154,71 @@
 @endsection
 
 @section('script')
+<script>
+    document.querySelectorAll('.short_number').forEach(element => {
+        element.textContent = formatNumber(element.textContent);
+    });
 
+    function formatNumber(number) {
+        if (number < 1000) {
+            return number.toString();
+        } else {
+            const formattedNumber = Math.abs(number) >= 1.0e+9 ? (Math.abs(number) / 1.0e+9).toFixed(1) + 'B' : (Math.abs(number) >= 1.0e+6 ? (Math.abs(number) / 1.0e+6).toFixed(1) + 'M' : (Math.abs(number) >= 1.0e+3 ? (Math.abs(number) / 1.0e+3).toFixed(1) + 'k' : Math.abs(number)));
+            return formattedNumber;
+        }
+    }
+</script>
+<script>
+    document.getElementById('fav_button').addEventListener('click', fav_ajax);
 
+    function fav_ajax(){
+        // AJAX with fetch: favorite a place
+        const request_data = {
+            _token: '{{ csrf_token() }}',
+            place_id: {{$place->id}}
+        };
+
+        fetch("{{ URL('/ajax/places/favorite') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': request_data['_token']
+            },
+            body: JSON.stringify(request_data),
+        })
+        // fetch response
+        .then(response => {
+            // if response is ok (status 200-299)
+            if (response.ok) {
+                return response.json();
+            }
+            // error request
+            else {
+                throw new Error('Error ' + response.statusText);
+            }
+        })
+        // fetch handle data
+        .then(response_data => {
+            const fav_button =  document.getElementById('fav_button');
+            const i = fav_button.querySelector('i');
+
+            if(response_data === false){
+                fav_button.classList.remove('yellow');
+                i.className = 'fa-regular fa-star';
+            }else{
+                fav_button.classList.add('yellow')
+                i.className = 'fa-solid fa-star';
+            }
+        })
+        // fetch error
+        .catch(error => {
+            console.error('Request Error:', error);
+        })
+        // fetch complete
+        .finally(() => {
+            console.log('Fetched');
+        });
+        //AJAX END
+    }
+</script>
 @endsection

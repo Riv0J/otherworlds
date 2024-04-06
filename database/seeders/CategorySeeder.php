@@ -28,6 +28,7 @@ class CategorySeeder extends Seeder
                     'name' => 'Unknown',
                     'description' => 'Unknown',
                 ],
+                'img_name' => 'unknown'
             ],
             [
                 'es' => [
@@ -40,6 +41,7 @@ class CategorySeeder extends Seeder
                     'name' => 'Bodies of Water',
                     'description' => 'Natural bodies of water such as oceans, seas, lakes, rivers, etc.',
                 ],
+                'img_name' => 'water'
             ],
             [
                 'es' => [
@@ -52,6 +54,7 @@ class CategorySeeder extends Seeder
                     'name' => 'Land Elevations',
                     'description' => 'Natural land elevations such as mountains, hills, ranges, etc.',
                 ],
+                'img_name' => 'mountains'
             ],
             [
                 'es' => [
@@ -64,6 +67,7 @@ class CategorySeeder extends Seeder
                     'name' => 'Land Depressions',
                     'description' => 'Lower areas of land compared to their surroundings, such as valleys, plains, canyons, etc.',
                 ],
+                'img_name' => 'valleys'
             ],
             [
                 'es' => [
@@ -76,6 +80,7 @@ class CategorySeeder extends Seeder
                     'name' => 'Coastal Features',
                     'description' => 'Geographical features located along the coast, such as bays, capes, inlets, etc.',
                 ],
+                'img_name' => 'coastal'
             ],
             [
                 'es' => [
@@ -88,6 +93,7 @@ class CategorySeeder extends Seeder
                     'name' => 'Glacial Features',
                     'description' => 'Geographical features formed by the action of glaciers, such as glaciers, moraines, fjords, etc.',
                 ],
+                'img_name' => 'glaciers'
             ],
             [
                 'es' => [
@@ -100,6 +106,7 @@ class CategorySeeder extends Seeder
                     'name' => 'Volcanic Formations',
                     'description' => 'Geographical features formed by volcanic processes, such as volcanoes, craters, calderas, etc.',
                 ],
+                'img_name' => 'volcanic'
             ],
             [
                 'es' => [
@@ -112,6 +119,7 @@ class CategorySeeder extends Seeder
                     'name' => 'Karstic Formations',
                     'description' => 'Geological features formed by the dissolution of soluble rocks, such as caves, sinkholes, stalactites, etc.',
                 ],
+                'img_name' => 'caves'
             ],
             [
                 'es' => [
@@ -124,7 +132,9 @@ class CategorySeeder extends Seeder
                     'name' => 'Sanctuary of Flora',
                     'description' => 'Different types of vegetation and land cover, such as forests, jungles, grasslands, etc.',
                 ],
+                'img_name' => 'vegetation'
             ],
+
         ];
 
         // create the categories using translations
@@ -133,6 +143,7 @@ class CategorySeeder extends Seeder
             $cat_data = [
                 'es' => $cat_entry['es'],
                 'en' => $cat_entry['en'],
+                'img_name' => $cat_entry['img_name']
             ];
 
             $new_cat = Category::create($cat_data);

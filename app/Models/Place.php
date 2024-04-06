@@ -23,5 +23,8 @@ class Place extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+    public function is_favorite(User $user){
+        return $user->favorites()->where('place_id', $this->id)->exists();
+    }
 }
 

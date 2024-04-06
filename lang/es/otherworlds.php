@@ -53,6 +53,10 @@ return [
     // section places
     'unique_places' => 'Lugares únicos',
     'places_small' => 'Descubre lugares mágicos, alrededor del mundo.',
+    'fav_button' => 'Agregar a favoritos',
+
+    // section view_place
+    'learn_more' => 'Saber más sobre el lugar: :place_name',
 
     // general
     'email' => 'Correo Electrónico',

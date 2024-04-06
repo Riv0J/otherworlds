@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Models\Place;
 use App\Models\PlaceTranslation;
@@ -32,6 +33,7 @@ class FrontController extends Controller{
             'countries' => $countries,
             'all_categories' => Category::all(),
         ];
+
         return view('front.places', $variables);
     }
 
@@ -59,8 +61,7 @@ class FrontController extends Controller{
     }
 
     function ajax_place_request(Request $request){
-        // Obtener los datos enviados mediante la solicitud POST
-        $request_data = $request->all();
+        $request_data = $request->all(); //get request data
         $next_page = $request_data['current_page'] + 1; //advance page
 
         //get the places for next page
@@ -80,9 +81,26 @@ class FrontController extends Controller{
             'countries' => $countries,
         ];
 
-        // Convertir los datos en formato JSON y devolverlos como respuesta
-        return response()->json($variables);
+        return response()->json($variables); //convert vars to json
     }
+
+    function ajax_place_favorite(Request $request){
+        $user = Auth::user();
+        if (!$user) { return false; }
+
+        $request_data = $request->all(); //get request data
+        $place = Place::findOrFail($request_data['place_id']);
+
+        $is_fav = $place->is_favorite($user);
+
+        if($is_fav === true){
+            $user->favorites()->detach($place->id);
+        } else if ($is_fav === false){
+            $user->favorites()->attach($place->id);
+        }
+        return response()->json(!$is_fav); //convert vars to json
+    }
+
     //get places based on page
     public static function getPlaces($page, $per_page){
         // Calcular el índice de inicio para la consulta basado en el número de página

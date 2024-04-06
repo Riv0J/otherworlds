@@ -86,7 +86,6 @@
     }
 
     async function create_places_divs(places_json) {
-
         for (let i = 0; i < Object.keys(places_json).length; i++) {
             const place = places_json[i];
             const category = loaded_categories[place.category_id];
@@ -114,7 +113,7 @@
             const iconImage = document.createElement('img');
             iconImage.classList.add('img_icon');
             iconImage.title = category.keyword + ' (' + category.name + ')';
-            iconImage.src = "{{asset('img/categories/')}}" + '/' + category.keyword.toLowerCase() + '.png';
+            iconImage.src = "{{asset('img/categories/')}}" + '/' + category.img_name.toLowerCase() + '.png';
             categoryIcon.appendChild(iconImage);
 
             const favorites_container = document.createElement('div');
@@ -122,7 +121,7 @@
             card_stats.appendChild(favorites_container);
 
             const favorites_count = document.createElement('p');
-            favorites_count.textContent = place.favorites_count;
+            favorites_count.textContent = formatNumber(place.favorites_count);
             favorites_container.appendChild(favorites_count);
 
             const star_icon = document.createElement('i');
@@ -174,7 +173,6 @@
 
     //AJAX START
     //ajax variables
-    let csrf_token = '{{ csrf_token() }}';
     let current_page = 1;
     let requesting = false;
 
@@ -184,7 +182,7 @@
         if (current_page == -1){
             //means there are no more places for this query
             return;
-        } else if (container.getBoundingClientRect().bottom <= window.innerHeight*1.5 && requesting == false) {
+        } else if (container.getBoundingClientRect().bottom <= window.innerHeight*1.25 && requesting == false) {
             request_places();
         }
     });
@@ -196,17 +194,16 @@
         const ajax_loading = document.getElementById('ajax_loading');
         ajax_loading.style.display = 'flex';
 
+        // AJAX with fetch
         const request_data = {
-            _token: csrf_token,
+            _token: '{{ csrf_token() }}',
             current_page: current_page,
         };
-
-        // AJAX with fetch
         fetch("{{ URL('/ajax/places/request') }}", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrf_token
+                'X-CSRF-TOKEN': request_data['_token']
             },
             body: JSON.stringify(request_data),
         })
@@ -252,6 +249,15 @@
     }
     async function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function formatNumber(number) {
+        if (number < 1000) {
+            return number.toString();
+        } else {
+            const formattedNumber = Math.abs(number) >= 1.0e+9 ? (Math.abs(number) / 1.0e+9).toFixed(1) + 'B' : (Math.abs(number) >= 1.0e+6 ? (Math.abs(number) / 1.0e+6).toFixed(1) + 'M' : (Math.abs(number) >= 1.0e+3 ? (Math.abs(number) / 1.0e+3).toFixed(1) + 'k' : Math.abs(number)));
+            return formattedNumber;
+        }
     }
 </script>
 <style>

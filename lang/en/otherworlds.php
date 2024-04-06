@@ -53,6 +53,10 @@ return [
     // section places
     'unique_places' => 'Unique places',
     'places_small' => 'Discover magical places around the world.',
+    'fav_button' => 'Add to favorites',
+
+    // section view_place
+    'learn_more' => 'Learn more about :place_name',
 
     // general
     'email' => 'Email',

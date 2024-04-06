@@ -82,7 +82,6 @@ class PlaceSeeder extends Seeder
                 File::copyDirectory($seeder_images_path, $path);
             }
 
-
         }
     }
     public static function savePlacesSeederJSON($places_data){

@@ -26,6 +26,7 @@ Route::get('/place/{place_name}', [FrontController::class, 'view_place'])->name(
 
 //ajax
 Route::post('/ajax/places/request', [FrontController::class, 'ajax_place_request']);
+Route::post('/ajax/places/favorite', [FrontController::class, 'ajax_place_favorite']);
 
 Auth::routes();
 
