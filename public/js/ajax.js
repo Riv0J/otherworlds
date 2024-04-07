@@ -42,6 +42,5 @@ function ajax(ajax_data){
         if(ajax_data['after_func']){
             ajax_data['after_func']();
         }
-        console.log('Fetch complete.');
     });
 }

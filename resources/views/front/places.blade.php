@@ -81,7 +81,7 @@
 
     //on load event create place divs
     document.addEventListener('DOMContentLoaded', function(){
-        create_places_divs({!! $places->values()->toJson() !!});
+        create_place_cards({!! $places->values()->toJson() !!});
     });
 
     function organize_dic(dic){
@@ -93,7 +93,7 @@
         return organized_dic;
     }
 
-    async function create_places_divs(places_json) {
+    async function create_place_cards(places_json) {
         for (let i = 0; i < Object.keys(places_json).length; i++) {
             const place = places_json[i];
             const category = loaded_categories[place.category_id];
@@ -224,7 +224,6 @@
         }
     }
 
-    //AJAX START
     //ajax variables
     let current_page = 1;
     let requesting = false;
@@ -241,60 +240,38 @@
     });
 
     function request_places(){
-        requesting = true;
-
-        //show the #ajax_loading div
-        const ajax_loading = document.getElementById('ajax_loading');
-        ajax_loading.style.display = 'flex';
-
-        // AJAX with fetch
-        const request_data = {
-            _token: '{{ csrf_token() }}',
-            current_page: current_page,
-        };
-        fetch("{{ URL('/ajax/places/request') }}", {
+        const ajax_data = {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': request_data['_token']
+            url: '{{ URL('/ajax/places/request') }}',
+            request_data : {
+                _token: '{{ csrf_token() }}',
+                current_page: current_page,
             },
-            body: JSON.stringify(request_data),
-        })
-        // fetch response
-        .then(response => {
-            // if response is ok (status 200-299)
-            if (response.ok) {
-                return response.json();
-            }
-            // error request
-            else {
-                throw new Error('Error ' + response.statusText);
-            }
-        })
-        // fetch handle data
-        .then(response_data => {
-            current_page = response_data['current_page'];
+            before_func: function(){
+                requesting = true;
+                const ajax_loading = document.getElementById('ajax_loading'); //show #ajax_loading
+                ajax_loading.style.display = 'flex';
+            },
+            success_func: function (response_data){
+                current_page = response_data['current_page'];
 
-            response_data['countries'].forEach(function(country) {
-                if(loaded_countries[country.id] == null){
-                    loaded_countries[country.id] = country;
-                }
-            });
+                //add the countries to loaded_countries
+                response_data['countries'].forEach(function(country) {
+                    if(loaded_countries[country.id] == null){
+                        loaded_countries[country.id] = country;
+                    }
+                });
 
-            create_places_divs(response_data['places']);
-        })
-        // fetch error
-        .catch(error => {
-            console.error('Request Error:', error);
-        })
-        // fetch complete
-        .finally(() => {
-            console.log('Fetched');
-            ajax_loading.style.display = 'none';
-            request_cooldown();
-        });
+                create_place_cards(response_data['places']); //create the place cards
+            },
+            after_func: function(){
+                ajax_loading.style.display = 'none'; //hide #ajax_loading
+                request_cooldown();
+            }
+        }
+
+        ajax(ajax_data);
     }
-    //AJAX END
 
     async function request_cooldown(){
         await sleep(2000);
@@ -393,10 +370,10 @@
     .places_card::after{
         transition: all
     }
-    .places_card:hover>.image_background{
+    .places_card:hover .image_background{
         scale: 1.1;
     }
-    #ajax_loading:hover>.image_background{
+    #ajax_loading:hover .image_background{
         scale: 1;
     }
     .card_sinopsis{
