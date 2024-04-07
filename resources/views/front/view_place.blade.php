@@ -169,57 +169,36 @@
         }
     }
 </script>
+<script src='{{asset('js/ajax.js')}}'></script>
 <script>
+
     @if(Auth::check() === true)
-    document.getElementById('fav_button').addEventListener('click', fav_ajax);
-    function fav_ajax(){
-        // AJAX with fetch: favorite a place
-        const request_data = {
+    const ajax_data = {
+        method: 'POST',
+        url: '{{ URL('/ajax/places/favorite') }}',
+        request_data : {
             _token: '{{ csrf_token() }}',
             place_id: {{$place->id}}
-        };
+        },
+        success_func: flip_star
+    }
 
-        fetch("{{ URL('/ajax/places/favorite') }}", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': request_data['_token']
-            },
-            body: JSON.stringify(request_data),
-        })
-        // fetch response
-        .then(response => {
-            // if response is ok (status 200-299)
-            if (response.ok) {
-                return response.json();
-            }
-            // error request
-            else {
-                throw new Error('Error ' + response.statusText);
-            }
-        })
-        // fetch handle data
-        .then(response_data => {
-            const fav_button =  document.getElementById('fav_button');
-            const i = fav_button.querySelector('i');
+    //on click #fav_button
+    document.getElementById('fav_button').addEventListener('click', function(){
+        ajax(ajax_data);
+    });
 
-            if(response_data === false){
-                fav_button.classList.remove('yellow');
-                i.className = 'fa-regular fa-star';
-            }else{
-                fav_button.classList.add('yellow')
-                i.className = 'fa-solid fa-star';
-            }
-        })
-        // fetch error
-        .catch(error => {
-            console.error('Request Error:', error);
-        })
-        // fetch complete
-        .finally(() => {
-            console.log('Fetched');
-        });
-        //AJAX END
+    function flip_star(response_data){
+        const fav_button =  document.getElementById('fav_button');
+        const i = fav_button.querySelector('i');
+
+        if(response_data === false){
+            fav_button.classList.remove('yellow');
+            i.className = 'fa-regular fa-star';
+        }else{
+            fav_button.classList.add('yellow')
+            i.className = 'fa-solid fa-star';
+        }
     }
 
     @else
@@ -227,5 +206,7 @@
         window.location.href = '{{ route("login") }}';
     });
     @endif
+
+
 </script>
 @endsection

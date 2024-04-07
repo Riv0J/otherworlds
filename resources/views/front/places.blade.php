@@ -26,8 +26,11 @@
     <div class="gap-2 gap-md-3 justify-content-center align-items-stretch" id="places_container">
 
         {{-- @foreach ($all_places as $place)
-        <a href="{{route('view_place', ['place_name' => $place->name])}}"
-            class="places_card d-flex flex-column align-items-between justify-content-between p-0 rounded-4 white text-left">
+        <div class="places_card d-flex flex-column align-items-between justify-content-between p-0 rounded-4 white text-left">
+
+        </div>
+        <a href="{{route('view_place', ['place_name' => $place->name])}}">
+
             <div class="image_background" image_path="{{asset('img/places/'.$place->id.'/t.png')}}"></div>
 
             <div class="card_stats gap-2 d-flex justify-content-between align-items-center p-2">
@@ -67,7 +70,7 @@
 
 
 @section('script')
-
+<script src='{{asset('js/ajax.js')}}'></script>
 <script>
     const view_place_route = "{{ route('view_place', ['place_name' => 'null']) }}".replace('/null', '');
 
@@ -96,64 +99,68 @@
             const category = loaded_categories[place.category_id];
             const country = loaded_countries[place.country_id];
 
-            const placeLink = document.createElement('a');
-            placeLink.href = view_place_route + '/' + place.name;
-            placeLink.classList.add('places_card', 'd-flex', 'flex-column', 'align-items-between', 'justify-content-between', 'p-0', 'rounded-4', 'white', 'text-left');
-            placeLink.id = place.id;
+            const place_card = document.createElement('div');
+            place_card.className = "places_card d-flex flex-column align-items-between justify-content-between p-0 rounded-4 white text-left";
 
-            const imageBackground = document.createElement('div');
-            imageBackground.classList.add('image_background');
+            const place_link = document.createElement('a');
+            place_link.className = "border-0";
+            place_link.href = view_place_route + '/' + place.name;
+
+            const img_bg = document.createElement('div');
+            img_bg.className = 'image_background';
 
             /* set the backgroundImage */
             const url = '{{asset('img/places/')}}' + '/' + place.id + '/t.png';
-            imageBackground.style.backgroundImage = 'url('+url+')';
-
-            placeLink.appendChild(imageBackground);
+            img_bg.style.backgroundImage = 'url('+url+')';
 
             const card_stats = document.createElement('div');
-            card_stats.classList.add('card_stats', 'gap-2', 'd-flex', 'justify-content-between', 'align-items-center', 'p-2');
+            card_stats.className = 'card_stats d-flex gap-2 justify-content-between align-items-center p-2';
 
             const categoryIcon = document.createElement('div');
             card_stats.appendChild(categoryIcon);
 
             const iconImage = document.createElement('img');
-            iconImage.classList.add('img_icon');
+            iconImage.className = 'img_icon';
             iconImage.title = category.keyword + ' (' + category.name + ')';
             iconImage.src = "{{asset('img/categories/')}}" + '/' + category.img_name.toLowerCase() + '.png';
             categoryIcon.appendChild(iconImage);
 
+
+            //fav_button
             const fav_button = document.createElement('button');
-            fav_button.className = "d-flex flex-row gap-2 align-items-center pr-3 interaction_button fav_button";
+            fav_button.className = 'd-flex gap-2 interaction_button fav_button';
+            fav_button.id = place.id;
             card_stats.appendChild(fav_button);
 
-            const favorites_count = document.createElement('h5');
-            favorites_count.className = "m-0";
-            favorites_count.textContent = formatNumber(place.favorites_count);
-            fav_button.appendChild(favorites_count);
+            const fav_count = document.createElement('h5');
+            fav_count.className = 'm-0';
+            fav_count.textContent = formatNumber(place.favorites_count);
 
             const star_icon = document.createElement('i');
+            star_icon.className = 'fa-star';
             if(favorite_ids.includes(place.id) == false){
-                star_icon.classList.add('fa-regular', 'fa-star');
+                star_icon.className += ' fa-regular';
             }else{
-                star_icon.classList.add('fa-solid', 'fa-star');
-                fav_button.classList.add('yellow');
+                star_icon.className += ' fa-solid';
+                fav_button.className += ' yellow';
             }
+
+            //add fav_count and star_icon to fav_button
+            fav_button.appendChild(fav_count);
             fav_button.appendChild(star_icon);
 
-            placeLink.appendChild(card_stats);
-
-            const placesCardInfo = document.createElement('div');
-            placesCardInfo.classList.add('places_card_info', 'd-flex', 'flex-column', 'align-items-start', 'text-left', 'px-3', 'py-2', 'pt-5', 'w-100');
+            const place_info = document.createElement('div');
+            place_info.className = 'places_card_info d-flex flex-column align-items-start text-left px-3 py-2 pt-5 w-100';
 
             const placeName = document.createElement('h3');
-            placeName.classList.add('regular', 'mb-2');
+            placeName.className = 'regular mb-2';
             placeName.textContent = place.name;
 
             const countryInfo = document.createElement('p');
             countryInfo.className = "flex_center gap-2";
 
             const countryFlag = document.createElement('span');
-            countryFlag.classList.add('flag-icon', 'flag-icon-' + country.code);
+            countryFlag.className = 'flag-icon flag-icon-' + country.code;
             countryInfo.appendChild(countryFlag);
 
             const countryName = document.createElement('span');
@@ -161,19 +168,58 @@
             countryInfo.appendChild(countryName);
 
             const cardSinopsis = document.createElement('div');
-            cardSinopsis.classList.add('card_sinopsis', 'flex_center', 'row', 'p-0');
+            cardSinopsis.className = 'card_sinopsis flex_center p-0';
 
             const sinopsisText = document.createElement('p');
-            sinopsisText.classList.add('light', 'col-12');
+            sinopsisText.className = 'light col-12';
             sinopsisText.textContent = place.synopsis;
             cardSinopsis.appendChild(sinopsisText);
 
-            placesCardInfo.appendChild(placeName);
-            placesCardInfo.appendChild(countryInfo);
-            placesCardInfo.appendChild(cardSinopsis);
-            placeLink.appendChild(placesCardInfo);
+            //add divs to place_info
+            place_info.appendChild(placeName);
+            place_info.appendChild(countryInfo);
+            place_info.appendChild(cardSinopsis);
 
-            document.getElementById('places_container').appendChild(placeLink);
+            //add divs to place_link
+            place_link.appendChild(img_bg);
+            place_link.appendChild(place_info);
+
+            //add divs to place_card
+            place_card.appendChild(card_stats);
+            place_card.appendChild(place_link);
+
+            @if(Auth::check() === true)
+            const ajax_data = {
+                method: 'POST',
+                url: '{{ URL('/ajax/places/favorite') }}',
+                request_data : {
+                    _token: '{{ csrf_token() }}',
+                    place_id: place.id
+                },
+                success_func: function (new_value){
+                    if(new_value == false){
+                        star_icon.className = 'fa-regular fa-star';
+                        fav_button.classList.remove('yellow');
+                    }else{
+                        star_icon.className = 'fa-solid fa-star';
+                        fav_button.classList.add('yellow');
+                    }
+                }
+            }
+
+            //on click fav_button when logged in
+            fav_button.addEventListener('click', function(){
+                ajax(ajax_data);
+            });
+
+            @else
+            //on click fav_button when not logged in
+            fav_button.addEventListener('click', function(){
+                window.location.href = '{{ route("login") }}';
+            });
+            @endif
+
+            document.getElementById('places_container').appendChild(place_card);
         }
     }
 
@@ -386,69 +432,5 @@
             return formattedNumber;
         }
     }
-</script>
-<script>
-    @if(Auth::check() === true)
-
-    document.getElementById('fav_button').addEventListener('click', function(){
-        event.stopPropagation();
-        console.log('a');
-    });
-    function fav_ajax(){
-        // AJAX with fetch: favorite a place
-        const request_data = {
-            _token: '{{ csrf_token() }}',
-            place_id: 99,
-        };
-
-        fetch("{{ URL('/ajax/places/favorite') }}", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': request_data['_token']
-            },
-            body: JSON.stringify(request_data),
-        })
-        // fetch response
-        .then(response => {
-            // if response is ok (status 200-299)
-            if (response.ok) {
-                return response.json();
-            }
-            // error request
-            else {
-                throw new Error('Error ' + response.statusText);
-            }
-        })
-        // fetch handle data
-        .then(response_data => {
-            const fav_button =  document.getElementById('fav_button');
-            const i = fav_button.querySelector('i');
-
-            if(response_data === false){
-                fav_button.classList.remove('yellow');
-                i.className = 'fa-regular fa-star';
-            }else{
-                fav_button.classList.add('yellow')
-                i.className = 'fa-solid fa-star';
-            }
-        })
-        // fetch error
-        .catch(error => {
-            console.error('Request Error:', error);
-        })
-        // fetch complete
-        .finally(() => {
-            console.log('Fetched');
-        });
-        //AJAX END
-    }
-
-    @else
-    document.getElementById('fav_button').addEventListener('click', function(){
-        event.stopPropagation();
-        window.location.href = '{{ route("login") }}';
-    });
-    @endif
 </script>
 @endsection
