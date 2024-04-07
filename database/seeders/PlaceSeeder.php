@@ -55,8 +55,8 @@ class PlaceSeeder extends Seeder
         foreach ($places_data as $place_entry) {
 
             $place_data = [
-                'views_count' => rand(100, 1000000),
-                'favorites_count' => rand(100, 100000),
+                'views_count' => rand(1, 1000000),
+                'favorites_count' => rand(1, 1500),
                 'country_id' => CountryTranslation::where('name', $place_entry['country_name'])->value('country_id') ?? $unknown_country_id,
                 'category_id' => CategoryTranslation::where('keyword', $place_entry['category_keyword'])->value('category_id') ?? $unknown_category_id,
                 'source' => $place_entry['source'] ?? null,

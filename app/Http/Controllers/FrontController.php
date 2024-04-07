@@ -101,10 +101,18 @@ class FrontController extends Controller{
 
         if($is_fav === true){
             $user->favorites()->detach($place->id);
+            $place->favorites_count -= 1;
         } else if ($is_fav === false){
             $user->favorites()->attach($place->id);
+            $place->favorites_count += 1;
         }
-        return response()->json(!$is_fav); //convert vars to json
+        $place->save();
+
+        $variables = [
+            'is_fav' => !$is_fav,
+            'favorites_count' => $place->favorites_count
+        ];
+        return response()->json($variables); //convert vars to json
     }
 
     //get places based on page

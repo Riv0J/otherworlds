@@ -196,14 +196,15 @@
                     _token: '{{ csrf_token() }}',
                     place_id: place.id
                 },
-                success_func: function (new_value){
-                    if(new_value == false){
+                success_func: function (response_data){
+                    if(response_data['is_fav'] == false){
                         star_icon.className = 'fa-regular fa-star';
                         fav_button.classList.remove('yellow');
                     }else{
                         star_icon.className = 'fa-solid fa-star';
                         fav_button.classList.add('yellow');
                     }
+                    fav_count.textContent = formatNumber(response_data['favorites_count']);
                 }
             }
 

@@ -173,32 +173,34 @@
 <script>
 
     @if(Auth::check() === true)
-    const ajax_data = {
-        method: 'POST',
-        url: '{{ URL('/ajax/places/favorite') }}',
-        request_data : {
-            _token: '{{ csrf_token() }}',
-            place_id: {{$place->id}}
-        },
-        success_func: flip_star
-    }
 
     //on click #fav_button
     document.getElementById('fav_button').addEventListener('click', function(){
-        ajax(ajax_data);
+        ajax({
+            method: 'POST',
+            url: '{{ URL('/ajax/places/favorite') }}',
+            request_data : {
+                _token: '{{ csrf_token() }}',
+                place_id: {{$place->id}}
+            },
+            success_func: flip_star
+        });
     });
 
     function flip_star(response_data){
         const fav_button =  document.getElementById('fav_button');
         const i = fav_button.querySelector('i');
 
-        if(response_data === false){
+        if(response_data['is_fav'] === false){
             fav_button.classList.remove('yellow');
             i.className = 'fa-regular fa-star';
         }else{
             fav_button.classList.add('yellow')
             i.className = 'fa-solid fa-star';
         }
+
+        const h5 = fav_button.querySelector('h5');
+        h5.textContent = formatNumber(response_data['favorites_count']);
     }
 
     @else
