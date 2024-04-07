@@ -24,43 +24,7 @@
 <section class="col-12 px-1 px-lg-2 py-3">
 
     <div class="gap-2 gap-md-3 justify-content-center align-items-stretch" id="places_container">
-
-        {{-- @foreach ($all_places as $place)
-        <div class="places_card d-flex flex-column align-items-between justify-content-between p-0 rounded-4 white text-left">
-
-        </div>
-        <a href="{{route('view_place', ['place_name' => $place->name])}}">
-
-            <div class="image_background" image_path="{{asset('img/places/'.$place->id.'/t.png')}}"></div>
-
-            <div class="card_stats gap-2 d-flex justify-content-between align-items-center p-2">
-                <div>
-                    <img class="img_icon" title="{{$place->category->keyword}} ({{$place->category->name}})" src="{{asset('img/categories/'.strtolower($place->category->translate('en')->keyword)).'.png'}}" alt="">
-                </div>
-                <div class="d-flex flex-row gap-2 align-items-center pr-3">
-                    <p>{{$place->favorites_count}}</p> <i class="fa-regular fa-star"></i>
-                </div>
-
-            </div>
-
-            <div class="places_card_info d-flex flex-column align-items-start text-left px-3 py-2 pt-5 w-100">
-                <h3 class="regular mb-2">
-                    {{$place->name}}
-                </h3>
-
-                <p class="flex_center gap-2">
-                    <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
-                </p>
-                <div class="card_sinopsis flex_center row p-0">
-                    <p class="light col-12">
-                        {{$place->synopsis}}
-                    </p>
-                </div>
-
-            </div>
-        </a>
-        @endforeach --}}
-        <div class="places_card flex-column align-items-between justify-content-between p-0 rounded-4 white text-left" id="ajax_loading" style="order: 10000; display: flex;">
+        <div class="pl_card flex-column align-items-between justify-content-between p-0 rounded-4 white text-left" id="ajax_loading" style="order: 10000; display: none;">
             <div class="image_background" style="background-image: url('{{asset('img/loading.gif')}}'); background-size: contain; background-repeat: no-repeat;"></div>
         </div>
     </div>
@@ -99,12 +63,12 @@
             const category = loaded_categories[place.category_id];
             const country = loaded_countries[place.country_id];
 
-            const place_card = document.createElement('div');
-            place_card.className = "places_card d-flex flex-column align-items-between justify-content-between p-0 rounded-4 white text-left";
+            const pl_card = document.createElement('div');
+            pl_card.className = "pl_card d-flex flex-column align-items-between justify-content-between p-0 rounded-4 white text-left";
 
-            const place_link = document.createElement('a');
-            place_link.className = "border-0";
-            place_link.href = view_place_route + '/' + place.name;
+            const pl_link = document.createElement('a');
+            pl_link.className = "border-0";
+            pl_link.href = view_place_route + '/' + place.name;
 
             const img_bg = document.createElement('div');
             img_bg.className = 'image_background';
@@ -113,24 +77,23 @@
             const url = '{{asset('img/places/')}}' + '/' + place.id + '/t.png';
             img_bg.style.backgroundImage = 'url('+url+')';
 
-            const card_stats = document.createElement('div');
-            card_stats.className = 'card_stats d-flex gap-2 justify-content-between align-items-center p-2';
+            const card_top = document.createElement('div');
+            card_top.className = 'card_top d-flex gap-2 justify-content-between align-items-center p-2';
 
             const categoryIcon = document.createElement('div');
-            card_stats.appendChild(categoryIcon);
+            card_top.appendChild(categoryIcon);
 
-            const iconImage = document.createElement('img');
-            iconImage.className = 'img_icon';
-            iconImage.title = category.keyword + ' (' + category.name + ')';
-            iconImage.src = "{{asset('img/categories/')}}" + '/' + category.img_name.toLowerCase() + '.png';
-            categoryIcon.appendChild(iconImage);
-
+            const cat_img = document.createElement('img');
+            cat_img.className = 'img_icon';
+            cat_img.title = category.keyword + ' (' + category.name + ')';
+            cat_img.src = "{{asset('img/categories/')}}" + '/' + category.img_name.toLowerCase() + '.png';
+            categoryIcon.appendChild(cat_img);
 
             //fav_button
             const fav_button = document.createElement('button');
             fav_button.className = 'd-flex gap-2 interaction_button fav_button';
             fav_button.id = place.id;
-            card_stats.appendChild(fav_button);
+            card_top.appendChild(fav_button);
 
             const fav_count = document.createElement('h5');
             fav_count.className = 'm-0';
@@ -149,44 +112,46 @@
             fav_button.appendChild(fav_count);
             fav_button.appendChild(star_icon);
 
-            const place_info = document.createElement('div');
-            place_info.className = 'places_card_info d-flex flex-column align-items-start text-left px-3 py-2 pt-5 w-100';
+            const pl_info = document.createElement('div');
+            pl_info.className = 'places_info d-flex flex-column align-items-start text-left px-3 py-2 pt-5 w-100';
 
-            const placeName = document.createElement('h3');
-            placeName.className = 'regular mb-2';
-            placeName.textContent = place.name;
+            const pl_name = document.createElement('h3');
+            pl_name.className = 'regular mb-2';
+            pl_name.textContent = place.name;
 
             const countryInfo = document.createElement('p');
             countryInfo.className = "flex_center gap-2";
 
             const countryFlag = document.createElement('span');
             countryFlag.className = 'flag-icon flag-icon-' + country.code;
-            countryInfo.appendChild(countryFlag);
 
             const countryName = document.createElement('span');
             countryName.textContent = country.name;
+
+            //add to countryInfo
+            countryInfo.appendChild(countryFlag);
             countryInfo.appendChild(countryName);
 
-            const cardSinopsis = document.createElement('div');
-            cardSinopsis.className = 'card_sinopsis flex_center p-0';
+            const sinopsis_container = document.createElement('div');
+            sinopsis_container.className = 'card_sinopsis flex_center p-0';
 
-            const sinopsisText = document.createElement('p');
-            sinopsisText.className = 'light col-12';
-            sinopsisText.textContent = place.synopsis;
-            cardSinopsis.appendChild(sinopsisText);
+            const sinopsis = document.createElement('p');
+            sinopsis.className = 'light col-12';
+            sinopsis.textContent = place.synopsis;
+            sinopsis_container.appendChild(sinopsis);
 
-            //add divs to place_info
-            place_info.appendChild(placeName);
-            place_info.appendChild(countryInfo);
-            place_info.appendChild(cardSinopsis);
+            //add to pl_info
+            pl_info.appendChild(pl_name);
+            pl_info.appendChild(countryInfo);
+            pl_info.appendChild(sinopsis_container);
 
-            //add divs to place_link
-            place_link.appendChild(img_bg);
-            place_link.appendChild(place_info);
+            //add to pl_link
+            pl_link.appendChild(img_bg);
+            pl_link.appendChild(pl_info);
 
-            //add divs to place_card
-            place_card.appendChild(card_stats);
-            place_card.appendChild(place_link);
+            //add to pl_card
+            pl_card.appendChild(card_top);
+            pl_card.appendChild(pl_link);
 
             @if(Auth::check() === true)
             const ajax_data = {
@@ -220,7 +185,7 @@
             });
             @endif
 
-            document.getElementById('places_container').appendChild(place_card);
+            document.getElementById('places_container').appendChild(pl_card);
         }
     }
 
@@ -325,23 +290,16 @@
         }
     }
 
-    .card_stats{
+    .card_top{
         padding-right: 1rem !important;
         position: relative;
         z-index: 500;
         background: linear-gradient(180deg, rgb(29, 29, 29) 0%, rgba(255, 255, 255, 0) 100%);
     }
-    .card_stats i{
-        color: yellow;
-        transition: all 1s;
-    }
-    .card_stats:hover{
-        /* background-color: gray; */
-    }
     .card_sinopsis{
         height: 0;
     }
-    .places_card, #ajax_loading{
+    .pl_card, #ajax_loading{
         min-height: 500px;
         position: relative;
         overflow: hidden;
@@ -350,11 +308,11 @@
         border-color: gray;
     }
     @media screen and (min-width: 1921px) {
-        .places_card {
+        .pl_card {
             min-height: 700px;
         }
     }
-    .places_card_info::before{
+    .places_info::before{
         position: absolute;
         content: '';
         inset: 0;
@@ -363,14 +321,14 @@
         color: white;
         z-index: -1;
     }
-    .places_card_info{
+    .places_info{
         position: relative;
         z-index: 500;
     }
-    .places_card::after{
+    .pl_card::after{
         transition: all
     }
-    .places_card:hover .image_background{
+    .pl_card:hover .image_background{
         scale: 1.1;
     }
     #ajax_loading:hover .image_background{
@@ -380,7 +338,7 @@
         overflow: hidden;
         transition: all 1s;
     }
-    .places_card:hover .card_sinopsis{
+    .pl_card:hover .card_sinopsis{
         height: 75px;
     }
     .image_background{
