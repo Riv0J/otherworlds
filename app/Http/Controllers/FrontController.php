@@ -66,6 +66,12 @@ class FrontController extends Controller{
         return view('front.view_place', $variables);
     }
 
+    //show the logged user's profile
+    function profile(){
+        $user = Auth::user();
+        return view('front.profile', ['user' => $user]);
+    }
+
     function ajax_place_request(Request $request){
         $request_data = $request->all(); //get request data
         $next_page = $request_data['current_page'] + 1; //advance page

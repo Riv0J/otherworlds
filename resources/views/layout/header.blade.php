@@ -61,8 +61,8 @@
                 </a>
 
                 <div class="dropdown_options">
-                    <a href="javascript:void(0)" class="p-2 px-4">
-                        @lang('otherworlds.profile')[NYI]
+                    <a href="{{ route('profile') }}" class="p-2 px-4">
+                        @lang('otherworlds.profile')[CON]
                     </a>
 
                     <a href="javascript:void(0)" class="p-2 px-4">

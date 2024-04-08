@@ -25,7 +25,7 @@
 
     <div class="gap-2 gap-md-3 justify-content-center align-items-stretch" id="places_container">
         <div class="pl_card flex-column align-items-between justify-content-between p-0 rounded-4 white text-left" id="ajax_loading" style="order: 10000; display: none;">
-            <div class="image_background" style="background-image: url('{{asset('img/loading.gif')}}'); background-size: contain; background-repeat: no-repeat;"></div>
+            <div class="img_bg" style="background-image: url('{{asset('img/loading.gif')}}'); background-size: contain; background-repeat: no-repeat;"></div>
         </div>
     </div>
 </section>
@@ -71,11 +71,9 @@
             pl_link.href = view_place_route + '/' + place.name;
 
             const img_bg = document.createElement('div');
-            img_bg.className = 'image_background';
-
-            /* set the backgroundImage */
+            img_bg.className = 'img_bg';
             const url = '{{asset('img/places/')}}' + '/' + place.id + '/t.png';
-            img_bg.style.backgroundImage = 'url('+url+')';
+            img_bg.style.backgroundImage = 'url('+url+')'; /* set the backgroundImage */
 
             const card_top = document.createElement('div');
             card_top.className = 'card_top d-flex gap-2 justify-content-between align-items-center p-2';
@@ -113,7 +111,7 @@
             fav_button.appendChild(star_icon);
 
             const pl_info = document.createElement('div');
-            pl_info.className = 'places_info d-flex flex-column align-items-start text-left px-3 py-2 pt-5 w-100';
+            pl_info.className = 'pl_info d-flex flex-column align-items-start p-3 pt-5 w-100';
 
             const pl_name = document.createElement('h3');
             pl_name.className = 'regular mb-2';
@@ -312,7 +310,7 @@
             min-height: 700px;
         }
     }
-    .places_info::before{
+    .pl_info::before{
         position: absolute;
         content: '';
         inset: 0;
@@ -321,17 +319,17 @@
         color: white;
         z-index: -1;
     }
-    .places_info{
+    .pl_info{
         position: relative;
         z-index: 500;
     }
     .pl_card::after{
         transition: all
     }
-    .pl_card:hover .image_background{
+    .pl_card:hover .img_bg{
         scale: 1.1;
     }
-    #ajax_loading:hover .image_background{
+    #ajax_loading:hover .img_bg{
         scale: 1;
     }
     .card_sinopsis{
@@ -341,7 +339,7 @@
     .pl_card:hover .card_sinopsis{
         height: 75px;
     }
-    .image_background{
+    .img_bg{
         position: absolute;
         inset: 0;
         width: 100%;
