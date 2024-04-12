@@ -4,6 +4,10 @@
 @lang('otherworlds.sign_in') | Otherworlds
 @endsection
 
+@section('description')
+@lang('otherworlds.description_login')
+@endsection
+
 @section('content')
 <div class="spacer mt-5 pt-5"></div>
 
@@ -13,11 +17,11 @@
         @lang('otherworlds.sign_in')
     </h2>
 
-    <form class="col-12 col-lg-8 py-5" method="POST" action="{{ route('login') }}">
+    <form class="col-12 col-lg-8 py-5 flex_center flex-column" method="POST" action="{{ route('login') }}">
         @csrf
 
         {{-- login email --}}
-        <div class="row col-12 justify-content-start mb-3">
+        <div class="row col-12 mb-3">
             <label class="col-md-4 col-form-label text-md-end white" for="email">
                 @lang('otherworlds.email')
             </label>
@@ -31,11 +35,10 @@
                 </span>
                 @enderror
             </div>
-
         </div>
 
         {{-- login pass --}}
-        <div class="row col-12 justify-content-start mb-3">
+        <div class="row col-12 mb-3">
             <label class="col-md-4 col-form-label text-md-end white" for="password" >
                 @lang('otherworlds.password')
             </label>
@@ -49,13 +52,13 @@
                 </span>
                 @enderror
             </div>
-
         </div>
 
-        <div class="row mb-3">
+        {{-- remember me check --}}
+        <div class="row col-12 mb-3">
             <div class="col-md-6 offset-md-4">
                 <div class="form-check">
-                    <input style="scale: 1.3;" class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                    <input style="scale: 1.3; cursor: pointer;" class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                     <label class="form-check-label white" for="remember">
                         @lang('otherworlds.remember_me')
@@ -65,18 +68,19 @@
         </div>
 
         {{-- buttons --}}
-        <div class="flex_center pb-3">
-            <button type="submit" class="app_button">
-                @lang('otherworlds.login')
-            </button>
+        <div class="row col-12 mb-3">
+            <div class="flex_center col-md-6 offset-md-4 gap-5 pb-4 app_border_bottom">
+                <button type="submit" class="app_button">
+                    @lang('otherworlds.login')
+                </button>
+            </div>
+            <div class="flex_center col-md-6 offset-md-4 flex_center my-2 white">
+                <a class="px-2" href="{{route('register')}}">@lang('otherworlds.im_not_registered')</a>
+            </div>
         </div>
 
     </form>
 </section>
-<style>
-    footer{
-        display: none;
-    }
-</style>
+
 
 @endsection

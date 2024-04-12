@@ -20,6 +20,10 @@
             </div>
 
             <h3 id="pl_name" class="regular">{{$user->name}}</h3>
+
+            @if($user->country)
+            <h3 id="pl_name" class="regular">{{$user->country->name}}</h3>
+            @endif
         </div>
 
     </div>

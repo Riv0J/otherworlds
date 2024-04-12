@@ -1,6 +1,86 @@
-@extends('layouts.app')
+@extends('layout.masterpage')
+
+@section('title')
+@lang('otherworlds.register') | Otherworlds
+@endsection
+
+@section('description')
+@lang('otherworlds.description_register')
+@endsection
 
 @section('content')
+<div class="spacer mt-5 pt-5"></div>
+
+<section class="row col-12 px-2 px-lg-5 py-2 flex_center">
+    <h2 class="semibold text-center display-5 flex_center gap-2 col-12 py-2 white app_bg">
+        @lang('otherworlds.register')
+    </h2>
+
+    <form class="col-12 col-lg-8 py-5 flex_center flex-column" method="POST" action="{{ route('login') }}">
+        @csrf
+
+        {{-- email--}}
+        <div class="row col-12 mb-3">
+            <label class="col-md-4 col-form-label text-md-end white" for="email">
+                @lang('otherworlds.email')
+            </label>
+            <div class="col-md-6">
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{old('email') ?? 'user@gmail.com'}}" required autocomplete="email" autofocus>
+
+                {{-- show email error, if any --}}
+                @error('email')
+                <span class="invalid-feedback white" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+        </div>
+
+        {{-- username --}}
+        <div class="row col-12 mb-3">
+            <label class="col-md-4 col-form-label text-md-end white" for="username">
+                @lang('otherworlds.username')
+            </label>
+            <div class="col-md-6">
+                <input id="username" type="text" class="form-control" name="username" value="{{old('username')}}" autocomplete="username" required autofocus>
+            </div>
+        </div>
+
+        {{-- pass --}}
+        <div class="row col-12 mb-3">
+            <label class="col-md-4 col-form-label text-md-end white" for="password">
+                @lang('otherworlds.password')
+            </label>
+            <div class="col-md-6">
+                <input id="password" type="password" class="form-control" name="password" required autofocus>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-8 mb-3 app_border_bottom my-3 py-3 text-center">
+            <h3 class="white">@lang('otherworlds.optional_data')</h3>
+        </div>
+
+        {{-- country --}}
+        <div class="row col-12 mb-3">
+            <label class="col-md-4 col-form-label text-md-end white" for="email">
+                @lang('otherworlds.country')
+            </label>
+            <div class="col-md-6">
+                <select id="country" name="country">
+
+                    @foreach (App\Models\Country::all() as $country)
+                        <option value="{{$country->id}}">
+                            <span class="big-icon flag-icon flag-icon-{{$country->code}}"></span>
+                            {{$country->name}}
+                        </option>
+                    @endforeach
+
+                </select>
+            </div>
+        </div>
+    </form>
+</section>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

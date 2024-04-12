@@ -65,10 +65,6 @@
                         @lang('otherworlds.profile')[CON]
                     </a>
 
-                    <a href="javascript:void(0)" class="p-2 px-4">
-                        @lang('otherworlds.favorites')[NYI]
-                    </a>
-
                     <div class="dropdown_divider mt-1 mx-5 mx-md-2"></div>
 
                     <a href="{{ route('logout') }}" class="p-2 px-4"

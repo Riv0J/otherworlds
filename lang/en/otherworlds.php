@@ -13,6 +13,9 @@ return [
 
     'description_places' => "Explore a collection of extraordinary natural locations from around the world with Otherworlds' search engine. You can search for places by country, category, and the place's name",
 
+    'description_login' => 'Login to Otherworlds',
+    'description_register' => 'Register in Otherworlds',
+
     // section titles
     'lang' => 'Lang',
     'places' => 'Places',
@@ -28,8 +31,15 @@ return [
     'sign_in' => 'Login',
     'login' => 'Login',
     'logout' => 'Logout',
+    'register' => 'Register',
     'profile' => 'Profile',
     'favorites' => 'Favorites',
+
+    //section login
+    'im_not_registered' => "I'm not registered yet",
+
+    //section register
+    'optional_data' => 'Optional data',
 
     // section home
     'what_is_this_place' => 'What is this place?',
@@ -66,5 +76,6 @@ return [
     'category'=> 'Category',
     'views'=> 'Views',
     'date_added' => 'Date added',
-    'source' => 'Source'
+    'source' => 'Source',
+    'username' => 'Username',
 ];
