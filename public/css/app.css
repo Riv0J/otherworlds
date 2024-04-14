@@ -32,6 +32,10 @@ a {
     color: inherit;
     cursor: pointer;
 }
+main{
+    overflow-x: hidden;
+    min-height: 100svh;
+}
 main a{
     border-bottom: 2px rgb(255, 255, 255) solid;
 }
@@ -46,9 +50,6 @@ main a:hover{
 }
 .navbar-brand{
     letter-spacing: 0.05rem;
-}
-main{
-    overflow-x: hidden;
 }
 img{
     width: 100%;

@@ -56,32 +56,68 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-8 mb-3 app_border_bottom my-3 py-3 text-center">
-            <h3 class="white">@lang('otherworlds.optional_data')</h3>
-        </div>
-
         {{-- country --}}
         <div class="row col-12 mb-3">
             <label class="col-md-4 col-form-label text-md-end white" for="email">
                 @lang('otherworlds.country')
             </label>
             <div class="col-md-6">
-                <select id="country" name="country">
-
+                <select id="select_country" name="country" class="form-select">
                     @foreach (App\Models\Country::all() as $country)
                         <option value="{{$country->id}}">
                             <span class="big-icon flag-icon flag-icon-{{$country->code}}"></span>
                             {{$country->name}}
                         </option>
                     @endforeach
-
                 </select>
+
             </div>
         </div>
+
+        <div class="col-12 col-md-8 mb-5 mt-4 py-3 app_border_bottom text-center">
+            <h3 class="white">@lang('otherworlds.optional_data')</h3>
+        </div>
+
+        {{-- age --}}
+        <div class="row col-12 mb-3">
+            <label class="col-md-4 col-form-label text-md-end white" for="birth_date">
+                @lang('otherworlds.birth_date')
+            </label>
+            <div class="col-md-2">
+                <input type="date" class="form-control" name="birth_date" required autofocus>
+            </div>
+        </div>
+
     </form>
 </section>
+<style>
+    footer{
+        display: none;
+    }
+</style>
+{{-- dynamic select assets --}}
+<link rel="stylesheet" href="{{asset('css/selects.css')}}"></link>
+<script src="{{asset('js/selects.js')}}"></script>
+<script>
+    new DynamicSelect('#select_country', {
+    placeholder: "@lang('otherworlds.select_country')",
+    data: [
+        @foreach (App\Models\Country::all() as $country)
+        {
+            value: {{$country->id}},
+            keyword: '{{$country->name}}',
+            html: `
+                    <span class="big-icon flag-icon flag-icon-{{$country->code}}"></span>
+                    {{$country->name}}
+            `,
 
-<div class="container">
+        },
+        @endforeach
+    ],
+});
+</script>
+
+{{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -153,5 +189,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
