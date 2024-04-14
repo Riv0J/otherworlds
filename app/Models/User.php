@@ -21,7 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'birth_date',
         'role_id',
+        'country_id',
     ];
 
     /**
@@ -53,5 +55,11 @@ class User extends Authenticatable
     public function favorites()
     {
         return $this->belongsToMany(Place::class, 'favorites', 'user_id', 'place_id');
+    }
+
+    //get the user's country
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
     }
 }

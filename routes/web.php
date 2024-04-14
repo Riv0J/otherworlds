@@ -37,5 +37,3 @@ Route::post('/ajax/places/request', [FrontController::class, 'ajax_place_request
 Route::post('/ajax/places/favorite', [FrontController::class, 'ajax_place_favorite']);
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

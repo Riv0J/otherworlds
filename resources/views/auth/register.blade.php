@@ -19,6 +19,12 @@
     <form class="col-12 col-lg-8 my-3 flex_center flex-column" method="POST" action="{{ route('register') }}">
         @csrf
 
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger">{{ $error }}</div>
+            @endForeach
+        @endif
+
         <h4 class="white my-3">@lang('otherworlds.required_data')</h4>
 
         {{-- email--}}
@@ -40,11 +46,18 @@
 
         {{-- username --}}
         <div class="row col-12 mb-3">
-            <label class="col-md-4 col-form-label text-md-end white" for="username">
+            <label class="col-md-4 col-form-label text-md-end white" for="name">
                 @lang('otherworlds.username')
             </label>
             <div class="col-md-6">
-                <input id="username" type="text" class="form-control" name="username" value="{{old('username')}}" autocomplete="username" required autofocus>
+                <input type="text" class="form-control" name="name" value="{{old('name')}}" autocomplete="name" required autofocus>
+
+                {{-- show username error, if any --}}
+                @error('name')
+                <span class="invalid-feedback white" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
             </div>
         </div>
 
@@ -84,7 +97,7 @@
                 @lang('otherworlds.repeat_password')
             </label>
             <div class="col-md-6">
-                <input id="repeat_password" type="password" class="form-control" name="repeat_password" required autofocus>
+                <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required autofocus>
             </div>
         </div>
 
