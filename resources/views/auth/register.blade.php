@@ -16,8 +16,10 @@
         @lang('otherworlds.register')
     </h2>
 
-    <form class="col-12 col-lg-8 py-5 flex_center flex-column" method="POST" action="{{ route('login') }}">
+    <form class="col-12 col-lg-8 my-3 flex_center flex-column" method="POST" action="{{ route('register') }}">
         @csrf
+
+        <h4 class="white my-3">@lang('otherworlds.required_data')</h4>
 
         {{-- email--}}
         <div class="row col-12 mb-3">
@@ -46,23 +48,13 @@
             </div>
         </div>
 
-        {{-- pass --}}
-        <div class="row col-12 mb-3">
-            <label class="col-md-4 col-form-label text-md-end white" for="password">
-                @lang('otherworlds.password')
-            </label>
-            <div class="col-md-6">
-                <input id="password" type="password" class="form-control" name="password" required autofocus>
-            </div>
-        </div>
-
         {{-- country --}}
         <div class="row col-12 mb-3">
             <label class="col-md-4 col-form-label text-md-end white" for="email">
                 @lang('otherworlds.country')
             </label>
             <div class="col-md-6">
-                <select id="select_country" name="country" class="form-select">
+                <select id="select_country" name="country" class="form-select" required>
                     @foreach (App\Models\Country::all() as $country)
                         <option value="{{$country->id}}">
                             <span class="big-icon flag-icon flag-icon-{{$country->code}}"></span>
@@ -74,20 +66,52 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-8 mb-5 mt-4 py-3 app_border_bottom text-center">
-            <h3 class="white">@lang('otherworlds.optional_data')</h3>
+        <h4 class="white my-3">@lang('otherworlds.password')</h4>
+
+        {{-- pass --}}
+        <div class="row col-12 mb-3">
+            <label class="col-md-4 col-form-label text-md-end white" for="password">
+                @lang('otherworlds.password')
+            </label>
+            <div class="col-md-6">
+                <input id="password" type="password" class="form-control" name="password" required autofocus>
+            </div>
         </div>
 
-        {{-- age --}}
+        {{-- repeat_password --}}
+        <div class="row col-12 mb-3">
+            <label class="col-md-4 col-form-label text-md-end white" for="password">
+                @lang('otherworlds.repeat_password')
+            </label>
+            <div class="col-md-6">
+                <input id="repeat_password" type="password" class="form-control" name="repeat_password" required autofocus>
+            </div>
+        </div>
+
+        <h4 class="white my-3">@lang('otherworlds.optional_data')</h4>
+
+        {{-- birth_date --}}
         <div class="row col-12 mb-3">
             <label class="col-md-4 col-form-label text-md-end white" for="birth_date">
                 @lang('otherworlds.birth_date')
             </label>
             <div class="col-md-2">
-                <input type="date" class="form-control" name="birth_date" required autofocus>
+                <input type="date" class="form-control" name="birth_date" autofocus>
             </div>
         </div>
 
+        {{-- buttons --}}
+        <div class="col-12 my-4 flex_center">
+            <button type="submit" class="app_button">
+                @lang('otherworlds.submit')
+            </button>
+        </div>
+
+        <div class="col-12 col-md-8 my-4 app_border_bottom text-center"></div>
+
+        <div class="flex_center col-md-6 flex_center white">
+            <a class="px-2" href="{{route('login')}}">@lang('otherworlds.already_have_account')</a>
+        </div>
     </form>
 </section>
 <style>

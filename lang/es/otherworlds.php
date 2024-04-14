@@ -39,7 +39,9 @@ return [
     'im_not_registered' => 'No estoy registrado',
 
     //section register
+    'required_data' => 'Datos requeridos',
     'optional_data' => 'Datos opcionales',
+    'already_have_account' => 'Ya tengo una cuenta',
 
     // section home
     'what_is_this_place' => '¿Qué es este lugar?',
@@ -71,6 +73,7 @@ return [
     // general
     'email' => 'Correo Electrónico',
     'password' => 'Contraseña',
+    'repeat_password' => 'Repetir contraseña',
     'remember_me' => 'Recuérdame',
     'country' => 'País',
     'category'=> 'Categoría',
@@ -78,4 +81,7 @@ return [
     'date_added' => 'Fecha agregado',
     'source' => 'Fuente',
     'username' => 'Nombre de usuario',
+    'birth_date' => 'Fecha de nacimiento',
+    'select_country' => 'Selecciona un país',
+    'submit' => 'Enviar',
 ];

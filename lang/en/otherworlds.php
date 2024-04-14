@@ -39,7 +39,9 @@ return [
     'im_not_registered' => "I'm not registered yet",
 
     //section register
+    'required_data' => 'Required data',
     'optional_data' => 'Optional data',
+    'already_have_account' => 'I already have an account',
 
     // section home
     'what_is_this_place' => 'What is this place?',
@@ -71,6 +73,7 @@ return [
     // general
     'email' => 'Email',
     'password' => 'Password',
+    'repeat_password' => 'Repeat password',
     'remember_me' => 'Remember me',
     'country' => 'Country',
     'category'=> 'Category',
@@ -78,4 +81,7 @@ return [
     'date_added' => 'Date added',
     'source' => 'Source',
     'username' => 'Username',
+    'birth_date' => 'Birth date',
+    'select_country' => 'Select a country',
+    'submit' => 'Submit',
 ];
