@@ -133,8 +133,8 @@
     }
 </style>
 {{-- dynamic select assets --}}
-<link rel="stylesheet" href="{{asset('css/selects.css')}}"></link>
-<script src="{{asset('js/selects.js')}}"></script>
+<link rel="stylesheet" href="{{asset('dynamic_selects/dynamic_selects.css')}}"></link>
+<script src="{{asset('dynamic_selects/dynamic_selects.js')}}"></script>
 <script>
     new DynamicSelect('#select_country', {
     placeholder: "@lang('otherworlds.select_country')",

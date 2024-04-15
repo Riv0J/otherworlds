@@ -118,41 +118,31 @@ class DynamicSelect {
     refresh_options(options_array){
         let optionsHTML = '';
         for (let i = 0; i < options_array.length; i++) {
-            let optionWidth = 100 / this.columns;
-            let optionContent = '';
-            if (options_array[i].html) {
-                optionContent = options_array[i].html;
-            } else {
-                optionContent = `
-                    ${options_array[i].img ? `<img src="${options_array[i].img}" alt="${options_array[i].text}" class="${options_array[i].imgWidth && options_array[i].imgHeight ? 'dynamic-size' : ''}" style="${options_array[i].imgWidth ? 'width:' + options_array[i].imgWidth + ';' : ''}${options_array[i].imgHeight ? 'height:' + options_array[i].imgHeight + ';' : ''}">` : ''}
-                    ${options_array[i].text ? '<span class="dynamic-select-option-text">' + options_array[i].text + '</span>' : ''}
-                `;
-            }
+            let width = 100 / this.columns;
+
             optionsHTML += `
-                <div class="dynamic-select-option${options_array[i].value == this.selectedValue ? ' dynamic-select-selected' : ''}${options_array[i].text || options_array[i].html ? '' : ' dynamic-select-no-text'}" data-value="${options_array[i].value}" style="width:${optionWidth}%;${this.height ? 'height:' + this.height + ';' : ''}">
-                    ${optionContent}
+                <div class="dynamic-select-option${options_array[i].value == this.selectedValue ? ' dynamic-select-selected' : ''}${options_array[i].text || options_array[i].html ? '' : ' dynamic-select-no-text'}" data-value="${options_array[i].value}" style="width:${width}%;${this.height ? 'height:' + this.height + ';' : ''}">
+                    ${options_array[i].html}
                 </div>
             `;
 
         }
-        console.log(options_array.length);
         this.element.querySelector('.dynamic-select-options').innerHTML = optionsHTML
         this.refresh_options_listeners();
     }
 
+    //must be called after the refresh_options
     refresh_options_listeners(){
         this.element.querySelectorAll('.dynamic-select-option').forEach(option => {
             option.onclick = () => {
                 this.element.querySelectorAll('.dynamic-select-selected').forEach(selected => selected.classList.remove('dynamic-select-selected'));
                 option.classList.add('dynamic-select-selected');
-                this.element.querySelector('.dynamic-selected').classList.remove('d-none');
                 this.element.querySelector('.dynamic-selected').innerHTML = option.innerHTML;
-
+                this.toggleComponent('dynamic-selected', true);
                 this.toggleComponent('dynamic-select-header-placeholder', false);
                 this.toggleSearch(false);
 
                 this.element.querySelector('input[name='+this.name+']').value = option.getAttribute('data-value');
-                console.log(this.element.querySelector('input[name='+this.name+']').value);
                 this.data.forEach(data => data.selected = false);
                 this.data.filter(data => data.value == option.getAttribute('data-value'))[0].selected = true;
                 this.element.querySelector('.dynamic-select-header').classList.remove('dynamic-select-header-active');
