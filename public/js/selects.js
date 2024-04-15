@@ -4,6 +4,11 @@
  *
  * Released under the MIT license
  */
+
+/*
+ * Adapted by Rivo :)
+ */
+
 class DynamicSelect {
 
     constructor(element, options = {}) {
@@ -30,11 +35,8 @@ class DynamicSelect {
                 this.options.data.push({
                     value: options[i].value,
                     text: options[i].innerHTML,
-                    img: options[i].getAttribute('data-img'),
                     selected: options[i].selected,
                     html: options[i].getAttribute('data-html'),
-                    imgWidth: options[i].getAttribute('data-img-width'),
-                    imgHeight: options[i].getAttribute('data-img-height')
                 });
             }
         }
@@ -80,7 +82,7 @@ class DynamicSelect {
             this.toggleComponent('dynamic-select-header-placeholder', false); //placeholder off
             this.toggleSearch(true); //search on
             this.refresh_options(this.options.data); //generate the option divs
-            this.scrollToOptions();
+            this.scroll_to_options();
         };
 
         //onclick away, lose focus
@@ -90,9 +92,9 @@ class DynamicSelect {
                 this.element.querySelector('.dynamic-select-header').classList.remove('dynamic-select-header-active'); //header remove active
 
                 this.toggleSearch(false); //search off
-                const current_input_value = this.element.querySelector('input[name='+this.name+']').value;
+                const current_select_value = this.element.querySelector('input[name='+this.name+']').value;
 
-                if(current_input_value == ''){
+                if(current_select_value == ''){
                     this.toggleComponent('dynamic-select-header-placeholder', true); //placeholder on
                     this.toggleComponent('dynamic-selected', false); //selected off
                 } else {
@@ -109,32 +111,11 @@ class DynamicSelect {
             });
 
             this.refresh_options(filtered_options);
-            this.scrollToOptions();
+            this.scroll_to_options();
         });
     }
 
-    add_options_listeners(){
-        this.element.querySelectorAll('.dynamic-select-option').forEach(option => {
-            option.onclick = () => {
-                this.element.querySelectorAll('.dynamic-select-selected').forEach(selected => selected.classList.remove('dynamic-select-selected'));
-                option.classList.add('dynamic-select-selected');
-                this.element.querySelector('.dynamic-selected').classList.remove('d-none');
-                this.element.querySelector('.dynamic-selected').innerHTML = option.innerHTML;
-
-                this.toggleComponent('dynamic-select-header-placeholder', false);
-                this.toggleSearch(false);
-
-                this.element.querySelector('input[name='+this.name+']').value = option.getAttribute('data-value');
-                console.log(this.element.querySelector('input[name='+this.name+']').value);
-                this.data.forEach(data => data.selected = false);
-                this.data.filter(data => data.value == option.getAttribute('data-value'))[0].selected = true;
-                this.element.querySelector('.dynamic-select-header').classList.remove('dynamic-select-header-active');
-                this.options.onChange(option.getAttribute('data-value'), option.querySelector('.dynamic-select-option-text') ? option.querySelector('.dynamic-select-option-text').innerHTML : '', option);
-            };
-        });
-    }
     refresh_options(options_array){
-
         let optionsHTML = '';
         for (let i = 0; i < options_array.length; i++) {
             let optionWidth = 100 / this.columns;
@@ -156,8 +137,30 @@ class DynamicSelect {
         }
         console.log(options_array.length);
         this.element.querySelector('.dynamic-select-options').innerHTML = optionsHTML
-        this.add_options_listeners();
+        this.refresh_options_listeners();
     }
+
+    refresh_options_listeners(){
+        this.element.querySelectorAll('.dynamic-select-option').forEach(option => {
+            option.onclick = () => {
+                this.element.querySelectorAll('.dynamic-select-selected').forEach(selected => selected.classList.remove('dynamic-select-selected'));
+                option.classList.add('dynamic-select-selected');
+                this.element.querySelector('.dynamic-selected').classList.remove('d-none');
+                this.element.querySelector('.dynamic-selected').innerHTML = option.innerHTML;
+
+                this.toggleComponent('dynamic-select-header-placeholder', false);
+                this.toggleSearch(false);
+
+                this.element.querySelector('input[name='+this.name+']').value = option.getAttribute('data-value');
+                console.log(this.element.querySelector('input[name='+this.name+']').value);
+                this.data.forEach(data => data.selected = false);
+                this.data.filter(data => data.value == option.getAttribute('data-value'))[0].selected = true;
+                this.element.querySelector('.dynamic-select-header').classList.remove('dynamic-select-header-active');
+                this.options.onChange(option.getAttribute('data-value'), option.querySelector('.dynamic-select-option-text') ? option.querySelector('.dynamic-select-option-text').innerHTML : '', option);
+            };
+        });
+    }
+
     toggleComponent(element_class, show){
         const element = this.element.querySelector('.'+element_class);
         if(!element){ console.error('Didnt find element.'); return}
@@ -183,7 +186,7 @@ class DynamicSelect {
             dynamic_selected.classList.remove('d-none');
         }
     }
-    scrollToOptions(){
+    scroll_to_options(){
         scrollToElement(this.element.querySelector('.dynamic-select-options'));
     }
     _updateSelected() {
