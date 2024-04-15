@@ -24,7 +24,7 @@
   .dynamic-select .dynamic-select-header.dynamic-select-header-active + .dynamic-select-options {
     display: flex;
   }
-  .dynamic-select .dynamic-select-header .dynamic-select-header-placeholder {
+  .dynamic-select .dynamic-select-header .dynamic-select-header-placeholder, .dynamic-select-header-input i {
     color: #65727e;
   }
   .dynamic-select .dynamic-select-options {
@@ -46,7 +46,7 @@
     overflow-x: hidden;
   }
   .dynamic-select .dynamic-select-options::-webkit-scrollbar {
-    width: 5px;
+    width: 10px;
   }
   .dynamic-select .dynamic-select-options::-webkit-scrollbar-track {
     background: #f0f1f3;
@@ -86,13 +86,9 @@
   }
   .dynamic-select .dynamic-select-header img, .dynamic-select .dynamic-select-header svg, .dynamic-select .dynamic-select-header i, .dynamic-select .dynamic-select-header span, .dynamic-select .dynamic-select-option img, .dynamic-select .dynamic-select-option svg, .dynamic-select .dynamic-select-option i, .dynamic-select .dynamic-select-option span {
     box-sizing: border-box;
-    margin-right: 10px;
   }
   .dynamic-select .dynamic-select-header.dynamic-select-no-text, .dynamic-select .dynamic-select-option.dynamic-select-no-text {
     justify-content: center;
-  }
-  .dynamic-select .dynamic-select-header.dynamic-select-no-text img, .dynamic-select .dynamic-select-header.dynamic-select-no-text svg, .dynamic-select .dynamic-select-header.dynamic-select-no-text i, .dynamic-select .dynamic-select-header.dynamic-select-no-text span, .dynamic-select .dynamic-select-option.dynamic-select-no-text img, .dynamic-select .dynamic-select-option.dynamic-select-no-text svg, .dynamic-select .dynamic-select-option.dynamic-select-no-text i, .dynamic-select .dynamic-select-option.dynamic-select-no-text span {
-    margin-right: 0;
   }
   .dynamic-select .dynamic-select-header .dynamic-select-option-text, .dynamic-select .dynamic-select-option .dynamic-select-option-text {
     box-sizing: border-box;
@@ -103,3 +99,23 @@
     color: inherit;
     font-size: inherit;
   }
+  .dynamic-select-header-placeholder, .dynamic-select-header-input, .dynamic-select-option, .dynamic-selected{
+    gap: 0.5rem;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    align-items: center;
+  }
+  .dynamic-select-header-input{
+    justify-content: space-between;
+
+  }
+  .dynamic-select-header-input input:focus{
+    outline: 1px solid black;
+    border: none;
+  }
+  .dynamic-select-quit{
+    scale: 1.25;
+  }
+
+

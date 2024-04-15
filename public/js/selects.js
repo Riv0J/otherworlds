@@ -49,9 +49,17 @@ class DynamicSelect {
             <div class="form-control dynamic-select ${this.name}"${this.selectElement.id ? ' id="' + this.selectElement.id + '"' : ''} style="${this.width ? 'width:' + this.width + ';' : ''}${this.height ? 'height:' + this.height + ';' : ''}">
                 <input type="hidden" name="${this.name}" value="${this.selectedValue}">
                 <div class="dynamic-select-header" style="${this.width ? 'width:' + this.width + ';' : ''}${this.height ? 'height:' + this.height + ';' : ''}">
-                <input class="d-none" style="width:100%" type="text">
-                <div class="dynamic-selected"></div>
-                    <span class="dynamic-select-header-placeholder">${this.placeholder}</span>
+                    <div class="dynamic-selected d-none">
+                    </div>
+                    <span class="dynamic-select-header-placeholder">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        ${this.placeholder}
+                    </span>
+                    <span class="dynamic-select-header-input d-none">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input style="width:100%" type="text">
+                        <i class="fa-solid fa-xmark dynamic-select-quit"></i>
+                    </span>
                 </div>
                 <div class="dynamic-select-options" style="${this.options.dropdownWidth ? 'width:' + this.options.dropdownWidth + ';' : ''}${this.options.dropdownHeight ? 'height:' + this.options.dropdownHeight + ';' : ''}"></div>
                 </div>
@@ -68,23 +76,27 @@ class DynamicSelect {
             const select_header = this.element.querySelector('.dynamic-select-header');
             if(select_header.classList.contains('dynamic-select-header-active')){ return; }
 
-            this.togglePlaceholder(false);
-            select_header.classList.add('dynamic-select-header-active');
-            const options = this.element.querySelector('.dynamic-select-options');
-            scrollToElement(options);
-
-            this.toggleSearch(true);
-            this.refresh_options(this.options.data);
+            select_header.classList.add('dynamic-select-header-active'); //header add active
+            this.toggleComponent('dynamic-select-header-placeholder', false); //placeholder off
+            this.toggleSearch(true); //search on
+            this.refresh_options(this.options.data); //generate the option divs
+            this.scrollToOptions();
         };
 
         //onclick away, lose focus
         document.addEventListener('click', event => {
-            if (!event.target.closest('.' + this.name) && !event.target.closest('label[for="' + this.selectElement.id + '"]')) {
-                this.element.querySelector('.dynamic-select-header').classList.remove('dynamic-select-header-active');
-                this.toggleSearch(false);
+            if (!event.target.closest('.' + this.name) && !event.target.closest('label[for="' + this.selectElement.id + '"]')
+                || event.target == this.element.querySelector('.dynamic-select-quit')) {
+                this.element.querySelector('.dynamic-select-header').classList.remove('dynamic-select-header-active'); //header remove active
 
-                if(this.element.querySelector('input[name='+this.name+']').value == ''){
-                    this.togglePlaceholder(true);
+                this.toggleSearch(false); //search off
+                const current_input_value = this.element.querySelector('input[name='+this.name+']').value;
+
+                if(current_input_value == ''){
+                    this.toggleComponent('dynamic-select-header-placeholder', true); //placeholder on
+                    this.toggleComponent('dynamic-selected', false); //selected off
+                } else {
+                    this.toggleComponent('dynamic-selected', true); //selected on
                 }
             }
         });
@@ -95,21 +107,21 @@ class DynamicSelect {
             const filtered_options = this.options.data.filter(function(option) {
                 return option.keyword.toLowerCase().includes(search);
             });
-            console.log(search);
-            this.refresh_options(filtered_options);
 
-            const options = this.element.querySelector('.dynamic-select-options');
-            scrollToElement(options);
+            this.refresh_options(filtered_options);
+            this.scrollToOptions();
         });
     }
+
     add_options_listeners(){
         this.element.querySelectorAll('.dynamic-select-option').forEach(option => {
             option.onclick = () => {
                 this.element.querySelectorAll('.dynamic-select-selected').forEach(selected => selected.classList.remove('dynamic-select-selected'));
                 option.classList.add('dynamic-select-selected');
+                this.element.querySelector('.dynamic-selected').classList.remove('d-none');
                 this.element.querySelector('.dynamic-selected').innerHTML = option.innerHTML;
 
-                this.togglePlaceholder(false);
+                this.toggleComponent('dynamic-select-header-placeholder', false);
                 this.toggleSearch(false);
 
                 this.element.querySelector('input[name='+this.name+']').value = option.getAttribute('data-value');
@@ -146,29 +158,34 @@ class DynamicSelect {
         this.element.querySelector('.dynamic-select-options').innerHTML = optionsHTML
         this.add_options_listeners();
     }
-
-    togglePlaceholder(show){
+    toggleComponent(element_class, show){
+        const element = this.element.querySelector('.'+element_class);
+        if(!element){ console.error('Didnt find element.'); return}
         if(show == true){
-            this.element.querySelector('.dynamic-select-header-placeholder').classList.remove('d-none');
+            element.classList.remove('d-none');
         } else {
-            this.element.querySelector('.dynamic-select-header-placeholder').classList.add('d-none');
+            element.classList.add('d-none');
         }
     }
 
     toggleSearch(show){
-        const text_input = this.element.querySelector('input[type=text]');
+        const text_input_container = this.element.querySelector('.dynamic-select-header-input');
         const dynamic_selected = this.element.querySelector('.dynamic-selected');
+
+        const text_input = this.element.querySelector('input[type=text]');
         text_input.value = '';
         if(show == true){
-            text_input.classList.remove('d-none');
+            text_input_container.classList.remove('d-none');
             text_input.focus();
             dynamic_selected.classList.add('d-none');
         } else {
-            text_input.classList.add('d-none');
+            text_input_container.classList.add('d-none');
             dynamic_selected.classList.remove('d-none');
         }
     }
-
+    scrollToOptions(){
+        scrollToElement(this.element.querySelector('.dynamic-select-options'));
+    }
     _updateSelected() {
         if (this.selectedValue) {
             this.element.querySelector('.dynamic-selected').innerHTML = this.element.querySelector('.dynamic-select-selected').innerHTML;
