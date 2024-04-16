@@ -139,7 +139,7 @@
     new DynamicSelect('#select_country', {
     placeholder: "@lang('otherworlds.select_country')",
     data: [
-        @foreach (App\Models\Country::all() as $country)
+        @foreach ($available_countries as $country)
         {
             value: {{$country->id}},
             keyword: '{{$country->name}}',

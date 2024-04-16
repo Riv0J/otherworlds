@@ -3,12 +3,18 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
-use App\Models\User;
+
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Validation\Rule;
 
+use App\Models\Role;
+use App\Models\User;
+use App\Models\Country;
+use App\Models\CountryTranslation;
 class RegisterController extends Controller
 {
     /*
@@ -49,10 +55,17 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        $unknown = Country::find(CountryTranslation::where('name','Unknown')->first()->country_id)->first();
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'country' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::notIn([$unknown->id]) // Aquí se asegura de que el valor no sea igual al ID del país desconocido
+            ],
         ]);
     }
 
@@ -74,5 +87,27 @@ class RegisterController extends Controller
             'role_id' => $user_role->id,
             'country_id' => $data['country'],
         ]);
+    }
+
+    function showRegistrationForm(){
+        $unknown = Country::find(CountryTranslation::where('name','Unknown')->first()->country_id)->first();
+        $available_countries = Country::where('id','!=',$unknown->id)->get();
+
+        $variables = [
+            'available_countries' => $available_countries,
+        ];
+        return view('auth.register', $variables);
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
     }
 }
