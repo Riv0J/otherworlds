@@ -48,7 +48,7 @@
     <body>
         @include('layout.header')
 
-        <main class="flex_center flex-column">
+        <main class="flex_center flex-column justify-content-start">
             @yield('content')
         </main>
 

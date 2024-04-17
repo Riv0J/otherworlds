@@ -546,6 +546,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Ireland'
             ],
+            'code' => 'irl'
         ],
         [
             'en' => [
@@ -681,6 +682,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Madagascar'
             ],
+            'code' => 'mdg'
         ],
         [
             'es' => [

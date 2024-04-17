@@ -90,11 +90,8 @@ class RegisterController extends Controller
     }
 
     function showRegistrationForm(){
-        $unknown = Country::find(CountryTranslation::where('name','Unknown')->first()->country_id)->first();
-        $available_countries = Country::where('id','!=',$unknown->id)->get();
-
         $variables = [
-            'available_countries' => $available_countries,
+            'available_countries' => Country::getAvailableCountries(),
         ];
         return view('auth.register', $variables);
     }

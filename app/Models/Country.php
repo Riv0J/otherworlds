@@ -12,4 +12,10 @@ class Country extends Model
     use HasFactory;
 
     public $translatedAttributes = ['name'];
+
+    public static function getAvailableCountries(){
+        $unknown = Country::find(CountryTranslation::where('name','Unknown')->first()->country_id)->first();
+
+        return Country::where('id','!=',$unknown->id)->get();
+    }
 }

@@ -488,6 +488,82 @@ class PlaceSeeder extends Seeder
                 'category_keyword' => 'Mountains',
                 'source' => 'https://es.wikipedia.org/wiki/Parque_nacional_Zion'
             ],
+            [
+                'es' => [
+                    'name' => 'La Torre del Diablo',
+                    'synopsis' => 'Formación de roca ígnea de 264 metros de altura',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Devils Tower',
+                    'synopsis' => 'A 264 meters tall igneous rock formation',
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'United States',
+                'category_keyword' => 'Volcanic',
+                'source' => 'https://en.wikipedia.org/wiki/Devils_Tower'
+            ],
+            [
+                'es' => [
+                    'name' => 'Parque forestal de Zhangjiajie',
+                    'synopsis' => 'Increibles paisajes de bosque con pilares rocoss gigantescoss',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Zhangjiajie forest park',
+                    'synopsis' => 'Incredible forest vistas full of pillar-like rock formations',
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'China',
+                'category_keyword' => 'Mountains',
+                'source' => 'https://en.wikipedia.org/wiki/Zhangjiajie_National_Forest_Park'
+            ],
+            [
+                'es' => [
+                    'name' => 'Parque Nacional de las Secuoyas',
+                    'synopsis' => 'Hogar de árboles de secuoya gigantes, incluyendo el árbol más grande del mundo',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Sequoia National Park',
+                    'synopsis' => 'Home of giant sequoia trees, including the largest tree in the world',
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'United States',
+                'category_keyword' => 'Vegetation',
+                'source' => 'https://en.wikipedia.org/wiki/Sequoia_National_Park'
+            ],
+            [
+                'es' => [
+                    'name' => 'Avenida de los Baobabs',
+                    'synopsis' => 'Arboleda de Baobabs, árboles majestuosos endémicos de Madagascar',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Avenue of the Baobabs',
+                    'synopsis' => 'Grove of majestic Baobabs, endemic to Madagascar',
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Madagascar',
+                'category_keyword' => 'Vegetation',
+                'source' => 'https://en.wikipedia.org/wiki/Avenue_of_the_Baobabs'
+            ],
+            [
+                'es' => [
+                    'name' => 'Acantilados de Moher',
+                    'synopsis' => '14Km de acantilados que llegan a alcanzar hasta 214 metros sobre el nivel del oceano atlántico',
+                    'description' => 'Descripción en español',
+                ],
+                'en' => [
+                    'name' => 'Cliffs of Moher',
+                    'synopsis' => '14Km long sea cliffs towering up to 214 meters above the atlantic ocean',
+                    'description' => 'Descripción en ingles',
+                ],
+                'country_name' => 'Ireland',
+                'category_keyword' => 'Coastal',
+                'source' => 'https://en.wikipedia.org/wiki/Cliffs_of_Moher'
+            ],
+
         ];
     }
 }
