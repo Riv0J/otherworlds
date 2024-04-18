@@ -18,7 +18,6 @@ return new class extends Migration
             $table->integer('views_count')->default(0);
             $table->integer('favorites_count')->default(0);
             $table->boolean('natural')->default(true);
-            $table->string('source')->nullable();
 
             //foreign country_id
             $table->unsignedBigInteger('country_id');

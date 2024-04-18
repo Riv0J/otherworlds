@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\CountryTranslation;
 use App\Models\CategoryTranslation;
 use App\Models\Place;
+use App\Models\Source;
 use App\Models\OHelper;
 
 class PlaceSeeder extends Seeder
@@ -59,12 +60,18 @@ class PlaceSeeder extends Seeder
                 'favorites_count' => rand(1, 1500),
                 'country_id' => CountryTranslation::where('name', $place_entry['country_name'])->value('country_id') ?? $unknown_country_id,
                 'category_id' => CategoryTranslation::where('keyword', $place_entry['category_keyword'])->value('category_id') ?? $unknown_category_id,
-                'source' => $place_entry['source'] ?? null,
                 'es' => $place_entry['es'],
                 'en' => $place_entry['en'],
             ];
-
+            // create the place
             $new_place = Place::create($place_data);
+
+            // create the place's sources
+            $sources_data = $place_entry['sources'] ?? [];
+            foreach ($sources_data as $source_data) {
+                $source_data['place_id'] = $new_place->id;
+                Source::create($source_data);
+            }
 
             // Crear un directorio para este lugar
             $path = public_path('img/places/' . $new_place->id);
@@ -109,9 +116,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => 'A slot canyon in the American Southwest, on Navajo land east of Lechee, Arizona',
                     'description' => 'Description in English',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Ca%C3%B1%C3%B3n_del_Ant%C3%ADlope',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Antelope_Canyon',
+                    ],
+                ],
                 'country_name' => 'United States',
                 'category_keyword' => 'Valleys',
-                'source' => 'https://en.wikipedia.org/wiki/Antelope_Canyon',
             ],
             [
                 'es' => [
@@ -124,9 +140,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => 'Incredible vistas of "hoodoo" rock formations',
                     'description' => 'Description in English',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Parque_nacional_del_Ca%C3%B1%C3%B3n_Bryce',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Bryce_Canyon_National_Park',
+                    ],
+                ],
                 'country_name' => 'United States',
                 'category_keyword' => 'Mountains',
-                'source' => 'https://en.wikipedia.org/wiki/Bryce_Canyon_National_Park'
             ],
             [
                 'es' => [
@@ -139,9 +164,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => 'Cluster of sandstone "buttes" rock formations in the Colorado plateau',
                     'description' => 'Description in English',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Valle_de_los_Monumentos',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Monument_Valley',
+                    ],
+                ],
                 'country_name' => 'United States',
                 'category_keyword' => 'Valleys',
-                'source' => 'https://en.wikipedia.org/wiki/Monument_Valley'
             ],
             [
                 'es' => [
@@ -154,9 +188,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => 'A steep-sided canyon carved by the Colorado River over millions of years',
                     'description' => 'Description in English',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Gran_Ca%C3%B1%C3%B3n',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Grand_Canyon',
+                    ],
+                ],
                 'country_name' => 'United States',
                 'category_keyword' => 'Valleys',
-                'source' => 'https://en.wikipedia.org/wiki/Grand_Canyon',
             ],
             [
                 'es' => [
@@ -169,9 +212,14 @@ class PlaceSeeder extends Seeder
                     'synopsis' => '210 km of coastline featuring rocky cliffs towering 60 meters in height',
                     'description' => 'Description in English',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Bunda_Cliffs',
+                    ],
+                ],
                 'country_name' => 'Australia',
                 'category_keyword' => 'Coastal',
-                'source' => 'https://en.wikipedia.org/wiki/Bunda_Cliffs',
             ],
             [
                 'es' => [
@@ -184,9 +232,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => 'The largest hot spring in the United States, and the third largest in the world',
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Gran_Fuente_Prism%C3%A1tica',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Grand_Prismatic_Spring',
+                    ],
+                ],
                 'country_name' => 'United States',
                 'category_keyword' => 'Volcanic',
-                'source' => 'https://en.wikipedia.org/wiki/Grand_Prismatic_Spring',
             ],
             [
                 'es' => [
@@ -199,9 +256,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "The world's largest salt flat playa",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Salar_de_Uyuni',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Salar_de_Uyuni',
+                    ],
+                ],
                 'country_name' => 'Bolivia',
                 'category_keyword' => 'Valleys',
-                'source' => 'https://en.wikipedia.org/wiki/Salar_de_Uyuni',
             ],
             [
                 'es' => [
@@ -214,9 +280,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "Pink water salt lake in Spain",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Parque_natural_de_las_Lagunas_de_La_Mata_y_Torrevieja',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://www.sunshineseeker.com/destinations/spain-pink-lake-laguna-salada-de-torrevieja/',
+                    ],
+                ],
                 'country_name' => 'Spain',
                 'category_keyword' => 'Water',
-                'source' => 'https://es.wikipedia.org/wiki/Parque_natural_de_las_Lagunas_de_La_Mata_y_Torrevieja',
             ],
             [
                 'es' => [
@@ -229,9 +304,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "Pink water salt lake in Australia",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Lago_Hillier',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Lake_Hillier',
+                    ],
+                ],
                 'country_name' => 'Australia',
                 'category_keyword' => 'Water',
-                'source' => 'https://en.wikipedia.org/wiki/Lake_Hillier',
             ],
             [
                 'es' => [
@@ -244,9 +328,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "Tall, millions of years old rock plateau",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Roraima_(tepuy)',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Mount_Roraima',
+                    ],
+                ],
                 'country_name' => 'Venezuela',
                 'category_keyword' => 'Mountains',
-                'source' => 'https://en.wikipedia.org/wiki/Mount_Roraima',
             ],
             [
                 'es' => [
@@ -259,9 +352,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "Cave formed from Hexagonal basalt columns",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Gruta_de_Fingal',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Fingal%27s_Cave',
+                    ],
+                ],
                 'country_name' => 'Scotland',
                 'category_keyword' => 'Caves',
-                'source' => 'https://en.wikipedia.org/wiki/Fingal%27s_Cave',
             ],
             [
                 'es' => [
@@ -274,9 +376,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "The three beautiful waterfalls at the southern end of Niagara Gorge",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Cataratas_del_Ni%C3%A1gara',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Niagara_Falls',
+                    ],
+                ],
                 'country_name' => 'Canada',
                 'category_keyword' => 'Water',
-                'source' => 'https://en.wikipedia.org/wiki/Niagara_Falls',
             ],
             [
                 'es' => [
@@ -289,9 +400,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "Central America's largest lake and it's volcanic island",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Ometepe',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Ometepe',
+                    ],
+                ],
                 'country_name' => 'Nicaragua',
                 'category_keyword' => 'Volcanic',
-                'source' => 'https://en.wikipedia.org/wiki/Ometepe',
             ],
             [
                 'es' => [
@@ -304,9 +424,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "Colorful sandstone rock formations",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Parque_geol%C3%B3gico_nacional_Zhangye_Danxia',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Zhangye_National_Geopark',
+                    ],
+                ],
                 'country_name' => 'China',
                 'category_keyword' => 'Mountains',
-                'source' => 'https://en.wikipedia.org/wiki/Zhangye_National_Geopark',
             ],
             [
                 'es' => [
@@ -319,9 +448,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "Mountains with a depth of 3250 meters along the Colca River",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Valle_del_Colca',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Colca_Canyon',
+                    ],
+                ],
                 'country_name' => 'Peru',
                 'category_keyword' => 'Valleys',
-                'source' => 'https://es.wikipedia.org/wiki/Valle_del_Colca',
             ],
             [
                 'es' => [
@@ -334,9 +472,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "Natural sanctuary of flora and landscapes from another planet",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Socotra',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Socotra',
+                    ],
+                ],
                 'country_name' => 'Yemen',
                 'category_keyword' => 'Vegetation',
-                'source' => 'https://es.wikipedia.org/wiki/Socotra'
             ],
             [
                 'es' => [
@@ -349,9 +496,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => 'Spring of red waters due to high mineral levels',
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/R%C3%ADo_Tinto',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Rio_Tinto_(river)',
+                    ],
+                ],
                 'country_name' => 'Spain',
                 'category_keyword' => 'Water',
-                'source' => 'https://en.wikipedia.org/wiki/Rio_Tinto_(river)',
             ],
             [
                 'es' => [
@@ -364,9 +520,14 @@ class PlaceSeeder extends Seeder
                     'synopsis' => 'Mountain rich in tungsten, with toxic lakes of turquoise water',
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Monte_Neme',
+                    ],
+                ],
                 'country_name' => 'Spain',
                 'category_keyword' => 'Mountains',
-                'source' => 'https://es.wikipedia.org/wiki/Monte_Neme',
             ],
             [
                 'es' => [
@@ -379,9 +540,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => 'The largest natural crystals ever found, at a depth of 300 meters',
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Cueva_de_los_cristales_(Naica)',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Cave_of_the_Crystals',
+                    ],
+                ],
                 'country_name' => 'Mexico',
                 'category_keyword' => 'Caves',
-                'source' => 'https://en.wikipedia.org/wiki/Cave_of_the_Crystals'
             ],
             [
                 'es' => [
@@ -394,9 +564,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => 'Desertic valley thought to be the hottest place on earth during summer',
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Valle_de_la_Muerte',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Death_Valley_National_Park',
+                    ],
+                ],
                 'country_name' => 'United States',
                 'category_keyword' => 'Valleys',
-                'source' => 'https://en.wikipedia.org/wiki/Death_Valley_National_Park'
             ],
             [
                 'es' => [
@@ -409,9 +588,14 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "Cave known for its glowworm species",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Waitomo_Glowworm_Caves',
+                    ],
+                ],
                 'country_name' => 'New Zealand',
                 'category_keyword' => 'Caves',
-                'source' => 'https://en.wikipedia.org/wiki/Waitomo_Glowworm_Caves'
             ],
             [
                 'es' => [
@@ -424,9 +608,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "Geological depression resulting in an otherworldly volcanic landscape",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Depresi%C3%B3n_de_Danakil',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Danakil_Depression',
+                    ],
+                ],
                 'country_name' => 'Ethiopia',
                 'category_keyword' => 'Volcanic',
-                'source' => 'https://en.wikipedia.org/wiki/Danakil_Depression'
             ],
             [
                 'es' => [
@@ -439,9 +632,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "Terraces of carbonate minerals created by the flow of thermal spring waters",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Pamukkale',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Pamukkale',
+                    ],
+                ],
                 'country_name' => 'Turkey',
                 'category_keyword' => 'Volcanic',
-                'source' => 'https://en.wikipedia.org/wiki/Pamukkale'
             ],
             [
                 'es' => [
@@ -454,9 +656,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "Acidic volcanic lake, with views of blue fire at night",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Ijen',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Ijen',
+                    ],
+                ],
                 'country_name' => 'Indonesia',
                 'category_keyword' => 'Volcanic',
-                'source' => 'https://en.wikipedia.org/wiki/Ijen'
             ],
             [
                 'es' => [
@@ -469,9 +680,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "World's largest natural cave",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Gruta_de_S%C6%A1n_%C4%90o%C3%B2ng',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Hang_S%C6%A1n_%C4%90o%C3%B2ng',
+                    ],
+                ],
                 'country_name' => 'Vietnam',
                 'category_keyword' => 'Caves',
-                'source' => 'https://en.wikipedia.org/wiki/Hang_S%C6%A1n_%C4%90o%C3%B2ng'
             ],
             [
                 'es' => [
@@ -484,9 +704,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => "Red sandstone cliffs and lush vegetation",
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Parque_nacional_Zion',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Zion_National_Park',
+                    ],
+                ],
                 'country_name' => 'United States',
                 'category_keyword' => 'Mountains',
-                'source' => 'https://es.wikipedia.org/wiki/Parque_nacional_Zion'
             ],
             [
                 'es' => [
@@ -499,9 +728,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => 'A 264 meters tall igneous rock formation',
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Monumento_nacional_de_la_Torre_del_Diablo',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Devils_Tower',
+                    ],
+                ],
                 'country_name' => 'United States',
                 'category_keyword' => 'Volcanic',
-                'source' => 'https://en.wikipedia.org/wiki/Devils_Tower'
             ],
             [
                 'es' => [
@@ -514,9 +752,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => 'Incredible forest vistas full of pillar-like rock formations',
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Parque_forestal_nacional_de_Zhangjiajie',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Zhangjiajie_National_Forest_Park',
+                    ],
+                ],
                 'country_name' => 'China',
                 'category_keyword' => 'Mountains',
-                'source' => 'https://en.wikipedia.org/wiki/Zhangjiajie_National_Forest_Park'
             ],
             [
                 'es' => [
@@ -529,9 +776,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => 'Home of giant sequoia trees, including the largest tree in the world',
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Parque_nacional_de_las_Secuoyas',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Sequoia_National_Park',
+                    ],
+                ],
                 'country_name' => 'United States',
                 'category_keyword' => 'Vegetation',
-                'source' => 'https://en.wikipedia.org/wiki/Sequoia_National_Park'
             ],
             [
                 'es' => [
@@ -544,9 +800,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => 'Grove of majestic Baobabs, endemic to Madagascar',
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Avenida_de_los_Baobabs',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Avenue_of_the_Baobabs',
+                    ],
+                ],
                 'country_name' => 'Madagascar',
                 'category_keyword' => 'Vegetation',
-                'source' => 'https://en.wikipedia.org/wiki/Avenue_of_the_Baobabs'
             ],
             [
                 'es' => [
@@ -559,9 +824,18 @@ class PlaceSeeder extends Seeder
                     'synopsis' => '14Km long sea cliffs towering up to 214 meters above the atlantic ocean',
                     'description' => 'Descripción en ingles',
                 ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Acantilados_de_Moher',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Cliffs_of_Moher',
+                    ],
+                ],
                 'country_name' => 'Ireland',
                 'category_keyword' => 'Coastal',
-                'source' => 'https://en.wikipedia.org/wiki/Cliffs_of_Moher'
             ],
 
         ];

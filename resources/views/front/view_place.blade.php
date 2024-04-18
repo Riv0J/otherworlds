@@ -67,7 +67,7 @@
                     <small>{{$place->category->keyword}} ({{$place->category->name}})</small>
                     <small class="short_number">{{$place->views_count}}</small>
                     <small>{{$place->created_at->format('d-m-Y')}}</small>
-                    <small><a class="px-2" href="{{$place->source}}" target="_blank">{{$place->name}}</a></small>
+                    <small><a class="px-2" href="{{$place->getCurrentLocaleSource()->url}}" target="_blank">{{$place->name}}</a></small>
                 </div>
             </div>
             {{-- place stats end--}}
@@ -79,7 +79,7 @@
 
             <p class="rounded-4 px-3 py-2">{{$place->description}}</p>
             <a class="px-2" href="{{route('places')}}">@lang('return')</a>
-            <a class="px-2" href="{{$place->source}}" target="_blank">@lang('otherworlds.learn_more', ['place_name' => $place->name])</a>
+            <a class="px-2" href="{{$place->getCurrentLocaleSource()->url}}" target="_blank">@lang('otherworlds.learn_more', ['place_name' => $place->name])</a>
             <div class="div_h mr-2"></div>
 
         </div>

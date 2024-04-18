@@ -13,7 +13,7 @@ class Place extends Model
     use Translatable;
 
     public $translatedAttributes = ['name', 'synopsis', 'description'];
-    protected $fillable = ['country_id', 'views_count','favorites_count','source','natural'];
+    protected $fillable = ['country_id', 'views_count','favorites_count','natural'];
 
     public function country()
     {
@@ -23,8 +23,16 @@ class Place extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
+    public function sources(){
+        return $this->hasMany(Source::class);
+    }
+
     public function is_favorite(User $user){
         return $user->favorites()->where('place_id', $this->id)->exists();
+    }
+
+    public function getCurrentLocaleSource(){
+        return $this->sources()->where('locale', app()->getLocale())->first();
     }
 }
 
