@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->string('locale');
             $table->string('url');
-            $table->string('content')->nullable();
+            $table->string('content',10000)->nullable();
 
             //foreign country_id
             $table->unsignedBigInteger('place_id');

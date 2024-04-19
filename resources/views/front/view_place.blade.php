@@ -75,9 +75,9 @@
         </div>
 
         {{-- synopsis --}}
-        <div class="col-12 col-md p-0">
+        <div  class="col-12 col-md p-0">
 
-            <p class="rounded-4 px-3 py-2">{{$place->description}}</p>
+            <p class="rounded-4 px-3 py-2" id="synopsis">{!! $place->getCurrentLocaleSource()->content !!}</p>
             <a class="px-2" href="{{route('places')}}">@lang('return')</a>
             <a class="px-2" href="{{$place->getCurrentLocaleSource()->url}}" target="_blank">@lang('otherworlds.learn_more', ['place_name' => $place->name])</a>
             <div class="div_h mr-2"></div>
@@ -86,6 +86,11 @@
 
     </div>
 </section>
+<script>
+    const content = '{{$place->getCurrentLocaleSource()->content}}';
+    console.log(content);
+    document.querySelector('#synopsis').innerHTML = content;
+</script>
 <style>
     .interaction_button{
         border: none;
