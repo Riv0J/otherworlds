@@ -89,6 +89,9 @@ class RegisterController extends Controller
         ]);
     }
 
+    /**
+     * Show registration form to user
+     */
     function showRegistrationForm(){
         $variables = [
             'available_countries' => Country::getAvailableCountries(),
@@ -96,6 +99,12 @@ class RegisterController extends Controller
         return view('auth.register', $variables);
     }
 
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
@@ -104,7 +113,12 @@ class RegisterController extends Controller
 
         $this->guard()->login($user);
 
-        return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect($this->redirectPath());
     }
 }

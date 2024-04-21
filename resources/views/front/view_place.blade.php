@@ -14,12 +14,11 @@
 
 @section('content')
 
-<section class="bg_black row mt-3 col-12 col-lg-8 px-1 px-lg-4 py-3 flex-column flex-md-row justify-content-center align-items-center white shadows_inline">
-
+<section class="bg_black shadows_inline white col-12 col-lg-8 px-2 px-lg-4 py-3 flex-column flex-md-row justify-content-center align-items-center">
     <div class="spacer mt-4 pt-5"></div>
 
     {{-- title --}}
-    <div class="d-flex justify-content-between app_border_bottom mx-3 px-0 pb-2">
+    <div class="d-flex justify-content-between app_border_bottom px-0 pb-2">
         <div class="flex_center gap-4">
             <span class="big-icon flag-icon flag-icon-{{$place->country->code}}" title="{{$place->country->name}}"></span>
             <h3 id="pl_name" class="regular">{{$place->name}}</h3>
@@ -42,19 +41,19 @@
     </div>
 
     {{-- content body --}}
-    <div class="row my-4 p-0 justify-content-between gap-2">
+    <div class="d-flex my-4 justify-content-between gap-2">
 
         {{-- img container--}}
-        <div class="col-12 col-md-6 p-0 border bg_gray p-2 pb-4">
+        <div class="border bg_gray col-12 col-md-6 p-2 pb-4">
             <div class="img_container img_gradient_bottom img_gradient_top text-center">
                 <img src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="{{$place->name}} @lang('otherworlds.thumbnail')">
             </div>
             <p class="text-center my-2">{{$place->synopsis}}.</p>
 
-            <div class="div_h div_gray mx-2 my-4"></div>
+            <div class="div_h div_gray m-3"></div>
 
             {{-- place stats start--}}
-            <div class="row p-0 m-0">
+            <div class="d-flex gap-3">
                 <div class="col-4 d-flex flex-column align-items-end gap-1 text-end">
                     <small>@lang('otherworlds.country'):</small>
                     <small>@lang('otherworlds.category'):</small>
@@ -67,7 +66,11 @@
                     <small>{{$place->category->keyword}} ({{$place->category->name}})</small>
                     <small class="short_number">{{$place->views_count}}</small>
                     <small>{{$place->created_at->format('d-m-Y')}}</small>
-                    <small><a class="px-2" href="{{$place->getCurrentLocaleSource()->url}}" target="_blank">{{$place->name}}</a></small>
+                    <small>
+                        <a class="px-2" href="{{$source->url}}" target="_blank">
+                            {{$source->title}} <i class="ri-external-link-line" style="font-size: 1rem"></i>
+                        </a>
+                    </small>
                 </div>
             </div>
             {{-- place stats end--}}
@@ -75,23 +78,23 @@
         </div>
 
         {{-- synopsis --}}
-        <div  class="col-12 col-md p-0">
-
-            <p class="rounded-4 px-3 py-2" id="synopsis">{!! $place->getCurrentLocaleSource()->content !!}</p>
-            <a class="px-2" href="{{route('places')}}">@lang('return')</a>
-            <a class="px-2" href="{{$place->getCurrentLocaleSource()->url}}" target="_blank">@lang('otherworlds.learn_more', ['place_name' => $place->name])</a>
-            <div class="div_h mr-2"></div>
-
+        <div  class="d-flex flex-column col-12 col-md px-3">
+            <h3 class="mb-4">@lang('otherworlds.place_synopsis')</h3>
+            <p class="light" id="synopsis">{!! $source->content !!}</p>
         </div>
 
     </div>
+    <div class="">
+        {{-- link --}}
+        <a class="px-2" href="{{route('places')}}">@lang('return')</a>
+        <a class="px-2" href="{{$source->url}}" target="_blank">@lang('otherworlds.learn_more', ['place_name' => $place->name])</a>
+        <div class="div_h mt-4"></div>
+    </div>
 </section>
-<script>
-    const content = '{{$place->getCurrentLocaleSource()->content}}';
-    console.log(content);
-    document.querySelector('#synopsis').innerHTML = content;
-</script>
 <style>
+    #synopsis{
+        font-size: 1.1rem;
+    }
     .interaction_button{
         border: none;
         background-color: transparent;

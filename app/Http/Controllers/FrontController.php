@@ -61,6 +61,7 @@ class FrontController extends Controller{
 
         $variables = [
             'place' => $place,
+            'source' => $place->getSource(app()->getLocale())
         ];
 
         return view('front.view_place', $variables);
@@ -121,12 +122,12 @@ class FrontController extends Controller{
         return response()->json($variables); //convert vars to json
     }
 
-    //get places based on page
+    // get places based on page
     public static function getPlaces($page, $per_page){
-        // Calcular el índice de inicio para la consulta basado en el número de página
+        // calculate the start index based on the page, and per page
         $startIndex = ($page - 1) * $per_page;
 
-        // Obtener los lugares ordenados por nombre
+        // get the places ordered by name and return
         return Place::skip($startIndex)
                     ->take($per_page)
                     ->get();

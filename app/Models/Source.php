@@ -11,7 +11,7 @@ class Source extends Model
 
     protected $table = 'sources';
 
-    protected $fillable = ['place_id', 'locale', 'url', 'content'];
+    protected $fillable = ['place_id', 'locale', 'url', 'title', 'content'];
 
     public function place(){
         return $this->belongsTo(Place::class);

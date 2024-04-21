@@ -19,12 +19,14 @@ class SourceSeeder extends Seeder
     {
         foreach (Source::all() as $source) {
             try {
-                $content = OHelper::getPageContent($source->url);
-                $source->content = $content;
-                $this->command->info(strlen($content));
+                $content_data = OHelper::getPageContent($source->url);
+
+                $source->content = $content_data['content'];
+                $source->title = $content_data['title'];
                 $source->save();
             } catch (\Throwable $th) {
-                $this->command->error('WOOOOOOOOOOOOOOOOPS: ' . $th->getMessage());
+                $this->command->error('No resource for Place: '.$source->place->name.'.');
+                $this->command->error('------Message: '. $th->getMessage());
             }
         }
     }

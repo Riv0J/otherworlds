@@ -11,6 +11,7 @@ class Place extends Model
 {
     use HasFactory;
     use Translatable;
+    protected $table = 'places';
 
     public $translatedAttributes = ['name', 'synopsis', 'description'];
     protected $fillable = ['country_id', 'views_count','favorites_count','natural'];
@@ -27,12 +28,18 @@ class Place extends Model
         return $this->hasMany(Source::class);
     }
 
+    /*
+     *  Determine if this place is a user's favorite
+     */
     public function is_favorite(User $user){
         return $user->favorites()->where('place_id', $this->id)->exists();
     }
 
-    public function getCurrentLocaleSource(){
-        return $this->sources()->where('locale', app()->getLocale())->first();
+    /*
+     *  Get the place's source in a specific locale
+     */
+    public function getSource(?string $locale){
+        return $this->sources()->where('locale', $locale ?: app()->getLocale())->first();
     }
 }
 
