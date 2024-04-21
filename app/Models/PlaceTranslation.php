@@ -8,6 +8,6 @@ class PlaceTranslation extends Model
 {
     protected $table = 'places_translations';
     public $timestamps = false;
-    protected $fillable = ['locale', 'name', 'synopsis', 'description'];
+    protected $fillable = ['locale', 'name', 'synopsis'];
 
 }

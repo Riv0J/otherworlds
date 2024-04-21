@@ -44,7 +44,7 @@
     <div class="my-4">
 
         {{-- img container START--}}
-        <div class="border bg_gray col-12 col-md-6 p-2 pb-4" style="margin-right: 1em; float:left">
+        <div class="border_gray bg_gray col-12 col-md-6 p-2 pb-4 mb-5 mb-md-2" style="margin-right: 1em; float:left">
             <div class="img_container img_gradient_bottom img_gradient_top text-center">
                 <img src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="{{$place->name}} @lang('otherworlds.thumbnail')">
             </div>
@@ -79,24 +79,28 @@
         {{-- img container END--}}
 
         <h3 class="mb-4">@lang('otherworlds.place_synopsis')</h3>
-        <p class="light" id="synopsis">{!! $source->content !!}</p>
+        <div class="mx-2 light" id="synopsis">{!! $source->content !!}</div>
 
     </div>
     {{-- content body END --}}
 
-    <div class="">
+    <div class="text-center">
         {{-- link --}}
         <a class="px-2" href="{{route('places')}}">@lang('return')</a>
         <a class="px-2" href="{{$source->url}}" target="_blank">@lang('otherworlds.learn_more', ['place_name' => $place->name])</a>
         <div class="div_h mt-4"></div>
     </div>
-    <div>
-
+    <div class="my-5">
+        <h3 class="text-center">@lang('otherworlds.gallery')</h3>
     </div>
 </section>
 <style>
-    #synopsis{
-        font-size: 1.1rem;
+    b{
+        font-weight: 600;
+    }
+    #synopsis>p{
+        font-size: 1.05rem;
+        text-align: justify;
     }
     .interaction_button{
         border: none;

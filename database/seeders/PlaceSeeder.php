@@ -104,17 +104,15 @@ class PlaceSeeder extends Seeder
 
     public static function getPlacesData(){
         // places data
-        return[
+        return [
             [
                 'es' => [
                     'name' => 'Cañón del Antílope',
                     'synopsis' => 'Cañón en el suroeste de Estados Unidos, en tierras navajos al este de Lechee, Arizona',
-                    'description' => 'Descripción en español',
                 ],
                 'en' => [
                     'name' => 'Antelope Canyon',
                     'synopsis' => 'A slot canyon in the American Southwest, on Navajo land east of Lechee, Arizona',
-                    'description' => 'Description in English',
                 ],
                 'sources' => [
                     [
@@ -133,12 +131,10 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Punto Bryce',
                     'synopsis' => 'Increible vista de formaciones de roca en forma de torres "hoodos"',
-                    'description' => 'Descripción en español',
                 ],
                 'en' => [
                     'name' => 'Bryce Point',
                     'synopsis' => 'Incredible vistas of "hoodoo" rock formations',
-                    'description' => 'Description in English',
                 ],
                 'sources' => [
                     [
@@ -157,12 +153,10 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Valle de los monumentos',
                     'synopsis' => 'Conjunto de formaciones rocosas "butte" en el valle del Colorado',
-                    'description' => 'Descripción en español',
                 ],
                 'en' => [
                     'name' => 'Monument Valley',
                     'synopsis' => 'Cluster of sandstone "buttes" rock formations in the Colorado plateau',
-                    'description' => 'Description in English',
                 ],
                 'sources' => [
                     [
@@ -181,12 +175,10 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Gran Cañón del Colorado',
                     'synopsis' => 'Vistosa y escarpada garganta de roca excavada por el río Colorado a lo largo de millones de años',
-                    'description' => 'Descripción en español',
                 ],
                 'en' => [
                     'name' => 'Grand Canyon',
                     'synopsis' => 'A steep-sided canyon carved by the Colorado River over millions of years',
-                    'description' => 'Description in English',
                 ],
                 'sources' => [
                     [
@@ -205,12 +197,11 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Acantilados de Nullarbor',
                     'synopsis' => 'Linea costera de 210Km de acantilados rocosos de 60 metros de altura',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Nullarbor Cliffs',
                     'synopsis' => '210 km of coastline featuring rocky cliffs towering 60 meters in height',
-                    'description' => 'Description in English',
                 ],
                 'sources' => [
                     [
@@ -225,12 +216,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Gran Manantial Prismático',
                     'synopsis' => 'El manantial termal más grande de Estados Unidos y el tercero más grande del mundo.',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Grand Prismatic Spring',
                     'synopsis' => 'The largest hot spring in the United States, and the third largest in the world',
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -249,12 +240,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Salar de Uyuni',
                     'synopsis' => 'El mayor desierto de sal continuo y alto del mundo',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Uyuni Salt Flat',
                     'synopsis' => "The world's largest salt flat playa",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -273,12 +264,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Salinas de Torrevieja',
                     'synopsis' => 'Lago de agua salada rosa en España',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Torrevieja Salt Lake',
                     'synopsis' => "Pink water salt lake in Spain",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -297,12 +288,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Lago Hillier',
                     'synopsis' => 'Lago de agua salada rosa en Australia',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Lake Hillier',
                     'synopsis' => "Pink water salt lake in Australia",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -321,12 +312,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Monte Roraima',
                     'synopsis' => 'Alta meseta de roca, con millones de años de antigüedad',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Mount Roraima',
                     'synopsis' => "Tall, millions of years old rock plateau",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -345,12 +336,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Gruta de Fingal',
                     'synopsis' => 'Cueva formada por columnas de basalto hexagonales',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => "Fingal's Cave",
                     'synopsis' => "Cave formed from Hexagonal basalt columns",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -369,12 +360,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Cataratas del Niágara',
                     'synopsis' => 'Las tres hermosas cascadas en el rio Niágara',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Niagara Falls',
                     'synopsis' => "The three beautiful waterfalls at the southern end of Niagara Gorge",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -393,12 +384,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Lago Cocibolca & Ometepe',
                     'synopsis' => 'El lago más grande de america central con su isla volcánica',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Lake Cocibolca & Ometepe',
                     'synopsis' => "Central America's largest lake and it's volcanic island",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -417,12 +408,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Montañas Zhangye Danxia',
                     'synopsis' => 'Formaciones geológicas de arenisca multicolor',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Zhangye Danxia Mountains',
                     'synopsis' => "Colorful sandstone rock formations",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -441,12 +432,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Cañón del Colca',
                     'synopsis' => 'Montañas con profundidad de 3250m a lo largo del río Colca',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Colca Canyon',
                     'synopsis' => "Mountains with a depth of 3250 meters along the Colca River",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -465,12 +456,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Isla de Socotra',
                     'synopsis' => 'Santuario natural de flora y paisajes de otro planeta',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Socotra Island',
                     'synopsis' => "Natural sanctuary of flora and landscapes from another planet",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -489,12 +480,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Río Tinto',
                     'synopsis' => 'Vertiente de aguas rojizas por alta concentración de minerales',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Tinto River',
                     'synopsis' => 'Spring of red waters due to high mineral levels',
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -513,12 +504,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Monte Neme',
                     'synopsis' => 'Monte rico en wolframio, con lagos tóxicos de agua turquesa',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Mount Neme',
                     'synopsis' => 'Mountain rich in tungsten, with toxic lakes of turquoise water',
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -533,12 +524,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Cueva de los cristales',
                     'synopsis' => 'Los cristales naturales más grandes jamás encontrados, a una profundidad de 300 metros',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Cave of the crystals',
                     'synopsis' => 'The largest natural crystals ever found, at a depth of 300 meters',
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -557,12 +548,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Valle de la muerte',
                     'synopsis' => 'Valle desértico con una de las temperaturas más altas del mundo durante el verano',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Death Valley',
                     'synopsis' => 'Desertic valley thought to be the hottest place on earth during summer',
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -581,12 +572,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Cuevas Luminosas de Waitomo',
                     'synopsis' => 'Cueva conocida por sus especies de gusanos luminosos',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Waitomo Glowworm Caves',
                     'synopsis' => "Cave known for its glowworm species",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -601,12 +592,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Depresión de Danakil',
                     'synopsis' => 'Depresión geológica que da lugar a un paisaje volcánico de aspecto extraterrestre',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Danakil Depression',
                     'synopsis' => "Geological depression resulting in an otherworldly volcanic landscape",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -625,12 +616,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Pamukkale',
                     'synopsis' => 'Terrazas de minerales de carbonato formadas por el flujo de aguas termales',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Pamukkale',
                     'synopsis' => "Terraces of carbonate minerals created by the flow of thermal spring waters",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -649,12 +640,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Cráter Ijen',
                     'synopsis' => 'Cráter volcánico lleno de agua ácida, con vistas de fuego azul por las noches',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Ijen Crater',
                     'synopsis' => "Acidic volcanic lake, with views of blue fire at night",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -673,12 +664,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Cueva de Son Doong',
                     'synopsis' => 'La cueva natural más grande del mundo',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Son Doon Cave',
                     'synopsis' => "World's largest natural cave",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -697,12 +688,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Cañón de Zion',
                     'synopsis' => 'Acantilados de arenisca roja y exuberante vegetación',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Zion Canyon',
                     'synopsis' => "Red sandstone cliffs and lush vegetation",
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -721,12 +712,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'La Torre del Diablo',
                     'synopsis' => 'Formación de roca ígnea de 264 metros de altura',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Devils Tower',
                     'synopsis' => 'A 264 meters tall igneous rock formation',
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -745,12 +736,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Parque forestal de Zhangjiajie',
                     'synopsis' => 'Increibles paisajes de bosque con pilares rocoss gigantescoss',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Zhangjiajie forest park',
                     'synopsis' => 'Incredible forest vistas full of pillar-like rock formations',
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -769,12 +760,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Parque Nacional de las Secuoyas',
                     'synopsis' => 'Hogar de árboles de secuoya gigantes, incluyendo el árbol más grande del mundo',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Sequoia National Park',
                     'synopsis' => 'Home of giant sequoia trees, including the largest tree in the world',
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -793,12 +784,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Avenida de los Baobabs',
                     'synopsis' => 'Arboleda de Baobabs, árboles majestuosos endémicos de Madagascar',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Avenue of the Baobabs',
                     'synopsis' => 'Grove of majestic Baobabs, endemic to Madagascar',
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [
@@ -817,12 +808,12 @@ class PlaceSeeder extends Seeder
                 'es' => [
                     'name' => 'Acantilados de Moher',
                     'synopsis' => '14Km de acantilados que llegan a alcanzar hasta 214 metros sobre el nivel del oceano atlántico',
-                    'description' => 'Descripción en español',
+
                 ],
                 'en' => [
                     'name' => 'Cliffs of Moher',
                     'synopsis' => '14Km long sea cliffs towering up to 214 meters above the atlantic ocean',
-                    'description' => 'Descripción en ingles',
+
                 ],
                 'sources' => [
                     [

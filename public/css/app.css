@@ -349,3 +349,6 @@ i, .brand_svg{
 .app_border_right {
     border-right: 1px solid var(--alt_dark);
 }
+.border_gray{
+    border: 1px solid gray;
+}

@@ -19,7 +19,7 @@ class SourceSeeder extends Seeder
     {
         foreach (Source::all() as $source) {
             try {
-                $content_data = OHelper::getPageContent($source->url);
+                $content_data = OHelper::getWikiContent($source->url);
                 $this->command->info($source->place->name.": ".strlen($content_data['content']));
                 $source->content = $content_data['content'];
                 $source->title = $content_data['title'];
