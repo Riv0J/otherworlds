@@ -40,11 +40,11 @@
         </div>
     </div>
 
-    {{-- content body --}}
-    <div class="d-flex my-4 justify-content-between gap-2">
+    {{-- content body START --}}
+    <div class="my-4">
 
-        {{-- img container--}}
-        <div class="border bg_gray col-12 col-md-6 p-2 pb-4">
+        {{-- img container START--}}
+        <div class="border bg_gray col-12 col-md-6 p-2 pb-4" style="margin-right: 1em; float:left">
             <div class="img_container img_gradient_bottom img_gradient_top text-center">
                 <img src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="{{$place->name}} @lang('otherworlds.thumbnail')">
             </div>
@@ -52,7 +52,7 @@
 
             <div class="div_h div_gray m-3"></div>
 
-            {{-- place stats start--}}
+            {{-- place stats START --}}
             <div class="d-flex gap-3">
                 <div class="col-4 d-flex flex-column align-items-end gap-1 text-end">
                     <small>@lang('otherworlds.country'):</small>
@@ -73,22 +73,25 @@
                     </small>
                 </div>
             </div>
-            {{-- place stats end--}}
+            {{-- place stats END--}}
 
         </div>
+        {{-- img container END--}}
 
-        {{-- synopsis --}}
-        <div  class="d-flex flex-column col-12 col-md px-3">
-            <h3 class="mb-4">@lang('otherworlds.place_synopsis')</h3>
-            <p class="light" id="synopsis">{!! $source->content !!}</p>
-        </div>
+        <h3 class="mb-4">@lang('otherworlds.place_synopsis')</h3>
+        <p class="light" id="synopsis">{!! $source->content !!}</p>
 
     </div>
+    {{-- content body END --}}
+
     <div class="">
         {{-- link --}}
         <a class="px-2" href="{{route('places')}}">@lang('return')</a>
         <a class="px-2" href="{{$source->url}}" target="_blank">@lang('otherworlds.learn_more', ['place_name' => $place->name])</a>
         <div class="div_h mt-4"></div>
+    </div>
+    <div>
+
     </div>
 </section>
 <style>

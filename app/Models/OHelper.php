@@ -86,12 +86,21 @@ class OHelper extends Model{
                 $content_html = str_replace($str,'',$content_html);
             }
 
+            //delete ";" after "("
+            $content_html = preg_replace('/;(?=\()/', '', $content_html);
+
             return [
                 'title' => $title_container->text(),
-                'content' => trim($content_html)
+                'content' => trim($content_html),
+                'tries' => $tries
             ];
+
         } else {
             return null;
         }
+    }
+
+    public static function cleanse_crawler(Crawler $crawler){
+
     }
 }
