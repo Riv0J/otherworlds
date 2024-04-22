@@ -23,7 +23,7 @@ class LocaleController extends Controller
         $cookie = cookie('o_locale', $locale, 60 * 24 * 30); // 30 días
 
         // check if theres a place_id in session
-        if (session()->has('place_id')) {
+        if (session()->has('place_id') && str_contains(url()->previous(),'/place/')) {
             $place = Place::find(session('place_id'));
 
             // redirect with translated name with cookie

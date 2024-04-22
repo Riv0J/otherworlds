@@ -24,7 +24,7 @@
 <section class="col-12 px-1 px-lg-2 py-3">
 
     <div class="gap-2 gap-md-3 justify-content-center align-items-stretch" id="places_container">
-        <div class="pl_card flex-column align-items-between justify-content-between p-0 rounded-4 white text-left" id="ajax_loading" style="order: 10000; display: none;">
+        <div class="pl_card" id="ajax_loading" style="order: 10000; display: none;">
             <div class="img_bg" style="background-image: url('{{asset('img/loading.gif')}}'); background-size: contain; background-repeat: no-repeat;"></div>
         </div>
     </div>
@@ -64,7 +64,7 @@
             const country = loaded_countries[place.country_id];
 
             const pl_card = document.createElement('div');
-            pl_card.className = "pl_card d-flex flex-column align-items-between justify-content-between p-0 rounded-4 white text-left";
+            pl_card.className = "pl_card";
 
             const pl_link = document.createElement('a');
             pl_link.className = "border-0";
@@ -190,19 +190,29 @@
     //ajax variables
     let current_page = 1;
     let requesting = false;
+    let querying = false;
 
     //on scroll event check if the end of the places container is visible
     window.addEventListener('scroll', function() {
         var container = document.getElementById('places_container');
-        if (current_page == -1){
-            //means there are no more places for this query
+
+        //check if the scroll is not low enough
+        if (container.getBoundingClientRect().bottom > window.innerHeight*1.25){
             return;
-        } else if (container.getBoundingClientRect().bottom <= window.innerHeight*1.25 && requesting == false) {
+        }
+
+        if (requesting == false && querying == false) {
             request_places();
+        } else if (requesting == true){
+            querying = true;
         }
     });
 
     function request_places(){
+        if (current_page == -1){
+            //means there are no more places for this query
+            return;
+        }
         const ajax_data = {
             method: 'POST',
             url: '{{ URL('/ajax/places/request') }}',
@@ -237,8 +247,12 @@
     }
 
     async function request_cooldown(){
-        await sleep(2000);
+        await sleep(1000);
         requesting = false;
+        if(querying == true){
+            querying = false;
+            request_places();
+        }
     }
     async function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -304,6 +318,10 @@
         color: white;
         border-width: 2px;
         border-color: gray;
+        border-radius: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
     @media screen and (min-width: 1921px) {
         .pl_card {
