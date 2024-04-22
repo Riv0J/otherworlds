@@ -23,20 +23,27 @@
             <span class="big-icon flag-icon flag-icon-{{$place->country->code}}" title="{{$place->country->name}}"></span>
             <h3 id="pl_name" class="regular">{{$place->name}}</h3>
         </div>
-        <div>
+        <div class="d-flex flex-row" id="interactions">
             {{-- #fav_button START--}}
             @if(Auth::check() === false || $place->is_favorite(Auth::user()) === false)
-                <button title='@lang('otherworlds.fav_button')' class="interaction_button" id="fav_button">
+                <button title='@lang('otherworlds.fav_button')' id="fav_button">
                     <i class="fa-regular fa-star"></i>
                     <h5 class="short_number">{{$place->favorites_count}}</h5>
                 </button>
             @else
-                <button title='@lang('otherworlds.fav_button')' class="interaction_button yellow" id="fav_button">
+                <button title='@lang('otherworlds.fav_button')' class="yellow" id="fav_button">
                     <i class="fa-solid fa-star"></i>
                     <h5 class="short_number">{{$place->favorites_count}}</h5>
                 </button>
             @endif
             {{-- #fav_button END--}}
+            <div class="div_v div_gray m-2"></div>
+
+            <button title='@lang('otherworlds.share_button')' class="green" id="share_button">
+                <input type="text" value="{{ route('view_place', ['place_name' => $place->slug_name()]) }}" id="place_url" style="left: -200%; position:absolute">
+                <i class="ri-share-line"></i>
+            </button>
+
         </div>
     </div>
 
@@ -67,9 +74,13 @@
                     <small class="short_number">{{$place->views_count}}</small>
                     <small>{{$place->created_at->format('d-m-Y')}}</small>
                     <small>
+                        @if($source != null)
                         <a class="px-2" href="{{$source->url}}" target="_blank">
                             {{$source->title}} <i class="ri-external-link-line" style="font-size: 1rem"></i>
                         </a>
+                        @else
+                        -
+                        @endif
                     </small>
                 </div>
             </div>
@@ -79,15 +90,21 @@
         {{-- img container END--}}
 
         <h3 class="mb-4">@lang('otherworlds.place_synopsis')</h3>
-        <div class="mx-2 light" id="synopsis">{!! $source->content !!}</div>
 
+        @if($source != null)
+        <div class="mx-2 light" id="synopsis">{!! $source->content !!}</div>
+        @endif
     </div>
     {{-- content body END --}}
 
     <div class="text-center">
         {{-- link --}}
         <a class="px-2" href="{{route('places')}}">@lang('return')</a>
+
+        @if($source != null)
         <a class="px-2" href="{{$source->url}}" target="_blank">@lang('otherworlds.learn_more', ['place_name' => $place->name])</a>
+        @endif
+
         <div class="div_h mt-4"></div>
     </div>
     <div class="my-5">
@@ -102,7 +119,7 @@
         font-size: 1.05rem;
         text-align: justify;
     }
-    .interaction_button{
+    #interactions>button{
         border: none;
         background-color: transparent;
         color: var(--white);
@@ -111,8 +128,10 @@
         gap: 0.5rem;
         padding: 0.5rem;
         transition: all 0.15s;
+        align-items: center;
+        justify-content: center
     }
-    .interaction_button>h5{
+    #interactions>button>h5{
         margin: 0
     }
     .yellow{
@@ -121,6 +140,20 @@
     #fav_button:hover{
         background-color: var(--gray_opacity);
         color: yellow;
+    }
+    .green{
+        color: #58D68D;
+    }
+    #share_button{
+        width: 35px;
+        height: 35px;
+    }
+    #share_button:hover{
+        background-color: var(--gray_opacity);
+        color: #58D68D;
+    }
+    #share_button>i{
+        scale: 1.2;
     }
     .img_gradient_top{
         position: relative;
@@ -225,5 +258,14 @@
     @endif
 
 
+</script>
+<script>
+    //on click #share_button
+    document.getElementById('share_button').addEventListener('click', function(){
+        const url_input = document.getElementById('place_url');
+        url_input.select();
+        document.execCommand("copy");
+        alert("URL copiada al portapapeles: " + url_input.value);
+    });
 </script>
 @endsection

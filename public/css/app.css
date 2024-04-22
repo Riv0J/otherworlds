@@ -239,6 +239,11 @@ i, .brand_svg{
 .div_h{
     border-bottom: 1px solid var(--alt_dark);
 }
+.div_v{
+    translate: -50% 0;
+    border-right: 1px solid var(--alt_dark);
+    min-width: 3px;
+}
 .div_gray{
     border-color: gray;
 }
