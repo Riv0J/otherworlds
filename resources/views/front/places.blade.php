@@ -68,7 +68,7 @@
 
             const pl_link = document.createElement('a');
             pl_link.className = "border-0";
-            pl_link.href = view_place_route + '/' + place.name;
+            pl_link.href = view_place_route + '/' + place.name.replace(/ /g, "-");
 
             const img_bg = document.createElement('div');
             img_bg.className = 'img_bg';

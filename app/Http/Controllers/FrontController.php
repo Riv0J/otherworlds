@@ -43,9 +43,13 @@ class FrontController extends Controller{
         return view('front.places', $variables);
     }
 
-    function view_place(string $place_name){
+    function view_place(string $slug_name){
+
+        // replace hyphens to spaces
+        $slug_name = str_replace('-',' ',$slug_name);
+
         //try to get the place:
-        $place_translation = PlaceTranslation::where('name', $place_name)->first();
+        $place_translation = PlaceTranslation::where('name', $slug_name)->first();
         if($place_translation == null){
             return redirect()->route('places');
         }
@@ -58,6 +62,8 @@ class FrontController extends Controller{
         // add a view to the place
         $place->views_count += 1;
         $place->save();
+
+        session()->put('place_id', $place->id);
 
         $variables = [
             'place' => $place,
