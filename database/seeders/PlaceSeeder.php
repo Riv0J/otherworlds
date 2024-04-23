@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 use App\Models\CountryTranslation;
@@ -12,6 +13,7 @@ use App\Models\CategoryTranslation;
 use App\Models\Place;
 use App\Models\Source;
 use App\Models\OHelper;
+
 
 class PlaceSeeder extends Seeder
 {
@@ -58,6 +60,8 @@ class PlaceSeeder extends Seeder
             $place_data = [
                 'views_count' => rand(1, 1000000),
                 'favorites_count' => rand(1, 1500),
+                'latitude' => $place_entry['latitude'] ?? rand(1, 100),
+                'longitude' => $place_entry['longitude'] ?? rand(1, 100),
                 'country_id' => CountryTranslation::where('name', $place_entry['country_name'])->value('country_id') ?? $unknown_country_id,
                 'category_id' => CategoryTranslation::where('keyword', $place_entry['category_keyword'])->value('category_id') ?? $unknown_category_id,
                 'es' => $place_entry['es'],
@@ -132,6 +136,8 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'United States',
                 'category_keyword' => 'Valleys',
+                'latitude' => 36.3,
+                'longitude' => -112.6
             ],
             [
                 'es' => [

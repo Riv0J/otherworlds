@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration{
     /**
      * Run the migrations.
      *
@@ -18,6 +17,8 @@ return new class extends Migration
             $table->integer('views_count')->default(0);
             $table->integer('favorites_count')->default(0);
             $table->boolean('natural')->default(true);
+            $table->double('latitude', 10, 6);
+            $table->double('longitude', 10, 6);
 
             //foreign country_id
             $table->unsignedBigInteger('country_id');
