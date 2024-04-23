@@ -72,6 +72,7 @@ return [
     'place_overview' => 'Place overview',
     'gallery' => 'Gallery',
     'copy_link' => 'Place link copied to clipboard',
+    'share_button' => 'Copy place link',
 
     // general
     'email' => 'Email',

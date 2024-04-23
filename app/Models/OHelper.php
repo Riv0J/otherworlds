@@ -49,15 +49,22 @@ class OHelper extends Model
             // get the first 'p' element of the page, and the #firstHeading
             $title_container = $crawler->filterXPath("//*[@id='firstHeading']");
             $html_content = '';
-            for ($i=1; $i < 4; $i++) {
-                if($i > 2){
-                    $html_content = $html_content.' ';
-                }
-                $container_element = $crawler->filterXPath("//*[@id='bodyContent']//p[".$i."]");
-                $html_content = $html_content.'<p>'.OHelper::cleanse_crawler_html($container_element).'</p>';
 
-                if($i != 3){
-                    $html_content = $html_content.'<br>';
+            $extra_tries = 2;
+            $paragraph_to_scrape = 3;
+            for ($i=1; $i < $paragraph_to_scrape+1; $i++) {
+                $container_element = $crawler->filterXPath("//*[@id='bodyContent']//p[".$i."]");
+
+                if ($container_element->count() == 0) { break; }
+                $text = OHelper::cleanse_crawler_html($container_element);
+
+                if(strlen($text)>10){
+                    $html_content = $html_content.'<p>'.$text.'</p>';
+                } else {
+                    if($extra_tries > 0){
+                        $extra_tries--;
+                        $paragraph_to_scrape++;
+                    }
                 }
             }
 

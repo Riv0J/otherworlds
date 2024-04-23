@@ -37,7 +37,7 @@ main{
     min-height: 100svh;
 }
 main a{
-    border-bottom: 2px rgb(255, 255, 255) solid;
+    border-bottom: 1px rgb(255, 255, 255) solid;
 }
 main a:hover{
     background-color: var(--hover_gray);
@@ -309,7 +309,6 @@ i, .brand_svg{
     overflow: hidden;
     background-color: var(--main);
     color: var(--black);
-
 
     transition: all 0.75s;
 }

@@ -54,7 +54,7 @@
     <div class="my-4">
 
         {{-- img container START--}}
-        <div class="border_gray bg_gray col-12 col-md-6 p-2 pb-4 mb-5 mb-md-2" style="margin-right: 1em; float:left">
+        <div class="border_gray bg_gray col-12 col-md-6 p-2 pb-4 mb-5 mb-md-2" style="margin-right: 1.3em; float:left">
             <div class="img_container img_gradient_bottom img_gradient_top text-center">
                 <img src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="{{$place->name}} @lang('otherworlds.thumbnail')">
             </div>
@@ -79,7 +79,7 @@
                     <small>
                         @if($source != null)
                         <a class="px-2" href="{{$source->url}}" target="_blank">
-                            {{$source->title}} <i class="ri-external-link-line" style="font-size: 1rem"></i>
+                            {{$source->title ?? $place->name}} <i class="ri-external-link-line" style="font-size: 1rem"></i>
                         </a>
                         @else
                         -
@@ -92,27 +92,30 @@
         </div>
         {{-- img container END--}}
 
-        <h4 class="mb-4">
-            <i class="ri-arrow-right-s-line" style="scale: 1.2"></i>
+        <h4 class="mb-4" style="font-weight: 600; letter-spacing:0.025rem">
+            <i class="ri-arrow-right-s-line"></i>
             <span class="mx-1">@lang('otherworlds.place_overview')</span>
         </h4>
 
+        <div class="mx-2 light" id="overview">
         @if($source != null)
-        <div class="mx-2 light" id="overview">{!! $source->content !!}</div>
+            {!! $source->content !!}
+        @else
+            @lang('otherworlds.no_source')
         @endif
+        </div>
     </div>
     {{-- content body END --}}
 
-    <div class="text-center">
+    <div class="d-flex flex-row gap-3 justify-content-center">
         {{-- link --}}
-        <a class="px-2" href="{{route('places')}}">@lang('return')</a>
+        <a class="px-2" href="{{route('places')}}">@lang('otherworlds.return')</a>
 
         @if($source != null)
         <a class="px-2" href="{{$source->url}}" target="_blank">@lang('otherworlds.learn_more', ['place_name' => $place->name])</a>
         @endif
-
-        <div class="div_h mt-4"></div>
     </div>
+    <div class="div_h my-5"></div>
     <div class="my-5">
         <h3 class="text-center">@lang('otherworlds.gallery')</h3>
     </div>
@@ -122,8 +125,9 @@
         font-weight: 600;
     }
     #overview>p{
-        font-size: 1.05rem;
         text-align: justify;
+        font-size: 1.05rem;
+        margin-bottom: 2rem;
     }
     #interactions>button{
         border: none;

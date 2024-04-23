@@ -26,8 +26,7 @@ Route::get('/place/{place_slug}', [FrontController::class, 'view_place'])->name(
 
 // logged-in user routes (redirects to login route if no user is found)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/user/profile', [FrontController::class, 'profile'])
-        ->name('profile');
+    Route::get('/user/profile', [FrontController::class, 'profile'])->name('profile');
 
 
 });

@@ -72,6 +72,7 @@ return [
     'place_overview' => 'Resumen del lugar',
     'gallery' => 'Galería',
     'copy_link' => 'Enlace del lugar copiado',
+    'share_button' => 'Copiar enlace del lugar',
 
     // general
     'email' => 'Correo Electrónico',
