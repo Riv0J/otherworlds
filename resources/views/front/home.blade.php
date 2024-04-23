@@ -32,7 +32,7 @@
             <h2 class="text-center semibold display-6" id="home_window_title"></h2>
         </div>
     </div>
-    <a class="mt-4 px-2 py-1" href="{{route('view_place', $place->slug_name())}}">
+    <a class="mt-4 px-2 py-1" href="{{route('view_place', ['place_slug' => $place->slug])}}">
         @lang('otherworlds.what_is_this_place')
     </a>
 </section>

@@ -22,7 +22,7 @@ Route::get('/home', [FrontController::class, 'home'])->name('home');
 Route::get('/', [FrontController::class, 'home'])->name('home');
 
 Route::get('/places', [FrontController::class, 'places_index'])->name('places');
-Route::get('/place/{place_name}', [FrontController::class, 'view_place'])->name('view_place');
+Route::get('/place/{place_slug}', [FrontController::class, 'view_place'])->name('view_place');
 
 // logged-in user routes (redirects to login route if no user is found)
 Route::middleware(['auth'])->group(function () {

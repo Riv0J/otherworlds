@@ -44,12 +44,8 @@ class FrontController extends Controller{
     }
 
     function view_place(string $slug_name){
-
-        // replace hyphens to spaces
-        $slug_name = str_replace('-',' ',$slug_name);
-
         //try to get the place:
-        $place_translation = PlaceTranslation::where('name', $slug_name)->first();
+        $place_translation = PlaceTranslation::where('slug', $slug_name)->first();
         if($place_translation == null){
             return redirect()->route('places');
         }

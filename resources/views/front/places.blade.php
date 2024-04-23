@@ -36,7 +36,7 @@
 @section('script')
 <script src='{{asset('js/ajax.js')}}'></script>
 <script>
-    const view_place_route = "{{ route('view_place', ['place_name' => 'null']) }}".replace('/null', '');
+    const view_place_route = "{{ route('view_place', ['place_slug' => 'null']) }}".replace('/null', '');
 
     const loaded_countries = organize_dic({!! json_encode($countries) !!})
     const loaded_categories = organize_dic({!! json_encode($all_categories) !!});
@@ -68,7 +68,7 @@
 
             const pl_link = document.createElement('a');
             pl_link.className = "border-0";
-            pl_link.href = view_place_route + '/' + place.name.replace(/ /g, "-");
+            pl_link.href = view_place_route + '/' + place.slug;
 
             const img_bg = document.createElement('div');
             img_bg.className = 'img_bg';

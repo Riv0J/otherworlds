@@ -41,9 +41,5 @@ class Place extends Model
     public function getSource(?string $locale){
         return $this->sources()->where('locale', $locale ?: app()->getLocale())->first();
     }
-
-    public function slug_name(){
-        return str_replace(' ', '-', $this->name);
-    }
 }
 

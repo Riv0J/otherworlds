@@ -37,12 +37,15 @@
                 </button>
             @endif
             {{-- #fav_button END--}}
+
             <div class="div_v div_gray m-2"></div>
 
+            {{-- #share_button START--}}
             <button title='@lang('otherworlds.share_button')' class="green" id="share_button">
-                <input type="text" value="{{ route('view_place', ['place_name' => $place->slug_name()]) }}" id="place_url" style="left: -200%; position:absolute">
+                <input type="text" value="{{ route('view_place', ['place_slug' => $place->slug]) }}" id="place_url" style="left: -200%; position:absolute">
                 <i class="ri-share-line"></i>
             </button>
+            {{-- #share_button END--}}
 
         </div>
     </div>

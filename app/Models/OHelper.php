@@ -16,13 +16,13 @@ class OHelper extends Model
     public static function sluggify(string $string){
         // replace weird characters with underscore
         $string = preg_replace('/[\/?%*:|"<>\\.]/', '_', $string);
-    
+
         // replace spaces with hyphen
         $string = str_replace(' ', '-', $string);
-    
+
         // replace single quotes with empty
         $string = str_replace("'", '', $string);
-    
+
         // replace accents and special characters
         $string = str_replace('ñ', 'n', $string);
         $string = preg_replace('/[áä]/u', 'a', $string);
@@ -30,13 +30,11 @@ class OHelper extends Model
         $string = preg_replace('/[íï]/u', 'i', $string);
         $string = preg_replace('/[óö]/u', 'o', $string);
         $string = preg_replace('/[úü]/u', 'u', $string);
-    
+
         // lowercase
-        $string = strtolower($string);
-    
-        return $string;
+        return strtolower($string);
     }
-    
+
     //given a WIKIPEDIA URL, crawl the DOM and extract the html content
     public static function getWikiContent(string $url){
         // make the request

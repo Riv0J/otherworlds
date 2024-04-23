@@ -25,9 +25,12 @@ class LocaleController extends Controller
         // check if theres a place_id in session
         if (session()->has('place_id') && str_contains(url()->previous(),'/place/')) {
             $place = Place::find(session('place_id'));
+            if($place == null){
+                return back()->withCookie($cookie);
+            }
 
             // redirect with translated name with cookie
-            return redirect()->route('view_place', ['place_name' => $place->slug_name()])->withCookie($cookie);
+            return redirect()->route('view_place', ['place_slug' => $place->slug])->withCookie($cookie);
         }
 
         // redirect back with cookie

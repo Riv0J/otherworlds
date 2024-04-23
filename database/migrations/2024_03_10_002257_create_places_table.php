@@ -32,7 +32,7 @@ return new class extends Migration
 
         Schema::create('places_translations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('place_id');
+
             $table->string('locale');
 
             //translatable attributes
@@ -40,8 +40,13 @@ return new class extends Migration
             $table->text('synopsis');
             $table->string('slug');
 
+            //foreign place_id
+            $table->unsignedBigInteger('place_id');
             $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade');
+
+            //unique constraints
             $table->unique(['place_id', 'locale']);
+            $table->unique(['locale', 'slug']);
         });
     }
 
