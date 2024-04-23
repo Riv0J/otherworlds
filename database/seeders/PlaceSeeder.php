@@ -63,6 +63,12 @@ class PlaceSeeder extends Seeder
                 'es' => $place_entry['es'],
                 'en' => $place_entry['en'],
             ];
+
+            // generate the slug for each of the place's locale
+            foreach (config('translatable.locales') as $locale) {
+                $place_data[$locale]['slug'] = OHelper::makeUrlFriendly($place_data[$locale]['name']);
+            }
+
             // create the place
             $new_place = Place::create($place_data);
 
@@ -79,8 +85,8 @@ class PlaceSeeder extends Seeder
                 File::makeDirectory($path, 0777, true, true);
             }
 
-            // ver si hay fotos seeder guardadas con el name en ingles
-            $seeder_images_path = public_path('img/place_seeders/' . OHelper::makeUrlFriendly($place_entry['en']['name']));
+            // check if there is image seeder in the route of the english slug
+            $seeder_images_path = public_path('img/place_seeders/' . $place_data['en']['slug']);
 
             $this->command->info($seeder_images_path);
 

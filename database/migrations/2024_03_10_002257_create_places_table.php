@@ -38,6 +38,7 @@ return new class extends Migration
             //translatable attributes
             $table->string('name');
             $table->text('synopsis');
+            $table->string('slug');
 
             $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade');
             $table->unique(['place_id', 'locale']);

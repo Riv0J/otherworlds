@@ -13,8 +13,8 @@ class Place extends Model
     use Translatable;
     protected $table = 'places';
 
-    public $translatedAttributes = ['name', 'synopsis'];
     protected $fillable = ['country_id', 'views_count','favorites_count','natural'];
+    public $translatedAttributes = ['name', 'synopsis', 'slug'];
 
     public function country()
     {
