@@ -69,6 +69,9 @@ return [
 
     // section view_place
     'learn_more' => 'Learn more about :place_name',
+    'place_overview' => 'Place overview',
+    'gallery' => 'Gallery',
+    'copy_link' => 'Place link copied to clipboard',
 
     // general
     'email' => 'Email',

@@ -58,7 +58,7 @@
             <div class="img_container img_gradient_bottom img_gradient_top text-center">
                 <img src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="{{$place->name}} @lang('otherworlds.thumbnail')">
             </div>
-            <p class="text-center my-2">{{$place->synopsis}}.</p>
+            <p class="text-center m-2">{{$place->synopsis}}.</p>
 
             <div class="div_h div_gray m-3"></div>
 
@@ -92,10 +92,13 @@
         </div>
         {{-- img container END--}}
 
-        <h3 class="mb-4">@lang('otherworlds.place_synopsis')</h3>
+        <h4 class="mb-4">
+            <i class="ri-arrow-right-s-line" style="scale: 1.2"></i>
+            <span class="mx-1">@lang('otherworlds.place_overview')</span>
+        </h4>
 
         @if($source != null)
-        <div class="mx-2 light" id="synopsis">{!! $source->content !!}</div>
+        <div class="mx-2 light" id="overview">{!! $source->content !!}</div>
         @endif
     </div>
     {{-- content body END --}}
@@ -118,7 +121,7 @@
     b{
         font-weight: 600;
     }
-    #synopsis>p{
+    #overview>p{
         font-size: 1.05rem;
         text-align: justify;
     }
@@ -268,7 +271,7 @@
         const url_input = document.getElementById('place_url');
         url_input.select();
         document.execCommand("copy");
-        alert("URL copiada al portapapeles: " + url_input.value);
+        alert("@lang('otherworlds.copy_link')");
     });
 </script>
 @endsection
