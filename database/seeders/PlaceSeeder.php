@@ -66,7 +66,7 @@ class PlaceSeeder extends Seeder
 
             // generate the slug for each of the place's locale
             foreach (config('translatable.locales') as $locale) {
-                $place_data[$locale]['slug'] = OHelper::makeUrlFriendly($place_data[$locale]['name']);
+                $place_data[$locale]['slug'] = OHelper::sluggify($place_data[$locale]['name']);
             }
 
             // create the place

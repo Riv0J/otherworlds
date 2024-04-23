@@ -13,22 +13,30 @@ class OHelper extends Model
 {
     use HasFactory;
 
-    public static function makeUrlFriendly(string $filename){
-        // Reemplazar caracteres especiales con guiones medios
-        $filename = preg_replace('/[\/?%*:|"<>\\.]/', '-', $filename);
-
-        // Reemplazar espacios en blanco con guiones bajos
-        $filename = str_replace(' ', '_', $filename);
-
-        // Reemplazar comillas simples con un string vacío
-        $filename = str_replace("'", '', $filename);
-
-        // Convertir todo a minúsculas
-        $filename = strtolower($filename);
-
-        return $filename;
+    public static function sluggify(string $string){
+        // replace weird characters with underscore
+        $string = preg_replace('/[\/?%*:|"<>\\.]/', '_', $string);
+    
+        // replace spaces with hyphen
+        $string = str_replace(' ', '-', $string);
+    
+        // replace single quotes with empty
+        $string = str_replace("'", '', $string);
+    
+        // replace accents and special characters
+        $string = str_replace('ñ', 'n', $string);
+        $string = preg_replace('/[áä]/u', 'a', $string);
+        $string = preg_replace('/[éë]/u', 'e', $string);
+        $string = preg_replace('/[íï]/u', 'i', $string);
+        $string = preg_replace('/[óö]/u', 'o', $string);
+        $string = preg_replace('/[úü]/u', 'u', $string);
+    
+        // lowercase
+        $string = strtolower($string);
+    
+        return $string;
     }
-
+    
     //given a WIKIPEDIA URL, crawl the DOM and extract the html content
     public static function getWikiContent(string $url){
         // make the request
