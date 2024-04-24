@@ -54,7 +54,7 @@
     <div class="my-4">
 
         {{-- img container START--}}
-        <div class="border_gray bg_gray col-12 col-md-6 p-2 pb-4 mb-5 mb-md-4 mb-md-5" style="margin-right: 1.3em; float:left">
+        <div class="border_gray bg_gray col-12 col-md-6 p-2 pb-4 mb-3" style="margin-right: 1.3em; float:left">
             <div class="img_container img_gradient_bottom img_gradient_top text-center">
                 <img src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="{{$place->name}} @lang('otherworlds.thumbnail')">
             </div>
@@ -89,7 +89,7 @@
                     <small>
                         @if($place->latitude != null)
                         <a class="px-2" href="https://www.google.com/maps?q={{$place->name}}" target="_blank">
-                            <span style="letter-spacing: 0.05rem">@lang('otherworlds.view_in_maps')</span>
+                            <span style="letter-spacing: 0.05rem">@lang('otherworlds.view_in_maps'): {{$place->latitude}},{{$place->longitude}}</span>
                             <i class="ri-external-link-line" style="font-size: 1rem"></i>
                         </a>
                         {{-- <a class="px-2" href="https://maps.google.com/?q={{$place->latitude}},{{$place->longitude}}&ll={{$place->latitude}},{{$place->longitude}}&z=8" target="_blank">
@@ -112,7 +112,7 @@
             <span class="mx-1">@lang('otherworlds.place_overview')</span>
         </h4>
 
-        <div class="mx-4 mx-md-2 light" id="overview">
+        <div class="mx-5 mx-md-2 light" id="overview">
         @if($source != null)
             {!! $source->content !!}
         @else
@@ -122,22 +122,25 @@
     </div>
     {{-- content body END --}}
 
+    <div class="spacer m-3" style="clear: both;"></div>
+
     {{-- location start --}}
-    <div class="my-3" style="clear: both;">
-        <h4 class="mt-5" style="font-weight: 600; letter-spacing:0.025rem">
+    <div class="mb-5 mt-2 mt-md-4">
+        <h4 style="font-weight: 600; letter-spacing:0.025rem">
             <i class="ri-arrow-right-s-line"></i>
             <span class="mx-1">@lang('otherworlds.place_location')</span>
         </h4>
-        <p class="m-3 mx-md-2">
+        <p class="m-4 mx-md-2">
             @lang('otherworlds.view_place_maps_description',['link' => "<a class='px-2' href='https://www.google.com/maps?q=".$place->name."' target='_blank'>".$place->name." Maps</a>" ])
         </p>
 
-        <div id="place_location" style="height: 250px"></div>
+        <div id="place_location" style="height: 300px"></div>
     </div>
     {{-- location END --}}
 
-    <div class="d-flex flex-row gap-3 justify-content-center">
-        {{-- link --}}
+    {{-- links --}}
+    <div class="my-3 d-flex flex-row gap-3 justify-content-center">
+
         <a class="px-2" href="{{route('places')}}">@lang('otherworlds.return')</a>
 
         @if($source != null)
@@ -145,6 +148,7 @@
         @endif
     </div>
     <div class="div_h my-5"></div>
+
     <div class="my-3">
         <h3 class="text-center">@lang('otherworlds.gallery')</h3>
     </div>
@@ -157,7 +161,6 @@
                 zoom: 10
             });
         }
-
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKiPM_x2vbTQNx8tAc1vh-bRIPwfl3KYk&callback=initMap" async defer></script>
 

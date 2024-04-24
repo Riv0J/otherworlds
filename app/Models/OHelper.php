@@ -48,6 +48,7 @@ class OHelper extends Model
 
             // get the first 'p' element of the page, and the #firstHeading
             $title_container = $crawler->filterXPath("//*[@id='firstHeading']");
+
             $html_content = '';
 
             $extra_tries = 2;
@@ -68,10 +69,33 @@ class OHelper extends Model
                 }
             }
 
-            return [
+            // try to extract latitud n longitude from the page, if not successfull they will be null
+            $latitude_container = $crawler->filterXPath("//*[@id='bodyContent']//*[contains(concat(' ', normalize-space(@class), ' '), ' infobox ')][1]//*[contains(concat(' ', normalize-space(@class), ' '), ' latitude ')][1]");
+            $longitude_container = $crawler->filterXPath("//*[@id='bodyContent']//*[contains(concat(' ', normalize-space(@class), ' '), ' infobox ')][1]//*[contains(concat(' ', normalize-space(@class), ' '), ' longitude ')][1]");
+
+            $latitude_decimal = null;
+            $longitude_decimal = null;
+            $variables = [
                 'title' => $title_container->text(),
                 'content' => $html_content,
+
             ];
+
+            if ($latitude_container->count() > 0 && $longitude_container->count() > 0) {
+                $latitude_dms = $latitude_container->text();
+                $longitude_dms = $longitude_container->text();
+
+                $exploded_latitude = OHelper::explodeDMS($latitude_dms);
+                $exploded_longitude = OHelper::explodeDMS($longitude_dms);
+
+                // $latitude_decimal = OHelper::convertToDecimal($exploded_latitude['degrees'],$exploded_latitude['minutes'],$exploded_latitude['seconds'],$exploded_latitude['direction']);
+                // $longitude_decimal = OHelper::convertToDecimal($exploded_longitude['degrees'],$exploded_longitude['minutes'],$exploded_longitude['seconds'],$exploded_longitude['direction']);
+
+                $variables['latitude'] = $exploded_latitude;
+                $variables['longitude'] = $exploded_longitude;
+            }
+
+            return $variables;
 
         } else {
             return null;
@@ -115,4 +139,40 @@ class OHelper extends Model
         $content_html = preg_replace('/;(?=\()/', '', $content_html);
         return trim($content_html);
     }
+
+    public static function convertToDecimal($degrees, $minutes, $seconds, $direction) {
+            // Calcular el valor decimal de los minutos y segundos
+            $decimalMinutes = $minutes / 60;
+            $decimalSeconds = $seconds / 3600;
+
+            // Calcular el valor total en decimal sumando los grados, minutos y segundos
+            $decimalValue = $degrees + $decimalMinutes + $decimalSeconds;
+
+            // Si la dirección es "S" o "W", multiplicar el valor decimal por -1
+            if ($direction === 'S' || $direction === 'W') {
+                $decimalValue *= -1;
+            }
+
+            return $decimalValue;
+    }
+
+    public static function explodeDMS($string) {
+        // Eliminar los caracteres especiales y dividir el string en partes
+        $cleanString = str_replace(array('°', '′', '″'), ' ', $string);
+        $parts = explode(" ", $cleanString);
+
+        // Extraer grados, minutos, segundos y dirección
+        $degrees = (int)$parts[0];
+        $minutes = (int)$parts[1];
+        $seconds = (float)$parts[2];
+        $direction = $parts[3];
+
+        return [
+            'degrees' => $degrees,
+            'minutes' => $minutes,
+            'seconds' => $seconds,
+            'direction' => $direction
+        ];
+    }
+
 }

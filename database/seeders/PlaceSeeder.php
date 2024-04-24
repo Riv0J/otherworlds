@@ -135,9 +135,7 @@ class PlaceSeeder extends Seeder
                     ],
                 ],
                 'country_name' => 'United States',
-                'category_keyword' => 'Valleys',
-                'latitude' => 36.3,
-                'longitude' => -112.6
+                'category_keyword' => 'Valleys'
             ],
             [
                 'es' => [
