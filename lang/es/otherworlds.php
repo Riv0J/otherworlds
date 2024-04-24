@@ -73,6 +73,9 @@ return [
     'gallery' => 'Galería',
     'copy_link' => 'Enlace del lugar copiado',
     'share_button' => 'Copiar enlace del lugar',
+    'view_in_maps' => 'Ver en Maps',
+    'place_location' => 'Ubicación del lugar',
+    'view_place_maps_description' => 'Puedes ver el lugar en Maps haciendo click aquí: :link',
 
     // general
     'email' => 'Correo Electrónico',
@@ -88,4 +91,6 @@ return [
     'birth_date' => 'Fecha de nacimiento',
     'select_country' => 'Selecciona un país',
     'submit' => 'Enviar',
+    'location' => 'Ubicación',
+    'return' => 'Volver'
 ];

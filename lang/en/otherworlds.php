@@ -73,6 +73,9 @@ return [
     'gallery' => 'Gallery',
     'copy_link' => 'Place link copied to clipboard',
     'share_button' => 'Copy place link',
+    'view_in_maps' => 'View in Maps',
+    'place_location' => 'Place location',
+    'view_place_maps_description' => 'Click the following link to view in maps: :link',
 
     // general
     'email' => 'Email',
@@ -88,4 +91,6 @@ return [
     'birth_date' => 'Birth date',
     'select_country' => 'Select a country',
     'submit' => 'Submit',
+    'location' => 'Location',
+    'return' => 'Return'
 ];
