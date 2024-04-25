@@ -88,7 +88,7 @@
                     </small>
                     <small>
                         @if($place->latitude != null)
-                        <a class="px-2" href="https://www.google.com/maps?q={{$place->name}}" target="_blank">
+                        <a class="px-2" href="https://www.google.com/maps?q={{$place->name}}&t=k" target="_blank">
                             <span style="letter-spacing: 0.05rem">@lang('otherworlds.view_in_maps'): {{$place->latitude}},{{$place->longitude}}</span>
                             <i class="ri-external-link-line" style="font-size: 1rem"></i>
                         </a>
@@ -125,7 +125,7 @@
     <div class="spacer m-3" style="clear: both;"></div>
 
     {{-- location start --}}
-    <div class="mb-5 mt-2 mt-md-4">
+    <div class="mb-5 mt-2 mt-md-5">
         <h4 style="font-weight: 600; letter-spacing:0.025rem">
             <i class="ri-arrow-right-s-line"></i>
             <span class="mx-1">@lang('otherworlds.place_location')</span>

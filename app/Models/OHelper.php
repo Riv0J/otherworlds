@@ -73,26 +73,22 @@ class OHelper extends Model
             $latitude_container = $crawler->filterXPath("//*[@id='bodyContent']//*[contains(concat(' ', normalize-space(@class), ' '), ' infobox ')][1]//*[contains(concat(' ', normalize-space(@class), ' '), ' latitude ')][1]");
             $longitude_container = $crawler->filterXPath("//*[@id='bodyContent']//*[contains(concat(' ', normalize-space(@class), ' '), ' infobox ')][1]//*[contains(concat(' ', normalize-space(@class), ' '), ' longitude ')][1]");
 
-            $latitude_decimal = null;
-            $longitude_decimal = null;
             $variables = [
                 'title' => $title_container->text(),
                 'content' => $html_content,
-
+                'latitude' => null,
+                'longitude' => null,
             ];
 
             if ($latitude_container->count() > 0 && $longitude_container->count() > 0) {
                 $latitude_dms = $latitude_container->text();
                 $longitude_dms = $longitude_container->text();
 
-                $exploded_latitude = OHelper::explodeDMS($latitude_dms);
-                $exploded_longitude = OHelper::explodeDMS($longitude_dms);
+                $latitude_parts = OHelper::getDMS($latitude_dms);
+                $longitude_parts = OHelper::getDMS($longitude_dms);
 
-                // $latitude_decimal = OHelper::convertToDecimal($exploded_latitude['degrees'],$exploded_latitude['minutes'],$exploded_latitude['seconds'],$exploded_latitude['direction']);
-                // $longitude_decimal = OHelper::convertToDecimal($exploded_longitude['degrees'],$exploded_longitude['minutes'],$exploded_longitude['seconds'],$exploded_longitude['direction']);
-
-                $variables['latitude'] = $exploded_latitude;
-                $variables['longitude'] = $exploded_longitude;
+                $variables['latitude'] = OHelper::DMSToDecimal($latitude_parts['degrees'], $latitude_parts['minutes'], $latitude_parts['seconds'], $latitude_parts['direction']);
+                $variables['longitude'] = OHelper::DMSToDecimal($longitude_parts['degrees'], $longitude_parts['minutes'], $longitude_parts['seconds'], $longitude_parts['direction']);
             }
 
             return $variables;
@@ -140,39 +136,71 @@ class OHelper extends Model
         return trim($content_html);
     }
 
-    public static function convertToDecimal($degrees, $minutes, $seconds, $direction) {
-            // Calcular el valor decimal de los minutos y segundos
-            $decimalMinutes = $minutes / 60;
-            $decimalSeconds = $seconds / 3600;
-
-            // Calcular el valor total en decimal sumando los grados, minutos y segundos
-            $decimalValue = $degrees + $decimalMinutes + $decimalSeconds;
-
-            // Si la dirección es "S" o "W", multiplicar el valor decimal por -1
-            if ($direction === 'S' || $direction === 'W') {
-                $decimalValue *= -1;
-            }
-
-            return $decimalValue;
+    public static function DMSToDecimal($degrees, $minutes, $seconds, $direction) {
+        // Convertir todos los valores a punto flotante
+        $degrees = (float) $degrees;
+        $minutes = (float) $minutes;
+        $seconds = (float) $seconds;
+    
+        // Calcular el valor decimal de los minutos y segundos
+        $decimalMinutes = $minutes / 60;
+        $decimalSeconds = $seconds / 3600;
+    
+        // Calcular el valor total en decimal sumando los grados, minutos y segundos
+        $decimalValue = $degrees + $decimalMinutes + $decimalSeconds;
+    
+        // Si la dirección es "S" o "W", multiplicar el valor decimal por -1
+        if ($direction === 'S' || $direction === 'W') {
+            $decimalValue *= -1;
+        }
+    
+        return $decimalValue;
     }
 
-    public static function explodeDMS($string) {
-        // Eliminar los caracteres especiales y dividir el string en partes
-        $cleanString = str_replace(array('°', '′', '″'), ' ', $string);
-        $parts = explode(" ", $cleanString);
+    public static function getDMS(string $dms){
+        $dms = trim($dms);
 
-        // Extraer grados, minutos, segundos y dirección
-        $degrees = (int)$parts[0];
-        $minutes = (int)$parts[1];
-        $seconds = (float)$parts[2];
-        $direction = $parts[3];
-
-        return [
-            'degrees' => $degrees,
-            'minutes' => $minutes,
-            'seconds' => $seconds,
-            'direction' => $direction
+        $variables= [
+            'degrees' => 0,
+            'minutes' => 0,
+            'seconds' => 0,
+            'direction' => null
         ];
+
+        // explode to get degrees
+        $dms = str_replace('°','-',$dms); // replace to -
+        $parts = explode("-", $dms);
+
+        //if there is more than one part, explode was successfull
+        if(count($parts) > 1) {
+            $variables['degrees'] = $parts[0]; //degrees is the left side of string
+            $dms = $parts[1]; //the right side of string reassinged to dms
+        }
+
+        // explode to get minutes
+        $parts = explode("'", $dms);
+
+        //if there is more than one part, explode was successfull
+        if(count($parts) > 1) {
+            $variables['minutes'] = $parts[0]; //minutes is the left side of string
+            $dms = $parts[1]; //the right side of string reassinged to dms
+        }
+
+        // explode to get seconds
+        $parts = explode('"', $dms);
+
+        //if there is more than one part, explode was successfull
+        if(count($parts) > 1) {
+            $variables['seconds'] = $parts[0]; //seconds is the left side of string
+            $dms = $parts[1]; //the right side of string reassinged to dms
+        }
+
+        $ultima_letra = $dms[-1]; // Obtiene el último carácter de la cadena
+        if (preg_match('/[a-zA-Z]/', $ultima_letra)) {
+            $variables['direction'] = $ultima_letra;
+        }
+        return $variables;
+
     }
 
 }

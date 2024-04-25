@@ -60,8 +60,8 @@ class PlaceSeeder extends Seeder
             $place_data = [
                 'views_count' => rand(1, 1000000),
                 'favorites_count' => rand(1, 1500),
-                'latitude' => $place_entry['latitude'] ?? rand(1, 100),
-                'longitude' => $place_entry['longitude'] ?? rand(1, 100),
+                'latitude' => $place_entry['latitude'] ?? 0,
+                'longitude' => $place_entry['longitude'] ?? 0,
                 'country_id' => CountryTranslation::where('name', $place_entry['country_name'])->value('country_id') ?? $unknown_country_id,
                 'category_id' => CategoryTranslation::where('keyword', $place_entry['category_keyword'])->value('category_id') ?? $unknown_category_id,
                 'es' => $place_entry['es'],

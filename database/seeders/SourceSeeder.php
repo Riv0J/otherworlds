@@ -26,10 +26,8 @@ class SourceSeeder extends Seeder
                 $source->title = $content_data['title'];
                 $source->save();
 
-                $this->command->info("Lat: ".$content_data['latitude']['degrees']."º".$content_data['latitude']['minutes']."'".$content_data['latitude']['seconds']."\"".$content_data['latitude']['direction']);
-
                 //apply the coords
-                if($source->place->latitude == null && $source->place->longitude == null){
+                if($content_data['latitude'] != null && $content_data['longitude'] != null){
                     $source->place->latitude = $content_data['latitude'];
                     $source->place->longitude = $content_data['longitude'];
                     $source->place->save();
