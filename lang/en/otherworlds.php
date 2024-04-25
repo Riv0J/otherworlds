@@ -76,6 +76,7 @@ return [
     'view_in_maps' => 'View in Maps',
     'place_location' => 'Place location',
     'view_place_maps_description' => 'Click the following link to view in maps: :link',
+    'no_location' => 'We don\'t have the location for this place',
 
     // general
     'email' => 'Email',

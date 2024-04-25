@@ -87,18 +87,10 @@
                         @endif
                     </small>
                     <small>
-                        @if($place->latitude != null)
                         <a class="px-2" href="https://www.google.com/maps?q={{$place->name}}&t=k" target="_blank">
-                            <span style="letter-spacing: 0.05rem">@lang('otherworlds.view_in_maps'): {{$place->latitude}},{{$place->longitude}}</span>
+                            <span style="letter-spacing: 0.05rem">@lang('otherworlds.view_in_maps')</span>
                             <i class="ri-external-link-line" style="font-size: 1rem"></i>
                         </a>
-                        {{-- <a class="px-2" href="https://maps.google.com/?q={{$place->latitude}},{{$place->longitude}}&ll={{$place->latitude}},{{$place->longitude}}&z=8" target="_blank">
-                            <span style="letter-spacing: 0.05rem">{{$place->latitude}},{{$place->longitude}}</span>
-                            <i class="ri-external-link-line" style="font-size: 1rem"></i>
-                        </a> --}}
-                        @else
-                        -
-                        @endif
                     </small>
                 </div>
             </div>
@@ -131,10 +123,31 @@
             <span class="mx-1">@lang('otherworlds.place_location')</span>
         </h4>
         <p class="m-4 mx-md-2">
-            @lang('otherworlds.view_place_maps_description',['link' => "<a class='px-2' href='https://www.google.com/maps?q=".$place->name."' target='_blank'>".$place->name." Maps</a>" ])
+            @lang('otherworlds.view_place_maps_description',['link' => "<a class='px-2' href='https://www.google.com/maps?q=".$place->name."&t=k' target='_blank'>".$place->name." Maps</a>" ])
         </p>
 
-        <div id="place_location" style="height: 300px"></div>
+
+        <div style="height: 300px; position: relative">
+            <div id="place_location" style="height: 100%; width: 100%"></div>
+
+            @if($place->latitude == 0 && $place->longitude == 0)
+            <div class="flex_center flex-column no_location">
+                <h3 class="mb-4">@lang('otherworlds.no_location')</h3>
+                <a class="px-2" href="https://www.google.com/maps?q={{$place->name}}&t=k" target="_blank">
+                    <span style="letter-spacing: 0.05rem">@lang('otherworlds.view_in_maps')</span>
+                    <i class="ri-external-link-line" style="font-size: 1rem"></i>
+                </a>
+            </div>
+            <style>
+                .no_location{
+                    position:absolute;
+                    inset: 0;
+                    background-color: rgba(33, 33, 33, 0.75);
+                    z-index: 10000;
+                }
+            </style>
+            @endif
+        </div>
     </div>
     {{-- location END --}}
 
@@ -147,6 +160,8 @@
         <a class="px-2" href="{{$source->url}}" target="_blank">@lang('otherworlds.learn_more', ['place_name' => $place->name])</a>
         @endif
     </div>
+    {{-- links END --}}
+
     <div class="div_h my-5"></div>
 
     <div class="my-3">

@@ -89,6 +89,7 @@ class OHelper extends Model
 
                 $variables['latitude'] = OHelper::DMSToDecimal($latitude_parts['degrees'], $latitude_parts['minutes'], $latitude_parts['seconds'], $latitude_parts['direction']);
                 $variables['longitude'] = OHelper::DMSToDecimal($longitude_parts['degrees'], $longitude_parts['minutes'], $longitude_parts['seconds'], $longitude_parts['direction']);
+
             }
 
             return $variables;
@@ -136,25 +137,19 @@ class OHelper extends Model
         return trim($content_html);
     }
 
-    public static function DMSToDecimal($degrees, $minutes, $seconds, $direction) {
-        // Convertir todos los valores a punto flotante
-        $degrees = (float) $degrees;
-        $minutes = (float) $minutes;
-        $seconds = (float) $seconds;
-    
-        // Calcular el valor decimal de los minutos y segundos
-        $decimalMinutes = $minutes / 60;
-        $decimalSeconds = $seconds / 3600;
-    
-        // Calcular el valor total en decimal sumando los grados, minutos y segundos
-        $decimalValue = $degrees + $decimalMinutes + $decimalSeconds;
-    
-        // Si la dirección es "S" o "W", multiplicar el valor decimal por -1
+    public static function DMSToDecimal($degrees, $minutes, $seconds, $direction): float {
+        $degrees = (float)$degrees;
+        $minutes = (float)$minutes;
+        $seconds = (float)$seconds;
+
+        $decimal = $degrees + ($minutes / 60) + ($seconds / 3600);
+
+        // when "S" or "W" its negative
         if ($direction === 'S' || $direction === 'W') {
-            $decimalValue *= -1;
+            $decimal *= -1;
         }
-    
-        return $decimalValue;
+
+        return number_format($decimal, 6, '.', '');
     }
 
     public static function getDMS(string $dms){
@@ -169,11 +164,14 @@ class OHelper extends Model
 
         // explode to get degrees
         $dms = str_replace('°','-',$dms); // replace to -
+        $dms = str_replace('′',"'",$dms); // replace to '
+        $dms = str_replace('″','"',$dms); // replace to "
+
         $parts = explode("-", $dms);
 
         //if there is more than one part, explode was successfull
         if(count($parts) > 1) {
-            $variables['degrees'] = $parts[0]; //degrees is the left side of string
+            $variables['degrees'] = trim($parts[0]); //degrees is the left side of string
             $dms = $parts[1]; //the right side of string reassinged to dms
         }
 
@@ -182,7 +180,7 @@ class OHelper extends Model
 
         //if there is more than one part, explode was successfull
         if(count($parts) > 1) {
-            $variables['minutes'] = $parts[0]; //minutes is the left side of string
+            $variables['minutes'] = trim($parts[0]); //minutes is the left side of string
             $dms = $parts[1]; //the right side of string reassinged to dms
         }
 
@@ -191,7 +189,7 @@ class OHelper extends Model
 
         //if there is more than one part, explode was successfull
         if(count($parts) > 1) {
-            $variables['seconds'] = $parts[0]; //seconds is the left side of string
+            $variables['seconds'] = trim($parts[0]); //seconds is the left side of string
             $dms = $parts[1]; //the right side of string reassinged to dms
         }
 
@@ -200,7 +198,6 @@ class OHelper extends Model
             $variables['direction'] = $ultima_letra;
         }
         return $variables;
-
     }
 
 }
