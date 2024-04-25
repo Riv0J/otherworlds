@@ -104,9 +104,13 @@
             <span class="mx-1">@lang('otherworlds.place_overview')</span>
         </h4>
 
-        <div class="mx-5 mx-md-2 light" id="overview">
+        <div class="mx-3 mx-md-2 light" id="overview">
         @if($source != null)
             {!! $source->content !!}
+            <a class="px-2" href="{{$source->url}}" target="_blank">
+                <span>@lang('otherworlds.learn_more', ['place_name' => $place->name])</span>
+                <i class="ri-external-link-line" style="font-size: 1rem"></i>
+            </a>
         @else
             @lang('otherworlds.no_source')
         @endif
@@ -116,16 +120,15 @@
 
     <div class="spacer m-3" style="clear: both;"></div>
 
-    {{-- location start --}}
+    {{-- location START --}}
     <div class="mb-5 mt-2 mt-md-5">
         <h4 style="font-weight: 600; letter-spacing:0.025rem">
             <i class="ri-arrow-right-s-line"></i>
             <span class="mx-1">@lang('otherworlds.place_location')</span>
         </h4>
         <p class="m-4 mx-md-2">
-            @lang('otherworlds.view_place_maps_description',['link' => "<a class='px-2' href='https://www.google.com/maps?q=".$place->name."&t=k' target='_blank'>".$place->name." Maps</a>" ])
+            @lang('otherworlds.view_place_maps_description',['link' => "<a class='px-2' href='https://www.google.com/maps?q=".$place->name."&t=k' target='_blank'>".$place->name." Maps <i class='ri-external-link-line' style='font-size: 1rem'></i></a>" ])
         </p>
-
 
         <div style="height: 300px; position: relative">
             <div id="place_location" style="height: 100%; width: 100%"></div>
@@ -151,14 +154,9 @@
     </div>
     {{-- location END --}}
 
-    {{-- links --}}
+    {{-- links START--}}
     <div class="my-3 d-flex flex-row gap-3 justify-content-center">
-
         <a class="px-2" href="{{route('places')}}">@lang('otherworlds.return')</a>
-
-        @if($source != null)
-        <a class="px-2" href="{{$source->url}}" target="_blank">@lang('otherworlds.learn_more', ['place_name' => $place->name])</a>
-        @endif
     </div>
     {{-- links END --}}
 
@@ -182,12 +180,15 @@
 </section>
 <style>
     b{ font-weight: 600; }
+    #overview>*{
+        font-size: 1.1rem;
+    }
     #overview>p{
         text-align: justify;
         margin-bottom: 2rem;
     }
     p{
-        font-size: 1.05rem;
+        font-size: 1.1rem;
     }
     #interactions>button{
         border: none;

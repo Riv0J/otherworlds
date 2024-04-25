@@ -32,7 +32,7 @@ class SourceSeeder extends Seeder
                     $source->place->longitude = $content_data['longitude'];
                     $source->place->save();
 
-                    $this->command->info("Saved Coordinates: ".$content_data['latitude'].",".$content_data['longitude']);
+                    // $this->command->info("Saved Coordinates: ".$content_data['latitude'].",".$content_data['longitude']);
                 }else{
 
                 }

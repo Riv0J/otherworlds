@@ -625,7 +625,7 @@ class PlaceSeeder extends Seeder
             [
                 'es' => [
                     'name' => 'Pamukkale',
-                    'synopsis' => 'Terrazas de minerales de carbonato formadas por el flujo de aguas termales',
+                    'synopsis' => 'Terrazas de carbonato formadas por el flujo de aguas termales',
 
                 ],
                 'en' => [
