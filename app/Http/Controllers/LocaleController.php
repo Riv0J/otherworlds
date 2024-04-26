@@ -10,15 +10,14 @@ use App\Models\Place;
 class LocaleController extends Controller{
     public function setLocale($new_locale){
         // get current app locale
-        $current_locale = \App::getLocale($new_locale);
+        $current_locale = \App::getLocale();
+        
+        
         // dd("changing locale, curren= ".$current_locale.". New= ".$new_locale);
         // check if new locale is valid, return to places index if not
         if (in_array($new_locale, config('translatable.locales')) == false) {
-            return redirect()->route('places', ['locale' => $current_locale]);
+            return redirect()->route('home', ['locale' => 'en']);
         }
-
-        // // set new app locale
-        \App::setLocale($new_locale);
         
         // replace the locale in url
         $url = url()->previous();
