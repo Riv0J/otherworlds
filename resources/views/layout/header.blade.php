@@ -2,7 +2,7 @@
 <header class="fixed-top navbar bg_gradient_black">
     <div class="container py-1 py-lg-2 px-3 px-lg-5 white">
         {{-- home anchor --}}
-        <a class="brand_anchor white gap-2" href="{{ route('home') }}">
+        <a class="brand_anchor white gap-2" href="{{ route('home',['locale' => $locale]) }}">
             @include('icons.moon_white')
             <span>therworlds</span>
         </a>
@@ -27,7 +27,7 @@
             p-3 p-lg-1
             px-4 px-lg-2
             regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp"
-                href="{{ route('places') }}">
+                href="{{ route('places',['locale' => $locale]) }}">
                 @lang('otherworlds.places')
             </a>
 
@@ -75,24 +75,26 @@
             </div>
             @endif
 
-            {{-- lang dropdown --}}
+            {{-- lang dropdown START--}}
             <div class="dropdown">
                 <a href="javascript:void(0)" class="dropdown_toggler gap-2
                 p-3 p-lg-1
                 px-4 px-lg-3
                 regular">
-                    @lang('otherworlds.lang')
+                    @lang('otherworlds.lang')-{{\App::getLocale()}}
                     <i class="fa-solid fa-angle-down"></i>
                 </a>
 
                 <div class="dropdown_options">
-                @foreach (config('translatable.locales') as $locale)
-                    @if ($locale != app()->getLocale())
-                        <a class="p-2 px-4" href="{{route('setLocale', ['locale' => $locale])}}">{{strtoupper($locale)}}</a>
+                @foreach (config('translatable.locales') as $loc)
+                    @if ($loc != \App::getLocale())
+                        
+                        <a class="p-2 px-4" href="{{route('setLocale', ['new_locale' => $loc])}}">{{strtoupper($loc)}}</a>
                     @endif
                 @endforeach
                 </div>
             </div>
+            {{-- lang dropdown END--}}
 
         </nav>
     </div>

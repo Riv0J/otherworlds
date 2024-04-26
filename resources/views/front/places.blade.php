@@ -9,7 +9,7 @@
 @endsection
 
 @section('canonical')
-{{ route('places') }}
+{{ route('places',['locale' => $locale]) }}
 @endsection
 
 @section('content')
@@ -36,7 +36,7 @@
 @section('script')
 <script src='{{asset('js/ajax.js')}}'></script>
 <script>
-    const view_place_route = "{{ route('view_place', ['place_slug' => 'null']) }}".replace('/null', '');
+    const view_place_route = "{{ route('view_place', ['locale' => $locale, 'place_slug' => 'null']) }}".replace('/null', '');
 
     const loaded_countries = organize_dic({!! json_encode($countries) !!})
     const loaded_categories = organize_dic({!! json_encode($all_categories) !!});

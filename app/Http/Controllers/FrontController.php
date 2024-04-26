@@ -12,15 +12,16 @@ use App\Models\Category;
 class FrontController extends Controller{
     protected $PER_PAGE = 10;
 
-    function home(){
+    function home($locale){
         $variables = [
             'current_section' => 'Home',
             'place' => Place::inRandomOrder()->take(1)->first(),
+            'locale' => $locale
         ];
         return view('front.home', $variables);
     }
 
-    function places_index(){
+    function places_index($locale){
         //get the places in the first page
         $places = FrontController::getPlaces($page = 1, $per_page = $this->PER_PAGE);
 
@@ -39,6 +40,7 @@ class FrontController extends Controller{
             'all_categories' => Category::all(),
 
             'fav_places_ids' => $fav_places_ids,
+            'locale' => $locale
         ];
         return view('front.places', $variables);
     }

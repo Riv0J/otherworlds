@@ -15,20 +15,20 @@ use App\Http\Controllers\FrontController;
 */
 
 // locale
-Route::get('setlocale/{locale}', [App\Http\Controllers\LocaleController::class, 'setLocale'])->name('setLocale');
+Route::get('setlocale/{new_locale}', [App\Http\Controllers\LocaleController::class, 'setLocale'])->name('setLocale');
 
-// front
-Route::get('/home', [FrontController::class, 'home'])->name('home');
-Route::get('/', [FrontController::class, 'home'])->name('home');
-
-Route::get('/places', [FrontController::class, 'places_index'])->name('places');
-Route::get('/place/{place_slug}', [FrontController::class, 'view_place'])->name('view_place');
+// front traducible
+Route::prefix('{locale}')->middleware('locale_updater')->group(function () {
+    Route::get('/', [FrontController::class, 'home'])->name('home');
+    Route::get('/home', [FrontController::class, 'home'])->name('home');
+    
+    Route::get('/places', [FrontController::class, 'places_index'])->name('places');
+    Route::get('/place/{place_slug}', [FrontController::class, 'view_place'])->name('view_place');
+});
 
 // logged-in user routes (redirects to login route if no user is found)
 Route::middleware(['auth'])->group(function () {
     Route::get('/user/profile', [FrontController::class, 'profile'])->name('profile');
-
-
 });
 
 //ajax

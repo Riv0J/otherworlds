@@ -14,11 +14,15 @@ class LocaleMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle($request, Closure $next)
-    {
-        $locale = $request->cookie('o_locale', 'en'); // Obtén el valor de la cookie 'locale' o usa 'es' como valor predeterminado
-        app()->setLocale($locale); // Establece el locale para la aplicación
+    public function handle($request, Closure $next){
+        $locale = $request->route('locale');
 
+        // check if locale is valid, return to places index if not
+        if ($locale == null || in_array($locale, config('translatable.locales')) == false) {
+            return redirect()->route('places', ['locale' => 'en']);
+        }
+
+        \App::setLocale($locale);
         return $next($request);
     }
 

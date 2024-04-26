@@ -4,7 +4,7 @@
     <div class="container p-4 flex_center align-items-lg-start flex-column flex-lg-row gap-3">
 
         {{-- brand --}}
-        <a class="brand_anchor white gap-2 p-3" href="{{ route('home') }}">
+        <a class="brand_anchor white gap-2 p-3" href="{{ route('home',['locale' => $locale]) }}">
             @include('icons.moon_white')
             <span>therworlds</span>
         </a>
@@ -20,12 +20,12 @@
 
                 {{-- places link --}}
                 <a class="regular p-2"
-                    href="{{ route('home') }}">
+                    href="{{ route('home',['locale' => $locale]) }}">
                     Home
                 </a>
 
                 <a class="regular p-2"
-                    href="{{ route('places') }}">
+                    href="{{ route('places',['locale' => $locale]) }}">
                     @lang('otherworlds.places')
                 </a>
 
