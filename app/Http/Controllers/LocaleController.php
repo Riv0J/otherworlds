@@ -27,10 +27,10 @@ class LocaleController extends Controller{
                 return back();
             }
 
-            // redirect with translated name
+            // redirect with place_slug
             $variables = [
                 'locale' => $new_locale,
-                'section_slug' => $new_section_trans,
+                'section_slug' => trans('otherworlds.places_slug'),
                 'place_slug' => $place->slug,
             ];
 

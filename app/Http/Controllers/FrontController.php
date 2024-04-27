@@ -13,9 +13,10 @@ class FrontController extends Controller{
 
     function home($locale){
         $variables = [
-            'current_section' => 'Home',
+            'section_slug_key' => 'home_slug',
+            'locale' => $locale,
+
             'place' => Place::inRandomOrder()->take(1)->first(),
-            'locale' => $locale
         ];
         return view('front.home', $variables);
     }
@@ -35,14 +36,13 @@ class FrontController extends Controller{
             $fav_places_ids = $user->favorites->pluck('id');
         }
         $variables = [
-            'current_section' => 'Places',
+            'section_slug_key' => 'places_slug',
+            'locale' => $locale,
+
             'places' => $places,
             'countries' => $countries,
             'all_categories' => Category::all(),
-
-            'fav_places_ids' => $fav_places_ids,
-            'locale' => $locale,
-            'section_slug_key' => 'places_slug'
+            'fav_places_ids' => $fav_places_ids
         ];
         return view('front.place_index', $variables);
     }
@@ -56,7 +56,7 @@ class FrontController extends Controller{
         })->first();
 
         // redirect if no place is found
-        if( $place == null){return redirect()->route('place_index', ['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')]); }
+        if( $place == null){ return redirect()->route('place_index', ['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')]); }
 
         // add a view to the place
         $place->views_count += 1;
@@ -66,24 +66,38 @@ class FrontController extends Controller{
         session()->put('place_id', $place->id);
 
         $variables = [
-            'place' => $place,
-            'source' => $place->getSource($locale),
+            'section_slug_key' => 'place_view_slug',
             'locale' => $locale,
-            'section_slug_key' => 'place_view_slug'
+
+            'place' => $place,
+            'source' => $place->getSource($locale)
         ];
 
         return view('front.place_view', $variables);
     }
 
     //show the logged user's profile
-    function profile(){
-        $user = Auth::user();
-        return view('front.profile', ['user' => $user]);
+    function profile($locale){
+        $variables = [
+            'section_slug_key' => 'profile_slug',
+            'locale' => $locale,
+
+            'user' => Auth::user()
+        ];
+        return view('front.profile', $variables);
+    }
+    function show_development($locale){
+        $variables = [
+            'section_slug_key' => 'dev_slug',
+            'locale' => $locale
+        ];
+        return view('front.show_development', $variables);
     }
 
     //---------------------------------------------------------------------------------------AJAX
     function ajax_place_request(Request $request){
         $request_data = $request->all(); //get request data
+        app()->setLocale($request_data['locale']); //set locale to request
         $next_page = $request_data['current_page'] + 1; //advance page
 
         //get the places for next page

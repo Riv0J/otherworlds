@@ -22,21 +22,31 @@
             d-none d-lg-flex
             flex-column flex-lg-row">
 
+            {{-- development link --}}
+            <a class="nav_link
+            p-3 p-lg-1
+            px-4 px-lg-2
+            regular @php if(isset($section_slug_key) && $section_slug_key == 'dev_slug'){ echo('active_link'); } @endphp"
+                href="{{ route('development',['locale' => $locale]) }}">
+                [Development]
+            </a>
+
             {{-- places link --}}
             <a class="nav_link
             p-3 p-lg-1
             px-4 px-lg-2
-            regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp"
+            regular @php if(isset($section_slug_key) && $section_slug_key == 'places_slug'){ echo('active_link'); } @endphp"
                 href="{{ route('place_index',['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')]) }}">
                 @lang('otherworlds.places')
             </a>
+
             {{-- login button --}}
             @if (Route::has('login') && Auth::user() == null)
             <a class="nav_link
                 p-3 p-lg-1
                 px-4 px-lg-2
-                regular"
-                href="{{ route('login', ['locale' => $locale]) }}">
+                regular @php if(isset($section_slug_key) && $section_slug_key == 'login_slug'){ echo('active_link'); } @endphp"
+                href="{{ route('show_login', ['locale' => $locale]) }}">
                 <i class="ri-user-3-fill"></i>
                 <span class="mx-1">
                     @lang('otherworlds.sign_in')
@@ -67,7 +77,7 @@
                     <div class="dropdown_divider mt-1 mx-5 mx-md-2"></div>
 
                     <a href="javascript:void(0)" class="p-2 px-4"
-                        onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
+                        onclick="document.getElementById('logout_form').submit();">
                         @lang('otherworlds.logout')
                     </a>
                 </div>

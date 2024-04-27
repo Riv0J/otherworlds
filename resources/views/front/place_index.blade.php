@@ -214,9 +214,10 @@
         }
         const ajax_data = {
             method: 'POST',
-            url: '{{ URL($locale.'/ajax/places/request') }}',
+            url: '{{ URL('/ajax/places/request') }}',
             request_data : {
                 _token: '{{ csrf_token() }}',
+                locale: '{{$locale}}',
                 current_page: current_page,
             },
             before_func: function(){

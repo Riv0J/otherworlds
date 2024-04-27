@@ -15,6 +15,18 @@ class LocaleMiddleware
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle($request, Closure $next){
+        $route = $request->route(); // Obtiene la información de la ruta
+    $controllerAction = $route->getActionName(); // Obtiene el nombre de la acción del controlador
+
+    list($controller, $method) = explode('@', $controllerAction); // Divide el nombre de la acción para obtener el controlador y el método
+
+    // Ahora puedes acceder al controlador y al método
+    // $controller contiene el nombre de la clase del controlador
+    // $method contiene el nombre del método del controlador
+
+    // Por ejemplo, puedes hacer algo como esto para imprimir el controlador y el método
+    // echo "Controlador: $controller, Método: $method";
+
         $locale = $request->route('locale');
 
         // check if locale is valid, return to places index if not
@@ -23,6 +35,7 @@ class LocaleMiddleware
         }
 
         app()->setLocale($locale);
+
         return $next($request);
     }
 

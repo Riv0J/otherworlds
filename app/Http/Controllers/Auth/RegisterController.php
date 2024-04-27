@@ -35,7 +35,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -90,23 +90,20 @@ class RegisterController extends Controller
     }
 
     /**
-     * Show registration form to user
+     * Show register form
      */
-    function showRegistrationForm(){
+    function show_register($locale){
         $variables = [
             'available_countries' => Country::getAvailableCountries(),
+            'locale' => $locale
         ];
         return view('auth.register', $variables);
     }
 
     /**
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * Handle a registration request
      */
-    public function register(Request $request)
-    {
+    public function handle_register(Request $request, string $locale){
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
@@ -119,6 +116,6 @@ class RegisterController extends Controller
 
         return $request->wantsJson()
                     ? new JsonResponse([], 201)
-                    : redirect($this->redirectPath());
+                    : redirect($locale.$this->redirectTo);
     }
 }
