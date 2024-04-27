@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             PlaceSeeder::class,
             SourceSeeder::class,
+            MediaSeeder::class,
         ]);
 
 

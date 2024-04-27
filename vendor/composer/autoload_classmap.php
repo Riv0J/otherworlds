@@ -32,6 +32,8 @@ return array(
     'App\\Models\\CategoryTranslation' => $baseDir . '/app/Models/CategoryTranslation.php',
     'App\\Models\\Country' => $baseDir . '/app/Models/Country.php',
     'App\\Models\\CountryTranslation' => $baseDir . '/app/Models/CountryTranslation.php',
+    'App\\Models\\Crawly' => $baseDir . '/app/Models/Crawly.php',
+    'App\\Models\\Media' => $baseDir . '/app/Models/Media.php',
     'App\\Models\\OHelper' => $baseDir . '/app/Models/OHelper.php',
     'App\\Models\\Place' => $baseDir . '/app/Models/Place.php',
     'App\\Models\\PlaceTranslation' => $baseDir . '/app/Models/PlaceTranslation.php',

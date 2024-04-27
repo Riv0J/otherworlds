@@ -600,6 +600,8 @@ class ComposerStaticInit65e85f9f959c0b087110331754d451cf
         'App\\Models\\CategoryTranslation' => __DIR__ . '/../..' . '/app/Models/CategoryTranslation.php',
         'App\\Models\\Country' => __DIR__ . '/../..' . '/app/Models/Country.php',
         'App\\Models\\CountryTranslation' => __DIR__ . '/../..' . '/app/Models/CountryTranslation.php',
+        'App\\Models\\Crawly' => __DIR__ . '/../..' . '/app/Models/Crawly.php',
+        'App\\Models\\Media' => __DIR__ . '/../..' . '/app/Models/Media.php',
         'App\\Models\\OHelper' => __DIR__ . '/../..' . '/app/Models/OHelper.php',
         'App\\Models\\Place' => __DIR__ . '/../..' . '/app/Models/Place.php',
         'App\\Models\\PlaceTranslation' => __DIR__ . '/../..' . '/app/Models/PlaceTranslation.php',
