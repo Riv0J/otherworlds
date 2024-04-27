@@ -14,6 +14,20 @@ use App\Http\Controllers\FrontController;
 |
 */
 
+// general short routes
+Route::get('/', function () {
+    return (new FrontController())->home('en');
+});
+Route::get('/home', function () {
+    return (new FrontController())->home('en');
+});
+Route::get('/places', function () {
+    return (new FrontController())->place_index('en','places');
+});
+Route::get('/lugares', function () {
+    return (new FrontController())->place_index('es','lugares');
+});
+
 // front routes with $locale slug
 Route::prefix('{locale}')->group(function () {
     // set the url locale
@@ -25,22 +39,23 @@ Route::prefix('{locale}')->group(function () {
         Route::get('/', [FrontController::class, 'home'])->name('home');
         Route::get('/home', [FrontController::class, 'home'])->name('home');
 
-        // Route::get('/{section_slug}/{place_slug}', [FrontController::class, 'view_place'])->name('view_place');
+        // place routes
         Route::get('/{section_slug}', [FrontController::class, 'place_index'])->name('place_index');
         Route::get('/{section_slug}/{place_slug}', [FrontController::class, 'place_view'])->name('place_view');
 
         // ajax place request
         Route::post('/ajax/places/request', [FrontController::class, 'ajax_place_request']);
 
+        // logged-in user routes (redirects to login route if no user is found)
+        Route::middleware(['auth'])->group(function () {
+            Route::get('/user/profile', [FrontController::class, 'profile'])->name('profile');
+        });
+
         // auth register, login, logout
         Auth::routes();
+
     });
 
-});
-
-// logged-in user routes (redirects to login route if no user is found)
-Route::middleware(['auth'])->group(function () {
-    Route::get('/user/profile', [FrontController::class, 'profile'])->name('profile');
 });
 
 // ajax favorite toggle

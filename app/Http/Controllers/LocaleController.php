@@ -21,7 +21,7 @@ class LocaleController extends Controller{
         $new_section_trans = trans('otherworlds.'.$section_slug_key);
 
         // check if theres a place_id in session
-        if (session()->has('place_id')) {
+        if (session()->has('place_id') && $section_slug_key == 'place_view_slug') {
             $place = Place::find(session('place_id'));
             if($place == null){
                 return back();
@@ -33,6 +33,7 @@ class LocaleController extends Controller{
                 'section_slug' => $new_section_trans,
                 'place_slug' => $place->slug,
             ];
+
             return redirect()->route('place_view', $variables);
         }
 

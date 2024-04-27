@@ -19,7 +19,7 @@ class LocaleMiddleware
 
         // check if locale is valid, return to places index if not
         if ($locale == null || in_array($locale, config('translatable.locales')) == false) {
-            return redirect()->route('places', ['locale' => 'en']);
+            return redirect()->route('place_index', ['locale' => 'en', 'section_slug' => trans('otherworlds.places_slug')]);
         }
 
         app()->setLocale($locale);

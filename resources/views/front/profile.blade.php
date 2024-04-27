@@ -65,7 +65,7 @@
         <div class="col-12 col-md p-0">
 
             <p class="rounded-4 px-3 py-2">Description in English</p>
-            <a class="px-2" href="http://localhost/otherworlds/public/places">return</a>
+            <a class="px-2" href="">return</a>
             <a class="px-2" href="https://en.wikipedia.org/wiki/Monument_Valley" target="_blank">Learn more about Monument Valley</a>
             <div class="div_h mr-2"></div>
 

@@ -69,7 +69,7 @@ class FrontController extends Controller{
             'place' => $place,
             'source' => $place->getSource($locale),
             'locale' => $locale,
-            'section_slug_key' => 'places_slug'
+            'section_slug_key' => 'place_view_slug'
         ];
 
         return view('front.place_view', $variables);
