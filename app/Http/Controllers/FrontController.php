@@ -45,7 +45,7 @@ class FrontController extends Controller{
         return view('front.places', $variables);
     }
 
-    function view_place(string $slug_name){
+    function view_place(string $locale, string $slug_name){
         //try to get the place:
         $place_translation = PlaceTranslation::where('slug', $slug_name)->first();
         if($place_translation == null){
@@ -65,7 +65,8 @@ class FrontController extends Controller{
 
         $variables = [
             'place' => $place,
-            'source' => $place->getSource(app()->getLocale())
+            'source' => $place->getSource($locale),
+            'locale' => $locale
         ];
 
         return view('front.view_place', $variables);

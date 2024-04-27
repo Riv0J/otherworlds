@@ -8,20 +8,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Place;
 
 class LocaleController extends Controller{
-    public function setLocale($new_locale){
-        // get current app locale
-        $current_locale = \App::getLocale();
-        
-        
-        // dd("changing locale, curren= ".$current_locale.". New= ".$new_locale);
+    public function setLocale($locale, $new_locale){
+        //dd("changing locale, curren= ".$locale.". New= ".$new_locale);
         // check if new locale is valid, return to places index if not
         if (in_array($new_locale, config('translatable.locales')) == false) {
             return redirect()->route('home', ['locale' => 'en']);
         }
-        
+
         // replace the locale in url
         $url = url()->previous();
-        $url = str_replace("/".$current_locale."/", "/".$new_locale."/", $url);
+        $url = str_replace("/".$locale."/", "/".$new_locale."/", $url);
 
         // check if theres a place_id in session
         if (session()->has('place_id') && str_contains(url()->previous(),'/place/')) {
@@ -35,7 +31,5 @@ class LocaleController extends Controller{
 
         // redirect back
         return Redirect::to($url);
-
     }
-
 }

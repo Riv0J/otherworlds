@@ -37,7 +37,7 @@
                 p-3 p-lg-1
                 px-4 px-lg-2
                 regular"
-                href="{{ route('login') }}">
+                href="{{ route('login', ['locale' => $locale]) }}">
                 <i class="ri-user-3-fill"></i>
                 <span class="mx-1">
                     @lang('otherworlds.sign_in')
@@ -47,7 +47,7 @@
 
             {{-- user options --}}
             @if (Auth::user())
-            <form id="logout_form" action="{{ route('logout') }}" method="POST" class="d-none">
+            <form id="logout_form" action="{{ route('logout', ['locale' => $locale]) }}" method="POST" class="d-none">
                 @csrf
             </form>
 
@@ -67,7 +67,7 @@
 
                     <div class="dropdown_divider mt-1 mx-5 mx-md-2"></div>
 
-                    <a href="{{ route('logout') }}" class="p-2 px-4"
+                    <a href="javascript:void(0)" class="p-2 px-4"
                         onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
                         @lang('otherworlds.logout')
                     </a>
@@ -81,15 +81,15 @@
                 p-3 p-lg-1
                 px-4 px-lg-3
                 regular">
-                    @lang('otherworlds.lang')-{{\App::getLocale()}}
+                    @lang('otherworlds.lang')
                     <i class="fa-solid fa-angle-down"></i>
                 </a>
 
                 <div class="dropdown_options">
                 @foreach (config('translatable.locales') as $loc)
-                    @if ($loc != \App::getLocale())
-                        
-                        <a class="p-2 px-4" href="{{route('setLocale', ['new_locale' => $loc])}}">{{strtoupper($loc)}}</a>
+                    @if ($loc != $locale)
+
+                        <a class="p-2 px-4" href="{{route('setLocale', ['locale' => $locale, 'new_locale' => $loc])}}">{{strtoupper($loc)}}</a>
                     @endif
                 @endforeach
                 </div>

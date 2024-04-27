@@ -170,7 +170,6 @@
                     fav_count.textContent = formatNumber(response_data['favorites_count']);
                 }
             }
-
             //on click fav_button when logged in
             fav_button.addEventListener('click', function(){
                 ajax(ajax_data);
@@ -179,7 +178,7 @@
             @else
             //on click fav_button when not logged in
             fav_button.addEventListener('click', function(){
-                window.location.href = '{{ route("login") }}';
+                window.location.href = '{{ route("login", ["locale" => $locale]) }}';
             });
             @endif
 
@@ -215,7 +214,7 @@
         }
         const ajax_data = {
             method: 'POST',
-            url: '{{ URL('/ajax/places/request') }}',
+            url: '{{ URL($locale.'/ajax/places/request') }}',
             request_data : {
                 _token: '{{ csrf_token() }}',
                 current_page: current_page,

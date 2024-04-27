@@ -16,9 +16,8 @@ trait AuthenticatesUsers
      *
      * @return \Illuminate\View\View
      */
-    public function showLoginForm()
-    {
-        return view('auth.login');
+    public function showLoginForm(string $locale){
+        return view('auth.login',['locale' => $locale]);
     }
 
     /**
@@ -29,7 +28,7 @@ trait AuthenticatesUsers
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function login(Request $request)
+    public function login(Request $request, string $locale)
     {
         $this->validateLogin($request);
 
@@ -48,7 +47,7 @@ trait AuthenticatesUsers
                 $request->session()->put('auth.password_confirmed_at', time());
             }
 
-            return $this->sendLoginResponse($request);
+            return $this->sendLoginResponse($request, $locale);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -105,7 +104,7 @@ trait AuthenticatesUsers
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    protected function sendLoginResponse(Request $request)
+    protected function sendLoginResponse(Request $request, $locale)
     {
         $request->session()->regenerate();
 
@@ -117,7 +116,7 @@ trait AuthenticatesUsers
 
         return $request->wantsJson()
                     ? new JsonResponse([], 204)
-                    : redirect()->intended($this->redirectPath());
+                    : redirect($locale.$this->redirectTo);
     }
 
     /**
@@ -163,7 +162,7 @@ trait AuthenticatesUsers
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    public function logout(Request $request)
+    public function logout(Request $request, string $locale)
     {
         $this->guard()->logout();
 
@@ -177,7 +176,7 @@ trait AuthenticatesUsers
 
         return $request->wantsJson()
             ? new JsonResponse([], 204)
-            : redirect('/');
+            : redirect($locale.'/home');
     }
 
     /**

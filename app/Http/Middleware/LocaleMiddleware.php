@@ -21,8 +21,8 @@ class LocaleMiddleware
         if ($locale == null || in_array($locale, config('translatable.locales')) == false) {
             return redirect()->route('places', ['locale' => 'en']);
         }
-        \App::setLocale($locale);
-        // dd("changing locale to, ".$locale);
+
+        app()->setLocale($locale);
         return $next($request);
     }
 

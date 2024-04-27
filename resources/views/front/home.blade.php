@@ -33,7 +33,7 @@
         </div>
     </div>
     <a class="mt-4 px-2 py-1" href="{{route('view_place', ['locale' => $locale, 'place_slug' => $place->slug])}}">
-        @lang('otherworlds.what_is_this_place')
+        @lang('otherworlds.visit_place')
     </a>
 </section>
 <style>

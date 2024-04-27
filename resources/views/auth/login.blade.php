@@ -17,7 +17,7 @@
         @lang('otherworlds.sign_in')
     </h2>
 
-    <form class="col-12 col-lg-8 py-5 flex_center flex-column" method="POST" action="{{ route('login') }}">
+    <form class="col-12 col-lg-8 py-5 flex_center flex-column" method="POST" action="{{ route('login', ['locale' => $locale]) }}">
         @csrf
 
         {{-- login email --}}
@@ -75,7 +75,7 @@
                 </button>
             </div>
             <div class="flex_center col-md-6 offset-md-4 flex_center my-3 white">
-                <a class="px-2" href="{{route('register')}}">@lang('otherworlds.im_not_registered')</a>
+                <a class="px-2" href="{{route('register', ['locale' => $locale])}}">@lang('otherworlds.im_not_registered')</a>
             </div>
         </div>
 

@@ -44,7 +44,7 @@ return [
     'already_have_account' => 'I already have an account',
 
     // section home
-    'what_is_this_place' => 'What is this place?',
+    'visit_place' => 'Visit this place',
     'features' => 'Features',
     'features_1' => "Otherworlds is in its baby stages, but we aspire to build a big repository of places from all around the world, and methods for users to share and bookmark their favorite locations.",
     'explore' => 'Explore',
