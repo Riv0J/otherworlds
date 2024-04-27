@@ -25,7 +25,7 @@
                 </a>
 
                 <a class="regular p-2"
-                    href="{{ route('places',['locale' => $locale]) }}">
+                    href="{{ route('place_index',['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')]) }}">
                     @lang('otherworlds.places')
                 </a>
 
@@ -43,7 +43,6 @@
                     href="https://commons.wikimedia.org/wiki/Main_Page?uselang={{app()->getLocale()}}">
                     Commons
                 </a>
-
 
             </div>
 

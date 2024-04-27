@@ -17,16 +17,17 @@ use App\Http\Controllers\FrontController;
 // front routes with $locale slug
 Route::prefix('{locale}')->group(function () {
     // set the url locale
-    Route::get('setlocale/{new_locale}', [App\Http\Controllers\LocaleController::class, 'setLocale'])->name('setLocale');
+    Route::get('/{section_slug_key}/setlocale/{new_locale}', [App\Http\Controllers\LocaleController::class, 'setLocale'])->name('setLocale');
 
-    // front routes that automatically update app locale when visited with $locale slug
+    // front routes that automatically update app locale when visited with the $locale slug
     Route::middleware(['locale_updater'])->group(function () {
 
         Route::get('/', [FrontController::class, 'home'])->name('home');
         Route::get('/home', [FrontController::class, 'home'])->name('home');
 
-        Route::get('/places', [FrontController::class, 'places_index'])->name('places');
-        Route::get('/place/{place_slug}', [FrontController::class, 'view_place'])->name('view_place');
+        // Route::get('/{section_slug}/{place_slug}', [FrontController::class, 'view_place'])->name('view_place');
+        Route::get('/{section_slug}', [FrontController::class, 'place_index'])->name('place_index');
+        Route::get('/{section_slug}/{place_slug}', [FrontController::class, 'place_view'])->name('place_view');
 
         // ajax place request
         Route::post('/ajax/places/request', [FrontController::class, 'ajax_place_request']);

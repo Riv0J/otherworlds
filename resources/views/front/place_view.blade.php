@@ -42,7 +42,7 @@
 
             {{-- #share_button START--}}
             <button title='@lang('otherworlds.share_button')' class="green" id="share_button">
-                <input type="text" value="{{ route('view_place', ['locale' => $locale, 'place_slug' => $place->slug]) }}" id="place_url" style="left: -200%; position:absolute">
+                <input type="text" value="{{ route('place_view', ['locale' => $locale, 'section_slug' => trans('otherworlds.place_index_slug'), 'place_slug' => $place->slug]) }}" id="place_url" style="left: -200%; position:absolute">
                 <i class="ri-share-line"></i>
             </button>
             {{-- #share_button END--}}
@@ -156,7 +156,7 @@
 
     {{-- links START--}}
     <div class="my-3 d-flex flex-row gap-3 justify-content-center">
-        <a class="px-2" href="{{route('places', ['locale' => $locale])}}">@lang('otherworlds.return')</a>
+        <a class="px-2" href="{{route('place_index', ['locale' => $locale, 'section_slug' => trans('otherworlds.place_index_slug')])}}">@lang('otherworlds.return')</a>
     </div>
     {{-- links END --}}
 

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Place;
-use App\Models\PlaceTranslation;
 use App\Models\Category;
 
 class FrontController extends Controller{
@@ -21,7 +20,9 @@ class FrontController extends Controller{
         return view('front.home', $variables);
     }
 
-    function places_index($locale){
+    function place_index($locale, $section_slug){
+        // check if this section_slug is valid
+
         //get the places in the first page
         $places = FrontController::getPlaces($page = 1, $per_page = $this->PER_PAGE);
 
@@ -40,36 +41,38 @@ class FrontController extends Controller{
             'all_categories' => Category::all(),
 
             'fav_places_ids' => $fav_places_ids,
-            'locale' => $locale
+            'locale' => $locale,
+            'section_slug_key' => 'places_slug'
         ];
-        return view('front.places', $variables);
+        return view('front.place_index', $variables);
     }
 
-    function view_place(string $locale, string $slug_name){
-        //try to get the place:
-        $place_translation = PlaceTranslation::where('slug', $slug_name)->first();
-        if($place_translation == null){
-            return redirect()->route('places');
-        }
+    function place_view($locale, $section_slug, $place_slug){
+        // check if this section_slug is valid
 
-        $place = Place::find($place_translation->place_id);
-        if($place == null){
-            return redirect()->route('places');
-        }
+        // try to get the place
+        $place = Place::whereHas('translations', function ($query) use ($place_slug) {
+            $query->where('slug', $place_slug);
+        })->first();
+
+        // redirect if no place is found
+        if( $place == null){return redirect()->route('place_index', ['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')]); }
 
         // add a view to the place
         $place->views_count += 1;
         $place->save();
 
+        // add place_id to session
         session()->put('place_id', $place->id);
 
         $variables = [
             'place' => $place,
             'source' => $place->getSource($locale),
-            'locale' => $locale
+            'locale' => $locale,
+            'section_slug_key' => 'places_slug'
         ];
 
-        return view('front.view_place', $variables);
+        return view('front.place_view', $variables);
     }
 
     //show the logged user's profile
@@ -78,6 +81,7 @@ class FrontController extends Controller{
         return view('front.profile', ['user' => $user]);
     }
 
+    //---------------------------------------------------------------------------------------AJAX
     function ajax_place_request(Request $request){
         $request_data = $request->all(); //get request data
         $next_page = $request_data['current_page'] + 1; //advance page

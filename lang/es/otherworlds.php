@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'keywords' => '"Otherworlds, maravillas naturales, natural, lugar, lugares, viaje, destino, paisaje, montaña, cascada, valle, lago, ubicaciones"',
+    'keywords' => 'vacaciones, viaje, destino, visitar, maravillas naturales, natural, lugar, lugares, paisaje, montaña, cascada, valle, lago, ubicaciones',
 
     // page titles
     'title_home' => 'Otherworlds | Lugares únicos del mundo',
@@ -15,6 +15,10 @@ return [
 
     'description_login' => 'Iniciar sesión en Otherworlds',
     'description_register' => 'Registrarse en Otherworlds',
+
+    // section slugs
+    'home_slug' => 'home',
+    'places_slug' => 'lugares',
 
     // section titles
     'lang' => 'Lang',

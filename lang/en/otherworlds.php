@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'keywords' => 'Otherworlds, natural wonders, natural, place, places, travel, destination, landscape, mountain, waterfall, valley, lakes, locations',
+    'keywords' => 'vacation, travel, destination, visit, natural wonders, natural, place, places, landscape, mountain, waterfall, valley, lakes, locations',
 
     // page titles
     'title_home' => 'Otherworlds | Unique places around the world',
@@ -15,6 +15,10 @@ return [
 
     'description_login' => 'Login to Otherworlds',
     'description_register' => 'Register in Otherworlds',
+
+    // section slugs
+    'home_slug' => 'home',
+    'places_slug' => 'places',
 
     // section titles
     'lang' => 'Lang',

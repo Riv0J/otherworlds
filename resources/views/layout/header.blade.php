@@ -27,10 +27,9 @@
             p-3 p-lg-1
             px-4 px-lg-2
             regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp"
-                href="{{ route('places',['locale' => $locale]) }}">
+                href="{{ route('place_index',['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')]) }}">
                 @lang('otherworlds.places')
             </a>
-
             {{-- login button --}}
             @if (Route::has('login') && Auth::user() == null)
             <a class="nav_link
@@ -89,7 +88,7 @@
                 @foreach (config('translatable.locales') as $loc)
                     @if ($loc != $locale)
 
-                        <a class="p-2 px-4" href="{{route('setLocale', ['locale' => $locale, 'new_locale' => $loc])}}">{{strtoupper($loc)}}</a>
+                        <a class="p-2 px-4" href="{{route('setLocale', ['locale' => $locale, 'new_locale' => $loc, 'section_slug_key' => $section_slug_key ?? 'home_slug'])}}">{{strtoupper($loc)}}</a>
                     @endif
                 @endforeach
                 </div>
