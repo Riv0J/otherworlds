@@ -42,7 +42,7 @@
 
             {{-- #share_button START--}}
             <button title='@lang('otherworlds.share_button')' class="green" id="share_button">
-                <input type="text" value="{{ route('view_place', ['place_slug' => $place->slug]) }}" id="place_url" style="left: -200%; position:absolute">
+                <input type="text" value="{{ route('place_view', ['locale' => $locale, 'section_slug' => trans('otherworlds.place_index_slug'), 'place_slug' => $place->slug]) }}" id="place_url" style="left: -200%; position:absolute">
                 <i class="ri-share-line"></i>
             </button>
             {{-- #share_button END--}}
@@ -56,7 +56,7 @@
         {{-- img container START--}}
         <div class="border_gray bg_gray col-12 col-md-6 p-2 pb-4 mb-3" style="margin-right: 1.3em; float:left">
             <div class="img_container img_gradient_bottom img_gradient_top text-center">
-                <img src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="{{$place->name}} @lang('otherworlds.thumbnail')">
+                <img src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="@lang('otherworlds.thumbnail'): {{$place->name}}">
             </div>
             <p class="text-center m-2">{{$place->synopsis}}.</p>
 
@@ -156,7 +156,7 @@
 
     {{-- links START--}}
     <div class="my-3 d-flex flex-row gap-3 justify-content-center">
-        <a class="px-2" href="{{route('places')}}">@lang('otherworlds.return')</a>
+        <a class="px-2" href="{{route('place_index', ['locale' => $locale, 'section_slug' => trans('otherworlds.place_index_slug')])}}">@lang('otherworlds.return')</a>
     </div>
     {{-- links END --}}
 
@@ -324,7 +324,7 @@
 
     @else
     document.getElementById('fav_button').addEventListener('click', function(){
-        window.location.href = '{{ route("login") }}';
+        window.location.href = "{{ route('login',['locale' => $locale]) }}";
     });
     @endif
 

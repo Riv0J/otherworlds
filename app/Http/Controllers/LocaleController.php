@@ -2,41 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
 
+use App\Http\Controllers\Controller;
 use App\Models\Place;
 
-class LocaleController extends Controller
-{
-    public function setLocale($locale){
-
-        $locales = config('translatable.locales');
-        if (in_array($locale, $locales) == false) {
-            //if the locale is not valid, return to places index
-            return redirect()->route('places');
+class LocaleController extends Controller{
+    public function setLocale($locale, $section_slug_key, $new_locale){
+        // check if new locale is valid, return to places index if not
+        if (in_array($new_locale, config('translatable.locales')) == false) {
+            return redirect()->route('home', ['locale' => 'en']);
         }
 
-        // set app locale
-        \App::setLocale($locale);
-
-        // create a new cookie
-        $cookie = cookie('o_locale', $locale, 60 * 24 * 30); // 30 días
+        // rebuild the url slugs
+        app()->setLocale($locale);
+        $current_section_trans = trans('otherworlds.'.$section_slug_key);
+        app()->setLocale($new_locale);
+        $new_section_trans = trans('otherworlds.'.$section_slug_key);
 
         // check if theres a place_id in session
-        if (session()->has('place_id') && str_contains(url()->previous(),'/place/')) {
+        if (session()->has('place_id') && $section_slug_key == 'place_view_slug') {
             $place = Place::find(session('place_id'));
             if($place == null){
-                return back()->withCookie($cookie);
+                return back();
             }
 
-            // redirect with translated name with cookie
-            return redirect()->route('view_place', ['place_slug' => $place->slug])->withCookie($cookie);
+            // redirect with place_slug
+            $variables = [
+                'locale' => $new_locale,
+                'section_slug' => trans('otherworlds.places_slug'),
+                'place_slug' => $place->slug,
+            ];
+
+            return redirect()->route('place_view', $variables);
         }
 
-        // redirect back with cookie
-        return back()->withCookie($cookie);
+        $new_url = url()->previous();
+        $new_url = str_replace("/".$locale."/", "/".$new_locale."/", $new_url); //replace locale
+        $new_url = str_replace($current_section_trans, $new_section_trans, $new_url); //replace section
 
+        // redirect back
+        return Redirect::to($new_url);
     }
-
-
 }

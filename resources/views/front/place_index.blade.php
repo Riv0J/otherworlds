@@ -9,7 +9,7 @@
 @endsection
 
 @section('canonical')
-{{ route('places') }}
+{{ route('place_index',['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')]) }}
 @endsection
 
 @section('content')
@@ -36,7 +36,7 @@
 @section('script')
 <script src='{{asset('js/ajax.js')}}'></script>
 <script>
-    const view_place_route = "{{ route('view_place', ['place_slug' => 'null']) }}".replace('/null', '');
+    const place_view_route = "{{ route('place_view', ['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug'), 'place_slug' => 'null']) }}".replace('/null', '');
 
     const loaded_countries = organize_dic({!! json_encode($countries) !!})
     const loaded_categories = organize_dic({!! json_encode($all_categories) !!});
@@ -68,7 +68,7 @@
 
             const pl_link = document.createElement('a');
             pl_link.className = "border-0";
-            pl_link.href = view_place_route + '/' + place.slug;
+            pl_link.href = place_view_route + '/' + place.slug;
 
             const img_bg = document.createElement('div');
             img_bg.className = 'img_bg';
@@ -170,7 +170,6 @@
                     fav_count.textContent = formatNumber(response_data['favorites_count']);
                 }
             }
-
             //on click fav_button when logged in
             fav_button.addEventListener('click', function(){
                 ajax(ajax_data);
@@ -179,7 +178,7 @@
             @else
             //on click fav_button when not logged in
             fav_button.addEventListener('click', function(){
-                window.location.href = '{{ route("login") }}';
+                window.location.href = '{{ route("login", ["locale" => $locale]) }}';
             });
             @endif
 
@@ -218,6 +217,7 @@
             url: '{{ URL('/ajax/places/request') }}',
             request_data : {
                 _token: '{{ csrf_token() }}',
+                locale: '{{$locale}}',
                 current_page: current_page,
             },
             before_func: function(){

@@ -2,7 +2,7 @@
 <header class="fixed-top navbar bg_gradient_black">
     <div class="container py-1 py-lg-2 px-3 px-lg-5 white">
         {{-- home anchor --}}
-        <a class="brand_anchor white gap-2" href="{{ route('home') }}">
+        <a class="brand_anchor white gap-2" href="{{ route('home',['locale' => $locale]) }}">
             @include('icons.moon_white')
             <span>therworlds</span>
         </a>
@@ -22,12 +22,21 @@
             d-none d-lg-flex
             flex-column flex-lg-row">
 
+            {{-- development link --}}
+            <a class="nav_link
+            p-3 p-lg-1
+            px-4 px-lg-2
+            regular @php if(isset($section_slug_key) && $section_slug_key == 'dev_slug'){ echo('active_link'); } @endphp"
+                href="{{ route('development',['locale' => $locale]) }}">
+                [Development]
+            </a>
+
             {{-- places link --}}
             <a class="nav_link
             p-3 p-lg-1
             px-4 px-lg-2
-            regular @php if(isset($current_section) && 'Places' == $current_section){ echo('active_link'); } @endphp"
-                href="{{ route('places') }}">
+            regular @php if(isset($section_slug_key) && $section_slug_key == 'places_slug'){ echo('active_link'); } @endphp"
+                href="{{ route('place_index',['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')]) }}">
                 @lang('otherworlds.places')
             </a>
 
@@ -36,8 +45,8 @@
             <a class="nav_link
                 p-3 p-lg-1
                 px-4 px-lg-2
-                regular"
-                href="{{ route('login') }}">
+                regular @php if(isset($section_slug_key) && $section_slug_key == 'login_slug'){ echo('active_link'); } @endphp"
+                href="{{ route('show_login', ['locale' => $locale]) }}">
                 <i class="ri-user-3-fill"></i>
                 <span class="mx-1">
                     @lang('otherworlds.sign_in')
@@ -47,7 +56,7 @@
 
             {{-- user options --}}
             @if (Auth::user())
-            <form id="logout_form" action="{{ route('logout') }}" method="POST" class="d-none">
+            <form id="logout_form" action="{{ route('logout', ['locale' => $locale]) }}" method="POST" class="d-none">
                 @csrf
             </form>
 
@@ -61,21 +70,21 @@
                 </a>
 
                 <div class="dropdown_options">
-                    <a href="{{ route('profile') }}" class="p-2 px-4">
+                    <a href="{{ route('profile', ['locale' => $locale]) }}" class="p-2 px-4">
                         @lang('otherworlds.profile')[CON]
                     </a>
 
                     <div class="dropdown_divider mt-1 mx-5 mx-md-2"></div>
 
-                    <a href="{{ route('logout') }}" class="p-2 px-4"
-                        onclick="event.preventDefault(); document.getElementById('logout_form').submit();">
+                    <a href="javascript:void(0)" class="p-2 px-4"
+                        onclick="document.getElementById('logout_form').submit();">
                         @lang('otherworlds.logout')
                     </a>
                 </div>
             </div>
             @endif
 
-            {{-- lang dropdown --}}
+            {{-- lang dropdown START--}}
             <div class="dropdown">
                 <a href="javascript:void(0)" class="dropdown_toggler gap-2
                 p-3 p-lg-1
@@ -86,13 +95,15 @@
                 </a>
 
                 <div class="dropdown_options">
-                @foreach (config('translatable.locales') as $locale)
-                    @if ($locale != app()->getLocale())
-                        <a class="p-2 px-4" href="{{route('setLocale', ['locale' => $locale])}}">{{strtoupper($locale)}}</a>
+                @foreach (config('translatable.locales') as $loc)
+                    @if ($loc != $locale)
+
+                        <a class="p-2 px-4" href="{{route('setLocale', ['locale' => $locale, 'new_locale' => $loc, 'section_slug_key' => $section_slug_key ?? 'home_slug'])}}">{{strtoupper($loc)}}</a>
                     @endif
                 @endforeach
                 </div>
             </div>
+            {{-- lang dropdown END--}}
 
         </nav>
     </div>

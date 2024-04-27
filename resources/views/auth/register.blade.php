@@ -16,7 +16,7 @@
         @lang('otherworlds.register')
     </h2>
 
-    <form class="col-12 col-lg-8 my-3 flex_center flex-column" method="POST" action="{{ route('register') }}">
+    <form class="col-12 col-lg-8 my-3 flex_center flex-column" method="POST" action="{{ route('register', ['locale' => $locale]) }}">
         @csrf
 
         @if ($errors->any())
@@ -123,7 +123,7 @@
         <div class="col-12 col-md-8 my-4 app_border_bottom text-center"></div>
 
         <div class="flex_center col-md-6 flex_center white">
-            <a class="px-2" href="{{route('login')}}">@lang('otherworlds.already_have_account')</a>
+            <a class="px-2" href="{{route('show_login', ['locale' => $locale])}}">@lang('otherworlds.already_have_account')</a>
         </div>
     </form>
 </section>

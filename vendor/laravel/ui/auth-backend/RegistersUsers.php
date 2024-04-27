@@ -16,8 +16,7 @@ trait RegistersUsers
      *
      * @return \Illuminate\View\View
      */
-    public function showRegistrationForm()
-    {
+    public function showRegistrationForm($locale){
         return view('auth.register');
     }
 
