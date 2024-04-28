@@ -14,7 +14,7 @@ class MediaSeeder extends Seeder
      */
     public function run(){
         foreach (\App\Models\Place::all() as $place) {
-            $place->fetch_gallery();
+            $place->fetch_wikimedia_gallery();
         }
     }
 }

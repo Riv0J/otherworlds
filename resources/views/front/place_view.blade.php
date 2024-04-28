@@ -169,19 +169,14 @@
             @lang('otherworlds.view_place_gallery',['link' => "<a class='px-2' href='$place->gallery_url' target='_blank'>".$place->name." Wikimedia <i class='ri-external-link-line' style='font-size: 1rem'></i></a>" ])
         </p>
 
-        <div id="medias_container" class="d-flex flex-row flex-wrap gap-4 mx-5 mx-md-2">
+        <div id="medias_container" class="d-flex flex-row flex-wrap gap-2 mx-2">
             @foreach ($place->medias as $media)
                 <div class="mediabox">
-                    <img src="{{$media->url}}" alt="">
-                    <h5 class="mt-3">Tooltip text</h5>
+                    <img src="{{$media->url}}" alt="" loading="lazy">
+                    <small class="mt-3">{{$media->description}}</small>
                 </div>
             @endforeach
         </div>
-        <style>
-            #medias_container .mediabox{
-                flex-grow: 1
-            }
-        </style>
     </div>
     {{-- gallery END --}}
     <script>
@@ -197,6 +192,27 @@
 
 </section>
 <style>
+    .mediabox{
+
+    }
+    .mediabox img{
+        margin-bottom: 5%;
+        vertical-align: middle;
+    }
+    @media screen and (min-width: 451px) {
+        .mediabox{
+            max-width: 100svh;
+        }
+    }
+    @media screen and (max-width: 450px) {
+        #medias_container{
+            justify-content:center;
+            gap: 5px;
+        }
+        .mediabox{
+            max-width: 200px;
+        }
+    }
     b{ font-weight: 600; }
     #overview>*{
         font-size: 1.1rem;

@@ -3,15 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Astrotomic\Translatable\Translatable;
 
-class Place extends Model
-{
-    use HasFactory;
+use \App\Models\Crawly;
+use \App\Models\Prefix;
+class Place extends Model{
     use Translatable;
     protected $table = 'places';
-
     protected $fillable = ['country_id', 'views_count','favorites_count','natural', 'gallery_url', 'latitude', 'longitude'];
     public $translatedAttributes = ['name', 'synopsis', 'slug'];
 
@@ -45,49 +43,56 @@ class Place extends Model
     /*
      * Try to get place's gallery images from Wikimedia
      */
-    public function fetch_gallery(){
+    public function fetch_wikimedia_gallery(){
         // get the place's source in english
         $source = $this->getSource('en');
 
-        if($source == null){ return; }
 
-        // build link to wikimedia
-        $wikimedia_url = 'https://commons.wikimedia.org/wiki/'.str_replace(' ','_',$source->title);
+        if($source == null){ return false; } //if no source, return false
+
+        // build link to wikimedia gallery
+        $gallery_prefix = Prefix::where('keyword', 'wikimedia_gallery')->first();
+        $wikimedia_url = $gallery_prefix->url.''.str_replace(' ','_',$source->title); // wikimedia gallery prefix + slug source title
 
         // try crawling
-        $img_urls = \App\Models\Crawly::crawl_gallery($wikimedia_url, 20);
+        $images_count = 20;
+        $gallery_urls = Crawly::get_gallery_files_urls($wikimedia_url, $images_count);
 
-        // if it failed, add Category: to url, it is almost guaranteed to have images
-        if($img_urls == null){
-            $wikimedia_url = 'https://commons.wikimedia.org/wiki/Category:'.str_replace(' ','_',$source->title);
+        // if it failed, use alternate wikimedia gallery prefix, it is almost guaranteed to have images
+        if($gallery_urls == null){
+            $gallery_prefix = Prefix::where('keyword', 'wikimedia_gallery_alt')->first();
+            $wikimedia_url = $gallery_prefix->url.str_replace(' ','_',$source->title); // wikimedia gallery alt prefix + slug source title
+
+            // try crawling again with alternate in url
+            $gallery_urls = Crawly::get_gallery_files_urls($wikimedia_url, $images_count);
         }
 
-        // try crawling again
-        $img_urls = \App\Models\Crawly::crawl_gallery($wikimedia_url, 20);
-
         // if images were found, continue the process
-        if($img_urls != null){
-
-            // update the place source for images
+        if($gallery_urls != null){
+            // update the place gallery url
             $this->gallery_url = $wikimedia_url;
             $this->save();
 
-            foreach ($img_urls as $url) {
-                $media_data = [
-                    'url' => $url,
-                    'place_id' => $this->id
-                ];
-                error_log($url);
+            foreach ($gallery_urls as $file_url) {
+
+                // crawl the file page url and extract the image url
                 try {
+                    $media_data = Crawly::get_media_data($file_url);
+
+                    // add to media_data
+                    $media_data['place_id'] = $this->id;
+                    $media_data['prefix_id'] = $gallery_prefix->id;
+
                     \App\Models\Media::create($media_data);
                 } catch (\Throwable $th) {
-                    //throw $th;
+                    error_log("ERROR TRYING TO FETCH: ".$file_url."\n " . $th->getMessage());
                 }
-
             }
+            return true;
         } else {
             error_log("NO IMAGES IN WIKI GALLERY FOR: ".$this->name);
         }
+        return false;
     }
 }
 
