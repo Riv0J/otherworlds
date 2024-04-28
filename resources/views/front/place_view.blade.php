@@ -172,8 +172,13 @@
         <div id="medias_container" class="d-flex flex-row flex-wrap gap-2 mx-2">
             @foreach ($place->medias as $media)
                 <div class="mediabox">
-                    <img src="{{$media->url}}" alt="" loading="lazy">
-                    <small class="mt-3">{{$media->description}}</small>
+                    <div>
+                        <img src="{{$media->url}}" alt="" loading="lazy">
+                    </div>
+
+                    @if($media->description != null)
+                    <span class="mt-3">{{$media->description}}</span>
+                    @endif
                 </div>
             @endforeach
         </div>
@@ -193,24 +198,32 @@
 </section>
 <style>
     .mediabox{
-
+        flex-grow: 1;
+        max-width: 30%;
+        overflow: hidden;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
     }
-    .mediabox img{
-        margin-bottom: 5%;
-        vertical-align: middle;
+    .mediabox>div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .mediabox>span{
+        width: 100%;
     }
     @media screen and (min-width: 451px) {
-        .mediabox{
-            max-width: 100svh;
+        .mediabox>div{
         }
     }
     @media screen and (max-width: 450px) {
         #medias_container{
-            justify-content:center;
+            justify-content: center;
             gap: 5px;
         }
-        .mediabox{
-            max-width: 200px;
+        .mediabox>div{
+            max-height: 100px;
         }
     }
     b{ font-weight: 600; }

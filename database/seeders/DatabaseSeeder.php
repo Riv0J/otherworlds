@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
 
         // execute the independent seeders
         $this->call([
-            PrefixSeeder::class,
             CategorySeeder::class,
             RoleSeeder::class,
             UserSeeder::class,

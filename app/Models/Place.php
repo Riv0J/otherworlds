@@ -47,12 +47,13 @@ class Place extends Model{
         // get the place's source in english
         $source = $this->getSource('en');
 
-
         if($source == null){ return false; } //if no source, return false
 
         // build link to wikimedia gallery
-        $gallery_prefix = Prefix::where('keyword', 'wikimedia_gallery')->first();
-        $wikimedia_url = $gallery_prefix->url.''.str_replace(' ','_',$source->title); // wikimedia gallery prefix + slug source title
+        $place_gallery_slug = str_replace(' ','_',$source->title);
+
+        // wikimedia gallery prefix + slug source title
+        $wikimedia_url = 'https://commons.wikimedia.org/wiki/'.$place_gallery_slug;
 
         // try crawling
         $images_count = 20;
@@ -60,29 +61,32 @@ class Place extends Model{
 
         // if it failed, use alternate wikimedia gallery prefix, it is almost guaranteed to have images
         if($gallery_urls == null){
-            $gallery_prefix = Prefix::where('keyword', 'wikimedia_gallery_alt')->first();
-            $wikimedia_url = $gallery_prefix->url.str_replace(' ','_',$source->title); // wikimedia gallery alt prefix + slug source title
 
-            // try crawling again with alternate in url
+            // try build with Category to wikimedia gallery
+            $wikimedia_url = 'https://commons.wikimedia.org/wiki/Category:'.$place_gallery_slug;
+
+            // try crawling again with new url
             $gallery_urls = Crawly::get_gallery_files_urls($wikimedia_url, $images_count);
         }
 
         // if images were found, continue the process
         if($gallery_urls != null){
+
             // update the place gallery url
             $this->gallery_url = $wikimedia_url;
             $this->save();
 
+            // create a Media for each $file_url
             foreach ($gallery_urls as $file_url) {
 
-                // crawl the file page url and extract the image url
                 try {
+                    // let crawly get the media data
                     $media_data = Crawly::get_media_data($file_url);
 
                     // add to media_data
                     $media_data['place_id'] = $this->id;
-                    $media_data['prefix_id'] = $gallery_prefix->id;
 
+                    // crawl the file page url and extract the image url
                     \App\Models\Media::create($media_data);
                 } catch (\Throwable $th) {
                     error_log("ERROR TRYING TO FETCH: ".$file_url."\n " . $th->getMessage());

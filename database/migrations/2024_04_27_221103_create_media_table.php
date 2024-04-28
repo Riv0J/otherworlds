@@ -22,9 +22,6 @@ return new class extends Migration
             $table->unsignedBigInteger('place_id');
             $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade');
 
-            //foreign place_id
-            $table->unsignedBigInteger('prefix_id');
-            $table->foreign('prefix_id')->references('id')->on('prefixes')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -36,10 +33,6 @@ return new class extends Migration
             //foreign media_id
             $table->unsignedBigInteger('media_id');
             $table->foreign('media_id')->references('id')->on('medias')->onDelete('cascade');
-
-            //foreign prefix_id
-            $table->unsignedBigInteger('prefix_id')->nullable();
-            $table->foreign('prefix_id')->references('id')->on('prefixes')->onDelete('cascade');
 
             $table->timestamps();
         });

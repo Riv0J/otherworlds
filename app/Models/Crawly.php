@@ -82,7 +82,7 @@ class Crawly extends Model{
         ];
 
         // add locale descriptions
-        // position a crawler in the .multilingual element
+        // position a crawler in the .fileinfotpl-type-information element
         $table = $crawler->filter('.fileinfotpl-type-information');
 
         foreach (config('translatable.locales') as $locale){
