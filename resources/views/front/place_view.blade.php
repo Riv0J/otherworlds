@@ -169,19 +169,7 @@
             @lang('otherworlds.view_place_gallery',['link' => "<a class='px-2' href='$place->gallery_url' target='_blank'>".$place->name." Wikimedia <i class='ri-external-link-line' style='font-size: 1rem'></i></a>" ])
         </p>
 
-        <div id="medias_container" class="d-flex flex-row flex-wrap gap-2 mx-2">
-            @foreach ($place->medias as $media)
-                <div class="mediabox">
-                    <div>
-                        <img src="{{$media->url}}" alt="" loading="lazy">
-                    </div>
-
-                    @if($media->description != null)
-                    <span class="mt-3">{{$media->description}}</span>
-                    @endif
-                </div>
-            @endforeach
-        </div>
+        <div id="medias_container"></div>
     </div>
     {{-- gallery END --}}
     <script>
@@ -196,34 +184,129 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKiPM_x2vbTQNx8tAc1vh-bRIPwfl3KYk&callback=initMap" async defer></script>
 
 </section>
+<script>
+    const medias_json = {!! json_encode($place->medias) !!};
+    const medias_container = document.getElementById('medias_container');
+    const grid_classes = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+    let loops = 1
+    let grid_index = 0;
+    console.log(medias_json.length);
+
+    function generate_medias_divs(medias){
+        for (let i = 0; i < medias.length; i++) {
+            const mediabox = document.createElement('div');
+            mediabox.className = 'mediabox '+grid_classes[grid_index];
+            medias_container.appendChild(mediabox);
+
+            if(grid_index >= grid_classes.length){
+                grid_index = 0;
+                loops++;
+            } else {
+                grid_index++;
+            }
+
+        }
+    }
+    function setStyle(element){
+        let col = "";
+        let row = ""
+        switch (grid_index) {
+            case 1:
+                element.style.gridColumn = '1/3';
+                element.style.gridColumn = '1/3';
+                break;
+            case 2:
+                element.style.gridColumn = '3';
+                element.style.gridColumn = '1/3';
+                break;
+            case 2:
+                element.style.gridColumn = '3';
+                element.style.gridColumn = '3/5';
+                break;
+            default:
+                break;
+        }
+
+        element.style.gridColumn = col;
+        element.style.gridRow = row;
+    }
+    //on load event create place divs
+    document.addEventListener('DOMContentLoaded', function(){
+        generate_medias_divs(medias_json);
+    });
+</script>
 <style>
+    #medias_container{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        grid-auto-rows: minmax(100px, auto);
+    }
+    .one {
+        grid-column: 1 / 3;
+        grid-row: 1 / 3
+    }
+    .two {
+        grid-column: 3;
+        grid-row: 1 / 3
+    }
+    .three {
+        grid-column: 3;
+        grid-row: 3 / 5
+    }
+    .four {
+        grid-column: 1/2;
+        grid-row: 4 / 6
+    }
+    .five {
+        grid-column: 2;
+        grid-row: 4 / 6
+    }
+    .six {
+        grid-column: 3;
+    }
+    .seven {
+        grid-column: 1;
+        grid-row: 6 / 8
+    }
+    .eight {
+        grid-column: 1;
+        grid-row: 8 / 10
+    }
+    .nine {
+        grid-column: 2/4;
+        grid-row: 6 / 9
+    }
+    .ten {
+        grid-column: 2;
+        grid-row: 9 / 11
+    }
+    .eleven {
+        grid-column: 3;
+        grid-row: 9 / 11
+    }
+    .twelve {
+        grid-column: 1;
+        grid-row: 10
+    }
     .mediabox{
-        flex-grow: 1;
-        max-width: 30%;
-        overflow: hidden;
-        align-items: center;
-        display: flex;
-        flex-direction: column;
+        background-color: rgba(0, 255, 255, 0.492);
     }
     .mediabox>div{
-        display: flex;
-        justify-content: center;
-        align-items: center;
+
     }
     .mediabox>span{
-        width: 100%;
     }
-    @media screen and (min-width: 451px) {
-        .mediabox>div{
+    @media screen and (min-width: 778px) {
+        .one {
+            grid-column: 1 / 3;
+            grid-row: 1 / 4
         }
     }
     @media screen and (max-width: 450px) {
         #medias_container{
-            justify-content: center;
-            gap: 5px;
         }
         .mediabox>div{
-            max-height: 100px;
         }
     }
     b{ font-weight: 600; }
