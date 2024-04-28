@@ -18,7 +18,7 @@ class Crawly extends Model{
 
         // if response is not OK, return
         if ($response->getStatusCode() !== 200) {
-            error_log('ERROR STATUS CODE');
+            error_log('STATUS CODE: '.$response->getStatusCode());
             return null;
         }
 

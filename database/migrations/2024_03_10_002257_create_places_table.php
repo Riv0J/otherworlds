@@ -20,6 +20,9 @@ return new class extends Migration{
             $table->double('latitude', 10, 6);
             $table->double('longitude', 10, 6);
 
+            //wikimedia link with images to this place
+            $table->string('gallery_url')->nullable();
+
             //foreign country_id
             $table->unsignedBigInteger('country_id');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');

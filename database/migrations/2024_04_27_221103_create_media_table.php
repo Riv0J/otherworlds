@@ -24,6 +24,19 @@ return new class extends Migration
 
             $table->timestamps();
         });
+
+        Schema::create('medias_translations', function (Blueprint $table) {
+            $table->id();
+            $table->string('locale');
+            $table->string('description');
+
+            //foreign media_id
+            $table->unsignedBigInteger('media_id');
+            $table->foreign('media_id')->references('id')->on('medias')->onDelete('cascade');
+
+            $table->timestamps();
+        });
+
     }
 
     /**

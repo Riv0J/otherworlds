@@ -79,8 +79,9 @@ return [
     'share_button' => 'Copiar enlace del lugar',
     'view_in_maps' => 'Ver en Maps',
     'place_location' => 'Ubicación del lugar',
-    'view_place_maps_description' => 'Puedes ver el lugar en Maps haciendo click aquí: :link',
     'no_location' => 'No tenemos la ubicación del lugar',
+    'view_place_maps_description' => 'Puedes ver el lugar en Maps haciendo click aquí: :link',
+    'view_place_gallery' => 'Mira la galería oficial aquí: :link',
 
     // general
     'email' => 'Correo Electrónico',

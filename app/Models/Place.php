@@ -12,7 +12,7 @@ class Place extends Model
     use Translatable;
     protected $table = 'places';
 
-    protected $fillable = ['country_id', 'views_count','favorites_count','natural', 'latitude', 'longitude'];
+    protected $fillable = ['country_id', 'views_count','favorites_count','natural', 'gallery_url', 'latitude', 'longitude'];
     public $translatedAttributes = ['name', 'synopsis', 'slug'];
 
     public function country(){
@@ -46,15 +46,32 @@ class Place extends Model
      * Try to get place's gallery images from Wikimedia
      */
     public function fetch_gallery(){
+        // get the place's source in english
         $source = $this->getSource('en');
 
         if($source == null){ return; }
 
-        $url = 'https://commons.wikimedia.org/'.str_replace(' ','_',$source->title);
+        // build link to wikimedia
+        $wikimedia_url = 'https://commons.wikimedia.org/wiki/'.str_replace(' ','_',$source->title);
 
-        $img_urls = \App\Models\Crawly::crawl_gallery($url, 20);
+        // try crawling
+        $img_urls = \App\Models\Crawly::crawl_gallery($wikimedia_url, 20);
 
+        // if it failed, add Category: to url, it is almost guaranteed to have images
+        if($img_urls == null){
+            $wikimedia_url = 'https://commons.wikimedia.org/wiki/Category:'.str_replace(' ','_',$source->title);
+        }
+
+        // try crawling again
+        $img_urls = \App\Models\Crawly::crawl_gallery($wikimedia_url, 20);
+
+        // if images were found, continue the process
         if($img_urls != null){
+
+            // update the place source for images
+            $this->gallery_url = $wikimedia_url;
+            $this->save();
+
             foreach ($img_urls as $url) {
                 $media_data = [
                     'url' => $url,
@@ -69,7 +86,7 @@ class Place extends Model
 
             }
         } else {
-            error_log("ERROR FETCHING GALLERY FOR: ".$this->name);
+            error_log("NO IMAGES IN WIKI GALLERY FOR: ".$this->name);
         }
     }
 }

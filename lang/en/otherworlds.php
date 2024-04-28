@@ -79,8 +79,9 @@ return [
     'share_button' => 'Copy place link',
     'view_in_maps' => 'View in Maps',
     'place_location' => 'Place location',
-    'view_place_maps_description' => 'Click the following link to view in maps: :link',
     'no_location' => 'We don\'t have the location for this place',
+    'view_place_maps_description' => 'Click the following link to view in maps: :link',
+    'view_place_gallery' => 'View the source gallery here: :link',
 
     // general
     'email' => 'Email',
