@@ -13,7 +13,6 @@
 @endsection
 
 @section('content')
-<div id="inspect_modal"></div>
 <section class="bg_black shadows_inline white col-12 col-lg-8 px-2 px-lg-4 py-3 flex-column flex-md-row justify-content-center align-items-center">
     <div class="spacer mt-4 pt-5"></div>
 
@@ -184,7 +183,27 @@
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKiPM_x2vbTQNx8tAc1vh-bRIPwfl3KYk&callback=initMap" async defer></script>
 
 </section>
+<div id="inspect_modal" class="flex_center">
+    <div id="inspect_box" class="bg_black col-12 col-lg-10 p-2 p-lg-4 border">
+        <div style="position:relative">
+            <button id="modal_closer" class="interaction_button"><i class="fa-solid fa-xmark"></i></button>
+            <img>
+        </div>
+        
+        <div class="d-flex flex-row flex-wrap mt-3">
+            <h5></h5>
+            <a class="px-2" href="" target="_blank">
+                <span style="letter-spacing: 0.05rem">@lang('otherworlds.view_original')</span>
+                <i class="ri-external-link-line" style="font-size: 1rem"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 <script>
+    const modal = document.getElementById('inspect_modal');
+    const box = document.getElementById('inspect_box');
+
     function generate_medias_divs(medias){
         const medias_container = document.getElementById('medias_container');
 
@@ -197,6 +216,14 @@
             bg.className = 'bg';
             bg.style.backgroundImage = 'url('+media.url+')';
 
+            mediabox.addEventListener('click', function(){
+                box.querySelector('img').src = media.url;
+                box.querySelector('h5').textContent = media.description;
+                box.querySelector('a').href = media.url;
+
+                open_modal();
+            });
+
             mediabox.appendChild(bg);
             medias_container.appendChild(mediabox);
         }
@@ -205,19 +232,66 @@
     //on load event create media divs
     document.addEventListener('DOMContentLoaded', function(){
         generate_medias_divs({!! json_encode($place->medias) !!});
+
     });
+
+    document.addEventListener('click', function(){
+        if(event.target == modal){
+            close_modal()
+        }
+    })
+
+    modal.querySelector('#modal_closer').addEventListener('click', close_modal);
+
+    function close_modal() {
+        modal.style.opacity = 0;
+        modal.style.pointerEvents = 'none';
+        box.style.scale = 0;
+    }
+    function open_modal(){
+        modal.style.opacity = 1;
+        modal.style.pointerEvents = 'all';
+        box.style.scale = 1;
+    }
 </script>
 <style>
+    .interaction_button{
+        border: none;
+        background-color: transparent;
+        color: var(--white);
+        display: flex;
+        border-radius: 0.5rem;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        transition: all 0.15s;
+    }
+    .interaction_button:hover{
+        background-color: var(--gray_opacity);
+    }
+    #modal_closer{
+        background-color: var(--black);
+        position: absolute;
+        right: 0.5rem;
+        top: 0.5rem;
+    }
     #inspect_modal {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(50, 255, 9, 0.801);
+        background-color: var(--black_opacity);
         z-index: 1000;
+        pointer-events: none;
+        
+        transition: all 0.5s;
+        opacity: 0;
     }
-
+    #inspect_box{
+        transition: all 0.5s;
+        scale: 0;
+        color: var(--white);
+    }
     #medias_container{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
