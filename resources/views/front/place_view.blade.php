@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-
+<div id="inspect_modal"></div>
 <section class="bg_black shadows_inline white col-12 col-lg-8 px-2 px-lg-4 py-3 flex-column flex-md-row justify-content-center align-items-center">
     <div class="spacer mt-4 pt-5"></div>
 
@@ -174,139 +174,88 @@
     {{-- gallery END --}}
     <script>
         var map;
-        function initMap() {
+        async function initMap() {
             map = new google.maps.Map(document.getElementById('place_location'), {
                 center: {lat: {{$place->latitude}}, lng: {{$place->longitude}}},
                 zoom: 10
             });
         }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKiPM_x2vbTQNx8tAc1vh-bRIPwfl3KYk&callback=initMap" async defer></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKiPM_x2vbTQNx8tAc1vh-bRIPwfl3KYk&callback=initMap" async defer></script>
 
 </section>
 <script>
-    const medias_json = {!! json_encode($place->medias) !!};
-    const medias_container = document.getElementById('medias_container');
-    const grid_classes = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
-    let loops = 1
-    let grid_index = 0;
-    console.log(medias_json.length);
-
     function generate_medias_divs(medias){
+        const medias_container = document.getElementById('medias_container');
+
         for (let i = 0; i < medias.length; i++) {
+            const media = medias[i];
             const mediabox = document.createElement('div');
-            mediabox.className = 'mediabox '+grid_classes[grid_index];
+            mediabox.className = 'mediabox';
+
+            const bg = document.createElement('bg');
+            bg.className = 'bg';
+            bg.style.backgroundImage = 'url('+media.url+')';
+
+            mediabox.appendChild(bg);
             medias_container.appendChild(mediabox);
-
-            if(grid_index >= grid_classes.length){
-                grid_index = 0;
-                loops++;
-            } else {
-                grid_index++;
-            }
-
         }
     }
-    function setStyle(element){
-        let col = "";
-        let row = ""
-        switch (grid_index) {
-            case 1:
-                element.style.gridColumn = '1/3';
-                element.style.gridColumn = '1/3';
-                break;
-            case 2:
-                element.style.gridColumn = '3';
-                element.style.gridColumn = '1/3';
-                break;
-            case 2:
-                element.style.gridColumn = '3';
-                element.style.gridColumn = '3/5';
-                break;
-            default:
-                break;
-        }
 
-        element.style.gridColumn = col;
-        element.style.gridRow = row;
-    }
-    //on load event create place divs
+    //on load event create media divs
     document.addEventListener('DOMContentLoaded', function(){
-        generate_medias_divs(medias_json);
+        generate_medias_divs({!! json_encode($place->medias) !!});
     });
 </script>
 <style>
+    #inspect_modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(50, 255, 9, 0.801);
+        z-index: 1000;
+    }
+
     #medias_container{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
         grid-auto-rows: minmax(100px, auto);
-    }
-    .one {
-        grid-column: 1 / 3;
-        grid-row: 1 / 3
-    }
-    .two {
-        grid-column: 3;
-        grid-row: 1 / 3
-    }
-    .three {
-        grid-column: 3;
-        grid-row: 3 / 5
-    }
-    .four {
-        grid-column: 1/2;
-        grid-row: 4 / 6
-    }
-    .five {
-        grid-column: 2;
-        grid-row: 4 / 6
-    }
-    .six {
-        grid-column: 3;
-    }
-    .seven {
-        grid-column: 1;
-        grid-row: 6 / 8
-    }
-    .eight {
-        grid-column: 1;
-        grid-row: 8 / 10
-    }
-    .nine {
-        grid-column: 2/4;
-        grid-row: 6 / 9
-    }
-    .ten {
-        grid-column: 2;
-        grid-row: 9 / 11
-    }
-    .eleven {
-        grid-column: 3;
-        grid-row: 9 / 11
-    }
-    .twelve {
-        grid-column: 1;
-        grid-row: 10
+        grid-auto-flow: dense;
+        gap: 10px;
     }
     .mediabox{
-        background-color: rgba(0, 255, 255, 0.492);
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        grid-column: span 1;
+        grid-row: span 2;
     }
-    .mediabox>div{
-
+    .mediabox:hover>.bg{
+        scale: 1.15;
     }
-    .mediabox>span{
+    .bg{
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: all 1s;
     }
-    @media screen and (min-width: 778px) {
-        .one {
-            grid-column: 1 / 3;
-            grid-row: 1 / 4
-        }
+    .mediabox:nth-child(7n + 1) { /*first and seventh */
+        grid-column: span 2;
+        grid-row: span 3
     }
-    @media screen and (max-width: 450px) {
+    .mediabox:nth-child(11n + 5) { /*fifth and eleventh */
+        grid-column: span 1;
+        grid-row: span 3
+    }
+    @media screen and (min-width: 779px) {
+    }
+    @media screen and (max-width: 778px) {
         #medias_container{
-        }
-        .mediabox>div{
+            grid-template-columns: repeat(2, 1fr);
         }
     }
     b{ font-weight: 600; }
