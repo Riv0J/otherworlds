@@ -10,7 +10,8 @@
     --alt2_dark: #1c2538;
     --alt2_light: rgb(128, 157, 219);
 
-    --mint: #dbffdf;
+    --green_light: #58D68D;
+    --yellow_bright: yellow;
 
     --black: rgb(29, 29, 29);
     --gray: rgb(46, 43, 52);
@@ -356,4 +357,23 @@ i, .brand_svg{
 }
 .border_gray{
     border: 1px solid gray;
+}
+
+.button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: var(--black);
+    color: var(--white);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    transition: all 0.15s
+}
+.button:hover{
+    background-color: var(--gray_opacity)
+}
+.button>h5{
+    margin: 0
 }

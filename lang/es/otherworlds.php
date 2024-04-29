@@ -82,6 +82,7 @@ return [
     'no_location' => 'No tenemos la ubicación del lugar',
     'view_place_maps_description' => 'Puedes ver el lugar en Maps haciendo click aquí: :link',
     'view_place_gallery' => 'Mira la galería oficial aquí: :link',
+    'view_original' => 'Mira la imagen original completa',
 
     // general
     'email' => 'Correo Electrónico',

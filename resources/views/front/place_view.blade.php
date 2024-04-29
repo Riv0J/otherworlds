@@ -22,15 +22,15 @@
             <span class="big-icon flag-icon flag-icon-{{$place->country->code}}" title="{{$place->country->name}}"></span>
             <h3 id="pl_name" class="regular">{{$place->name}}</h3>
         </div>
-        <div class="d-flex flex-row" id="interactions">
+        <div class="d-flex flex-row">
             {{-- #fav_button START--}}
             @if(Auth::check() === false || $place->is_favorite(Auth::user()) === false)
-                <button title='@lang('otherworlds.fav_button')' id="fav_button">
+                <button title='@lang('otherworlds.fav_button')' id="fav_button" class="button">
                     <i class="fa-regular fa-star"></i>
                     <h5 class="short_number">{{$place->favorites_count}}</h5>
                 </button>
             @else
-                <button title='@lang('otherworlds.fav_button')' class="yellow" id="fav_button">
+                <button title='@lang('otherworlds.fav_button')' id="fav_button" class="button">
                     <i class="fa-solid fa-star"></i>
                     <h5 class="short_number">{{$place->favorites_count}}</h5>
                 </button>
@@ -40,7 +40,7 @@
             <div class="div_v div_gray m-2"></div>
 
             {{-- #share_button START--}}
-            <button title='@lang('otherworlds.share_button')' class="green" id="share_button">
+            <button title='@lang('otherworlds.share_button')' id="share_button" class="button">
                 <input type="text" value="{{ route('place_view', ['locale' => $locale, 'section_slug' => trans('otherworlds.place_index_slug'), 'place_slug' => $place->slug]) }}" id="place_url" style="left: -200%; position:absolute">
                 <i class="ri-share-line"></i>
             </button>
@@ -167,7 +167,6 @@
         <p class="m-4 mx-md-2">
             @lang('otherworlds.view_place_gallery',['link' => "<a class='px-2' href='$place->gallery_url' target='_blank'>".$place->name." Wikimedia <i class='ri-external-link-line' style='font-size: 1rem'></i></a>" ])
         </p>
-
         <div id="medias_container"></div>
     </div>
     {{-- gallery END --}}
@@ -181,28 +180,33 @@
         }
     </script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKiPM_x2vbTQNx8tAc1vh-bRIPwfl3KYk&callback=initMap" async defer></script>
-
 </section>
+
 <div id="inspect_modal" class="flex_center">
-    <div id="inspect_box" class="bg_black col-12 col-lg-10 p-2 p-lg-4 border">
-        <div style="position:relative">
-            <button id="modal_closer" class="interaction_button"><i class="fa-solid fa-xmark"></i></button>
+    <button id="next" class="button"><i class="fa-solid fa-chevron-right"></i></button>
+    <button id="last" class="button"><i class="fa-solid fa-chevron-left"></i></button>
+
+    <div id="inspect_box" class="bg_black p-3 border">
+        <div class="flex_center" style="position:relative">
+            <button id="modal_closer" class="button x_button"><i class="fa-solid fa-xmark"></i></button>
             <img>
         </div>
-        
-        <div class="d-flex flex-row flex-wrap mt-3">
-            <h5></h5>
-            <a class="px-2" href="" target="_blank">
-                <span style="letter-spacing: 0.05rem">@lang('otherworlds.view_original')</span>
+
+        <div class="mt-3">
+            <p></p>
+            <a class="mx-2 px-2" href="" target="_blank">
+                <span>@lang('otherworlds.view_original')</span>
                 <i class="ri-external-link-line" style="font-size: 1rem"></i>
             </a>
         </div>
-        
+
     </div>
 </div>
 <script>
+    const loaded_medias = {!! json_encode($place->medias) !!};
     const modal = document.getElementById('inspect_modal');
     const box = document.getElementById('inspect_box');
+    let index = 0;
 
     function generate_medias_divs(medias){
         const medias_container = document.getElementById('medias_container');
@@ -212,15 +216,13 @@
             const mediabox = document.createElement('div');
             mediabox.className = 'mediabox';
 
-            const bg = document.createElement('bg');
-            bg.className = 'bg';
+            const bg = document.createElement('div');
+            bg.className="bg";
             bg.style.backgroundImage = 'url('+media.url+')';
 
             mediabox.addEventListener('click', function(){
-                box.querySelector('img').src = media.url;
-                box.querySelector('h5').textContent = media.description;
-                box.querySelector('a').href = media.url;
-
+                index = i;
+                setMedia(media);
                 open_modal();
             });
 
@@ -228,69 +230,92 @@
             medias_container.appendChild(mediabox);
         }
     }
+    //set a media in the inspect box
+    function setMedia(media){
+        box.querySelector('img').src = media.url;
+        box.querySelector('p').textContent = media.description;
+        box.querySelector('a').href = media.url;
+    }
 
     //on load event create media divs
     document.addEventListener('DOMContentLoaded', function(){
-        generate_medias_divs({!! json_encode($place->medias) !!});
-
+        generate_medias_divs(loaded_medias);
     });
 
-    document.addEventListener('click', function(){
-        if(event.target == modal){
-            close_modal()
-        }
+    //onclick when modal is beign shown, close
+    document.addEventListener('click', function(){ console.log(event.target);
+        if(event.target === modal){ close_modal() }
     })
 
+    //onclick #modal_closer
     modal.querySelector('#modal_closer').addEventListener('click', close_modal);
+
+    //onclicks
+    modal.querySelector('#next').addEventListener('click', function(){
+        if(index + 1 >= loaded_medias.length){
+            index = 0;
+        } else {
+            index++;
+        }
+        setMedia(loaded_medias[index]);
+    });
+    modal.querySelector('#last').addEventListener('click', function(){
+        if(index - 1 <= 0){
+            index = loaded_medias.length-1;
+        } else {
+            index--;
+        }
+        setMedia(loaded_medias[index]);
+    });
 
     function close_modal() {
         modal.style.opacity = 0;
-        modal.style.pointerEvents = 'none';
+        modal.style.zIndex = -1;
         box.style.scale = 0;
     }
     function open_modal(){
         modal.style.opacity = 1;
-        modal.style.pointerEvents = 'all';
+        modal.style.zIndex = 1031;
         box.style.scale = 1;
     }
 </script>
 <style>
-    .interaction_button{
-        border: none;
-        background-color: transparent;
-        color: var(--white);
-        display: flex;
-        border-radius: 0.5rem;
-        gap: 0.5rem;
-        padding: 0.5rem;
-        transition: all 0.15s;
+    #next{
+        top: 50%;
+        right: 1rem;
     }
-    .interaction_button:hover{
-        background-color: var(--gray_opacity);
+    #last{
+        top: 50%;
+        left: 1rem;
     }
     #modal_closer{
-        background-color: var(--black);
-        position: absolute;
         right: 0.5rem;
         top: 0.5rem;
     }
-    #inspect_modal {
+    #inspect_modal{
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        inset: 0;
         background-color: var(--black_opacity);
-        z-index: 1000;
-        pointer-events: none;
-        
+        z-index: -1;
+
         transition: all 0.5s;
         opacity: 0;
     }
+    #inspect_modal button{
+        position: absolute;
+    }
     #inspect_box{
+        color: var(--white);
+        max-width: 80%;
+
         transition: all 0.5s;
         scale: 0;
-        color: var(--white);
+    }
+
+    #inspect_box img {
+        width: auto;
+        max-width: 100%;
+        max-height: 65svh;
     }
     #medias_container{
         display: grid;
@@ -331,6 +356,9 @@
         #medias_container{
             grid-template-columns: repeat(2, 1fr);
         }
+        #inspect_box{
+            max-width: 95%;
+        }
     }
     b{ font-weight: 600; }
     #overview>*{
@@ -343,38 +371,19 @@
     p{
         font-size: 1.1rem;
     }
-    #interactions>button{
-        border: none;
-        background-color: transparent;
-        color: var(--white);
-        display: flex;
-        border-radius: 0.5rem;
-        gap: 0.5rem;
-        padding: 0.5rem;
-        transition: all 0.15s;
-        align-items: center;
-        justify-content: center
-    }
-    #interactions>button>h5{
-        margin: 0
-    }
-    .yellow{
-        color: yellow;
+    .x_button:hover{
+        background-color: var(--black);
+        color: red;
     }
     #fav_button:hover{
-        background-color: var(--gray_opacity);
-        color: yellow;
-    }
-    .green{
-        color: #58D68D;
+        color: var(--yellow_bright);
     }
     #share_button{
         width: 35px;
         height: 35px;
     }
     #share_button:hover{
-        background-color: var(--gray_opacity);
-        color: #58D68D;
+        color: var(--green_light);
     }
     #share_button>i{
         scale: 1.2;

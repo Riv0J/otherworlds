@@ -16,7 +16,12 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">High prio</h3>
         <li>
             <h5>
-                Place gallery
+                Low resolution Media thumbnails, high res on inspect
+            </h5>
+        </li>
+        <li>
+            <h5>
+                Gallery link broken where gallery url is null
             </h5>
         </li>
         <li>
@@ -55,14 +60,25 @@ Dev | Otherworlds
                 More languages
             </h5>
         </li>
+
+
     </ol>
+    <ul class="mx-5">
+        <h3 class="div_h div_gray my-4 pb-3 text-center">Completed</h3>
+        <li>
+            <h5 class="text-decoration-line-through">
+                Place gallery from wikimedia
+            </h5>
+        </li>
+    </ul>
 </section>
 <style>
     section{
         min-height: 100vh;
     }
-        .shadows_inline{
+    .shadows_inline{
         box-shadow: 10px 0 10px rgba(0, 0, 0, 0.5), -10px 0 10px rgba(0, 0, 0, 0.5);
     }
 </style>
+
 @endsection

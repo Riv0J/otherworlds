@@ -89,7 +89,7 @@
 
             //fav_button
             const fav_button = document.createElement('button');
-            fav_button.className = 'd-flex gap-2 interaction_button fav_button';
+            fav_button.className = 'd-flex gap-2 button fav_button';
             fav_button.id = place.id;
             card_top.appendChild(fav_button);
 
@@ -268,24 +268,14 @@
     }
 </script>
 <style>
-    .interaction_button{
-        border: none;
-        background-color: transparent;
-        color: var(--white);
-        display: flex;
-        border-radius: 0.5rem;
-        gap: 0.5rem;
-        padding: 0.5rem;
-        transition: all 0.15s;
-    }
-    .interaction_button>h5{
-        margin: 0
-    }
     .yellow{
         color: yellow;
     }
+    .fav_button{
+        background-color: transparent;
+    }
     .fav_button:hover{
-        background-color: var(--gray_opacity);
+        background-color: var(--black_opacity);
         color: yellow;
     }
     .img_icon{
