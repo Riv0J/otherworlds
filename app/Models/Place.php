@@ -77,19 +77,21 @@ class Place extends Model{
             $this->save();
 
             // create a Media for each $file_url
-            foreach ($gallery_urls as $file_url) {
+            foreach ($gallery_urls as $media_urls) {
 
                 try {
-                    // let crawly get the media data
-                    $media_data = Crawly::get_media_data($file_url);
+                    // let crawly get the media data from a media page url
+                    $media_data = Crawly::get_media_data($media_urls['media_page_url']);
 
-                    // add to media_data
+                    // add urls to media_data
+                    $media_data['thumbnail_url'] = $media_urls['thumbnail_url'];
+                    $media_data['page_url'] = $media_urls['media_page_url'];
                     $media_data['place_id'] = $this->id;
 
                     // crawl the file page url and extract the image url
                     \App\Models\Media::create($media_data);
                 } catch (\Throwable $th) {
-                    error_log("ERROR TRYING TO FETCH: ".$file_url."\n " . $th->getMessage());
+                    error_log("ERROR TRYING TO FETCH: ".$media_urls['media_page_url']."\n " . $th->getMessage());
                 }
             }
             return true;

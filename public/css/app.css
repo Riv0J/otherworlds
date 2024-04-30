@@ -388,6 +388,9 @@ i, .brand_svg{
 .button:hover{
     background-color: var(--gray_opacity)
 }
+.button.no_hover:hover{
+    background-color: var(--black);
+}
 .button>h5{
     margin: 0
 }

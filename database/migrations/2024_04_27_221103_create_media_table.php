@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
 
             $table->string('url');
+            $table->string('thumbnail_url')->nullable();
+            $table->string('page_url')->nullable();
 
             //foreign place_id
             $table->unsignedBigInteger('place_id');

@@ -36,24 +36,27 @@ class Crawly extends Model{
         $anchors = $crawler->filterXPath("//*[@id='bodyContent']");
         $anchors = $anchors->filter('a.mw-file-description');
 
-        // get the images file page urls
+        // get the images media page urls from each anchor
         $gallery_urls = [];
         for ($i = 0; $i < count($anchors); $i++) {
 
             if($i >= $images_count){ break; } // break the loop
 
             $anchor = $anchors->eq($i);
+            $img = $anchor->filter('img');
 
-            // add the file page wikimedia link to original image
-            $gallery_urls[] = 'https://commons.wikimedia.org'.$anchor->attr('href');
-
+            // add the thumbnail media page wikimedia link to original image
+            $gallery_urls[] = [
+                'thumbnail_url' => $img->attr('src'),
+                'media_page_url' => 'https://commons.wikimedia.org'.$anchor->attr('href')
+            ];
         }
 
         return $gallery_urls;
     }
 
     /*
-     * crawl wikimedia file page url and get media data, for example,
+     * crawl wikimedia media page url and get media data, for example,
      * https://commons.wikimedia.org/wiki/File:USA_10096-7-8_HDR_Antelope_Canyon_Luca_Galuzzi_2007.jpg
      * and extract the image url
      */

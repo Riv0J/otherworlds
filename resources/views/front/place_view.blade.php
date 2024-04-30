@@ -165,10 +165,20 @@
     <div class="my-3">
         <h3 class="text-center">@lang('otherworlds.gallery')</h3>
         <p class="m-4 mx-md-2">
-            @lang('otherworlds.view_place_gallery',['link' => "<a href='$place->gallery_url' target='_blank'>".$place->name." Wikimedia <i class='ri-external-link-line'></i></a>" ])
+            @if($place->gallery_url != null)
+                @lang('otherworlds.view_place_gallery',['link' => "<a href='$place->gallery_url' target='_blank'>".$place->name." Wikimedia <i class='ri-external-link-line'></i></a>" ])
+            @else
+                @lang('otherworlds.no_gallery')
+            @endif
         </p>
         <div id="medias_container"></div>
     </div>
+    <div class="flex_center">
+        <button id="load_more" class="bold button info border my-3">
+            <i class="fa-solid fa-chevron-down"></i>
+        </button>
+    </div>
+
     {{-- gallery END --}}
     <script>
         var map;
@@ -183,12 +193,12 @@
 </section>
 
 <div id="inspect_modal" class="flex_center">
-    <button id="next" class="button"><i class="fa-solid fa-chevron-right"></i></button>
-    <button id="last" class="button"><i class="fa-solid fa-chevron-left"></i></button>
+    <button id="next" class="button border"><i class="fa-solid fa-chevron-right"></i></button>
+    <button id="last" class="button border"><i class="fa-solid fa-chevron-left"></i></button>
 
     <div id="inspect_box" class="bg_black p-3 border">
         <div class="flex_center position-relative">
-            <button id="modal_closer" class="button x_button"><i class="fa-solid fa-xmark"></i></button>
+            <button id="modal_closer" class="button red"><i class="fa-solid fa-xmark"></i></button>
             <img>
         </div>
 
@@ -203,13 +213,19 @@
     </div>
 </div>
 <style>
+    .button.info:hover{
+        color: #00f3ff;
+    }
+    #next,#last{
+        z-index: 1032;
+    }
     #next{
         top: 50%;
-        right: 1rem;
+        right: 5svh;
     }
     #last{
         top: 50%;
-        left: 1rem;
+        left: 5svh;
     }
     #modal_closer{
         right: 0.5rem;
@@ -273,14 +289,17 @@
         grid-column: span 1;
         grid-row: span 3
     }
-    @media screen and (min-width: 779px) {
-    }
+    @media screen and (min-width: 779px) {}
     @media screen and (max-width: 778px) {
         #medias_container{
             grid-template-columns: repeat(2, 1fr);
         }
         #inspect_box{
             max-width: 95%;
+        }
+        #next,#last{
+            top: 90%;
+            scale: 2
         }
     }
     b{ font-weight: 600; }
@@ -294,7 +313,7 @@
     p{
         font-size: 1.1rem;
     }
-    .x_button:hover{
+    .red:hover{
         background-color: var(--black);
         color: red;
     }
@@ -354,6 +373,22 @@
         background: radial-gradient(rgba(255, 255, 255, 0.01) 30%, var(--main_dark_bg_color) 65%);
         outline: 1px solid var(--main_dark_bg_color);
         scale: 1.01 1;
+    }
+    .img_overlay{
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 1rem
+    }
+    .img_overlay>nav{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%
     }
 </style>
 @endsection
@@ -430,6 +465,7 @@
 {{-- media gallery script --}}
 <script>
     const loaded_medias = {!! json_encode($place->medias) !!};
+    const organized_medias = [];
     const modal = document.getElementById('inspect_modal');
     const box = document.getElementById('inspect_box');
     let index = 0;
@@ -437,8 +473,10 @@
     function generate_medias_divs(medias){
         const medias_container = document.getElementById('medias_container');
 
-        for (let i = 0; i < medias.length; i++) {
-            const media = medias[i];
+        let counter = organized_medias.length;
+        medias.forEach(function(media) {
+            organized_medias[counter] = media;
+            const id = counter;
             const mediabox = document.createElement('div');
             mediabox.className = 'mediabox';
 
@@ -447,29 +485,42 @@
             bg.style.backgroundImage = 'url('+media.url+')';
 
             mediabox.addEventListener('click', function(){
-                index = i;
-                setMedia(media);
+                index = id;
+                set_media(media);
                 open_modal();
             });
 
             mediabox.appendChild(bg);
             medias_container.appendChild(mediabox);
-        }
+            counter++;
+        });
     }
     //set a media in the inspect box
-    function setMedia(media){
+    function set_media(media){
         box.querySelector('img').src = media.url;
         box.querySelector('p').textContent = media.description;
-        box.querySelector('a').href = media.url;
+        box.querySelector('a').href = media.page_url;
     }
 
     //on load event create media divs
     document.addEventListener('DOMContentLoaded', function(){
-        generate_medias_divs(loaded_medias);
+        const load_more = document.querySelector('#load_more');
+        if(loaded_medias.length > 6){
+            generate_medias_divs(loaded_medias.slice(0, 6)); //generate the first 6
+
+            load_more.addEventListener('click',function(){
+                generate_medias_divs(loaded_medias.slice(6, loaded_medias.length));
+                load_more.style.display = 'none';
+            });
+
+        } else {
+            generate_medias_divs(loaded_medias);
+            load_more.style.display = 'none';
+        }
     });
 
     //onclick when modal is beign shown, close
-    document.addEventListener('click', function(){ console.log(event.target);
+    document.addEventListener('click', function(){
         if(event.target === modal){ close_modal() }
     })
 
@@ -483,7 +534,8 @@
         } else {
             index++;
         }
-        setMedia(loaded_medias[index]);
+        console.log(index);
+        set_media(loaded_medias[index]);
     });
     modal.querySelector('#last').addEventListener('click', function(){
         if(index - 1 <= 0){
@@ -491,7 +543,8 @@
         } else {
             index--;
         }
-        setMedia(loaded_medias[index]);
+        console.log(index);
+        set_media(loaded_medias[index]);
     });
 
     function close_modal() {

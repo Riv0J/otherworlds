@@ -83,6 +83,7 @@ return [
     'view_place_maps_description' => 'Puedes ver el lugar en Maps haciendo click aquí: :link',
     'view_place_gallery' => 'Mira la galería oficial aquí: :link',
     'view_original' => 'Mira la imagen original completa',
+    'view_all_images' => 'Ver todas las imágenes',
 
     // general
     'email' => 'Correo Electrónico',

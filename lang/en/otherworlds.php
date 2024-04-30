@@ -83,6 +83,7 @@ return [
     'view_place_maps_description' => 'Click the following link to view in maps: :link',
     'view_place_gallery' => 'View the source gallery here: :link',
     'view_original' => 'View the original full image',
+    'view_all_images' => 'View all images',
 
     // general
     'email' => 'Email',
