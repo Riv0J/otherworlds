@@ -15,30 +15,29 @@
 @section('content')
 
 <div class="spacer mt-3 pt-5"></div>
-<div class="gradient">
-
-</div>
 {{-- window welcome --}}
 <section class="window col-12 mt-2 mt-md-5 py-3 py-md-0 d-flex flex-column align-items-center justify-content-center white">
-    <h4 class="medium pb-1">
-        {{$place->name}}
-    </h4>
-    <h5 class="light pb-3 flex_center gap-2">
-        <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
-    </h5>
+
     <div class="app_bg_overlay" id=home_window_container>
         <img class="rounded-4" src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="">
         <div class="translucent rounded-3 px-4 py-2 overflow-hidden" id="home_window_title_container">
             <h2 class="text-center semibold display-6" id="home_window_title"></h2>
         </div>
     </div>
-    <a class="mt-4 px-2 py-1" href="{{route('place_view', ['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug'), 'place_slug' => $place->slug])}}">
-        @lang('otherworlds.visit_place')
-    </a>
+    <h2 class="medium mb-2">
+        {{$place->name}}
+    </h3>
+    <h3 class="light mb-5 flex_center gap-2">
+        <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
+    </h4>
+    <p>
+        <a class="py-1" href="{{route('place_view', ['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug'), 'place_slug' => $place->slug])}}">
+            @lang('otherworlds.visit_place')
+        </a>
+    </p>
 </section>
 <style>
     #home_window_container img {
-        /* max-width: 60svh; */
         max-height: 60svh;
         width: auto;
         height: auto;
@@ -104,13 +103,12 @@
     async function escribirCodigo(texto, elementoHTML) {
         elementoHTML.innerHTML = '';
         let indice = 0;
-        let velocidadMinima = 40; // Tiempo mínimo entre cada letra (en milisegundos)
-        let velocidadMaxima = 95; // Tiempo máximo entre cada letra (en milisegundos)
+        let velocidadMinima = 40;
+        let velocidadMaxima = 95;
         let last_char;
 
-        // Verificar si el texto es un título (menos de 15 caracteres)
         if (texto.length < 15) {
-            velocidadMaxima = velocidadMaxima / 2; // Reducir la velocidad máxima a la mitad
+            velocidadMaxima = velocidadMaxima / 2;
         }
 
         async function escribirCaracter() {
@@ -159,9 +157,9 @@
     }
 </script>
 
-<section class="col-12 px-md-5 py-5 flex_center flex-column gap-5">
+<section class="col-12 px-md-5 py-5 flex_center flex-column gap-5 light white">
 
-    <h1 class="semibold text-center flex_center gap-3 col-12 py-4 white app_bg">
+    <h1 class="semibold text-center flex_center gap-3 col-12 py-4 app_bg">
         <span class="spin_anim">
             @include('icons.moon_white')
         </span>
@@ -169,10 +167,10 @@
     </h1>
 
     <div class="px-4 d-flex flex-column gap-5 col-12 col-lg-8">
-        <p class="light white">@lang('otherworlds.about_1')</p>
-        <p class="light white">@lang('otherworlds.about_2')</p>
-        <p class="light white text-center">
-            <a class="anchor px-2 py-1" href="https://www.un.org/sustainabledevelopment/" target="_blank">
+        <p>@lang('otherworlds.about_1')</p>
+        <p>@lang('otherworlds.about_2')</p>
+        <p class="text-center">
+            <a class="anchor py-1" href="https://www.un.org/sustainabledevelopment/" target="_blank">
                 @lang('otherworlds.about_3')
             </a>
         </p>
@@ -182,9 +180,8 @@
         .spin_anim {
             display: flex;
             animation: spin 40s linear alternate;
-            scale: 1.15;
+            scale: 1.25;
         }
-
         @keyframes spin {
             from {
                 transform: rotate(0deg);

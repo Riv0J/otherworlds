@@ -39,12 +39,15 @@ main{
     min-height: 100svh;
 }
 main a{
+    padding-inline: 0.5rem;
     border-bottom: 1px rgb(255, 255, 255) solid;
+}
+main a i{
+    font-size: 1rem;
 }
 main a:hover{
     background-color: var(--hover_gray);
 }
-.big-icon { font-size: 1.75rem; }
 .flex_center{
     display: flex;
     justify-content: center;
@@ -60,6 +63,7 @@ h1{
     font-family: 'Quicksand';
     font-size: 4rem;
     letter-spacing: 0.2rem;
+    margin: 0;
 }
 h2{
     font-family: 'Quicksand';
@@ -68,9 +72,20 @@ h2{
     margin: 0;
 }
 h3{
-    font-family: 'Quicksand';
+    font-family: 'Montserrat';
     font-size: 1.75rem;
     letter-spacing: 0.1rem;
+    margin: 0;
+}
+h4{
+    font-family: 'Quicksand';
+    font-size: 1.5rem;
+    letter-spacing: 0.05rem;
+    margin: 0;
+}
+h5{
+    font-family: 'Quicksand';
+    font-size: 1.25rem;
     margin: 0;
 }
 p{

@@ -76,7 +76,7 @@
             img_bg.style.backgroundImage = 'url('+url+')'; /* set the backgroundImage */
 
             const card_top = document.createElement('div');
-            card_top.className = 'card_top d-flex gap-2 justify-content-between align-items-center p-2';
+            card_top.className = 'card_top';
 
             const categoryIcon = document.createElement('div');
             card_top.appendChild(categoryIcon);
@@ -111,7 +111,7 @@
             fav_button.appendChild(star_icon);
 
             const pl_info = document.createElement('div');
-            pl_info.className = 'pl_info d-flex flex-column align-items-start p-3 pt-5 w-100';
+            pl_info.className = 'pl_info';
 
             const pl_name = document.createElement('h3');
             pl_name.className = 'regular mb-2';
@@ -268,6 +268,9 @@
     }
 </script>
 <style>
+    .pl_card a{
+        padding: 0;
+    }
     .yellow{
         color: yellow;
     }
@@ -292,11 +295,16 @@
         }
     }
 
-    .card_top{
-        padding-right: 1rem !important;
+    .card_top {
         position: relative;
-        z-index: 500;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0.5rem;
+        padding-right: 1rem;
         background: linear-gradient(180deg, rgb(29, 29, 29) 0%, rgba(255, 255, 255, 0) 100%);
+        z-index: 500;
     }
     .card_sinopsis{
         height: 0;
@@ -318,6 +326,16 @@
             min-height: 700px;
         }
     }
+    .pl_info {
+        position: relative;
+        display: flex;
+        z-index: 500;
+        align-items: start;
+        flex-direction: column;
+        padding: 1rem;
+        padding-top: 3rem;
+        width: 100%;
+    }
     .pl_info::before{
         position: absolute;
         content: '';
@@ -326,10 +344,6 @@
         background: linear-gradient(0deg, rgb(29, 29, 29) 75%, rgba(255, 255, 255, 0) 100%);
         color: white;
         z-index: -1;
-    }
-    .pl_info{
-        position: relative;
-        z-index: 500;
     }
     .pl_card::after{
         transition: all
