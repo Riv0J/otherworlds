@@ -202,83 +202,6 @@
 
     </div>
 </div>
-<script>
-    const loaded_medias = {!! json_encode($place->medias) !!};
-    const modal = document.getElementById('inspect_modal');
-    const box = document.getElementById('inspect_box');
-    let index = 0;
-
-    function generate_medias_divs(medias){
-        const medias_container = document.getElementById('medias_container');
-
-        for (let i = 0; i < medias.length; i++) {
-            const media = medias[i];
-            const mediabox = document.createElement('div');
-            mediabox.className = 'mediabox';
-
-            const bg = document.createElement('div');
-            bg.className="bg";
-            bg.style.backgroundImage = 'url('+media.url+')';
-
-            mediabox.addEventListener('click', function(){
-                index = i;
-                setMedia(media);
-                open_modal();
-            });
-
-            mediabox.appendChild(bg);
-            medias_container.appendChild(mediabox);
-        }
-    }
-    //set a media in the inspect box
-    function setMedia(media){
-        box.querySelector('img').src = media.url;
-        box.querySelector('p').textContent = media.description;
-        box.querySelector('a').href = media.url;
-    }
-
-    //on load event create media divs
-    document.addEventListener('DOMContentLoaded', function(){
-        generate_medias_divs(loaded_medias);
-    });
-
-    //onclick when modal is beign shown, close
-    document.addEventListener('click', function(){ console.log(event.target);
-        if(event.target === modal){ close_modal() }
-    })
-
-    //onclick #modal_closer
-    modal.querySelector('#modal_closer').addEventListener('click', close_modal);
-
-    //onclicks
-    modal.querySelector('#next').addEventListener('click', function(){
-        if(index + 1 >= loaded_medias.length){
-            index = 0;
-        } else {
-            index++;
-        }
-        setMedia(loaded_medias[index]);
-    });
-    modal.querySelector('#last').addEventListener('click', function(){
-        if(index - 1 <= 0){
-            index = loaded_medias.length-1;
-        } else {
-            index--;
-        }
-        setMedia(loaded_medias[index]);
-    });
-
-    function close_modal() {
-        modal.style.opacity = 0;
-        modal.style.zIndex = -1;
-        box.style.scale = 0;
-    }
-    function open_modal(){
-        modal.style.opacity = 1;
-        modal.style.zIndex = 1031;
-        box.style.scale = 1;
-    }
-</script>
 <style>
     #next{
         top: 50%;
@@ -436,6 +359,7 @@
 @endsection
 
 @section('script')
+{{-- number format script --}}
 <script>
     document.querySelectorAll('.short_number').forEach(element => {
         element.textContent = formatNumber(element.textContent);
@@ -450,9 +374,10 @@
         }
     }
 </script>
+
+{{-- favorite script --}}
 <script src='{{asset('js/ajax.js')}}'></script>
 <script>
-
     @if(Auth::check() === true)
 
     //on click #fav_button
@@ -500,5 +425,84 @@
         document.execCommand("copy");
         alert("@lang('otherworlds.copy_link')");
     });
+</script>
+
+{{-- media gallery script --}}
+<script>
+    const loaded_medias = {!! json_encode($place->medias) !!};
+    const modal = document.getElementById('inspect_modal');
+    const box = document.getElementById('inspect_box');
+    let index = 0;
+
+    function generate_medias_divs(medias){
+        const medias_container = document.getElementById('medias_container');
+
+        for (let i = 0; i < medias.length; i++) {
+            const media = medias[i];
+            const mediabox = document.createElement('div');
+            mediabox.className = 'mediabox';
+
+            const bg = document.createElement('div');
+            bg.className="bg";
+            bg.style.backgroundImage = 'url('+media.url+')';
+
+            mediabox.addEventListener('click', function(){
+                index = i;
+                setMedia(media);
+                open_modal();
+            });
+
+            mediabox.appendChild(bg);
+            medias_container.appendChild(mediabox);
+        }
+    }
+    //set a media in the inspect box
+    function setMedia(media){
+        box.querySelector('img').src = media.url;
+        box.querySelector('p').textContent = media.description;
+        box.querySelector('a').href = media.url;
+    }
+
+    //on load event create media divs
+    document.addEventListener('DOMContentLoaded', function(){
+        generate_medias_divs(loaded_medias);
+    });
+
+    //onclick when modal is beign shown, close
+    document.addEventListener('click', function(){ console.log(event.target);
+        if(event.target === modal){ close_modal() }
+    })
+
+    //onclick #modal_closer
+    modal.querySelector('#modal_closer').addEventListener('click', close_modal);
+
+    //onclicks
+    modal.querySelector('#next').addEventListener('click', function(){
+        if(index + 1 >= loaded_medias.length){
+            index = 0;
+        } else {
+            index++;
+        }
+        setMedia(loaded_medias[index]);
+    });
+    modal.querySelector('#last').addEventListener('click', function(){
+        if(index - 1 <= 0){
+            index = loaded_medias.length-1;
+        } else {
+            index--;
+        }
+        setMedia(loaded_medias[index]);
+    });
+
+    function close_modal() {
+        modal.style.opacity = 0;
+        modal.style.zIndex = -1;
+        box.style.scale = 0;
+    }
+    function open_modal(){
+        modal.style.opacity = 1;
+        modal.style.zIndex = 1031;
+        box.style.scale = 1;
+    }
 </script>
 @endsection

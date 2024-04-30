@@ -196,7 +196,7 @@
 
 <div class="div col-9 col-md-6 col-lg-4 my-md-5 mb-5"></div>
 
-<section class="col-12 white">
+<section class="col-12 col-xl-10 white">
     <h2 class="text-center my-5">
         @lang('otherworlds.features')
     </h2>
@@ -278,7 +278,6 @@
             z-index: 1000;
             position: absolute;
             bottom: 0;
-
         }
 
         /* desktop */
@@ -309,7 +308,7 @@
     </h2>
 </section>
 
-<section class="bg_light text-justify px-3 px-lg-5 py-5 row flex-column flex-md-row white">
+<section class="quote_section col-xl-8 px-3 px-lg-5 flex-md-row">
     <div class="d-flex align-items-center justify-content-center col-12 col-md-3">
         <img src="{{asset('img/home/spring.png')}}" alt="">
     </div>
@@ -320,7 +319,7 @@
 
 <div class="div col-9 col-md-6 col-lg-4 my-md-5"></div>
 
-<section class="bg_light text-justify px-3 px-lg-5 py-5 row flex-column flex-md-row white">
+<section class="quote_section col-xl-8 px-3 px-lg-5 flex-md-row">
     <h3 class="text-left py-5 col-12 col-md-9 light">
         @lang('otherworlds.quote_2')
     </h3>
@@ -332,8 +331,16 @@
 
 <div class="div col-9 col-md-6 col-lg-4 my-md-5"></div>
 
-<p class="text-center py-5 px-3 px-md-5 col-12 col-md-8 white">
+<p class="text-center py-5 px-3 px-md-5 col-md-10 col-xl-8 white">
     @lang('otherworlds.quote_3')
 </p>
-
+<style>
+    .quote_section{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        color: var(--white);
+        padding-block: 3rem;
+    }
+</style>
 @endsection
