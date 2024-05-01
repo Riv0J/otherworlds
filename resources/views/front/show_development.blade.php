@@ -16,7 +16,22 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">High prio</h3>
         <li>
             <h5>
+                Fix nepal flag
+            </h5>
+        </li>
+        <li>
+            <h5>
+                Data too long errors on seeder
+            </h5>
+        </li>
+        <li>
+            <h5>
                 User profile, edit, favorites
+            </h5>
+        </li>
+        <li>
+            <h5>
+                Make app public
             </h5>
         </li>
         <li>
@@ -42,12 +57,17 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">Low prio</h3>
         <li>
             <h5>
-                Place comments
+                Big Sitemap
             </h5>
         </li>
         <li>
             <h5>
-                Big Sitemap
+                Media order
+            </h5>
+        </li>
+        <li>
+            <h5>
+                Place comments
             </h5>
         </li>
         <li>

@@ -23,8 +23,6 @@ return new class extends Migration
             //foreign place_id
             $table->unsignedBigInteger('place_id');
             $table->foreign('place_id')->references('id')->on('places')->onDelete('cascade');
-
-            $table->timestamps();
         });
 
         Schema::create('medias_translations', function (Blueprint $table) {
@@ -35,8 +33,6 @@ return new class extends Migration
             //foreign media_id
             $table->unsignedBigInteger('media_id');
             $table->foreign('media_id')->references('id')->on('medias')->onDelete('cascade');
-
-            $table->timestamps();
         });
 
     }

@@ -5,7 +5,7 @@ return [
 
     // page titles
     'title_home' => 'Otherworlds | Lugares únicos del mundo',
-    'title_places' => 'Explore extraordinary places',
+    'title_places' => 'Explora lugares increíbles',
 
     // page descriptions
     'learn_more_about' => 'Saber más sobre',
@@ -71,7 +71,7 @@ return [
     'places_small' => 'Descubre lugares mágicos, alrededor del mundo.',
     'fav_button' => 'Agregar a favoritos',
 
-    // section view_place
+    // section place_view
     'learn_more' => 'Saber más sobre el lugar: :place_name',
     'place_overview' => 'Resumen del lugar',
     'gallery' => 'Galería',

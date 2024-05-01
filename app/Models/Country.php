@@ -7,9 +7,9 @@ use Astrotomic\Translatable\Translatable;
 
 class Country extends Model{
     use Translatable;
-
+    protected $table = "countries";
+    public $timestamps = false;
     public $translatedAttributes = ['name'];
-
     public static function getAvailableCountries(){
         $unknown = Country::find(CountryTranslation::where('name','Unknown')->first()->country_id)->first();
 

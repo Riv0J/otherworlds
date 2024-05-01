@@ -810,7 +810,30 @@ class PlaceSeeder extends Seeder
                 'country_name' => 'Ireland',
                 'category_keyword' => 'Coastal',
             ],
+            [
+                'es' => [
+                    'name' => 'Monte Everest',
+                    'synopsis' => 'La montaña más grande del mundo sobre el nivel del mar',
 
+                ],
+                'en' => [
+                    'name' => 'Mount Everest',
+                    'synopsis' => 'Earth highest mountain above sea level',
+
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Monte_Everest',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Mount_Everest',
+                    ],
+                ],
+                'country_name' => 'Nepal',
+                'category_keyword' => 'Mountains',
+            ],
         ];
     }
 }

@@ -18,14 +18,14 @@ class Crawly extends Model{
      * and fetch file page urls
      */
 
-    public static function get_gallery_files_urls(string $url, int $images_count){
+    public static function get_gallery_urls(string $url, int $images_count){
         // make the request
         $httpClient = HttpClient::create();
         $response = $httpClient->request('GET', $url);
 
         // if response is not OK, return null
         if ($response->getStatusCode() !== 200) {
-            error_log('ERROR, CODE: '.$response->getStatusCode().' ON '.$url);
+            error_log('- Crawly: ERROR, CODE: '.$response->getStatusCode().' ON '.$url);
             return null;
         }
 
@@ -67,7 +67,7 @@ class Crawly extends Model{
 
         // if response is not OK, return null
         if ($response->getStatusCode() !== 200) {
-            error_log('ERROR, CODE: '.$response->getStatusCode().' ON '.$file_url);
+            error_log('- Crawly: ERROR, CODE: '.$response->getStatusCode().' ON '.$file_url);
             return null;
         }
 
@@ -98,8 +98,8 @@ class Crawly extends Model{
                 if (count($span)) {
                     $span->getNode(0)->parentNode->removeChild($span->getNode(0));
                 }
-
-                $media_data[$locale] = ['description' => $loc_container->text()];
+                // truncate the description
+                $media_data[$locale] = ['description' => substr($loc_container->text(), 0, 255)];
             }
         }
 

@@ -39,43 +39,55 @@ class Place extends Model{
         return $this->sources()->where('locale', $locale ?: app()->getLocale())->first();
     }
 
-    /*
-     * Try to get place's gallery images from Wikimedia
+    /**
+     * Generates the Wikimedia URL for this place's gallery
+     *
+     * Examples:
+     * - Standard URL: https://commons.wikimedia.org/wiki/Antelope_Canyon
+     * - Alternate URL (with $alternate = true): https://commons.wikimedia.org/wiki/Category:Antelope_Canyon
+     *
+     * @param string $locale The locale to generate the url
+     * @param bool $alternate (Optional) Whether to generate an alternate URL. Default is false
+     * @return string|null The generated Wikimedia URL, or null if the source is not available
      */
-    public function fetch_wikimedia_gallery($locale){
+    public function create_gallery_url(string $locale, bool $alternate = false){
+        // get the place's source in english
+        $source = $this->getSource($locale);
+
+        if($source == null){ return false; } //if no source, return false
+
+        // build link to wikimedia gallery
+        $place_gallery_slug = str_replace(' ','_',$source->title);
+
+        // wikimedia gallery prefix + slug source title
         $wikimedia_url = null;
 
-        if($this->gallery_url == null){
-            // get the place's source in english
-            $source = $this->getSource($locale);
-
-            if($source == null){ return false; } //if no source, return false
-
-            // build link to wikimedia gallery
-            $place_gallery_slug = str_replace(' ','_',$source->title);
-
-            // wikimedia gallery prefix + slug source title
-            $wikimedia_url = 'https://commons.wikimedia.org/wiki/'.$place_gallery_slug;
-
-        } else{
-            $wikimedia_url = $this->gallery_url;
-        }
-
-        // try crawling
-        $images_count = 20;
-        $gallery_urls = Crawly::get_gallery_files_urls($wikimedia_url, $images_count);
-
-        // if it failed, use alternate wikimedia gallery prefix, it is almost guaranteed to have images
-        if($gallery_urls == null){
-
-            // try build with Category to wikimedia gallery
+        if($alternate == true){
             $wikimedia_url = 'https://commons.wikimedia.org/wiki/Category:'.$place_gallery_slug;
+        }else{
+            $wikimedia_url = 'https://commons.wikimedia.org/wiki/'.$place_gallery_slug;
+        }
+        return $wikimedia_url;
+    }
 
-            // try crawling again with new url
-            $gallery_urls = Crawly::get_gallery_files_urls($wikimedia_url, $images_count);
+    /**
+     * Given a Wikimedia URL, try to create the medias for this place
+     *
+     * @param string $wikimedia_url The URL of the Wikimedia page
+     * @return bool True if images were successfully retrieved and processed, otherwise false
+     */
+    public function create_medias(string $wikimedia_url){
+        // try crawling $wikimedia_url
+        $images_count = 20;
+        try {
+            // get the urls of all the images in the wikimedia_url
+            $gallery_urls = Crawly::get_gallery_urls($wikimedia_url, $images_count);
+        } catch (\Throwable $th) {
+            error_log("---".$this->name.": Error while fetching ".$wikimedia_url.". Either does not exist or: " . $th->getMessage());
+            return false;
         }
 
-        // if images were found, continue the process
+        // if image urls were found, continue the process
         if($gallery_urls != null){
 
             // save the place gallery url if it was null
@@ -86,7 +98,6 @@ class Place extends Model{
 
             // create a Media for each $file_url
             foreach ($gallery_urls as $media_urls) {
-
                 try {
                     // let crawly get the media data from a media page url
                     $media_data = Crawly::get_media_data($media_urls['media_page_url']);
@@ -99,12 +110,12 @@ class Place extends Model{
                     // crawl the file page url and extract the image url
                     \App\Models\Media::create($media_data);
                 } catch (\Throwable $th) {
-                    error_log("ERROR TRYING TO FETCH: ".$media_urls['media_page_url']."\n " . $th->getMessage());
+                    error_log("---ERROR TRYING TO FETCH IMAGE PAGE: ".$media_urls['media_page_url']."\n " . $th->getMessage());
                 }
             }
             return true;
         } else {
-            error_log("NO IMAGES IN WIKI GALLERY FOR: ".$this->name);
+            error_log("---NO IMAGES IN WIKI GALLERY: ".$wikimedia_url);
         }
         return false;
     }

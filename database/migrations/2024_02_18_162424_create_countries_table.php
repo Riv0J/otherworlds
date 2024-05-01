@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
             $table->string('code')->default('xx');
-            $table->timestamps();
         });
 
         Schema::create('countries_translations', function (Blueprint $table) {

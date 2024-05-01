@@ -814,6 +814,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Nepal'
             ],
+            'code' => 'npl'
         ],
         [
             'es' => [

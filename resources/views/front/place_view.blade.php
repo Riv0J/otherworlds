@@ -130,7 +130,8 @@
             <span class="mx-1">@lang('otherworlds.place_location')</span>
         </h4>
         <p class="m-4 mx-md-2">
-            @lang('otherworlds.view_place_maps_description',['link' => "<a href='https://www.google.com/maps?q=".$place->name."&t=k' target='_blank'>".$place->name." Maps <i class='ri-external-link-line'></i></a>" ])
+            @lang('otherworlds.view_place_maps_description',
+            ['link' => "<a href='https://www.google.com/maps?q=".$place->name." ".$place->country->name."&t=k' target='_blank'>".$place->name." Maps <i class='ri-external-link-line'></i></a>"])
         </p>
 
         <div style="height: 300px; position: relative">
@@ -216,7 +217,7 @@
             <img>
         </div>
 
-        <div class="mt-3">
+        <div>
             <p></p>
             <a class="mx-2" href="" target="_blank">
                 <span>@lang('otherworlds.view_original')</span>
@@ -509,9 +510,30 @@
     }
     //set a media in the inspect box
     function set_media(media){
-        box.querySelector('img').src = media.url;
-        box.querySelector('p').textContent = media.description;
-        box.querySelector('a').href = media.page_url;
+        const img =  box.querySelector('img');
+        img.src = media.url;
+
+        const a =  box.querySelector('a');
+        const p = box.querySelector('p');
+
+        if(media.page_url != null){
+            a.href = media.page_url;
+            a.style.display = 'initial';
+        } else {
+            a.style.display = 'none';
+        }
+
+        if(media.description != null){
+            p.textContent = media.description;
+            p.style.display = 'initial';
+        } else {
+            p.style.display = 'none';
+        }
+        if(media.page_url == null && media.description == null){
+            img.className = '';
+        } else {
+            img.className = 'mb-2';
+        }
     }
 
     //on load event create media divs
