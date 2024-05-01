@@ -9,5 +9,6 @@ class Category extends Model{
     use Translatable;
     protected $table = "categories";
     public $timestamps = false;
+    protected $fillable = ['image_name'];
     public $translatedAttributes = ['name','description','keyword'];
 }
