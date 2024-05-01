@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 use App\Models\CountryTranslation;
@@ -22,32 +21,8 @@ class PlaceSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        //1. borrar el contenido de la carpeta places
-        $directory = public_path('img/places');
-
-        // Verificar si el directorio existe
-        if (File::isDirectory($directory)) {
-            // Obtener una lista de todos los archivos y directorios dentro del directorio
-            $files = File::allFiles($directory);
-            $directories = File::directories($directory);
-
-            // Borrar todos los archivos dentro del directorio
-            foreach ($files as $file) {
-                File::delete($file);
-            }
-
-            // Borrar todos los directorios dentro del directorio
-            foreach ($directories as $dir) {
-                File::deleteDirectory($dir);
-            }
-
-        } else {
-            echo "El directorio no existe.";
-        }
-
-        // Decodificar el contenido JSON en un array asociativo
+    public function run(){
+        //1. get a source to create places from
         $places_data = PlaceSeeder::getPlacesData();
 
         //2. get the ids for unknown country and unknown category
@@ -62,53 +37,46 @@ class PlaceSeeder extends Seeder
                 'favorites_count' => rand(1, 1500),
                 'latitude' => $place_entry['latitude'] ?? 0,
                 'longitude' => $place_entry['longitude'] ?? 0,
+                'gallery_url' => $place_entry['gallery_url'] ?? null,
                 'country_id' => CountryTranslation::where('name', $place_entry['country_name'])->value('country_id') ?? $unknown_country_id,
                 'category_id' => CategoryTranslation::where('keyword', $place_entry['category_keyword'])->value('category_id') ?? $unknown_category_id,
                 'es' => $place_entry['es'],
                 'en' => $place_entry['en'],
             ];
 
-            // generate the slug for each of the place's locale
+            // generate slug for each of the place's locale
             foreach (config('translatable.locales') as $locale) {
                 $place_data[$locale]['slug'] = OHelper::sluggify($place_data[$locale]['name']);
             }
+            // generate public slug, main language directory is english
+            $place_data['public_slug'] = OHelper::sluggify($place_data['en']['name']);
 
             // create the place
             $new_place = Place::create($place_data);
 
-            // create the place's sources
+            // create the place's sources, if any
             $sources_data = $place_entry['sources'] ?? [];
             foreach ($sources_data as $source_data) {
                 $source_data['place_id'] = $new_place->id;
                 Source::create($source_data);
             }
 
-            // Crear un directorio para este lugar
-            $path = public_path('img/places/' . $new_place->id);
+            // create an img directory for this place in english name if it doesnt exist
+            $path = public_path('places/'.$place_data['public_slug']);
             if (!File::exists($path)) {
                 File::makeDirectory($path, 0777, true, true);
             }
-
-            // check if there is image seeder in the route of the english slug
-            $seeder_images_path = public_path('img/place_seeders/' . $place_data['en']['slug']);
-
-            $this->command->info($seeder_images_path);
-
-            if (File::exists($seeder_images_path)) {
-                //copiar los contenidos de seeder_images_path a $path
-                File::copyDirectory($seeder_images_path, $path);
-            }
-
         }
     }
+
+    // TODO test saving the database as json
     public static function savePlacesSeederJSON($places_data){
-        // Ruta del JSON
         $places_path = database_path('seeders/places_seeder.json');
 
-        // Codificar a JSON
+        // encode json
         $places_json = json_encode($places_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-        // Guardar el JSON en la ruta especificada
+        // save json
         file_put_contents($places_path, $places_json);
     }
 
@@ -293,6 +261,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Spain',
                 'category_keyword' => 'Water',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Laguna_de_Torrevieja'
             ],
             [
                 'es' => [
@@ -341,6 +310,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Venezuela',
                 'category_keyword' => 'Mountains',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Pared_del_Roraima'
             ],
             [
                 'es' => [
@@ -553,6 +523,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Mexico',
                 'category_keyword' => 'Caves',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Minerals_of_Naica'
             ],
             [
                 'es' => [
@@ -621,6 +592,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Ethiopia',
                 'category_keyword' => 'Volcanic',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Dallol'
             ],
             [
                 'es' => [

@@ -71,32 +71,21 @@
             pl_link.className = "border-0";
             pl_link.href = place_view_route + '/' + place.slug;
 
-            const img_bg = document.createElement('div');
-            img_bg.className = 'img_bg';
-            const url = '{{asset('img/places/')}}' + '/' + place.id + '/t.png';
-            img_bg.style.backgroundImage = 'url('+url+')'; /* set the backgroundImage */
-
             const card_top = document.createElement('div');
             card_top.className = 'card_top';
 
-            const categoryIcon = document.createElement('div');
-            card_top.appendChild(categoryIcon);
-
-            const cat_img = document.createElement('img');
-            cat_img.className = 'img_icon';
-            cat_img.title = category.keyword + ' (' + category.name + ')';
-            cat_img.src = "{{asset('img/categories/')}}" + '/' + category.img_name.toLowerCase() + '.png';
-            categoryIcon.appendChild(cat_img);
+            const cat_icon = `
+                <div title="${category.keyword} (${category.name})" class="trait">
+                    <i class='small_i fa-solid fa-${category.img_name}'></i>
+                </div>
+            `;
+            card_top.innerHTML += cat_icon;
 
             //fav_button
             const fav_button = document.createElement('button');
             fav_button.className = 'd-flex gap-2 button fav_button';
             fav_button.id = place.id;
             card_top.appendChild(fav_button);
-
-            const fav_count = document.createElement('h5');
-            fav_count.className = 'm-0';
-            fav_count.textContent = formatNumber(place.favorites_count);
 
             const star_icon = document.createElement('i');
             star_icon.className = 'fa-star';
@@ -108,44 +97,31 @@
             }
 
             //add fav_count and star_icon to fav_button
-            fav_button.appendChild(fav_count);
+            fav_button.innerHTML += `<h5>${formatNumber(place.favorites_count)}</h5>`;
             fav_button.appendChild(star_icon);
 
             const pl_info = document.createElement('div');
             pl_info.className = 'pl_info';
 
-            const pl_name = document.createElement('h3');
-            pl_name.className = 'regular mb-2';
-            pl_name.textContent = place.name;
+            const cy_info =`
+                <p class="flex_center gap-2">
+                    <span class='flag-icon flag-icon-${country.code}'></span>
+                    <span>${country.name}</span>
+                </p>
+            `;
 
-            const countryInfo = document.createElement('p');
-            countryInfo.className = "flex_center gap-2";
-
-            const countryFlag = document.createElement('span');
-            countryFlag.className = 'flag-icon flag-icon-' + country.code;
-
-            const countryName = document.createElement('span');
-            countryName.textContent = country.name;
-
-            //add to countryInfo
-            countryInfo.appendChild(countryFlag);
-            countryInfo.appendChild(countryName);
-
-            const sinopsis_container = document.createElement('div');
-            sinopsis_container.className = 'card_sinopsis flex_center p-0';
-
-            const sinopsis = document.createElement('p');
-            sinopsis.className = 'light col-12';
-            sinopsis.textContent = place.synopsis;
-            sinopsis_container.appendChild(sinopsis);
+            const synopsis = document.createElement('div');
+            synopsis.className = 'card_sinopsis';
+            synopsis.innerHTML += `<p class="light col-12">${place.synopsis}</p>`;
 
             //add to pl_info
-            pl_info.appendChild(pl_name);
-            pl_info.appendChild(countryInfo);
-            pl_info.appendChild(sinopsis_container);
+            pl_info.innerHTML += `<h3 class="regular mb-2">${place.name}</h3>`;
+            pl_info.innerHTML += cy_info;
+            pl_info.appendChild(synopsis);
 
             //add to pl_link
-            pl_link.appendChild(img_bg);
+            const url = '{{asset('places/')}}' + '/' + place.public_slug + '/t.png';
+            pl_link.innerHTML += `<div class='img_bg' style='background-image:url(${url})'></div>`;
             pl_link.appendChild(pl_info);
 
             //add to pl_card
@@ -183,6 +159,13 @@
             });
             @endif
 
+            //add listeners on hover
+            pl_card.addEventListener('mouseover', function(){
+                synopsis.style.height = synopsis.scrollHeight+'px';
+            });
+            pl_card.addEventListener('mouseout', function(){
+                synopsis.style.height = 0;
+            });
             document.getElementById('places_container').appendChild(pl_card);
         }
     }

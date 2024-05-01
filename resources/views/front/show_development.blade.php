@@ -16,16 +16,6 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">High prio</h3>
         <li>
             <h5>
-                Low resolution Media thumbnails, high res on inspect
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Gallery link broken where gallery url is null
-            </h5>
-        </li>
-        <li>
-            <h5>
                 User profile, edit, favorites
             </h5>
         </li>
@@ -36,12 +26,17 @@ Dev | Otherworlds
         </li>
         <li>
             <h5>
-                Admin manage place
+                Implement Visits
             </h5>
         </li>
         <li>
             <h5>
-                Total 50 places
+                Admin panel
+            </h5>
+        </li>
+        <li>
+            <h5>
+                Total 50 places.
             </h5>
         </li>
         <h3 class="div_h div_gray my-4 pb-3 text-center">Low prio</h3>
@@ -60,7 +55,12 @@ Dev | Otherworlds
                 More languages
             </h5>
         </li>
-
+        <h3 class="div_h div_gray my-4 pb-3 text-center">Extras</h3>
+        <li>
+            <h5>
+                Media order in gallery
+            </h5>
+        </li>
 
     </ol>
     <ul class="mx-5">

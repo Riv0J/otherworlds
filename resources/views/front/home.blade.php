@@ -19,15 +19,15 @@
 <section class="window col-12 mt-2 mt-md-5 py-3 py-md-0 d-flex flex-column align-items-center justify-content-center white">
 
     <div class="app_bg_overlay" id=home_window_container>
-        <img class="rounded-4" src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="">
+        <img class="rounded-4" src="{{asset('places/'.$place->public_slug.'/t.png')}}" alt="">
         <div class="translucent rounded-3 px-4 py-2 overflow-hidden" id="home_window_title_container">
             <h2 class="text-center semibold display-6" id="home_window_title"></h2>
         </div>
     </div>
-    <h2 class="medium mb-2">
+    <h2 class="sans medium mb-2">
         {{$place->name}}
-    </h3>
-    <h3 class="light mb-5 flex_center gap-2">
+    </h2>
+    <h4 class="light mb-5 flex_center gap-2">
         <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
     </h4>
     <p>

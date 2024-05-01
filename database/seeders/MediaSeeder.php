@@ -14,7 +14,10 @@ class MediaSeeder extends Seeder
      */
     public function run(){
         foreach (\App\Models\Place::all() as $place) {
-            $place->fetch_wikimedia_gallery();
+            $fetch = $place->fetch_wikimedia_gallery('en');
+            if($fetch == false){
+                $place->fetch_wikimedia_gallery('es');
+            }
         }
     }
 }

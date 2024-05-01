@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Translatable;
 
 use \App\Models\Crawly;
-use \App\Models\Prefix;
 class Place extends Model{
     use Translatable;
     protected $table = 'places';
-    protected $fillable = ['country_id', 'views_count','favorites_count','natural', 'gallery_url', 'latitude', 'longitude'];
+    protected $fillable = ['country_id', 'public_slug', 'views_count','favorites_count','natural', 'gallery_url', 'latitude', 'longitude'];
     public $translatedAttributes = ['name', 'synopsis', 'slug'];
 
     public function country(){
@@ -43,17 +42,24 @@ class Place extends Model{
     /*
      * Try to get place's gallery images from Wikimedia
      */
-    public function fetch_wikimedia_gallery(){
-        // get the place's source in english
-        $source = $this->getSource('en');
+    public function fetch_wikimedia_gallery($locale){
+        $wikimedia_url = null;
 
-        if($source == null){ return false; } //if no source, return false
+        if($this->gallery_url == null){
+            // get the place's source in english
+            $source = $this->getSource($locale);
 
-        // build link to wikimedia gallery
-        $place_gallery_slug = str_replace(' ','_',$source->title);
+            if($source == null){ return false; } //if no source, return false
 
-        // wikimedia gallery prefix + slug source title
-        $wikimedia_url = 'https://commons.wikimedia.org/wiki/'.$place_gallery_slug;
+            // build link to wikimedia gallery
+            $place_gallery_slug = str_replace(' ','_',$source->title);
+
+            // wikimedia gallery prefix + slug source title
+            $wikimedia_url = 'https://commons.wikimedia.org/wiki/'.$place_gallery_slug;
+
+        } else{
+            $wikimedia_url = $this->gallery_url;
+        }
 
         // try crawling
         $images_count = 20;
@@ -72,9 +78,11 @@ class Place extends Model{
         // if images were found, continue the process
         if($gallery_urls != null){
 
-            // update the place gallery url
-            $this->gallery_url = $wikimedia_url;
-            $this->save();
+            // save the place gallery url if it was null
+            if($this->gallery_url == null){
+                $this->gallery_url = $wikimedia_url;
+                $this->save();
+            }
 
             // create a Media for each $file_url
             foreach ($gallery_urls as $media_urls) {

@@ -17,12 +17,12 @@
     <div class="spacer mt-4 pt-5"></div>
 
     {{-- title --}}
-    <div class="d-flex justify-content-between app_border_bottom px-0 pb-2">
+    <div class="d-flex justify-content-between app_border_bottom px-0 pb-2 flex-column flex-sm-row">
         <div class="flex_center gap-4">
-            <span class="big-icon flag-icon flag-icon-{{$place->country->code}}" title="{{$place->country->name}}"></span>
+            <span class="big_i flag-icon flag-icon-{{$place->country->code}}" title="{{$place->country->name}}"></span>
             <h3 id="pl_name" class="regular">{{$place->name}}</h3>
         </div>
-        <div class="d-flex flex-row">
+        <div class="d-flex flex-row justify-content-end">
             {{-- #fav_button START--}}
             @if(Auth::check() === false || $place->is_favorite(Auth::user()) === false)
                 <button title='@lang('otherworlds.fav_button')' id="fav_button" class="button">
@@ -53,9 +53,9 @@
     <div class="my-4">
 
         {{-- img container START--}}
-        <div class="border_gray bg_gray col-12 col-md-6 p-2 pb-4 mb-3" style="margin-right: 1.3em; float:left">
-            <div class="img_container img_gradient_bottom img_gradient_top text-center">
-                <img src="{{asset('img/places/'.$place->id.'/t.png')}}" alt="@lang('otherworlds.thumbnail'): {{$place->name}}">
+        <div class="border_gray bg_gray col-md-6 p-2 pb-4 mb-3" style="margin-right: 1.3em; float:left">
+            <div class="img_gradient_bottom img_gradient_top">
+                <img src="{{asset('places/'.$place->public_slug.'/t.png')}}" alt="@lang('otherworlds.thumbnail'): {{$place->name}}">
             </div>
             <p class="text-center m-2">{{$place->synopsis}}.</p>
 
@@ -72,8 +72,12 @@
                     <small>@lang('otherworlds.location'):</small>
                 </div>
                 <div class="col-8 d-flex flex-column align-items-start gap-1">
-                    <small class="flex_center gap-2"><span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}</small>
-                    <small>{{$place->category->keyword}} ({{$place->category->name}})</small>
+                    <small class="flex_center gap-2">
+                        <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
+                    </small>
+                    <small class="flex_center gap-2"><i class="small_i fa-solid fa-{{$place->category->img_name}}"></i>
+                        {{$place->category->name}}
+                    </small>
                     <small class="short_number">{{$place->views_count}}</small>
                     <small>{{$place->created_at->format('d-m-Y')}}</small>
                     <small>
@@ -111,7 +115,7 @@
                 <i class="ri-external-link-line"></i>
             </a>
         @else
-            @lang('otherworlds.no_source')
+            @lang('otherworlds.no_source').
         @endif
         </div>
     </div>
@@ -134,8 +138,8 @@
 
             @if($place->latitude == 0 && $place->longitude == 0)
             <div class="flex_center flex-column no_location">
-                <h3 class="mb-4">@lang('otherworlds.no_location')</h3>
-                <a href="https://www.google.com/maps?q={{$place->name}}&t=k" target="_blank">
+                <h3 class="mb-4 text-center">@lang('otherworlds.no_location').</h3>
+                <a href="https://www.google.com/maps?q={{$place->name.' '.$place->country->name}}&t=k" target="_blank">
                     <span>@lang('otherworlds.view_in_maps')</span>
                     <i class="ri-external-link-line"></i>
                 </a>
@@ -144,20 +148,37 @@
                 .no_location{
                     position:absolute;
                     inset: 0;
-                    background-color: rgba(33, 33, 33, 0.75);
+                    background-color: var(--black_opacity);
                     z-index: 10000;
                 }
             </style>
             @endif
+            <script>
+                var map;
+                async function initMap() {
+                    map = new google.maps.Map(document.getElementById('place_location'), {
+                        center: {lat: {{$place->latitude}}, lng: {{$place->longitude}}},
+                        zoom: 10
+                    });
+                }
+            </script>
+            <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKiPM_x2vbTQNx8tAc1vh-bRIPwfl3KYk&callback=initMap" async defer></script>
         </div>
     </div>
     {{-- location END --}}
 
-    {{-- links START--}}
-    <div class="my-3 d-flex flex-row gap-3 justify-content-center">
-        <a href="{{route('place_index', ['locale' => $locale, 'section_slug' => trans('otherworlds.place_index_slug')])}}">@lang('otherworlds.return')</a>
-    </div>
-    {{-- links END --}}
+    {{-- return START--}}
+    <button title="@lang('otherworlds.return')" id="return" class="d-none d-lg-flex button info border" onclick="window.history.back()">
+        <i class="fa-solid fa-angles-left"></i>
+    </button>
+    <style>
+        #return{
+            position: fixed;
+            top: 50%;
+            left: 5svh
+        }
+    </style>
+    {{-- return END --}}
 
     <div class="div_h my-5"></div>
 
@@ -168,7 +189,7 @@
             @if($place->gallery_url != null)
                 @lang('otherworlds.view_place_gallery',['link' => "<a href='$place->gallery_url' target='_blank'>".$place->name." Wikimedia <i class='ri-external-link-line'></i></a>" ])
             @else
-                @lang('otherworlds.no_gallery')
+                @lang('otherworlds.no_gallery').
             @endif
         </p>
         <div id="medias_container"></div>
@@ -180,16 +201,9 @@
     </div>
 
     {{-- gallery END --}}
-    <script>
-        var map;
-        async function initMap() {
-            map = new google.maps.Map(document.getElementById('place_location'), {
-                center: {lat: {{$place->latitude}}, lng: {{$place->longitude}}},
-                zoom: 10
-            });
-        }
-    </script>
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKiPM_x2vbTQNx8tAc1vh-bRIPwfl3KYk&callback=initMap" async defer></script>
+
+    <div class="div_h my-5"></div>
+
 </section>
 
 <div id="inspect_modal" class="flex_center">
@@ -322,7 +336,6 @@
     }
     #share_button{
         width: 35px;
-        height: 35px;
     }
     #share_button:hover{
         color: var(--green_light);
@@ -476,13 +489,13 @@
         let counter = organized_medias.length;
         medias.forEach(function(media) {
             organized_medias[counter] = media;
-            const id = counter;
+            const id = counter; //dont ask
             const mediabox = document.createElement('div');
             mediabox.className = 'mediabox';
 
-            const bg = document.createElement('div');
-            bg.className="bg";
-            bg.style.backgroundImage = 'url('+media.url+')';
+            mediabox.innerHTML += `
+                <div class="bg" style="background-image: url('${media.url}')"></div>
+            `;
 
             mediabox.addEventListener('click', function(){
                 index = id;
@@ -490,7 +503,6 @@
                 open_modal();
             });
 
-            mediabox.appendChild(bg);
             medias_container.appendChild(mediabox);
             counter++;
         });
@@ -534,7 +546,6 @@
         } else {
             index++;
         }
-        console.log(index);
         set_media(loaded_medias[index]);
     });
     modal.querySelector('#last').addEventListener('click', function(){
@@ -543,7 +554,6 @@
         } else {
             index--;
         }
-        console.log(index);
         set_media(loaded_medias[index]);
     });
 

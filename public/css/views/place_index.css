@@ -11,9 +11,16 @@
     background-color: var(--black_opacity);
     color: yellow;
 }
-.img_icon{
-    width: 2.5rem;
-    aspect-ratio: 1;
+.trait {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 50%;
+    background-color: var(--black);
+}
+.fa-droplet{
+    translate: 15%;
 }
 #places_container{
     display: grid;
@@ -35,9 +42,6 @@
     padding-right: 1rem;
     background: linear-gradient(180deg, rgb(29, 29, 29) 0%, rgba(255, 255, 255, 0) 100%);
     z-index: 500;
-}
-.card_sinopsis{
-    height: 0;
 }
 .pl_card, #ajax_loading{
     min-height: 500px;
@@ -86,10 +90,9 @@
 }
 .card_sinopsis{
     overflow: hidden;
-    transition: all 1s;
-}
-.pl_card:hover .card_sinopsis{
-    height: 75px;
+    transition: all 0.75s;
+    height: 0;
+    padding: 0;
 }
 .img_bg{
     position: absolute;

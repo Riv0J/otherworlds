@@ -14,6 +14,7 @@ return new class extends Migration{
     {
         Schema::create('places', function (Blueprint $table) {
             $table->id();
+            $table->string('public_slug');
             $table->integer('views_count')->default(0);
             $table->integer('favorites_count')->default(0);
             $table->boolean('natural')->default(true);

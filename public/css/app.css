@@ -110,11 +110,11 @@ i, .brand_svg{
     font-size: 2rem;
     width: 2rem;
 }
-.small_icon{
+.small_i{
     font-size: 1rem;
     width: 1rem;
 }
-.big_icon{
+.big_i{
     font-size: 2.5rem;
     width: 2.5rem;
 }
@@ -124,6 +124,9 @@ i, .brand_svg{
 /* fonts start */
 .raleway{
     font-family: 'Raleway';
+}
+.sans{
+    font-family: sans-serif;
 }
 /* fonts end */
 
@@ -387,9 +390,6 @@ i, .brand_svg{
 }
 .button:hover{
     background-color: var(--gray_opacity)
-}
-.button.no_hover:hover{
-    background-color: var(--black);
 }
 .button>h5{
     margin: 0
