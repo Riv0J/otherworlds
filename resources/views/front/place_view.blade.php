@@ -13,11 +13,11 @@
 @endsection
 
 @section('content')
-<section class="bg_black shadows_inline white col-12 col-lg-8 px-2 px-lg-4 py-3 flex-column flex-md-row justify-content-center align-items-center">
+<section class="wrapper col-12 col-lg-8">
     <div class="spacer mt-4 pt-5"></div>
 
     {{-- title --}}
-    <div class="d-flex justify-content-between app_border_bottom px-0 pb-2 flex-column flex-sm-row">
+    <div class="title flex-column flex-sm-row">
         <div class="flex_center gap-4">
             <span class="big_i flag-icon flag-icon-{{$place->country->code}}" title="{{$place->country->name}}"></span>
             <h3 id="pl_name" class="regular">{{$place->name}}</h3>
@@ -41,7 +41,7 @@
 
             {{-- #share_button START--}}
             <button title='@lang('otherworlds.share_button')' id="share_button" class="button">
-                <input type="text" value="{{ route('place_view', ['locale' => $locale, 'section_slug' => trans('otherworlds.place_index_slug'), 'place_slug' => $place->slug]) }}" id="place_url" style="left: -200%; position:absolute">
+                <input type="text" value="{{ route('place_view', ['locale' => $locale, 'section_slug' => trans('otherworlds.place_index_slug'), 'place_slug' => $place->slug]) }}" id="place_url" style="right: 500%; position:absolute">
                 <i class="ri-share-line"></i>
             </button>
             {{-- #share_button END--}}
@@ -228,9 +228,6 @@
     </div>
 </div>
 <style>
-    .button.info:hover{
-        color: #00f3ff;
-    }
     #next,#last{
         z-index: 1032;
     }
@@ -327,10 +324,6 @@
     }
     p{
         font-size: 1.1rem;
-    }
-    .red:hover{
-        background-color: var(--black);
-        color: red;
     }
     #fav_button:hover{
         color: var(--yellow_bright);

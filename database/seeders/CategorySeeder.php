@@ -77,8 +77,8 @@ class CategorySeeder extends Seeder
                 ],
                 'en' => [
                     'keyword' => 'Coastal',
-                    'name' => 'Coastal features',
-                    'description' => 'Geographical features located along the coast, such as bays, capes, inlets, etc.',
+                    'name' => 'Coastal and oceanic features',
+                    'description' => 'Geographical features located along the coast and oceans, such as bays, capes, inlets, etc.',
                 ],
                 'img_name' => 'umbrella-beach'
             ],

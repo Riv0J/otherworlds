@@ -96,8 +96,11 @@
                 fav_button.className += ' yellow';
             }
 
+            const fav_count = document.createElement('h5');
+            fav_count.textContent = formatNumber(place.favorites_count);
+
             //add fav_count and star_icon to fav_button
-            fav_button.innerHTML += `<h5>${formatNumber(place.favorites_count)}</h5>`;
+            fav_button.appendChild(fav_count);
             fav_button.appendChild(star_icon);
 
             const pl_info = document.createElement('div');

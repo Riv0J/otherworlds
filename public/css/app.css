@@ -10,6 +10,7 @@
     --alt2_dark: #1c2538;
     --alt2_light: rgb(128, 157, 219);
 
+    --cyan_light: #00f3ff;
     --green_light: #58D68D;
     --yellow_bright: yellow;
 
@@ -28,6 +29,7 @@ body{
 }
 *{
     font-family: 'QuickSand';
+    color: var(--white);
 }
 a {
     text-decoration: none;
@@ -375,7 +377,6 @@ i, .brand_svg{
 .border_gray{
     border: 1px solid gray;
 }
-
 .button{
     display: flex;
     align-items: center;
@@ -388,9 +389,45 @@ i, .brand_svg{
     padding: 0.5rem;
     transition: all 0.15s
 }
-.button:hover{
-    background-color: var(--gray_opacity)
+.button>*{
+    color: inherit;
 }
 .button>h5{
     margin: 0
+}
+.button:hover{
+    background-color: var(--gray_opacity)
+}
+.button.info:hover{
+    color: var(--cyan_light);
+}
+.button.red:hover{
+    background-color: var(--black);
+    color: red;
+}
+
+.wrapper{
+    background-color: var(--black);
+    box-shadow: 10px 0 10px rgba(0, 0, 0, 0.5), -10px 0 10px rgba(0, 0, 0, 0.5);
+    min-height: 100svh;
+    margin-block: 1rem;
+    padding: 1rem
+}
+.wrapper>.title{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--alt_dark);
+}
+nav.buttons{
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+nav.buttons>.button{
+    border: 1px solid gray;
 }

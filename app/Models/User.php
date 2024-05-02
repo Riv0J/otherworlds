@@ -62,4 +62,23 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Country::class);
     }
+
+    //override Model create
+    public static function create(array $attributes = []){
+
+        // check country_id attribute
+        if(!isset($attributes['country_id'])){
+            $unknown_country_id = CountryTranslation::where('name', 'Unknown')->value('country_id');
+
+            //set unknown_country_id
+            $attributes['country_id'] = $unknown_country_id;
+        }
+
+        // create instance with given array
+        $model = new static($attributes);
+        // save instance
+        $model->save();
+
+        return $model;
+    }
 }

@@ -1,3 +1,5 @@
+@php $logged_user = Auth::user(); @endphp
+
 {{-- Responsive navbar --}}
 <header class="fixed-top navbar bg_gradient_black">
     <div class="container py-1 py-lg-2 px-3 px-lg-5 white">
@@ -41,7 +43,7 @@
             </a>
 
             {{-- login button --}}
-            @if (Route::has('login') && Auth::user() == null)
+            @if (Route::has('login') && $logged_user == null)
             <a class="nav_link
                 p-3 p-lg-1
                 px-4 px-lg-2
@@ -55,7 +57,7 @@
             @endif
 
             {{-- user options --}}
-            @if (Auth::user())
+            @if ($logged_user != null)
             <form id="logout_form" action="{{ route('logout', ['locale' => $locale]) }}" method="POST" class="d-none">
                 @csrf
             </form>
@@ -65,12 +67,12 @@
                 p-3 p-lg-1
                 px-4 px-lg-3
                 regular">
-                    {{ Auth::user()->name }}
+                    {{ $logged_user->name }}
                     <i class="fa-solid fa-angle-down"></i>
                 </a>
 
                 <div class="dropdown_options">
-                    <a href="{{ route('profile', ['locale' => $locale]) }}" class="p-2 px-4">
+                    <a href="{{ route('profile', ['locale' => $locale, 'username' => $logged_user->name ]) }}" class="p-2 px-4">
                         @lang('otherworlds.profile')[CON]
                     </a>
 

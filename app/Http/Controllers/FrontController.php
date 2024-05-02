@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\User;
 use App\Models\Place;
 use App\Models\Category;
 
@@ -77,12 +78,32 @@ class FrontController extends Controller{
     }
 
     //show the logged user's profile
-    function profile($locale){
+    function profile($locale, $username){
+        $user = User::where('name', $username)->first();
+
+        if($user == null){ redirect()->route('home',['locale', $locale]); }
+
+        $owner = false;
+        $logged = Auth::user();
+        if($logged && $logged->id == $user->id){
+            $owner = true;
+        }
+        //get the favorites
+        $places = $user->favorites;
+
+        //get the countries of the places
+        $countries = $places->pluck('country')->unique()->values()->all();
+
+
         $variables = [
             'section_slug_key' => 'profile_slug',
             'locale' => $locale,
 
-            'user' => Auth::user()
+            'owner' => $owner,
+            'user' => $user,
+            'places' => $places,
+            'countries' => $countries,
+            'all_categories' => Category::all()
         ];
         return view('front.profile', $variables);
     }

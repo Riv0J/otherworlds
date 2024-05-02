@@ -16,12 +16,7 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">High prio</h3>
         <li>
             <h5>
-                Fix nepal flag
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Data too long errors on seeder
+                Seed more users, users index section
             </h5>
         </li>
         <li>
