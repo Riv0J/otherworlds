@@ -71,13 +71,13 @@ class CategorySeeder extends Seeder
             ],
             [
                 'es' => [
-                    'keyword' => 'Costeros',
-                    'name' => 'Accidentes costeros',
-                    'description' => 'Características geográficas situadas en la costa, como bahías, cabos, ensenadas, etc.',
+                    'keyword' => 'Oceánicos',
+                    'name' => 'Accidentes costeros y océanicos',
+                    'description' => 'Características geográficas situadas en la costa y en océanos, como bahías, cabos, ensenadas, etc.',
                 ],
                 'en' => [
-                    'keyword' => 'Coastal',
-                    'name' => 'Coastal and oceanic features',
+                    'keyword' => 'Oceanic',
+                    'name' => 'Oceanic and coastal features',
                     'description' => 'Geographical features located along the coast and oceans, such as bays, capes, inlets, etc.',
                 ],
                 'img_name' => 'umbrella-beach'

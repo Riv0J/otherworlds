@@ -188,7 +188,7 @@ class PlaceSeeder extends Seeder
                     ],
                 ],
                 'country_name' => 'Australia',
-                'category_keyword' => 'Coastal',
+                'category_keyword' => 'Oceanic',
             ],
             [
                 'es' => [
@@ -808,7 +808,7 @@ class PlaceSeeder extends Seeder
                     ],
                 ],
                 'country_name' => 'Ireland',
-                'category_keyword' => 'Coastal',
+                'category_keyword' => 'Oceanic',
             ],
             [
                 'es' => [
@@ -834,6 +834,167 @@ class PlaceSeeder extends Seeder
                 'country_name' => 'Nepal',
                 'category_keyword' => 'Mountains',
             ],
+            [
+                'es' => [
+                    'name' => 'Gran Agujero Azul',
+                    'synopsis' => 'Agujero marino con una profundidad de 120 metros en las aguas de Belize',
+                ],
+                'en' => [
+                    'name' => 'Great Blue Hole',
+                    'synopsis' => 'A giant, 120 meters deep marine sinkhole off the coast of Belize',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Gran_Agujero_Azul',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Great_Blue_Hole',
+                    ],
+                ],
+                'country_name' => 'Belize',
+                'category_keyword' => 'Oceanic',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Great_Blue_Hole_(Belize)'
+            ],
+            [
+                'es' => [
+                    'name' => 'Gran Barrera de Coral',
+                    'synopsis' => 'El mayor arrecife de coral del mundo',
+                ],
+                'en' => [
+                    'name' => 'Great Barrier Reef',
+                    'synopsis' => 'World\'s largest coral reef system',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Gran_Barrera_de_Coral',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Great_Barrier_Reef',
+                    ],
+                ],
+                'country_name' => 'Australia',
+                'category_keyword' => 'Oceanic'
+            ],
+            [
+                'es' => [
+                    'name' => 'Fiordo de Geiranger',
+                    'synopsis' => 'Fiordo de 15km de longitud, rama del gran fiordo Storfjorden',
+                ],
+                'en' => [
+                    'name' => 'Geirangerfjord',
+                    'synopsis' => 'A 15km-long branch fjord of the great Storfjorden in Norway',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Fiordo_de_Geiranger',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Geirangerfjord',
+                    ],
+                ],
+                'country_name' => 'Norway',
+                'category_keyword' => 'Water',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Geirangerfjorden'
+            ],
+            [
+                'es' => [
+                    'name' => 'Monte Etna',
+                    'synopsis' => 'El volcán más alto de Europa, y uno de los más activos del mundo',
+                ],
+                'en' => [
+                    'name' => 'Mount Etna',
+                    'synopsis' => 'The highest active volcano in Europe, and one of the most active in the world',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Etna',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Mount_Etna',
+                    ],
+                ],
+                'country_name' => 'Italy',
+                'category_keyword' => 'Volcanic',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Mount_Etna'
+            ],
+            [
+                'es' => [
+                    'name' => 'Mauna Loa',
+                    'synopsis' => 'El volcan más grande de la tierra, debido a su amplio volumen',
+                ],
+                'en' => [
+                    'name' => 'Mauna Loa',
+                    'synopsis' => 'Biggest volcano on earth, due to it\'s large volume',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Mauna_Loa',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Mauna_Loa',
+                    ],
+                ],
+                'country_name' => 'United States',
+                'category_keyword' => 'Volcanic',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Remote_views_of_Mauna_Loa'
+            ],
+            [
+                'es' => [
+                    'name' => 'Torres del Paine',
+                    'synopsis' => 'Vistas increíbles de la cordillera Paine y sus glaciares',
+                ],
+                'en' => [
+                    'name' => 'Towers of Paine',
+                    'synopsis' => 'The three distinct granite peaks in the Paine mountain range',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Parque_nacional_Torres_del_Paine',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Torres_del_Paine_National_Park',
+                    ],
+                ],
+                'country_name' => 'Chile',
+                'category_keyword' => 'Mountains',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Laguna_de_las_Torres'
+            ],
+            [
+                'es' => [
+                    'name' => '',
+                    'synopsis' => '',
+                ],
+                'en' => [
+                    'name' => '',
+                    'synopsis' => '',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => '',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => '',
+                    ],
+                ],
+                'country_name' => '',
+                'category_keyword' => '',
+                'gallery_url' => ''
+            ],
+
         ];
     }
 }
