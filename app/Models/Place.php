@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Translatable;
 
@@ -101,6 +101,17 @@ class Place extends Model{
                 try {
                     // let crawly get the media data from a media page url
                     $media_data = Crawly::get_media_data($media_urls['media_page_url']);
+
+                    $eligible = true;
+                    $banned_extensions = ['.tiff'];
+                    foreach ($banned_extensions as $ext) {
+                        if (Str::endsWith($media_urls['media_page_url'], $ext)) {
+                            $eligible = false;
+                            break;
+                        }
+                    }
+                    // dont create the media if eligible is false
+                    if($eligible = false) { break; }
 
                     // add urls to media_data
                     $media_data['thumbnail_url'] = $media_urls['thumbnail_url'];

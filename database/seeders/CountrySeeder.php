@@ -144,6 +144,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Belize'
             ],
+            'code' => 'blz'
         ],
         [
             'es' => [
@@ -260,6 +261,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Chile'
             ],
+            'code' => 'chl'
         ],
         [
             'en' => [
@@ -559,6 +561,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Italy'
             ],
+            'code' => 'ita'
         ],
         [
             'en' => [
@@ -875,6 +878,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Norway'
             ],
+            'code' => 'nor'
         ],
         [
             'es' => [
@@ -1357,6 +1361,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Zambia'
             ],
+            'code' => 'zmb'
         ],
         [
             'es' => [
@@ -1365,6 +1370,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Zimbabwe'
             ],
+            'code' => 'zwe'
         ],
 
         ];

@@ -72,6 +72,7 @@ return [
     'fav_button' => 'Agregar a favoritos',
 
     // section place_view
+    'thumbnail' => 'Miniatura',
     'learn_more' => 'Saber más sobre el lugar: :place_name',
     'place_overview' => 'Resumen del lugar',
     'gallery' => 'Galería',
@@ -84,7 +85,7 @@ return [
     'place_location' => 'Ubicación del lugar',
     'view_place_maps_description' => 'Puedes ver el lugar en Maps haciendo click aquí: :link',
     'view_place_gallery' => 'Mira la galería oficial aquí: :link',
-    'view_original' => 'Mira la imagen original completa',
+    'view_image_source' => 'Ver el origen de la imagen',
     'view_all_images' => 'Ver todas las imágenes',
 
     // general

@@ -72,6 +72,7 @@ return [
     'fav_button' => 'Add to favorites',
 
     // section place_view
+    'thumbnail' => 'Thumbnail',
     'learn_more' => 'Learn more about :place_name',
     'place_overview' => 'Place overview',
     'gallery' => 'Gallery',
@@ -84,7 +85,7 @@ return [
     'place_location' => 'Place location',
     'view_place_maps_description' => 'Click the following link to view in maps: :link',
     'view_place_gallery' => 'View the source gallery here: :link',
-    'view_original' => 'View the original full image',
+    'view_image_source' => 'View image source',
     'view_all_images' => 'View all images',
 
     // general

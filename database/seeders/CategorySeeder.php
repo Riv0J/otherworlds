@@ -86,12 +86,12 @@ class CategorySeeder extends Seeder
                 'es' => [
                     'keyword' => 'Glaciares',
                     'name' => 'Accidentes glaciares',
-                    'description' => 'Características geográficas formadas por la acción de los glaciares, como glaciares, morrenas, fiordos, etc.',
+                    'description' => 'Características geográficas que involucran glaciares y paisajes nevados.',
                 ],
                 'en' => [
                     'keyword' => 'Glaciers',
                     'name' => 'Glacial features',
-                    'description' => 'Geographical features formed by the action of glaciers, such as glaciers, moraines, fjords, etc.',
+                    'description' => 'Geographical features that involve glaciers and snowy landscapes.',
                 ],
                 'img_name' => 'dice-d6'
             ],
@@ -123,14 +123,14 @@ class CategorySeeder extends Seeder
             ],
             [
                 'es' => [
-                    'keyword' => 'Vegetación',
-                    'name' => 'Santuario de flora',
-                    'description' => 'Diferentes tipos de vegetación y cobertura terrestre, como bosques, selvas, praderas, etc.',
+                    'keyword' => 'Naturaleza',
+                    'name' => 'Santuario de flora y fauna',
+                    'description' => 'Tipos únicos de vegetación y especies animales.',
                 ],
                 'en' => [
-                    'keyword' => 'Vegetation',
-                    'name' => 'Sanctuary of flora',
-                    'description' => 'Different types of vegetation and land cover, such as forests, jungles, grasslands, etc.',
+                    'keyword' => 'Nature',
+                    'name' => 'Sanctuary of flora and fauna',
+                    'description' => 'Unique types of vegetation and animal especies',
                 ],
                 'img_name' => 'seedling'
             ],

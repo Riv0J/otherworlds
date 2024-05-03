@@ -52,6 +52,11 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">Low prio</h3>
         <li>
             <h5>
+                Geo Classification
+            </h5>
+        </li>
+        <li>
+            <h5>
                 Big Sitemap
             </h5>
         </li>

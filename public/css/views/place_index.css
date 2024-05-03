@@ -20,7 +20,10 @@
     background-color: var(--black);
 }
 .fa-droplet{
-    translate: 15%;
+    translate: 12.5%;
+}
+.fa-dice-d6{
+    translate: 7.5%;
 }
 #places_container{
     display: grid;

@@ -220,7 +220,7 @@
         <div>
             <p></p>
             <a class="mx-2" href="" target="_blank">
-                <span>@lang('otherworlds.view_original')</span>
+                <span>@lang('otherworlds.view_image_source')</span>
                 <i class="ri-external-link-line"></i>
             </a>
         </div>

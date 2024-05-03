@@ -106,20 +106,17 @@
             const pl_info = document.createElement('div');
             pl_info.className = 'pl_info';
 
-            const cy_info =`
-                <p class="flex_center gap-2">
-                    <span class='flag-icon flag-icon-${country.code}'></span>
-                    <span>${country.name}</span>
-                </p>
-            `;
-
             const synopsis = document.createElement('div');
             synopsis.className = 'card_sinopsis';
             synopsis.innerHTML += `<p class="light col-12">${place.synopsis}</p>`;
 
             //add to pl_info
             pl_info.innerHTML += `<h3 class="regular mb-2">${place.name}</h3>`;
-            pl_info.innerHTML += cy_info;
+            pl_info.innerHTML += `<p class="flex_center gap-2">
+                    <span class='flag-icon flag-icon-${country.code}'></span>
+                    <span>${country.name}</span>
+                </p>
+            `;
             pl_info.appendChild(synopsis);
 
             //add to pl_link

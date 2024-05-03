@@ -454,7 +454,7 @@ class PlaceSeeder extends Seeder
                     ],
                 ],
                 'country_name' => 'Yemen',
-                'category_keyword' => 'Vegetation',
+                'category_keyword' => 'Nature',
             ],
             [
                 'es' => [
@@ -567,7 +567,7 @@ class PlaceSeeder extends Seeder
                     ],
                 ],
                 'country_name' => 'New Zealand',
-                'category_keyword' => 'Caves',
+                'category_keyword' => 'Nature',
             ],
             [
                 'es' => [
@@ -674,7 +674,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'en' => [
                     'name' => 'Zion Canyon',
-                    'synopsis' => "Red sandstone cliffs and lush vegetation",
+                    'synopsis' => "Red sandstone cliffs and lush Nature",
 
                 ],
                 'sources' => [
@@ -760,7 +760,7 @@ class PlaceSeeder extends Seeder
                     ],
                 ],
                 'country_name' => 'United States',
-                'category_keyword' => 'Vegetation',
+                'category_keyword' => 'Nature',
             ],
             [
                 'es' => [
@@ -784,7 +784,7 @@ class PlaceSeeder extends Seeder
                     ],
                 ],
                 'country_name' => 'Madagascar',
-                'category_keyword' => 'Vegetation',
+                'category_keyword' => 'Nature',
             ],
             [
                 'es' => [
@@ -877,7 +877,8 @@ class PlaceSeeder extends Seeder
                     ],
                 ],
                 'country_name' => 'Australia',
-                'category_keyword' => 'Oceanic'
+                'category_keyword' => 'Oceanic',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Agincourt_Reef'
             ],
             [
                 'es' => [
@@ -928,11 +929,11 @@ class PlaceSeeder extends Seeder
             [
                 'es' => [
                     'name' => 'Mauna Loa',
-                    'synopsis' => 'El volcan más grande de la tierra, debido a su amplio volumen',
+                    'synopsis' => 'El volcan activo más grande de la tierra, debido a su amplio volumen',
                 ],
                 'en' => [
                     'name' => 'Mauna Loa',
-                    'synopsis' => 'Biggest volcano on earth, due to it\'s large volume',
+                    'synopsis' => 'Biggest active volcano on earth, due to it\'s large volume',
                 ],
                 'sources' => [
                     [
@@ -955,7 +956,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'en' => [
                     'name' => 'Towers of Paine',
-                    'synopsis' => 'The three distinct granite peaks in the Paine mountain range',
+                    'synopsis' => 'Three distinct granite peaks in the Paine mountain range',
                 ],
                 'sources' => [
                     [
@@ -969,30 +970,72 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Chile',
                 'category_keyword' => 'Mountains',
-                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Laguna_de_las_Torres'
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Cordillera_del_Paine'
             ],
             [
                 'es' => [
-                    'name' => '',
-                    'synopsis' => '',
+                    'name' => 'Los Glaciares',
+                    'synopsis' => 'Una de las capas de hielo mayores, aparte de los polos',
                 ],
                 'en' => [
-                    'name' => '',
-                    'synopsis' => '',
+                    'name' => 'Los Glaciares',
+                    'synopsis' => 'One of the largest ice caps outside of earth\'s poles',
                 ],
                 'sources' => [
                     [
                         'locale' => 'es',
-                        'url' => '',
+                        'url' => 'https://es.wikipedia.org/wiki/Parque_nacional_Los_Glaciares',
                     ],
                     [
                         'locale' => 'en',
-                        'url' => '',
+                        'url' => 'https://en.wikipedia.org/wiki/Los_Glaciares_National_Park',
                     ],
                 ],
-                'country_name' => '',
-                'category_keyword' => '',
-                'gallery_url' => ''
+                'country_name' => 'Argentina',
+                'category_keyword' => 'Glaciers',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Los_Glaciares_National_Park'
+            ],
+            [
+                'es' => [
+                    'name' => 'Cataratas Victoria',
+                    'synopsis' => 'La caída en picada de agua más grande de la tierra',
+                ],
+                'en' => [
+                    'name' => 'Victoria Falls',
+                    'synopsis' => 'The world\'s largest sheet of falling water',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Cataratas_Victoria',
+                    ],
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Victoria_Falls',
+                    ],
+                ],
+                'country_name' => 'Zimbabwe',
+                'category_keyword' => 'Water',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Aerial_photographs_of_Victoria_Falls'
+            ],
+            [
+                'es' => [
+                    'name' => 'Rocas de Hopewell',
+                    'synopsis' => 'Formaciones de roca apiladas causadas por erosión de las mareas',
+                ],
+                'en' => [
+                    'name' => 'Hopewell Rocks',
+                    'synopsis' => 'Sea stack rock formations caused by tidal erosion',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Hopewell_Rocks',
+                    ],
+                ],
+                'country_name' => 'Canada',
+                'category_keyword' => 'Oceanic',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Hopewell_Rocks'
             ],
 
         ];
