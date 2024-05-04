@@ -40,6 +40,7 @@ class FrontController extends Controller{
             'section_slug_key' => 'places_slug',
             'locale' => $locale,
 
+            //#places_container variables
             'places' => $places,
             'countries' => $countries,
             'all_categories' => Category::all(),
@@ -86,10 +87,12 @@ class FrontController extends Controller{
         $owner = false;
         $logged = Auth::user();
         $fav_places_ids = [];
-        if($logged && $logged->id == $user->id){
-            $owner = true;
-        }else if($logged){
-            $fav_places_ids = $user->favorites->pluck('id');
+
+        if($logged){
+            $fav_places_ids = $logged->favorites->pluck('id');
+            if($logged->id == $user->id){
+                $owner = true;
+            }
         }
         //get the favorites
         $places = $user->favorites;
@@ -102,6 +105,8 @@ class FrontController extends Controller{
 
             'owner' => $owner,
             'user' => $user,
+
+            //#places_container variables
             'places' => $places,
             'countries' => $countries,
             'all_categories' => Category::all(),

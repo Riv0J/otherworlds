@@ -1,11 +1,19 @@
 {{-- needs a collection of $places, $countries and $all_categories to function --}}
 <script src='{{asset('js/ajax.js')}}'></script>
 <div class="gap-2 gap-md-3 justify-content-center align-items-stretch" id="places_container">
-
+    <div class="pl_card" id="no_places" style="display: none;">
+        No favorite places for this user.<a href="{{route('place_index',['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')])}}">Browse all places</a>
+    </div>
 </div>
 <script>
     //on load event
     document.addEventListener('DOMContentLoaded', function(){
+        const initial_places = {!! $places->values()->toJson() !!};
+        if(initial_places.length == 0){
+            document.querySelector('#no_places').style.display = "initial";
+            return;
+        }
+
         create_place_cards({!! $places->values()->toJson() !!});
 
         //format every .short_number
@@ -16,10 +24,10 @@
 
     const place_view_route = "{{ route('place_view', ['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug'), 'place_slug' => 'null']) }}".replace('/null', '');
 
-    const loaded_countries = organize_dic({!! json_encode($countries) !!})
+    const loaded_countries = organize_dic({!! json_encode($countries) !!});
     const loaded_categories = organize_dic({!! json_encode($all_categories) !!});
-
     const favorite_ids = {!! json_encode($fav_places_ids) !!};
+
     async function create_place_cards(places_json) {
         for (let i = 0; i < Object.keys(places_json).length; i++) {
             const place = places_json[i];

@@ -49,7 +49,7 @@
         <span class="mx-1">@lang('otherworlds.favorite_places')</span>
     </h4>
 
-    @include('components.place_gallery')
+    @include('components.places_container')
 
 </section>
 <style>

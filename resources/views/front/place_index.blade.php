@@ -23,7 +23,7 @@
 </section>
 
 <section class="col-12 px-1 px-lg-2 py-3">
-    @include('components.place_gallery')
+    @include('components.places_container')
 </section>
 @endsection
 
