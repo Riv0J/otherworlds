@@ -39,6 +39,12 @@ class Place extends Model{
         return $this->sources()->where('locale', $locale ?: app()->getLocale())->first();
     }
 
+    /*
+     *  Get a random place
+     */
+    public static function random(){
+        return Place::inRandomOrder()->first();
+    }
     /**
      * Generates the Wikimedia URL for this place's gallery
      *

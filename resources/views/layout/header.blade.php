@@ -1,5 +1,4 @@
 @php $logged_user = Auth::user(); @endphp
-
 {{-- Responsive navbar --}}
 <header class="fixed-top navbar bg_gradient_black">
     <div class="container py-1 py-lg-2 px-3 px-lg-5 white">
@@ -106,7 +105,6 @@
                 </div>
             </div>
             {{-- lang dropdown END--}}
-
         </nav>
     </div>
 </header>

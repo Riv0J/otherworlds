@@ -26,7 +26,7 @@
                 @lang('otherworlds.email')
             </label>
             <div class="col-md-6">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') ?? 'user@gmail.com'}}" required autocomplete="email" autofocus>
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') ?? 'admin@gmail.com'}}" required autocomplete="email" autofocus>
 
                 {{-- show email error, if any --}}
                 @error('email')
@@ -43,7 +43,7 @@
                 @lang('otherworlds.password')
             </label>
             <div class="col-md-6">
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" value="user">
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" value="admin">
 
                 {{-- show pass error, if any --}}
                 @error('password')
@@ -81,6 +81,5 @@
 
     </form>
 </section>
-
 
 @endsection

@@ -15,4 +15,11 @@ class Country extends Model{
 
         return Country::where('id','!=',$unknown->id)->get();
     }
+
+    /*
+     *  Get a random country
+     */
+    public static function random(){
+        return Country::inRandomOrder()->first();
+    }
 }

@@ -17,7 +17,7 @@ class FrontController extends Controller{
             'section_slug_key' => 'home_slug',
             'locale' => $locale,
 
-            'place' => Place::inRandomOrder()->take(1)->first(),
+            'place' => Place::random(),
         ];
         return view('front.home', $variables);
     }

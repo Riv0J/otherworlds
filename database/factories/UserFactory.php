@@ -8,20 +8,23 @@ use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
-class UserFactory extends Factory
-{
+class UserFactory extends Factory{
     /**
      * Define the model's default state.
      *
      * @return array
      */
-    public function definition()
-    {
+    public function definition(){
+        $user_role_id = (\App\Models\Role::where('name', 'user')->first())->id;
+        $random_country_id = (\App\Models\Country::random())->id;
         return [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
+            'role_id' => $user_role_id,
+            'country_id' => $random_country_id,
+            'birth_date' => rand(1950, 2000) . '-' . rand(1, 12) . '-' . rand(1, 28),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // 'password'
             'remember_token' => Str::random(10),
         ];
     }

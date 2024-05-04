@@ -48,9 +48,21 @@
     <body>
         @include('layout.header')
 
-        <main class="flex_center flex-column justify-content-start">
-            @yield('content')
+        <main class="d-flex flex-row">
+
+            {{-- admin header --}}
+            @php $logged_user = Auth::user(); @endphp
+            @if($logged_user && $logged_user->is_admin())
+                @include('layout.header_admin')
+            @endif
+            <div class="flex_center flex-column justify-content-start flex-grow-1">
+                @yield('content')
+            </div>
+
         </main>
+
+
+
 
         @include('layout.footer')
     </body>

@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\FrontController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FrontController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +38,9 @@ Route::prefix('{locale}')->group(function () {
 
     // front routes that automatically update app locale when visited with the $locale slug
     Route::middleware(['locale_updater'])->group(function () {
+
+        // search for a user's profile
+        Route::get('/admin/users', [AdminController::class, 'users_index'])->name('users_index');
 
         // search for a user's profile
         Route::get('/profile/{username}', [FrontController::class, 'profile'])->name('profile');

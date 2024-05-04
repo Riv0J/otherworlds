@@ -52,6 +52,18 @@
     @include('components.places_container')
 
 </section>
+    {{-- return START--}}
+    <button title="@lang('otherworlds.return')" id="return" class="d-none d-lg-flex button info border" onclick="window.history.back()">
+        <i class="fa-solid fa-angles-left"></i>
+    </button>
+    <style>
+        #return{
+            position: fixed;
+            top: 50%;
+            left: 10%
+        }
+    </style>
+    {{-- return END --}}
 <style>
 
 </style>
