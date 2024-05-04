@@ -34,12 +34,12 @@ class CategorySeeder extends Seeder
                 'es' => [
                     'keyword' => 'Agua',
                     'name' => 'Cuerpos de agua',
-                    'description' => 'Cuerpos de agua naturales como océanos, mares, lagos, ríos, etc.',
+                    'description' => 'Cuerpos de agua naturales como océanos, mares, lagos, ríos, etc',
                 ],
                 'en' => [
                     'keyword' => 'Water',
                     'name' => 'Bodies of water',
-                    'description' => 'Natural bodies of water such as oceans, seas, lakes, rivers, etc.',
+                    'description' => 'Natural bodies of water such as oceans, seas, lakes, rivers, etc',
                 ],
                 'img_name' => 'droplet'
             ],
@@ -47,12 +47,12 @@ class CategorySeeder extends Seeder
                 'es' => [
                     'keyword' => 'Montañas',
                     'name' => 'Elevaciones de terreno',
-                    'description' => 'Elevaciones naturales del terreno como montañas, colinas, sierras, etc.',
+                    'description' => 'Elevaciones naturales del terreno como montañas, colinas, sierras, etc',
                 ],
                 'en' => [
                     'keyword' => 'Mountains',
                     'name' => 'Land elevations',
-                    'description' => 'Natural land elevations such as mountains, hills, ranges, etc.',
+                    'description' => 'Natural land elevations such as mountains, hills, ranges, etc',
                 ],
                 'img_name' => 'mountain'
             ],
@@ -60,12 +60,12 @@ class CategorySeeder extends Seeder
                 'es' => [
                     'keyword' => 'Valles',
                     'name' => 'Depresiones de terreno',
-                    'description' => 'Áreas de terreno más bajas que sus alrededores, como valles, llanuras, cañones, etc.',
+                    'description' => 'Áreas de terreno más bajas que sus alrededores, como valles, llanuras, cañones, etc',
                 ],
                 'en' => [
                     'keyword' => 'Valleys',
                     'name' => 'Land depressions',
-                    'description' => 'Lower areas of land compared to their surroundings, such as valleys, plains, canyons, etc.',
+                    'description' => 'Lower areas of land compared to their surroundings, such as valleys, plains, canyons, etc',
                 ],
                 'img_name' => 'sun'
             ],
@@ -73,12 +73,12 @@ class CategorySeeder extends Seeder
                 'es' => [
                     'keyword' => 'Oceánicos',
                     'name' => 'Accidentes costeros y océanicos',
-                    'description' => 'Características geográficas situadas en la costa y en océanos, como bahías, cabos, ensenadas, etc.',
+                    'description' => 'Características geográficas situadas en la costa y en océanos, como bahías, cabos, ensenadas, etc',
                 ],
                 'en' => [
                     'keyword' => 'Oceanic',
                     'name' => 'Oceanic and coastal features',
-                    'description' => 'Geographical features located along the coast and oceans, such as bays, capes, inlets, etc.',
+                    'description' => 'Geographical features located along the coast and oceans, such as bays, capes, inlets, etc',
                 ],
                 'img_name' => 'umbrella-beach'
             ],
@@ -86,12 +86,12 @@ class CategorySeeder extends Seeder
                 'es' => [
                     'keyword' => 'Glaciares',
                     'name' => 'Accidentes glaciares',
-                    'description' => 'Características geográficas que involucran glaciares y paisajes nevados.',
+                    'description' => 'Características geográficas que involucran glaciares y paisajes nevados',
                 ],
                 'en' => [
                     'keyword' => 'Glaciers',
                     'name' => 'Glacial features',
-                    'description' => 'Geographical features that involve glaciers and snowy landscapes.',
+                    'description' => 'Geographical features that involve glaciers and snowy landscapes',
                 ],
                 'img_name' => 'dice-d6'
             ],
@@ -99,12 +99,12 @@ class CategorySeeder extends Seeder
                 'es' => [
                     'keyword' => 'Volcánicos',
                     'name' => 'Formaciones volcánicas',
-                    'description' => 'Características geográficas formadas por procesos volcánicos, como volcanes, cráteres, calderas, etc.',
+                    'description' => 'Características geográficas formadas por procesos volcánicos, como volcanes, cráteres, calderas, etc',
                 ],
                 'en' => [
                     'keyword' => 'Volcanic',
                     'name' => 'Volcanic formations',
-                    'description' => 'Geographical features formed by volcanic processes, such as volcanoes, craters, calderas, etc.',
+                    'description' => 'Geographical features formed by volcanic processes, such as volcanoes, craters, calderas, etc',
                 ],
                 'img_name' => 'volcano'
             ],
@@ -112,12 +112,12 @@ class CategorySeeder extends Seeder
                 'es' => [
                     'keyword' => 'Cuevas',
                     'name' => 'Formaciones karsticas',
-                    'description' => 'Características geológicas formadas por la disolución de rocas solubles, como cuevas, dolinas, estalactitas, etc.',
+                    'description' => 'Características geológicas formadas por la disolución de rocas solubles, como cuevas, dolinas, estalactitas, etc',
                 ],
                 'en' => [
                     'keyword' => 'Caves',
                     'name' => 'Karstic kormations',
-                    'description' => 'Geological features formed by the dissolution of soluble rocks, such as caves, sinkholes, stalactites, etc.',
+                    'description' => 'Geological features formed by the dissolution of soluble rocks, such as caves, sinkholes, stalactites, etc',
                 ],
                 'img_name' => 'icicles'
             ],
@@ -125,7 +125,7 @@ class CategorySeeder extends Seeder
                 'es' => [
                     'keyword' => 'Naturaleza',
                     'name' => 'Santuario de flora y fauna',
-                    'description' => 'Tipos únicos de vegetación y especies animales.',
+                    'description' => 'Tipos únicos de vegetación y especies animales',
                 ],
                 'en' => [
                     'keyword' => 'Nature',
@@ -134,6 +134,20 @@ class CategorySeeder extends Seeder
                 ],
                 'img_name' => 'seedling'
             ],
+            [
+                'es' => [
+                    'keyword' => 'Otros',
+                    'name' => 'Sin clasificar',
+                    'description' => 'Lugares que coinciden con múltiples categorías o que no han sido clasificados todavia',
+                ],
+                'en' => [
+                    'keyword' => 'Other',
+                    'name' => 'Unclassified Category',
+                    'description' => 'Places that match the description of multiple categories or that have not been classified yet',
+                ],
+                'img_name' => 'circle-plus'
+            ],
+
 
         ];
 

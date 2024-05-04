@@ -85,16 +85,17 @@ class FrontController extends Controller{
 
         $owner = false;
         $logged = Auth::user();
+        $fav_places_ids = [];
         if($logged && $logged->id == $user->id){
             $owner = true;
+        }else if($logged){
+            $fav_places_ids = $user->favorites->pluck('id');
         }
         //get the favorites
         $places = $user->favorites;
 
         //get the countries of the places
         $countries = $places->pluck('country')->unique()->values()->all();
-
-
         $variables = [
             'section_slug_key' => 'profile_slug',
             'locale' => $locale,
@@ -103,7 +104,8 @@ class FrontController extends Controller{
             'user' => $user,
             'places' => $places,
             'countries' => $countries,
-            'all_categories' => Category::all()
+            'all_categories' => Category::all(),
+            'fav_places_ids' => $fav_places_ids
         ];
         return view('front.profile', $variables);
     }

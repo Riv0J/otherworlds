@@ -716,12 +716,12 @@ class PlaceSeeder extends Seeder
             ],
             [
                 'es' => [
-                    'name' => 'Parque forestal de Zhangjiajie',
-                    'synopsis' => 'Increibles paisajes de bosque con pilares rocoss gigantescoss',
+                    'name' => 'Bosque de Zhangjiajie',
+                    'synopsis' => 'Increíbles paisajes boscosos con pilares de roca gigantescos',
 
                 ],
                 'en' => [
-                    'name' => 'Zhangjiajie forest park',
+                    'name' => 'Zhangjiajie forest',
                     'synopsis' => 'Incredible forest vistas full of pillar-like rock formations',
 
                 ],
