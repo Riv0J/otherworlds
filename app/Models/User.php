@@ -58,7 +58,10 @@ class User extends Authenticatable{
     public function country(){
         return $this->belongsTo(Country::class);
     }
-
+    //check if user is owner
+    public function is_owner(){
+        return $this->role->name === 'owner';
+    }
     //check if user is an admin
     public function is_admin(){
         return $this->role->name === 'admin';

@@ -16,8 +16,6 @@
 <link rel="stylesheet" href="{{ asset('css/views/place_index.css') }}"/>
 
 <section class="wrapper col-12 col-lg-8">
-    <div class="spacer mt-4 pt-5"></div>
-
     <div class="mb-4 title">
         <div class="d-flex flex-row align-items-end gap-4">
             <div class="profile_img" style="background-color: gray;">
@@ -35,8 +33,11 @@
         <nav class="buttons d-flex flex-row">
 
             {{-- #edit_button START--}}
-            @if($owner == true)
+            @if($can_edit)
+
                 <button title='@lang('otherworlds.edit')' id="edit_button" class="button info">
+                    @if($logged->is_owner()) Owner edit @endif
+                    @if($logged->is_admin()) Admin edit @endif
                     <i class="fa-regular fa-pen-to-square" style="translate: 2% -5%"></i>
                 </button>
             @endif
@@ -71,7 +72,7 @@
 
 @section('script')
 {{-- #edit_button onclick --}}
-@if($owner == true)
+@if($can_edit)
 <script>
     document.querySelector('#edit_button').addEventListener('click',function(){
     });

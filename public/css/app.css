@@ -12,6 +12,7 @@
 
     --cyan_light: #00f3ff;
     --green_light: #58D68D;
+    --purple_light: #da46ff;
     --yellow_bright: yellow;
 
     --black: rgb(29, 29, 29);
@@ -28,13 +29,13 @@ body{
     background: var(--main_dark_bg_color);
 }
 *{
-    font-family: 'QuickSand';
     color: var(--white);
 }
 a {
     text-decoration: none;
     color: inherit;
     cursor: pointer;
+    font-family: 'Montserrat';
 }
 main{
     overflow-x: hidden;
@@ -43,12 +44,17 @@ main{
 main a{
     padding-inline: 0.5rem;
     border-bottom: 1px rgb(255, 255, 255) solid;
-}
-main a i{
-    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    width: max-content;
 }
 main a:hover{
     background-color: var(--hover_gray);
+}
+main>*{
+    font-family: 'Quicksand';
 }
 .flex_center{
     display: flex;
@@ -61,43 +67,35 @@ main a:hover{
 img{
     width: 100%;
 }
+h1, h2, h3, h4, h5, p{ margin: 0; }
 h1{
     font-family: 'Quicksand';
     font-size: 4rem;
     letter-spacing: 0.2rem;
-    margin: 0;
 }
 h2{
-    font-family: 'Quicksand';
+    font-family: 'Montserrat';
     font-size: 2.25rem;
     letter-spacing: 0.2rem;
-    margin: 0;
 }
 h3{
-    font-family: 'Montserrat';
+    font-family: 'Lato';
     font-size: 1.75rem;
     letter-spacing: 0.1rem;
-    margin: 0;
 }
 h4{
-    font-family: 'Quicksand';
+    font-family: 'Lato';
     font-size: 1.5rem;
     letter-spacing: 0.05rem;
-    margin: 0;
 }
 h5{
-    font-family: 'Quicksand';
+    font-family: 'Lato';
     font-size: 1.25rem;
-    margin: 0;
 }
 p{
     font-family: 'Montserrat';
     font-size: 1.25rem;
     letter-spacing: 0rem;
-    margin-bottom: 0;
-}
-i, .brand_svg{
-    font-size: 1.5rem;
 }
 .black{
     color: var(--black);
@@ -108,17 +106,21 @@ i, .brand_svg{
     fill: white;
 }
 .brand_svg{
-    font-size: 2rem;
     width: 2rem;
 }
+i{
+    width: 1.5rem;
+    font-size: 1.5rem;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
 .small_i{
-    font-size: 1rem;
     width: 1rem;
-}
+    font-size: 1rem; }
 .big_i{
-    font-size: 2.5rem;
     width: 2.5rem;
-}
+    font-size: 2.5rem; }
 .small, small {
     font-size: 1em;
 }
@@ -128,6 +130,15 @@ i, .brand_svg{
 }
 .sans{
     font-family: sans-serif;
+}
+.open-sans{
+    font-family: 'Open Sans';
+}
+.lato{
+    font-family: 'Lato';
+}
+.montserrat{
+    font-family: 'Montserrat';
 }
 /* fonts end */
 
@@ -257,6 +268,7 @@ i, .brand_svg{
     border-bottom: 0.15rem solid var(--alt_dark);
 }
 .div_h{
+    transform: translateY(-50%);
     border-bottom: 1px solid var(--alt_dark);
 }
 .div_v{

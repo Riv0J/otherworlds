@@ -40,7 +40,9 @@ Route::prefix('{locale}')->group(function () {
     Route::middleware(['locale_updater'])->group(function () {
 
         // search for a user's profile
-        Route::get('/admin/users', [AdminController::class, 'users_index'])->name('users_index');
+        Route::middleware(['admin'])->group(function () { //admin middleware in kernel.php $routeMiddleware
+            Route::get('/admin/users', [AdminController::class, 'users_index'])->name('users_index');
+        });
 
         // search for a user's profile
         Route::get('/profile/{username}', [FrontController::class, 'profile'])->name('profile');

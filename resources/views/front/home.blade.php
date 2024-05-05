@@ -13,10 +13,8 @@
 @endsection
 
 @section('content')
-
-<div class="spacer mt-3 pt-5"></div>
 {{-- window welcome --}}
-<section class="window col-12 mt-2 mt-md-5 py-3 py-md-0 d-flex flex-column align-items-center justify-content-center white">
+<section class="window col-12 my-3 flex_center flex-column white">
 
     <div class="app_bg_overlay" id=home_window_container>
         <img class="rounded-4" src="{{asset('places/'.$place->public_slug.'/t.png')}}" alt="">

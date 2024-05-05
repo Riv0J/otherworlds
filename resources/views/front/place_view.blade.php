@@ -14,8 +14,6 @@
 
 @section('content')
 <section class="wrapper col-12 col-lg-8">
-    <div class="spacer mt-4 pt-5"></div>
-
     {{-- title --}}
     <div class="title flex-column flex-sm-row">
         <div class="flex_center gap-4">
@@ -83,7 +81,7 @@
                     <small>
                         @if($source != null)
                         <a  href="{{$source->url}}" target="_blank">
-                            {{$source->title ?? $place->name}} <i class="ri-external-link-line"></i>
+                            {{$source->title ?? $place->name}} <i class="small_i ri-external-link-line"></i>
                         </a>
                         @else
                         -
@@ -92,7 +90,7 @@
                     <small>
                         <a href="https://www.google.com/maps?q={{$place->name}}&t=k" target="_blank">
                             <span>@lang('otherworlds.view_in_maps')</span>
-                            <i class="ri-external-link-line"></i>
+                            <i class="small_i ri-external-link-line"></i>
                         </a>
                     </small>
                 </div>
@@ -102,7 +100,7 @@
         </div>
         {{-- img container END--}}
 
-        <h4 class="mb-4 semibold">
+        <h4 class="mb-4 semibold d-flex flex-row gap-2">
             <i class="ri-arrow-right-s-line"></i>
             <span class="mx-1">@lang('otherworlds.place_overview')</span>
         </h4>
@@ -112,7 +110,7 @@
             {!! $source->content !!}
             <a href="{{$source->url}}" target="_blank">
                 <span>@lang('otherworlds.learn_more', ['place_name' => $place->name])</span>
-                <i class="ri-external-link-line"></i>
+                <i class="small_i ri-external-link-line"></i>
             </a>
         @else
             @lang('otherworlds.no_source').
@@ -125,13 +123,13 @@
 
     {{-- location START --}}
     <div class="mb-5 mt-2 mt-md-5">
-        <h4 class="semibold">
+        <h4 class="semibold d-flex flex-row gap-2">
             <i class="ri-arrow-right-s-line"></i>
             <span class="mx-1">@lang('otherworlds.place_location')</span>
         </h4>
-        <p class="m-4 mx-md-2">
+        <p class="m-4 mx-md-2 d-flex flex-row gap-2">
             @lang('otherworlds.view_place_maps_description',
-            ['link' => "<a href='https://www.google.com/maps?q=".$place->name." ".$place->country->name."&t=k' target='_blank'>".$place->name." Maps <i class='ri-external-link-line'></i></a>"])
+            ['link' => "<a href='https://www.google.com/maps?q=".$place->name." ".$place->country->name."&t=k' target='_blank'>".$place->name." Maps <i class='small_i ri-external-link-line'></i></a>"])
         </p>
 
         <div style="height: 300px; position: relative">
@@ -142,7 +140,7 @@
                 <h3 class="mb-4 text-center">@lang('otherworlds.no_location').</h3>
                 <a href="https://www.google.com/maps?q={{$place->name.' '.$place->country->name}}&t=k" target="_blank">
                     <span>@lang('otherworlds.view_in_maps')</span>
-                    <i class="ri-external-link-line"></i>
+                    <i class="small_i ri-external-link-line"></i>
                 </a>
             </div>
             <style>
@@ -186,9 +184,9 @@
     {{-- gallery START --}}
     <div class="my-3">
         <h3 class="text-center">@lang('otherworlds.gallery')</h3>
-        <p class="m-4 mx-md-2">
+        <p class="m-4 mx-md-2 d-flex flex-row gap-2">
             @if($place->gallery_url != null)
-                @lang('otherworlds.view_place_gallery',['link' => "<a href='$place->gallery_url' target='_blank'>".$place->name." Wikimedia <i class='ri-external-link-line'></i></a>" ])
+                @lang('otherworlds.view_place_gallery',['link' => "<a href='$place->gallery_url' target='_blank'>".$place->name." Wikimedia <i class='small_i ri-external-link-line'></i></a>" ])
             @else
                 @lang('otherworlds.no_gallery').
             @endif
@@ -221,7 +219,7 @@
             <p></p>
             <a class="mx-2" href="" target="_blank">
                 <span>@lang('otherworlds.view_image_source')</span>
-                <i class="ri-external-link-line"></i>
+                <i class="small_i ri-external-link-line"></i>
             </a>
         </div>
 
@@ -511,7 +509,7 @@
 
         if(media.page_url != null){
             a.href = media.page_url;
-            a.style.display = 'initial';
+            a.style.display = 'inline-flex';
         } else {
             a.style.display = 'none';
         }

@@ -18,8 +18,17 @@ class UserSeeder extends Seeder{
      * @return void
      */
     public function run(){
+        $owner_role_id = (Role::where('name', 'owner')->first())->id;
         $admin_role_id = (Role::where('name', 'admin')->first())->id;
         $user_role_id = (Role::where('name', 'user')->first())->id;
+
+        $owner = User::create([
+            'name' => 'rivito',
+            'email' => 'rivito@gmail.com',
+            'password' => Hash::make('rivito'),
+            'role_id' => $owner_role_id,
+            'country_id' => 1,
+        ]);
 
         $admin = User::create([
             'name' => 'admin',

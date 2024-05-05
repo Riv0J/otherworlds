@@ -1,5 +1,6 @@
 .pl_card a{
     padding: 0;
+    width: auto;
 }
 .yellow{
     color: yellow;

@@ -14,9 +14,8 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/views/place_index.css') }}"/>
-<div class="spacer mt-4 pt-5"></div>
 
-<section class="col-12 px-lg-5 pb-2 header_offset app_bg">
+<section class="col-12 mt-2 px-lg-5 pb-2 header_offset app_bg">
     <h2 class="semibold text-center display-5 flex_center gap-2 col-12 py-2 white">
         @lang('otherworlds.unique_places')
     </h2>

@@ -36,35 +36,33 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
         {{-- Fonts --}}
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
 
         {{-- custom CSS --}}
         <link rel="stylesheet" href="{{ asset('css/app.css') }}"/>
 
     </head>
-    <body>
-        @include('layout.header')
+    <body class="d-flex flex-row">
 
-        <main class="d-flex flex-row">
+        {{-- admin header --}}
+        @php $logged_user = Auth::user(); @endphp
+        @if($logged_user && ($logged_user->is_admin() || $logged_user->is_owner() ))
+            @include('layout.admin_aside')
+        @endif
 
-            {{-- admin header --}}
-            @php $logged_user = Auth::user(); @endphp
-            @if($logged_user && $logged_user->is_admin())
-                @include('layout.header_admin')
-            @endif
-            <div class="flex_center flex-column justify-content-start flex-grow-1">
+        <div class="flex-grow-1" style="width: min-content">
+            @include('layout.header')
+            <main class="flex_center flex-column justify-content-start">
                 @yield('content')
-            </div>
+            </main>
+            @include('layout.footer')
+        </div>
 
-        </main>
-
-
-
-
-        @include('layout.footer')
     </body>
 
     <script src="{{ asset('js/app.js') }}"></script>

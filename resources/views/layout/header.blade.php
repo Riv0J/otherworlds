@@ -1,7 +1,7 @@
 @php $logged_user = Auth::user(); @endphp
 {{-- Responsive navbar --}}
-<header class="fixed-top navbar bg_gradient_black">
-    <div class="container py-1 py-lg-2 px-3 px-lg-5 white">
+<header class="bg_gradient_black">
+    <div class="py-1 py-lg-2 px-3 px-lg-5 white">
         {{-- home anchor --}}
         <a class="brand_anchor white gap-2" href="{{ route('home',['locale' => $locale]) }}">
             @include('icons.moon_white')
@@ -24,29 +24,23 @@
             flex-column flex-lg-row">
 
             {{-- development link --}}
-            <a class="nav_link
-            p-3 p-lg-1
-            px-4 px-lg-2
-            regular @php if(isset($section_slug_key) && $section_slug_key == 'dev_slug'){ echo('active_link'); } @endphp"
+            <a class="nav_link regular
+            @php if(isset($section_slug_key) && $section_slug_key == 'dev_slug'){ echo('active_link'); } @endphp"
                 href="{{ route('development',['locale' => $locale]) }}">
                 [Development]
             </a>
 
             {{-- places link --}}
-            <a class="nav_link
-            p-3 p-lg-1
-            px-4 px-lg-2
-            regular @php if(isset($section_slug_key) && $section_slug_key == 'places_slug'){ echo('active_link'); } @endphp"
+            <a class="nav_link regular
+            @php if(isset($section_slug_key) && $section_slug_key == 'places_slug'){ echo('active_link'); } @endphp"
                 href="{{ route('place_index',['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')]) }}">
                 @lang('otherworlds.places')
             </a>
 
             {{-- login button --}}
             @if (Route::has('login') && $logged_user == null)
-            <a class="nav_link
-                p-3 p-lg-1
-                px-4 px-lg-2
-                regular @php if(isset($section_slug_key) && $section_slug_key == 'login_slug'){ echo('active_link'); } @endphp"
+            <a class="nav_link regular
+            @php if(isset($section_slug_key) && $section_slug_key == 'login_slug'){ echo('active_link'); } @endphp"
                 href="{{ route('show_login', ['locale' => $locale]) }}">
                 <i class="ri-user-3-fill"></i>
                 <span class="mx-1">
@@ -62,23 +56,19 @@
             </form>
 
             <div class="dropdown">
-                <a href="javascript:void(0)" class="dropdown_toggler gap-2
-                p-3 p-lg-1
-                px-4 px-lg-3
-                regular">
+                <a href="javascript:void(0)" class="dropdown_toggler gap-2 regular">
                     {{ $logged_user->name }}
                     <i class="fa-solid fa-angle-down"></i>
                 </a>
 
                 <div class="dropdown_options">
-                    <a href="{{ route('profile', ['locale' => $locale, 'username' => $logged_user->name ]) }}" class="p-2 px-4">
+                    <a href="{{ route('profile', ['locale' => $locale, 'username' => $logged_user->name ]) }}">
                         @lang('otherworlds.profile')[CON]
                     </a>
 
                     <div class="dropdown_divider mt-1 mx-5 mx-md-2"></div>
 
-                    <a href="javascript:void(0)" class="p-2 px-4"
-                        onclick="document.getElementById('logout_form').submit();">
+                    <a href="javascript:void(0)" onclick="document.getElementById('logout_form').submit();">
                         @lang('otherworlds.logout')
                     </a>
                 </div>
@@ -87,10 +77,7 @@
 
             {{-- lang dropdown START--}}
             <div class="dropdown">
-                <a href="javascript:void(0)" class="dropdown_toggler gap-2
-                p-3 p-lg-1
-                px-4 px-lg-3
-                regular">
+                <a href="javascript:void(0)" class="dropdown_toggler gap-2 regular">
                     @lang('otherworlds.lang')
                     <i class="fa-solid fa-angle-down"></i>
                 </a>
@@ -119,6 +106,17 @@
     });
 </script>
 <style>
+    header{
+        position: sticky;
+        top: 0;
+        z-index: 1030;
+    }
+    header>div{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
     /* dropdown styles */
     .dropdown_toggler {
         width: 100%;
@@ -153,6 +151,8 @@
     }
 
     .dropdown_options a {
+        padding: 0.5rem;
+        padding-inline: 1rem;
         display: block;
         color: var(--white);
         z-index: 1000;
@@ -186,8 +186,8 @@
     #responsive_nav a {
         position: relative;
         font-size: 1.3rem;
-        letter-spacing: 0.03rem;
         transition: all 0.5s;
+        padding-bottom: 0.25rem;
     }
 
     #responsive_nav_toggler {
@@ -195,6 +195,12 @@
         border: none;
         color: white;
         transform: scale(1.25);
+    }
+    .nav_link{
+        padding-inline: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .nav_link::before {
         position: absolute;
@@ -212,7 +218,6 @@
 
     .active_link {
         position: relative;
-        padding-bottom: 0.2rem;
     }
 
     .active_link::after {
@@ -234,7 +239,6 @@
         header a {
             font-size: 1.75rem !important;
             letter-spacing: 0.1rem !important;
-            padding-right: 10% !important;
             text-align: right;
         }
 
@@ -258,6 +262,10 @@
             height: 100%;
             border-bottom: none;
             border-right: 0.3rem solid var(--main);
+        }
+        .nav_link{
+            justify-content: flex-end;
+            padding: 1.25rem;
         }
     }
 

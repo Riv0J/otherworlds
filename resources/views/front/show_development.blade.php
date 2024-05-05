@@ -16,17 +16,7 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">High prio</h3>
         <li>
             <h5>
-                Seed more users, users index section
-            </h5>
-        </li>
-        <li>
-            <h5>
                 User profile, edit, favorites
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Make app public
             </h5>
         </li>
         <li>
@@ -36,12 +26,22 @@ Dev | Otherworlds
         </li>
         <li>
             <h5>
-                Implement Visits
+                Admin remove media
             </h5>
         </li>
         <li>
             <h5>
-                Admin panel
+                Place filters
+            </h5>
+        </li>
+        <li>
+            <h5>
+                Place comments
+            </h5>
+        </li>
+        <li>
+            <h5>
+                Implement Visits
             </h5>
         </li>
         <li>
@@ -52,30 +52,20 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">Low prio</h3>
         <li>
             <h5>
-                Geo Classification
-            </h5>
-        </li>
-        <li>
-            <h5>
                 Big Sitemap
             </h5>
         </li>
         <li>
             <h5>
-                Media order
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Place comments
-            </h5>
-        </li>
-        <li>
-            <h5>
-                More languages
+                More languages(EU,FR,IT)
             </h5>
         </li>
         <h3 class="div_h div_gray my-4 pb-3 text-center">Extras</h3>
+        <li>
+            <h5>
+                Geo Classification
+            </h5>
+        </li>
         <li>
             <h5>
                 Media order in gallery
@@ -88,6 +78,11 @@ Dev | Otherworlds
         <li>
             <h5 class="text-decoration-line-through">
                 Place gallery from wikimedia
+            </h5>
+        </li>
+        <li>
+            <h5 class="text-decoration-line-through">
+                Admin aside panel
             </h5>
         </li>
     </ul>

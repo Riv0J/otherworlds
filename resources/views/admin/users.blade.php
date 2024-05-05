@@ -11,37 +11,45 @@
     <div class="spacer mt-4 pt-5"></div>
 
     <div>
-        <h4 class="mb-4 semibold">
+        <h4 class="mb-4 semibold d-flex">
             <i class="ri-arrow-right-s-line"></i>
             <span class="mx-1">@lang('otherworlds.users')</span>
         </h4>
-        <small>Results: {{count($users)}}</small>
+
     </div>
 
-
+    <small>Results: {{count($users)}}</small>
     <div class="table_container">
 
         <table class="results_table">
 
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th></th>
                     <th></th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Favorites</th>
+                    <th>Role</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($users as $user)
-                <tr onclick = "visit('{{$user->name}}')">
-                    <th class="text-end">{{$user->id}}</th>
+                <tr role="{{$user->role->name}}" title="User Id = {{$user->id}}" onclick="visit('{{$user->name}}')">
+                    <td>
+                        @if($user->is_owner())
+                        <i class="fa-solid fa-crown"></i>
+                        @elseif ($user->is_admin())
+                        <i class="fa-solid fa-user-astronaut"></i>
+                        @endif
+                    </td>
                     <td class="text-center px-0">
                         <span class="flag-icon flag-icon-{{$user->country->code}}" title="{{$user->country->name}}"></span>
                     </td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td class="text-end">{{$user->favorites->count()}}</td>
+                    <td>{{$user->role->name}}</td>
                 </tr>
                 @endforeach
 
@@ -64,6 +72,13 @@
     tr:hover{
         background-color: var(--gray_opacity);
     }
+    tr[role="admin"]{
+        border-left: 4px solid var(--green_light);
+    }
+    tr[role="owner"]{
+        border-left: 4px solid var(--purple_light);
+    }
+
 </style>
 @endsection
 
