@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,12 +45,13 @@ Route::prefix('{locale}')->group(function () {
             Route::get('/admin/users', [AdminController::class, 'users_index'])->name('users_index');
         });
 
-        // search for a user's profile
-        Route::get('/profile/{username}', [FrontController::class, 'profile'])->name('profile');
-
         // logged-in user routes (redirects to login route if no user is found)
         Route::middleware(['auth'])->group(function () {
+            Route::get('/profile/edit', [UserController::class, 'edit'])->name('user_edit');
         });
+
+        // search for a user's profile
+        Route::get('/profile/{username}', [UserController::class, 'show'])->name('user_show');
 
         // auth register, login, logout,
         Auth::routes();

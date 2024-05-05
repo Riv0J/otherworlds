@@ -421,7 +421,6 @@ i{
     background-color: var(--black);
     box-shadow: 10px 0 10px rgba(0, 0, 0, 0.5), -10px 0 10px rgba(0, 0, 0, 0.5);
     min-height: 100svh;
-    margin-block: 1rem;
     padding: 1rem
 }
 .wrapper>.title{

@@ -62,7 +62,7 @@
                 </a>
 
                 <div class="dropdown_options">
-                    <a href="{{ route('profile', ['locale' => $locale, 'username' => $logged_user->name ]) }}">
+                    <a href="{{ route('user_show', ['locale' => $locale, 'username' => $logged_user->name ]) }}">
                         @lang('otherworlds.profile')[CON]
                     </a>
 

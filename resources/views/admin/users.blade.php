@@ -8,21 +8,21 @@
 <link rel="stylesheet" href="{{ asset('css/views/place_index.css') }}"/>
 
 <section class="wrapper col-12 col-lg-8">
-    <div class="spacer mt-4 pt-5"></div>
+    <div class="mb-4 title">
+        <div class="d-flex flex-row align-items-end gap-4">
+            <h3 class="regular pb-2">@lang('otherworlds.users')</h3>
+        </div>
 
-    <div>
-        <h4 class="mb-4 semibold d-flex">
-            <i class="ri-arrow-right-s-line"></i>
-            <span class="mx-1">@lang('otherworlds.users')</span>
-        </h4>
-
+        <nav class="buttons d-flex flex-row">
+            <button title='@lang('otherworlds.edit')' id="edit_button" class="button info" style="border-radius: 0">
+                Example<i class="fa-regular fa-pen-to-square"></i>
+            </button>
+        </nav>
     </div>
 
     <small>Results: {{count($users)}}</small>
     <div class="table_container">
-
         <table class="results_table">
-
             <thead>
                 <tr>
                     <th></th>
@@ -69,7 +69,7 @@
     tr{
         cursor: pointer;
     }
-    tr:hover{
+    tbody>tr:hover{
         background-color: var(--gray_opacity);
     }
     tr[role="admin"]{
@@ -85,7 +85,7 @@
 @section('script')
 <script>
     function visit(username){
-        const route = "{{ route('profile', ['locale' => $locale, 'username' => 'null']) }}".replace('/null', '');
+        const route = "{{ route('user_show', ['locale' => $locale, 'username' => 'null']) }}".replace('/null', '');
         window.location.href = route+'/'+username;
     }
 </script>

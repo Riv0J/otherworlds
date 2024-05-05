@@ -34,18 +34,17 @@
 
             {{-- #edit_button START--}}
             @if($can_edit)
-
-                <button title='@lang('otherworlds.edit')' id="edit_button" class="button info">
+                <a title='@lang('otherworlds.edit')' href="{{route('user_edit', ['locale' => $locale])}}" id="edit_button" class="button info">
                     @if($logged->is_owner()) Owner edit @endif
                     @if($logged->is_admin()) Admin edit @endif
                     <i class="fa-regular fa-pen-to-square" style="translate: 2% -5%"></i>
-                </button>
+                </a>
             @endif
             {{-- #edit_button END--}}
         </nav>
     </div>
 
-    <h4 class="mb-4 semibold">
+    <h4 class="mb-4 semibold d-flex">
         <i class="ri-arrow-right-s-line"></i>
         <span class="mx-1">@lang('otherworlds.favorite_places')</span>
     </h4>
