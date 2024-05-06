@@ -10,7 +10,6 @@
  */
 
 class DynamicSelect {
-
     constructor(element, options = {}) {
         let defaults = {
             placeholder: 'Select an option',
@@ -74,8 +73,8 @@ class DynamicSelect {
 
     _eventHandlers() {
         //onclick the header
-        this.element.querySelector('.dynamic-select-header').onclick = () => {
-            const select_header = this.element.querySelector('.dynamic-select-header');
+        const select_header = this.element.querySelector('.dynamic-select-header');
+        select_header.onclick = () => {
             if(select_header.classList.contains('dynamic-select-header-active')){ return; }
 
             select_header.classList.add('dynamic-select-header-active'); //header add active
@@ -112,7 +111,18 @@ class DynamicSelect {
 
             this.refresh_options(filtered_options);
             this.scroll_to_options();
+
+            const select_header = this.element.querySelector('.dynamic-select-header');
+            if(filtered_options.length == 0){
+                select_header.classList.remove('dynamic-select-header-active');
+            } else {
+                select_header.classList.add('dynamic-select-header-active');
+            }
         });
+    }
+
+    search(){
+
     }
 
     refresh_options(options_array){
@@ -125,7 +135,6 @@ class DynamicSelect {
                     ${options_array[i].html}
                 </div>
             `;
-
         }
         this.element.querySelector('.dynamic-select-options').innerHTML = optionsHTML
         this.refresh_options_listeners();
@@ -151,6 +160,32 @@ class DynamicSelect {
         });
     }
 
+    //given an option_value, select it
+    select_option(option_value){
+        // refresh options
+        const filtered_options = this.options.data.filter(function(option) {
+            return option.keyword.toLowerCase().includes("");
+        });
+        this.refresh_options(filtered_options);
+
+        //search for the option
+        let option = this.element.querySelector(`.dynamic-select-option[data-value="${option_value}"]`);
+        if(!option){
+            option = this.element.querySelector(`.dynamic-select-option`);
+        }
+        this.element.querySelectorAll('.dynamic-select-selected').forEach(selected => selected.classList.remove('dynamic-select-selected'));
+        option.classList.add('dynamic-select-selected');
+        this.element.querySelector('.dynamic-selected').innerHTML = option.innerHTML;
+        this.toggleComponent('dynamic-selected', true);
+        this.toggleComponent('dynamic-select-header-placeholder', false);
+        this.toggleSearch(false);
+
+        this.element.querySelector('input[name='+this.name+']').value = option.getAttribute('data-value');
+        this.data.forEach(data => data.selected = false);
+        this.data.filter(data => data.value == option.getAttribute('data-value'))[0].selected = true;
+        this.element.querySelector('.dynamic-select-header').classList.remove('dynamic-select-header-active');
+        this.options.onChange(option.getAttribute('data-value'), option.querySelector('.dynamic-select-option-text') ? option.querySelector('.dynamic-select-option-text').innerHTML : '', option);
+    }
     toggleComponent(element_class, show){
         const element = this.element.querySelector('.'+element_class);
         if(!element){ console.error('Didnt find element.'); return}

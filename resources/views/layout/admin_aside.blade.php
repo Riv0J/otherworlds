@@ -35,7 +35,6 @@
 <style>
     #admin_aside{
         position: relative;
-        background-color: var(--cyan_light);
     }
     #admin_aside>nav{
         position: fixed;

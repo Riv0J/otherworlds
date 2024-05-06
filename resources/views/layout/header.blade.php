@@ -187,7 +187,7 @@
         position: relative;
         font-size: 1.3rem;
         transition: all 0.5s;
-        padding-bottom: 0.25rem;
+        padding-bottom: 0.5rem;
     }
 
     #responsive_nav_toggler {
@@ -266,6 +266,11 @@
         .nav_link{
             justify-content: flex-end;
             padding: 1.25rem;
+            padding-bottom: 1.25rem !important;
+        }
+        #responsive_nav a{
+            padding: 1.25rem;
+            padding-bottom: 1.25rem !important;
         }
     }
 

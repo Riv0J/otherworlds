@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\User;
+use App\Models\Country;
 use App\Models\Category;
 class UserController extends Controller{
     /*
@@ -70,6 +71,7 @@ class UserController extends Controller{
         $variables = [
             'user' => \Auth::user(),
             'locale' => $locale,
+            'available_countries' => Country::getAvailableCountries(),
         ];
 
         return view('front.users.edit', $variables);

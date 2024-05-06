@@ -67,15 +67,7 @@
                 @lang('otherworlds.country')
             </label>
             <div class="col-md-6">
-                <select id="select_country" name="country" class="form-select" required>
-                    @foreach (App\Models\Country::all() as $country)
-                        <option value="{{$country->id}}">
-                            <span class="big-icon flag-icon flag-icon-{{$country->code}}"></span>
-                            {{$country->name}}
-                        </option>
-                    @endforeach
-                </select>
-
+                <select id="select_country" name="country" class="form-select" required></select>
             </div>
         </div>
 
@@ -136,22 +128,27 @@
 <link rel="stylesheet" href="{{asset('dynamic_selects/dynamic_selects.css')}}"></link>
 <script src="{{asset('dynamic_selects/dynamic_selects.js')}}"></script>
 <script>
-    new DynamicSelect('#select_country', {
-    placeholder: "@lang('otherworlds.select_country')",
-    data: [
-        @foreach ($available_countries as $country)
-        {
-            value: {{$country->id}},
-            keyword: '{{$country->name}}',
-            html: `
-                    <span class="big-icon flag-icon flag-icon-{{$country->code}}"></span>
-                    {{$country->name}}
-            `,
+    const available_countries = {!! json_encode($available_countries) !!};
+    const dynamic_select_data = [];
 
-        },
-        @endforeach
-    ],
-});
+    for (let index = 0; index < available_countries.length; index++) {
+        const country = available_countries[index];
+
+        // add to dynamic_select_data
+        dynamic_select_data.push({
+            value: country.id,
+            keyword: country.name,
+            html: `
+                <span class="big-icon flag-icon flag-icon-${country.code}"></span>
+                ${country.name}
+            `
+        });
+    }
+
+    new DynamicSelect('#select_country', {
+        placeholder: "@lang('otherworlds.select_country')",
+        data: dynamic_select_data
+    });
 </script>
 
 {{-- <div class="container">
