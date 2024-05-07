@@ -9,7 +9,9 @@
 @endsection
 
 @section('content')
-    <form class="wrapper col-12 col-lg-8">
+    <form class="wrapper col-12 col-lg-8" method="POST" enctype="multipart/form-data" action="{{ route('user_update', ['locale' => $locale]) }}">
+        <input type="hidden" name="user_id" value="{{$user->id}}">
+        @csrf
         <div class="mb-4 title">
             <div class="d-flex flex-row align-items-end gap-4">
                 <h3 class="regular pb-2">@lang('otherworlds.edit_profile')</h3>
@@ -23,13 +25,14 @@
             <i class="ri-arrow-right-s-line"></i>
             <span class="mx-1">@lang('otherworlds.required_data')</span>
         </h4>
+
         {{-- email--}}
         <div class="row col-12 mb-3">
             <label class="col-md-4 col-form-label text-md-end white" for="email">
                 @lang('otherworlds.email')
             </label>
             <div class="col-md-6">
-                <input id="email" type="email" class="form-control" name="email" value="{{$user->email}}" readonly>
+                <input type="email" class="form-control" value="{{$user->email}}" readonly>
             </div>
         </div>
 
@@ -56,7 +59,7 @@
                 @lang('otherworlds.country')
             </label>
             <div class="col-md-6">
-                <select id="select_country" name="country" class="form-select" required></select>
+                <select id="select_country" name="country_id" class="form-select" required></select>
             </div>
         </div>
 
@@ -81,15 +84,30 @@
                 @lang('otherworlds.profile_img')
             </label>
             <div class="col-md-2 d-flex flex-row gap-3">
-                <div class="profile_img" style="background-color: gray; width: min-content">
-                    <img src="{{asset('img/users/'.$user->img)}}" style="aspect-ratio: 1; width: 5rem;" alt="@lang('otherworlds.user_image')">
+                <div style="background-color: gray; width: min-content">
+                    <img id="preview_img" src="{{asset('users/'.$user->img)}}" style="aspect-ratio: 1; width: 5rem;" alt="@lang('otherworlds.user_image')">
                 </div>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="customFile" name="profile_img">
-                    <label class="custom-file-label button border" style="cursor:pointer" for="customFile">@lang('otherworlds.select_image')</label>
+                    <input type="file" class="custom-file-input" id="profile_img" name="profile_img">
+                    <label class="custom-file-label button border" style="cursor:pointer" for="profile_img">@lang('otherworlds.select_image')</label>
                 </div>
             </div>
         </div>
+        <script>
+            document.getElementById('profile_img').addEventListener('change', function(event) {
+                var input = event.target;
+                var reader = new FileReader();
+
+                reader.onload = function() {
+                    var dataURL = reader.result;
+                    var imgElement = document.getElementById('preview_img');
+                    console.log(imgElement);
+                    imgElement.src = dataURL;
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            });
+        </script>
 
         {{-- form buttons --}}
         <div class="d-flex justify-content-center gap-3">

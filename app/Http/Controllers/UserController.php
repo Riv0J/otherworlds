@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\User;
 use App\Models\Country;
@@ -20,28 +22,8 @@ class UserController extends Controller{
             redirect()->route('home', ['locale', $locale]);
         }
 
-        $can_edit = false;
         $logged = Auth::user();
         $fav_places_ids = [];
-
-        if ($logged) {
-            $fav_places_ids = $logged->favorites->pluck('id');
-            // if the logged user is the same as the user being consulted, can edit
-            if ($logged->id == $user->id) {
-                $can_edit = true;
-            }
-
-            // if the logged user is an admin, and the user doesnt have any privileges, can edit
-            if ($logged->is_admin() && $user->is_admin() == false && $user->is_owner() == false) {
-                $can_edit = true;
-            }
-
-            //if logged user is owner, can edit
-            if ($logged->is_owner()) {
-                $can_edit = true;
-            }
-        }
-
         //get the favorites
         $places = $user->favorites;
 
@@ -53,7 +35,7 @@ class UserController extends Controller{
 
             'user' => $user,
             'logged' => $logged,
-            'can_edit' => $can_edit,
+            'can_edit' => $user->is_editable($logged),
 
             //#places_container variables
             'places' => $places,
@@ -75,5 +57,58 @@ class UserController extends Controller{
         ];
 
         return view('front.users.edit', $variables);
+    }
+
+    /*
+     * Receive a user edit request
+     */
+    public function update(Request $request, $locale){
+        $data = $request->all();
+
+        $user = User::find($data['user_id']);
+        if(!$user){ return redirect()->back()->withErrors("User not found"); }
+
+        $country = Country::find($data['country_id']);
+        if(!$country){ return redirect()->back()->withErrors("Country not found"); }
+        $rules = User::rules($request);
+
+        $validator = Validator::make($data, User::rules($request));
+
+        // redirect if validator fails
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user->name = $data['name'];
+        $user->country_id = $country->id;
+        $user->birth_date = $data['birth_date'];
+
+        if ($request->hasFile('profile_img')) {
+
+            //delete old img
+            if ($user->img != null && $user->img != 'ph.png') {
+                $old_img_route = storage_path('app/users/'.$user->img);
+                if(Storage::exists($old_img_route)){
+                    Storage::delete($old_img_route);
+                }
+            }
+
+            // Define la ruta donde se guardará el archivo en el directorio público
+            $publicPath = public_path('users');
+
+            $image = $request->file('profile_img');
+            // Mueve el archivo a la ubicación deseada en el directorio público
+            $image->move($publicPath, $user->id . '.' . $image->getClientOriginalExtension());
+
+            // Actualiza el campo de imagen del usuario con el nombre del archivo
+            $user->img = $user->id . '.' . $image->getClientOriginalExtension();
+
+            // Guarda los cambios en el usuario
+            $user->save();
+        }
+
+        $user->save();
+
+        return redirect()->route('user_show',['locale'=> $locale, 'username'=> $user->name]);
     }
 }

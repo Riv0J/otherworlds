@@ -47,7 +47,9 @@ Route::prefix('{locale}')->group(function () {
 
         // logged-in user routes (redirects to login route if no user is found)
         Route::middleware(['auth'])->group(function () {
+            // edit and update front
             Route::get('/profile/edit', [UserController::class, 'edit'])->name('user_edit');
+            Route::post('/profile/update', [UserController::class, 'update'])->name('user_update');
         });
 
         // search for a user's profile

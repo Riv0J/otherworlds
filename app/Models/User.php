@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Http\Request;
 
 class User extends Authenticatable{
     use HasApiTokens, HasFactory, Notifiable;
@@ -66,7 +67,34 @@ class User extends Authenticatable{
     public function is_admin(){
         return $this->role->name === 'admin';
     }
+    //check if user is a public user
+    public function is_public(){
+        if($this->role->name === 'user'){
+            return true;
+        }
+        return false;
+    }
+    //check if user is editable by another
+    public function is_editable(?User $user){
+        if($user == null){ return false; }
 
+        //if the user editing is owner
+        if($user->is_owner()){
+            return true;
+        }
+
+        //if the user editing is admin, and it's trying to edit a public user
+        if($user->is_admin() && $this->is_public()){
+            return true;
+        }
+
+        //if the id is the same, true
+        if ($this->id == $user->id) {
+            return true;
+        }
+
+        return false;
+    }
     //override Model create
     public static function create(array $attributes = []){
         // check country_id attribute
@@ -83,5 +111,22 @@ class User extends Authenticatable{
         $model->save();
 
         return $model;
+    }
+
+    /*
+     * Get the rules to validate a user update request, used in UserController update
+     */
+    public static function rules(Request $request){
+        $rules = [
+            'name' => 'required|string|min:3|max:255',
+            'country_id' => 'required',
+            'birth_date' => 'nullable|date|date_format:Y-m-d|before_or_equal:today|after_or_equal:1900-01-01',
+        ];
+
+        if ($request->hasFile('profile_img')) {
+            $rules['profile_img'] = 'image|mimes:jpeg,png,jpg,gif|max:2048';
+        }
+
+        return $rules;
     }
 }

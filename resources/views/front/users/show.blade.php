@@ -19,7 +19,7 @@
     <div class="mb-4 title">
         <div class="d-flex flex-row align-items-end gap-4">
             <div class="profile_img" style="background-color: gray;">
-                <img src="{{asset('img/users/'.$user->img)}}" style="width: 5rem;" alt="@lang('otherworlds.user_image')">
+                <img src="{{asset('users/'.$user->img)}}" style="width: 5rem;" alt="@lang('otherworlds.user_image')">
             </div>
             <div class="d-flex flex-column justify-content-between">
                 <h3 class="regular pb-2">{{$user->name}}</h3>
