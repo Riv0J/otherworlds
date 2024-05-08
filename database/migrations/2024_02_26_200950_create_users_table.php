@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('email')->unique();
             $table->string('password');
             $table->string('img')->default('ph.png');
             $table->date('birth_date')->nullable();
 
             //foreign key country_id
-            $table->unsignedBigInteger('country_id')->nullable();
+            $table->unsignedBigInteger('country_id')->default(1);
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('restrict');
 
             //foreign key role_id

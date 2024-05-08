@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
 
 use App\Models\User;
+use App\Models\Message;
 use App\Models\Country;
 use App\Models\Category;
 class UserController extends Controller{
@@ -51,9 +53,9 @@ class UserController extends Controller{
      */
     public function edit($locale){
         $variables = [
-            'user' => \Auth::user(),
             'locale' => $locale,
-            'available_countries' => Country::getAvailableCountries(),
+            'user' => \Auth::user(),
+            'countries' => Country::all(),
         ];
 
         return view('front.users.edit', $variables);
@@ -87,9 +89,9 @@ class UserController extends Controller{
 
             //delete old img
             if ($user->img != null && $user->img != 'ph.png') {
-                $old_img_route = storage_path('app/users/'.$user->img);
-                if(Storage::exists($old_img_route)){
-                    Storage::delete($old_img_route);
+                $old_img_route = public_path('users/'.$user->img);
+                if (File::exists($old_img_route)) {
+                    File::delete($old_img_route);
                 }
             }
 
@@ -108,6 +110,8 @@ class UserController extends Controller{
         }
 
         $user->save();
+
+        Session::flash('message', new Message(Message::TYPE_SUCCESS, trans('otherworlds.user_edit_sucess')));
 
         return redirect()->route('user_show',['locale'=> $locale, 'username'=> $user->name]);
     }

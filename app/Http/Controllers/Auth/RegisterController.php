@@ -94,7 +94,7 @@ class RegisterController extends Controller
      */
     function show_register($locale){
         $variables = [
-            'available_countries' => Country::getAvailableCountries(),
+            'countries' => Country::all(),
             'locale' => $locale
         ];
         return view('auth.register', $variables);

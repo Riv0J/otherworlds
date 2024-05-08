@@ -97,6 +97,7 @@ p{
     font-size: 1.25rem;
     letter-spacing: 0rem;
 }
+ul,li{ margin: 0 0; list-style-type: none;}
 .black{
     color: var(--black);
     fill: var(--black);
@@ -114,6 +115,7 @@ i{
     display: flex !important;
     align-items: center;
     justify-content: center;
+    color: inherit;
 }
 .small_i{
     width: 1rem;

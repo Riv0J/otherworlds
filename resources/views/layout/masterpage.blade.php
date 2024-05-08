@@ -55,7 +55,7 @@
             @include('layout.admin_aside')
         @endif
 
-        <div class="flex-grow-1" style="width: min-content">
+        <div class="flex-grow-1">
             @include('layout.header')
             <main class="flex_center flex-column justify-content-start">
                 @yield('content')
@@ -63,6 +63,80 @@
             @include('layout.footer')
         </div>
 
+        <div id="popups" class="d-flex align-items-end justify-content-end m-3 mb-5 m-sm-5 mb-md-0">
+            <ul class="">
+                @if (Session::has('message'))
+                    @php $message = Session::get('message') @endphp
+                    <li class="alert alert-{{$message->type}}">
+                        <i class="fa-solid {{$message->icon}}"></i>
+                        {{ $message->text }}
+                        <i class="fa-solid fa-xmark"></i>
+                    </li>
+                @endif
+
+                @foreach ($errors->all() as $error)
+                    <li class="alert alert-danger">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        {{ $error }}
+                        <i class="fa-solid fa-xmark"></i>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+        <style>
+            #popups{
+                position: fixed;
+                inset: 0;
+                z-index: 1035;
+                pointer-events: none;
+            }
+            #popups ul{
+                list-style-type: none;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: flex-end;
+                gap: 0.5rem;
+            }
+            #popups .alert{
+                padding-inline: 1.5rem;
+                padding-block: 0.75rem;
+                display: inline-flex;
+                gap: 0.5rem;
+                color: black;
+                pointer-events: all;
+                animation: fade 10s;
+                opacity: 0;
+                margin: 0 0
+
+            }
+            #popups .alert>*{
+                pointer-events: none
+            }
+            .alert .fa-xmark{
+                align-self: flex-start;
+            }
+            @keyframes fade {
+                0% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 0.9;
+                }
+                100% {
+                    opacity: 0;
+                }
+            }
+
+
+        </style>
+        <script>
+            document.querySelectorAll('.alert').forEach(element => {
+                element.addEventListener('click', function(){
+                    event.target.style.display = 'none';
+                });
+            });
+        </script>
     </body>
 
     <script src="{{ asset('js/app.js') }}"></script>

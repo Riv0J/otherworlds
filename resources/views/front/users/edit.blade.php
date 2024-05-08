@@ -151,11 +151,11 @@
 <link rel="stylesheet" href="{{asset('dynamic_selects/dynamic_selects.css')}}"></link>
 <script src="{{asset('dynamic_selects/dynamic_selects.js')}}"></script>
 <script>
-    const available_countries = {!! json_encode($available_countries) !!};
+    const countries = {!! json_encode($countries) !!};
     const dynamic_select_data = [];
 
-    for (let index = 0; index < available_countries.length; index++) {
-        const country = available_countries[index];
+    for (let index = 0; index < countries.length; index++) {
+        const country = countries[index];
 
         // add to dynamic_select_data
         dynamic_select_data.push({
