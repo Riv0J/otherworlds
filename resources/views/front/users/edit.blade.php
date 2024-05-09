@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <form class="wrapper col-12 col-lg-8" method="POST" enctype="multipart/form-data" action="{{ route('user_update', ['locale' => $locale]) }}">
+    <form class="wrapper col-12 col-lg-8" method="POST" enctype="multipart/form-data" action="{{ route('profile_update', ['locale' => $locale]) }}">
         <input type="hidden" name="user_id" value="{{$user->id}}">
         @csrf
         <div class="mb-4 title">
@@ -84,15 +84,18 @@
                 @lang('otherworlds.profile_img')
             </label>
             <div class="col-md-2 d-flex flex-row gap-3">
-                <div style="background-color: gray; width: min-content">
+                <div class="profile_img" style="width: min-content">
                     <img id="preview_img" src="{{asset('users/'.$user->img)}}" style="aspect-ratio: 1; width: 5rem;" alt="@lang('otherworlds.user_image')">
                 </div>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="profile_img" name="profile_img">
-                    <label class="custom-file-label button border" style="cursor:pointer" for="profile_img">@lang('otherworlds.select_image')</label>
+                    <label class="custom-file-label button border" style="cursor:pointer" for="profile_img">
+                        @lang('otherworlds.select_image')
+                    </label>
                 </div>
             </div>
         </div>
+
         <script>
             document.getElementById('profile_img').addEventListener('change', function(event) {
                 var input = event.target;

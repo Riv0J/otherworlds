@@ -98,6 +98,9 @@ p{
     letter-spacing: 0rem;
 }
 ul,li{ margin: 0 0; list-style-type: none;}
+select, option{
+    color: black;
+}
 .black{
     color: var(--black);
     fill: var(--black);
@@ -442,4 +445,7 @@ nav.buttons{
 }
 nav.buttons>.button{
     border: 1px solid gray;
+}
+.profile_img img{
+    aspect-ratio: 1;
 }

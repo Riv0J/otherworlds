@@ -18,12 +18,19 @@
 <section class="wrapper col-12 col-lg-8">
     <div class="mb-4 title">
         <div class="d-flex flex-row align-items-end gap-4">
-            <div class="profile_img" style="background-color: gray;">
+            <div class="profile_img">
                 <img src="{{asset('users/'.$user->img)}}" style="width: 5rem;" alt="@lang('otherworlds.user_image')">
             </div>
             <div class="d-flex flex-column justify-content-between">
-                <h3 class="regular pb-2">{{$user->name}}</h3>
-                <h5>
+                <h3 class="regular pb-2 d-inline-flex gap-2">
+                    @if($user->is_owner())
+                    <i class="fa-solid fa-crown"></i>
+                    @elseif ($user->is_admin())
+                    <i class="fa-solid fa-user-astronaut"></i>
+                    @endif
+                    {{$user->name}}
+                </h3>
+                <h5 class="d-inline-flex gap-2">
                     <span class="flag-icon flag-icon-{{$user->country->code}}" title="{{$user->country->name}}"></span>
                     {{$user->country->name}}
                 </h5>
@@ -34,11 +41,19 @@
 
             {{-- #edit_button START--}}
             @if($can_edit)
-                <a title='@lang('otherworlds.edit')' href="{{route('user_edit', ['locale' => $locale])}}" id="edit_button" class="button info">
-                    @if($logged->is_owner()) Owner edit @endif
-                    @if($logged->is_admin()) Admin edit @endif
+                @if($logged->is_public())
+                <a title='@lang('otherworlds.edit')' href="{{route('profile_edit', ['locale' => $locale])}}" id="edit_button" class="button info">Owner edit
+
+                @else
+                <a title='@lang('otherworlds.edit')' href="{{route('user_edit', ['locale' => $locale, 'username' => $user->name])}}" id="edit_button" class="button info">
+
+                @endif
+                    @if($logged->is_owner()) Owner edit
+                    @elseif($logged->is_admin()) Admin edit
+                    @endif
                     <i class="fa-regular fa-pen-to-square" style="translate: 2% -5%"></i>
                 </a>
+
             @endif
             {{-- #edit_button END--}}
         </nav>

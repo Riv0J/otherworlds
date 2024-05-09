@@ -104,6 +104,9 @@ class User extends Authenticatable{
             //set unknown_country_id
             $attributes['country_id'] = $unknown_country_id;
         }
+        if(!isset($attributes['img'])){
+            $attributes['img'] = 'ph'.rand(1,9).'.png';
+        }
 
         // create instance with given array
         $model = new static($attributes);
@@ -116,7 +119,7 @@ class User extends Authenticatable{
     /*
      * Get the rules to validate a user update request, used in UserController update
      */
-    public static function rules(Request $request){
+    public function rules(Request $request){
         $rules = [
             'name' => 'required|string|min:3|max:255',
             'country_id' => 'required',
@@ -124,7 +127,10 @@ class User extends Authenticatable{
         ];
 
         if ($request->hasFile('profile_img')) {
-            $rules['profile_img'] = 'image|mimes:jpeg,png,jpg,gif|max:2048';
+            $rules['profile_img'] = 'image|mimes:jpeg,png,jpg,gif';
+            if($this->is_public()){
+                $rules['profile_img'] = $rules['profile_img'] + '|max:2048';
+            }
         }
 
         return $rules;

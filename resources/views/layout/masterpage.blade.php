@@ -63,7 +63,7 @@
             @include('layout.footer')
         </div>
 
-        <div id="popups" class="d-flex align-items-end justify-content-end m-3 mb-5 m-sm-5 mb-md-0">
+        <div id="popups" class="d-flex align-items-end justify-content-end m-3 mb-5 m-sm-5">
             <ul class="">
                 @if (Session::has('message'))
                     @php $message = Session::get('message') @endphp
@@ -81,6 +81,7 @@
                         <i class="fa-solid fa-xmark"></i>
                     </li>
                 @endforeach
+
             </ul>
         </div>
         <style>
@@ -106,14 +107,14 @@
                 color: black;
                 pointer-events: all;
                 animation: fade 10s;
-                opacity: 0;
+                opacity: 1;
                 margin: 0 0
 
             }
             #popups .alert>*{
                 pointer-events: none
             }
-            .alert .fa-xmark{
+            .alert i{
                 align-self: flex-start;
             }
             @keyframes fade {

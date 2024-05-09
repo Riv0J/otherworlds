@@ -1,6 +1,11 @@
 <aside id="admin_aside">
     <nav>
         <div>
+            <a href="javascript:void(0)" class="minimizer">
+                <i class="fa-solid fa-arrow-left"></i>
+                <h5></h5>
+            </a>
+            <div class="div_h"></div>
             <a id="home_anchor" href="{{route('home', ['locale' => $locale])}}" class="flex_center">
                 @include('icons.moon_white')
                 <h5 class="regular quicksand text-center">therworlds</h5>
@@ -24,7 +29,7 @@
             </a>
         </div>
         <div>
-            <a href="javascript:void(0)" id="minimizer">
+            <a href="javascript:void(0)" class="minimizer">
                 <i class="fa-solid fa-arrow-left"></i>
                 <h5></h5>
             </a>
@@ -79,19 +84,19 @@
         transform: scaleX(0.85);
         padding: 0 !important;
     }
-    #minimizer{
-        justify-content: center
+    .minimizer{
+        justify-content: center;
+        border-bottom: none !important;
     }
-    #minimizer i{
+    .minimizer i{
         transition: all 0.5s;
     }
 </style>
 <script src="{{asset('js/cookies.js')}}"></script>
 <script>
     const menu = document.querySelector('#admin_aside');
-    const minimizer = menu.querySelector('#minimizer');
+    const minimizers = document.querySelectorAll('.minimizer');
     let minimized = false;
-
 
     // if open is false, close the aside
     const open = get_cookie("otherworlds_admin_nav");
@@ -100,10 +105,13 @@
     }
 
     // event listeners
-    minimizer.addEventListener('click', function(){
-        create_cookie("otherworlds_admin_nav", minimized, 31);
-        toggle_admin_aside()
+    minimizers.forEach(minimizer => {
+        minimizer.addEventListener('click', function(){
+            create_cookie("otherworlds_admin_nav", minimized, 31);
+            toggle_admin_aside()
+        });
     });
+
 
     function toggle_admin_aside(){
         // toggle minimized
@@ -126,12 +134,15 @@
         });
 
         // flip the minimizer
-        const i = minimizer.querySelector('i');
-        if(minimized == false){
-            i.style.rotate = '0deg';
-        } else {
-            i.style.rotate = '180deg';
-        }
+        minimizers.forEach(minimizer => {
+            const i = minimizer.querySelector('i');
+            if(minimized == false){
+                i.style.rotate = '0deg';
+            } else {
+                i.style.rotate = '180deg';
+            }
+        });
+
 
         menu.style.width = menu.querySelector('nav').offsetWidth + "px";
     }

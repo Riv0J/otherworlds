@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\User;
 use App\Models\Place;
 use App\Models\Category;
 
@@ -141,7 +142,7 @@ class FrontController extends Controller{
         // calculate the start index based on the page, and per page
         $startIndex = ($page - 1) * $per_page;
 
-        // get the places ordered by name
+        //get the places ordered by name
         // $places = Place::join('places_translations', 'places.id', '=', 'places_translations.place_id')
         //         ->where('places_translations.locale', app()->getLocale())
         //         ->orderBy('places_translations.name')

@@ -27,7 +27,7 @@
     const loaded_countries = organize_dic({!! json_encode($countries) !!});
     const loaded_categories = organize_dic({!! json_encode($all_categories) !!});
     const favorite_ids = {!! json_encode($fav_places_ids) !!};
-
+    console.log(favorite_ids);
     async function create_place_cards(places_json) {
         console.log(places_json);
         for (let i = 0; i < Object.keys(places_json).length; i++) {

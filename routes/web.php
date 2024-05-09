@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\FrontUserController;
 use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
@@ -43,17 +44,19 @@ Route::prefix('{locale}')->group(function () {
         // search for a user's profile
         Route::middleware(['admin'])->group(function () { //admin middleware in kernel.php $routeMiddleware
             Route::get('/admin/users', [AdminController::class, 'users_index'])->name('users_index');
+            Route::get('/admin/user/edit/{username}', [UserController::class, 'edit'])->name('user_edit');
+            Route::get('/admin/user/update', [UserController::class, 'update'])->name('user_update');
         });
 
         // logged-in user routes (redirects to login route if no user is found)
         Route::middleware(['auth'])->group(function () {
             // edit and update front
-            Route::get('/profile/edit', [UserController::class, 'edit'])->name('user_edit');
-            Route::post('/profile/update', [UserController::class, 'update'])->name('user_update');
+            Route::get('/profile/edit', [FrontUserController::class, 'edit'])->name('profile_edit');
+            Route::post('/profile/update', [FrontUserController::class, 'update'])->name('profile_update');
         });
 
         // search for a user's profile
-        Route::get('/profile/{username}', [UserController::class, 'show'])->name('user_show');
+        Route::get('/profile/{username}', [FrontUserController::class, 'show'])->name('user_show');
 
         // auth register, login, logout,
         Auth::routes();

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('img')->default('ph.png');
+            $table->string('img')->default('ph1.png');
             $table->date('birth_date')->nullable();
 
             //foreign key country_id

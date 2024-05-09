@@ -12,57 +12,29 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Message;
 use App\Models\Country;
-use App\Models\Category;
+use App\Models\Role;
 class UserController extends Controller{
+
     /*
-     * Show a user's profile
+     * Show a user's edit form to an admin
      */
-    function show($locale, $username){
+    public function edit($locale, $username){
         $user = User::where('name', $username)->first();
+        if ($user == null) { redirect()->route('home', ['locale', $locale]); }
 
-        if ($user == null) {
-            redirect()->route('home', ['locale', $locale]);
-        }
-
-        $logged = Auth::user();
-        $fav_places_ids = [];
-        //get the favorites
-        $places = $user->favorites;
-
-        //get the countries of the places
-        $countries = $places->pluck('country')->unique()->values()->all();
         $variables = [
-            'section_slug_key' => 'profile_slug',
             'locale' => $locale,
-
             'user' => $user,
-            'logged' => $logged,
-            'can_edit' => $user->is_editable($logged),
-
-            //#places_container variables
-            'places' => $places,
-            'countries' => $countries,
-            'all_categories' => Category::all(),
-            'fav_places_ids' => $fav_places_ids
-        ];
-        return view('front.users.show', $variables);
-    }
-
-    /*
-     * Show logged-in user's profile edit form
-     */
-    public function edit($locale){
-        $variables = [
-            'locale' => $locale,
-            'user' => \Auth::user(),
+            'logged' => \Auth::user(),
             'countries' => Country::all(),
+            'roles' => Role::all(),
         ];
 
-        return view('front.users.edit', $variables);
+        return view('admin.users.edit', $variables);
     }
 
     /*
-     * Receive a user edit request
+     * Receive a user edit request from an admin
      */
     public function update(Request $request, $locale){
         $data = $request->all();
@@ -72,9 +44,8 @@ class UserController extends Controller{
 
         $country = Country::find($data['country_id']);
         if(!$country){ return redirect()->back()->withErrors("Country not found"); }
-        $rules = User::rules($request);
 
-        $validator = Validator::make($data, User::rules($request));
+        $validator = Validator::make($data, $user->rules($request));
 
         // redirect if validator fails
         if ($validator->fails()) {
@@ -88,7 +59,7 @@ class UserController extends Controller{
         if ($request->hasFile('profile_img')) {
 
             //delete old img
-            if ($user->img != null && $user->img != 'ph.png') {
+            if ($user->img != null && !str_contains($user->img, 'ph')) {
                 $old_img_route = public_path('users/'.$user->img);
                 if (File::exists($old_img_route)) {
                     File::delete($old_img_route);

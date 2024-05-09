@@ -25,31 +25,31 @@
         <table class="results_table">
             <thead>
                 <tr>
+                    <th>Role</th>
                     <th></th>
                     <th></th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Favorites</th>
-                    <th>Role</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($users as $user)
-                <tr role="{{$user->role->name}}" title="User Id = {{$user->id}}" onclick="visit('{{$user->name}}')">
-                    <td>
+                <tr role="{{$user->role->name}}" title="Role: {{$user->role->name}}, User Id: {{$user->id}}" onclick="visit('{{$user->name}}')">
+                    <td class=>
                         @if($user->is_owner())
                         <i class="fa-solid fa-crown"></i>
                         @elseif ($user->is_admin())
                         <i class="fa-solid fa-user-astronaut"></i>
                         @endif
                     </td>
-                    <td class="text-center px-0">
+                    <td class="profile_img"><img src="{{asset('users/'.$user->img)}}"></td>
+                    <td class="text-center px-1">
                         <span class="flag-icon flag-icon-{{$user->country->code}}" title="{{$user->country->name}}"></span>
                     </td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td class="text-end">{{$user->favorites->count()}}</td>
-                    <td>{{$user->role->name}}</td>
                 </tr>
                 @endforeach
 
@@ -62,8 +62,15 @@
     table{
         border: 1px solid white;
     }
+    td.profile_img{
+        padding: 0;
+    }
+    td img{
+        width: 3rem;
+        margin: 0.5rem
+    }
     th, td{
-        padding: 0.5rem;
+        padding: 0 0.5rem;
         border-top: 1px solid white;
     }
     tr{
