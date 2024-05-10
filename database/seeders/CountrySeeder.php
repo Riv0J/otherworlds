@@ -28,10 +28,10 @@ class CountrySeeder extends Seeder
         ],
         [
             'es' => [
-                'name' => 'Afghanistan'
+                'name' => 'Afghanistán'
             ],
             'en' => [
-                'name' => 'Afghanistán'
+                'name' => 'Afghanistan'
             ],
             'code' => 'afg',
         ],
@@ -43,10 +43,10 @@ class CountrySeeder extends Seeder
         ],
         [
             'es' => [
-                'name' => 'Algeria'
+                'name' => 'Argelia'
             ],
             'en' => [
-                'name' => 'Argelia'
+                'name' => 'Algeria'
             ],
             'code' => 'dza',
         ],

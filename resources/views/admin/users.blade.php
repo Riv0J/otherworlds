@@ -20,17 +20,17 @@
         </nav>
     </div>
 
-    <small>Results: {{count($users)}}</small>
+    <small>@lang('otherworlds.results'): {{count($users)}}</small>
     <div class="table_container">
         <table class="results_table">
             <thead>
                 <tr>
-                    <th>Role</th>
+                    <th>@lang('otherworlds.role')</th>
                     <th></th>
                     <th></th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Favorites</th>
+                    <th>@lang('otherworlds.username')</th>
+                    <th>@lang('otherworlds.email')</th>
+                    <th>@lang('otherworlds.favorites')</th>
                 </tr>
             </thead>
             <tbody>

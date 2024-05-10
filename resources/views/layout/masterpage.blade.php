@@ -55,7 +55,7 @@
             @include('layout.admin_aside')
         @endif
 
-        <div class="flex-grow-1">
+        <div class="flex-grow-1" style="width: fit-content">
             @include('layout.header')
             <main class="flex_center flex-column justify-content-start">
                 @yield('content')
@@ -107,7 +107,7 @@
                 color: black;
                 pointer-events: all;
                 animation: fade 10s;
-                opacity: 1;
+                opacity: 0;
                 margin: 0 0
 
             }
@@ -116,6 +116,12 @@
             }
             .alert i{
                 align-self: flex-start;
+            }
+            .alert .fa-xmark{
+                visibility: hidden;
+            }
+            .alert:hover .fa-xmark{
+                visibility: visible
             }
             @keyframes fade {
                 0% {

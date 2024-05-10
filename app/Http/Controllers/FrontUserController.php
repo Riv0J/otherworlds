@@ -115,7 +115,7 @@ class FrontUserController extends Controller{
 
         $user->save();
 
-        Session::flash('message', new Message(Message::TYPE_SUCCESS, trans('otherworlds.user_edit_sucess')));
+        Session::flash('message', new Message(Message::TYPE_SUCCESS, trans('otherworlds.user_edit_success')));
 
         return redirect()->route('user_show',['locale'=> $locale, 'username'=> $user->name]);
     }

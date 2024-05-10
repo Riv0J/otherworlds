@@ -39,6 +39,14 @@ class UserSeeder extends Seeder{
             'country_id' => 1,
             'img' => '2.gif'
         ]);
+        $admin2 = User::create([
+            'name' => 'admin2',
+            'email' => 'admin2@gmail.com',
+            'password' => Hash::make('admin2'),
+            'role_id' => $admin_role_id,
+            'country_id' => 1,
+            'img' => '3.gif'
+        ]);
 
         $user = User::create([
             'name' => 'user',
@@ -46,7 +54,7 @@ class UserSeeder extends Seeder{
             'password' => Hash::make('user'),
             'role_id' => $user_role_id,
             'country_id' => Country::random()->id,
-            'img' => '3.gif'
+            'img' => '2.gif'
         ]);
 
         //create 20 random users

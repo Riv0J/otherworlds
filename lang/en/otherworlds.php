@@ -43,8 +43,9 @@ return [
     'im_not_registered' => "I'm not registered yet",
 
     //section register
-    'required_data' => 'Required data',
-    'optional_data' => 'Optional data',
+    'required_data' => 'Required',
+    'optional_data' => 'Optional',
+    'admin_data' => 'Admin fields',
     'already_have_account' => 'I already have an account',
 
     // section home
@@ -88,7 +89,17 @@ return [
     'view_image_source' => 'View image source',
     'view_all_images' => 'View all images',
 
+    // users controllers
+    'users' => 'Usuarios',
+    'select_image' => 'Select an image',
+    'edit_profile' => 'Edit profile',
+    'profile_img' => 'Profile image',
+    'save_changes' => 'Save changes',
+    'user_edit_success' => 'User edited',
+
     // general
+    'results' => 'Results',
+    'role' => 'Role',
     'email' => 'Email',
     'password' => 'Password',
     'repeat_password' => 'Repeat password',
@@ -103,5 +114,6 @@ return [
     'select_country' => 'Select a country',
     'submit' => 'Submit',
     'location' => 'Location',
-    'return' => 'Return'
+    'return' => 'Return',
+    'cancel' => 'Cancel'
 ];

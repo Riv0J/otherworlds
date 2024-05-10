@@ -27,7 +27,7 @@ class UserController extends Controller{
             'user' => $user,
             'logged' => \Auth::user(),
             'countries' => Country::all(),
-            'roles' => Role::all(),
+            'roles' => Role::where('name', '!=',"owner")->get(),
         ];
 
         return view('admin.users.edit', $variables);

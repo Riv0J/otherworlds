@@ -127,9 +127,9 @@ class User extends Authenticatable{
         ];
 
         if ($request->hasFile('profile_img')) {
-            $rules['profile_img'] = 'image|mimes:jpeg,png,jpg,gif';
+            $rules['profile_img'] = 'image|mimes:jpg,jpeg,png,gif,webp';
             if($this->is_public()){
-                $rules['profile_img'] = $rules['profile_img'] + '|max:2048';
+                $rules['profile_img'] = $rules['profile_img'].'|max:2048';
             }
         }
 

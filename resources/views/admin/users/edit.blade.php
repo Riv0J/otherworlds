@@ -9,40 +9,78 @@
 @endsection
 
 @section('content')
+    <link rel="stylesheet" href="{{asset('css/forms.css')}}">
     <form class="wrapper col-12 col-lg-8" method="POST" enctype="multipart/form-data" action="{{ route('user_update', ['locale' => $locale]) }}">
         <input type="hidden" name="user_id" value="{{$user->id}}">
         @csrf
         <div class="mb-4 title">
-            <div class="d-flex flex-row align-items-end gap-4">
-                <h3 class="regular pb-2">@lang('otherworlds.edit_profile')</h3>
+            <div class="d-flex align-items-center gap-3 p-2">
+                <i class="fa-regular fa-pen-to-square"></i>
+                <h3 class="regular">@lang('otherworlds.edit_profile')</h3>
             </div>
-
             <nav class="buttons d-flex flex-row">
             </nav>
         </div>
 
-        <h4 class="mb-4 semibold d-flex">
-            <i class="ri-arrow-right-s-line"></i>
-            <span class="mx-1">@lang('otherworlds.required_data')</span>
-        </h4>
-
-        {{-- email--}}
-        <div class="row col-12 mb-3">
-            <label class="col-md-4 col-form-label text-md-end white" for="email">
-                [{{$user->role->name}}] @lang('otherworlds.email')
-            </label>
-            <div class="col-md-6">
-                <input type="email" class="form-control" value="{{$user->email}}">
+        <fieldset class="mb-4">
+            <h4 class="form_h4">
+                <i class="ri-arrow-right-s-line"></i>
+                <span>@lang('otherworlds.admin_data')</span>
+            </h4>
+            <span> You can edit these fields because you are [{{strtoupper($logged->role->name)}}]</span>
+            {{-- role --}}
+            <div class="row col-12 my-3">
+                <label class="col-md-4 col-form-label text-md-end white" for="birth_date">
+                    @lang('otherworlds.role')*
+                </label>
+                <div class="col-md-2 d-inline-flex">
+                    <select class="p-2 p-md-0" name="role" required>
+                        @foreach ($roles as $role)
+                            <option value="{{$role->id}}"
+                                @if ($user->role->name == $role->name)
+                                selected
+                                @endif
+                            >
+                                {{strtoupper($role->name)}}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
-        </div>
+
+            {{-- email--}}
+            <div class="row col-12 mb-3">
+                <label class="col-md-4 col-form-label text-md-end white" for="email">
+                    @lang('otherworlds.email')*
+                </label>
+                <div class="col-md-6">
+                    <input type="email" class="form-control" value="{{$user->email}}" name="email" required>
+                </div>
+            </div>
+
+            {{-- password--}}
+            <div class="row col-12 mb-3">
+                <label class="col-md-4 col-form-label text-md-end white" for="password">
+                    @lang('otherworlds.password')
+                </label>
+                <div class="col-md-6">
+                    <input type="password" class="form-control" value="" name="password">
+                </div>
+            </div>
+        </fieldset>
+
+        <h4 class="form_h4">
+            <i class="ri-arrow-right-s-line"></i>
+            <span>@lang('otherworlds.required_data')</span>
+        </h4>
 
         {{-- username --}}
         <div class="row col-12 mb-3">
             <label class="col-md-4 col-form-label text-md-end white" for="name">
-                @lang('otherworlds.username')
+                @lang('otherworlds.username')*
             </label>
             <div class="col-md-6">
-                <input type="text" class="form-control" name="name" value="{{$user->name}}" autocomplete="name" required autofocus>
+                <input type="text" class="form-control" value="{{$user->name}}" autocomplete="name" name="name" required autofocus>
 
                 {{-- show username error, if any --}}
                 @error('name')
@@ -56,18 +94,20 @@
         {{-- country --}}
         <div class="row col-12 mb-3">
             <label class="col-md-4 col-form-label text-md-end white" for="email">
-                @lang('otherworlds.country')
+                @lang('otherworlds.country')*
             </label>
             <div class="col-md-6">
-                <select id="select_country" name="country_id" class="form-select" required></select>
+                <select id="select_country" class="form-select" name="country_id" required></select>
             </div>
         </div>
 
-        <h4 class="mb-4 semibold d-flex">
+        <h4 class="form_h4">
             <i class="ri-arrow-right-s-line"></i>
-            <span class="mx-1">@lang('otherworlds.optional_data')</span>
+            <span>@lang('otherworlds.optional_data')</span>
         </h4>
+        <style>
 
+        </style>
         {{-- birth_date --}}
         <div class="row col-12 mb-3">
             <label class="col-md-4 col-form-label text-md-end white" for="birth_date">
@@ -80,12 +120,12 @@
 
         {{-- profile_img --}}
         <div class="row col-12 mb-5">
-            <label class="col-md-4 col-form-label text-md-end white" for="birth_date">
+            <label class="col-md-4 col-form-label text-md-end white" for="profile_img">
                 @lang('otherworlds.profile_img')
             </label>
-            <div class="col-md-2 d-flex flex-row gap-3">
+            <div class="col-md-6 d-flex flex-row gap-3">
                 <div class="profile_img" style="width: min-content">
-                    <img id="preview_img" src="{{asset('users/'.$user->img)}}" style="aspect-ratio: 1; width: 5rem;" alt="@lang('otherworlds.user_image')">
+                    <img id="preview_img" src="{{asset('users/'.$user->img)}}" style="aspect-ratio: 1; width: 5rem;" alt="@lang('otherworlds.profile_img')">
                 </div>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" id="profile_img" name="profile_img">
@@ -94,32 +134,6 @@
                     </label>
                 </div>
             </div>
-        </div>
-
-        <h4 class="mb-4 semibold d-flex">
-            <i class="ri-arrow-right-s-line"></i>
-            <span class="mx-1">@lang('otherworlds.administrative_edit')</span>
-        </h4>
-        <p class="pb-3"> You can edit aditional data because you are < {{$user->role->name}} ></p>
-
-        {{-- role --}}
-        <div class="row col-12 mb-3">
-            <label class="col-md-4 col-form-label text-md-end white" for="birth_date">
-                @lang('otherworlds.role')
-            </label>
-            <div class="col-md-2 d-inline-flex">
-                <select class="px-3" name="role">
-                    @foreach ($roles as $role)
-                        <option value="{{$role->id}}"
-                            @if ($user->role->name == $role->name)
-                            selected
-                            @endif
-                        >
-                            {{$role->name}}
-                        </option>
-                    @endforeach
-                </select>
-                </div>
         </div>
 
         <script>
@@ -138,13 +152,15 @@
             });
         </script>
 
+        <div class="div_h div_gray my-4"></div>
         {{-- form buttons --}}
         <div class="d-flex justify-content-center gap-3">
-            <button class="button border">
+            <button type="button" class="button border red" onclick="window.history.back()">
                 @lang('otherworlds.cancel')
             </button>
-            <button type="submit" class="button border">
-                @lang('otherworlds.update_changes')
+            <button type="submit" class="button border info">
+                <i class="fa-solid fa-floppy-disk"></i>
+                @lang('otherworlds.save_changes')
             </button>
         </div>
 
@@ -163,16 +179,6 @@
         }
     </style>
     {{-- return END --}}
-
-    <style>
-        input[readonly] {
-            background-color: #c2c2c2;
-            pointer-events: none;
-        }
-        input[type="file"]{
-            display: none;
-        }
-    </style>
 @endsection
 
 @section('script')
@@ -191,7 +197,7 @@
             value: country.id,
             keyword: country.name,
             html: `
-                <span class="big-icon flag-icon flag-icon-${country.code}"></span>
+                <span class="medium_i flag-icon flag-icon-${country.code}"></span>
                 ${country.name}
             `
         });

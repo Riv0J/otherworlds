@@ -45,6 +45,7 @@ return [
     //section register
     'required_data' => 'Datos requeridos',
     'optional_data' => 'Datos opcionales',
+    'admin_data' => 'Campos admin',
     'already_have_account' => 'Ya tengo una cuenta',
 
     // section home
@@ -88,7 +89,17 @@ return [
     'view_image_source' => 'Ver el origen de la imagen',
     'view_all_images' => 'Ver todas las imágenes',
 
+    // users controllers
+    'users' => 'Users',
+    'select_image' => 'Seleccionar imagen',
+    'edit_profile' => 'Editar perfil',
+    'profile_img' => 'Imagen de perfil',
+    'save_changes' => 'Guardar cambios',
+    'user_edit_success' => 'Usuario editado',
+
     // general
+    'results' => 'Resultados',
+    'role' => 'Rol',
     'email' => 'Correo Electrónico',
     'password' => 'Contraseña',
     'repeat_password' => 'Repetir contraseña',
@@ -103,5 +114,6 @@ return [
     'select_country' => 'Selecciona un país',
     'submit' => 'Enviar',
     'location' => 'Ubicación',
-    'return' => 'Volver'
+    'return' => 'Volver',
+    'cancel' => 'Cancelar'
 ];

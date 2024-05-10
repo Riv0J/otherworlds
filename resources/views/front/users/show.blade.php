@@ -51,7 +51,7 @@
                     @if($logged->is_owner()) Owner edit
                     @elseif($logged->is_admin()) Admin edit
                     @endif
-                    <i class="fa-regular fa-pen-to-square" style="translate: 2% -5%"></i>
+                    <i class="fa-regular fa-pen-to-square"></i>
                 </a>
 
             @endif

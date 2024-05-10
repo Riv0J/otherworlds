@@ -120,9 +120,16 @@ i{
     justify-content: center;
     color: inherit;
 }
+fieldset{
+    border: 2px solid var(--gray_light);
+    padding: 1rem;
+}
 .small_i{
     width: 1rem;
     font-size: 1rem; }
+.medium_i{
+    width: 2rem;
+    font-size: 2rem; }
 .big_i{
     width: 2.5rem;
     font-size: 2.5rem; }

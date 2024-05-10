@@ -1,0 +1,24 @@
+input[readonly] {
+    background-color: #c2c2c2;
+    pointer-events: none;
+}
+input[type="file"]{
+    display: none;
+}
+select{
+    border-radius: 0.5rem;
+    width: 100%;
+}
+.form_h4{
+    margin-bottom: 1rem;
+    font-weight: 600;
+    display: flex;
+    gap: 0.25rem;
+}
+@media screen and (max-width: 768px) {
+    .form_h4:not(:nth-child(1)) {
+        margin-top: 2.5rem;
+        margin-bottom: 0;
+    }
+}
+
