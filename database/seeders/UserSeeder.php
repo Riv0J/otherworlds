@@ -24,11 +24,11 @@ class UserSeeder extends Seeder{
 
         $owner = User::create([
             'name' => 'rivito',
-            'email' => 'rivito@gmail.com',
-            'password' => Hash::make('rivito'),
+            'email' => 'rivitoy@gmail.com',
+            'password' => Hash::make('rivitoy'),
             'role_id' => $owner_role_id,
             'country_id' => 1,
-            'img' => '1.gif'
+            'img' => 'premade/1.gif'
         ]);
 
         $admin = User::create([
@@ -37,7 +37,7 @@ class UserSeeder extends Seeder{
             'password' => Hash::make('admin'),
             'role_id' => $admin_role_id,
             'country_id' => 1,
-            'img' => '2.gif'
+            'img' => 'premade/2.gif'
         ]);
         $admin2 = User::create([
             'name' => 'admin2',
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder{
             'password' => Hash::make('admin2'),
             'role_id' => $admin_role_id,
             'country_id' => 1,
-            'img' => '3.gif'
+            'img' => 'premade/3.gif'
         ]);
 
         $user = User::create([
@@ -54,10 +54,10 @@ class UserSeeder extends Seeder{
             'password' => Hash::make('user'),
             'role_id' => $user_role_id,
             'country_id' => Country::random()->id,
-            'img' => '2.gif'
+            'img' => 'premade/2.gif'
         ]);
 
-        //create 20 random users
+        //create 50 random users
         User::factory()->count(50)->create();
 
         //create random favorites

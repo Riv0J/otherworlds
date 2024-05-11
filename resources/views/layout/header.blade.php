@@ -85,8 +85,7 @@
                 <div class="dropdown_options">
                 @foreach (config('translatable.locales') as $loc)
                     @if ($loc != $locale)
-
-                        <a class="p-2 px-4" href="{{route('setLocale', ['locale' => $locale, 'new_locale' => $loc, 'section_slug_key' => $section_slug_key ?? 'home_slug'])}}">{{strtoupper($loc)}}</a>
+                        <a href="{{route('setLocale', ['locale' => $locale, 'new_locale' => $loc, 'section_slug_key' => $section_slug_key ?? 'home_slug'])}}">{{strtoupper($loc)}}</a>
                     @endif
                 @endforeach
                 </div>
@@ -188,6 +187,7 @@
         font-size: 1.3rem;
         transition: all 0.5s;
         padding-bottom: 0.5rem;
+        font-family: 'Quicksand'
     }
 
     #responsive_nav_toggler {

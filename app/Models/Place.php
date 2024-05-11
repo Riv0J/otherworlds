@@ -96,7 +96,7 @@ class Place extends Model{
         // if image urls were found, continue the process
         if($gallery_urls != null){
 
-            // save the place gallery url if it was null
+            // save the place gallery url if it was null for this place
             if($this->gallery_url == null){
                 $this->gallery_url = $wikimedia_url;
                 $this->save();

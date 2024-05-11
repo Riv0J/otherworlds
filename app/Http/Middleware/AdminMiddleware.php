@@ -17,9 +17,11 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next){
 
         $user = $request->user();
-        if ($user && ($user->is_admin() || $user->is_owner())) {
+        if ($user && $user->active == true && ($user->is_admin() || $user->is_owner())) {
             return $next($request);
         }
-        abort(403, 'Unauthorized');
+
+        $locale = $request->route('locale') ?? 'en';
+        return redirect()->route('home',[ 'locale'=> $locale])->withErrors(trans('otherworlds.no_privileges'));
     }
 }

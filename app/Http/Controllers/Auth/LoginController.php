@@ -51,9 +51,10 @@ class LoginController extends Controller
     }
 
     /**
-     * Handle a login request
+     * Handle a login request (override of AuthenticatesUsers)
      */
     public function handle_login(Request $request, string $locale){
+
         $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -66,12 +67,18 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
+
         if ($this->attemptLogin($request)) {
+            if(\Auth::user()->active == false){
+                $this->logout($request,$locale);
+                return redirect()->back()->withErrors([trans('otherworlds.account_inactive')]);
+            }
+
             if ($request->hasSession()) {
                 $request->session()->put('auth.password_confirmed_at', time());
             }
 
-            return $this->sendLoginResponse($request, $locale);
+            return $this->sendLoginResponse($request, $locale); //no quitar locale
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts

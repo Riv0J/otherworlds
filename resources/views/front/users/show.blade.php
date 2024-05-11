@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="{{ asset('css/views/place_index.css') }}"/>
 
 <section class="wrapper col-12 col-lg-8">
-    <div class="mb-4 title">
+    <div class="mb-4 pb-3 title">
         <div class="d-flex flex-row align-items-end gap-4">
             <div class="profile_img">
                 <img src="{{asset('users/'.$user->img)}}" style="width: 5rem;" alt="@lang('otherworlds.user_image')">
@@ -42,14 +42,16 @@
             {{-- #edit_button START--}}
             @if($can_edit)
                 @if($logged->is_public())
-                <a title='@lang('otherworlds.edit')' href="{{route('profile_edit', ['locale' => $locale])}}" id="edit_button" class="button info">Owner edit
+                <a title='@lang('otherworlds.edit')' href="{{route('profile_edit', ['locale' => $locale])}}" id="edit_button" class="button info">
 
                 @else
                 <a title='@lang('otherworlds.edit')' href="{{route('user_edit', ['locale' => $locale, 'username' => $user->name])}}" id="edit_button" class="button info">
 
                 @endif
-                    @if($logged->is_owner()) Owner edit
-                    @elseif($logged->is_admin()) Admin edit
+                    @if($logged->is_owner())
+                        Owner edit
+                    @elseif($logged->is_admin())
+                        Admin edit
                     @endif
                     <i class="fa-regular fa-pen-to-square"></i>
                 </a>
@@ -79,18 +81,4 @@
         }
     </style>
     {{-- return END --}}
-<style>
-
-</style>
-@endsection
-
-@section('script')
-{{-- #edit_button onclick --}}
-@if($can_edit)
-<script>
-    document.querySelector('#edit_button').addEventListener('click',function(){
-    });
-</script>
-@endif
-
 @endsection

@@ -19,6 +19,9 @@
                 <h3 class="regular">@lang('otherworlds.edit_profile')</h3>
             </div>
             <nav class="buttons d-flex flex-row">
+                <button type="submit" class="button border info">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                </button>
             </nav>
         </div>
 
@@ -33,7 +36,7 @@
                 @lang('otherworlds.email')*
             </label>
             <div class="col-md-6">
-                <input type="email" class="form-control" value="{{ $user->email }}" readonly>
+                <input type="text" class="form-control" value="{{ $user->email }}" readonly>
             </div>
         </div>
 
@@ -140,49 +143,36 @@
         }
     </style>
     {{-- return END --}}
-
-    <style>
-        input[readonly] {
-            background-color: #c2c2c2;
-            pointer-events: none;
-        }
-
-        input[type="file"] {
-            display: none;
-        }
-    </style>
 @endsection
 
 @section('script')
-    {{-- dynamic select assets --}}
-    <link rel="stylesheet" href="{{ asset('dynamic_selects/dynamic_selects.css') }}">
-    </link>
-    <script src="{{ asset('dynamic_selects/dynamic_selects.js') }}"></script>
-    <script>
-        const countries = {!! json_encode($countries) !!};
-        const dynamic_select_data = [];
+{{-- dynamic select assets --}}
+<link rel="stylesheet" href="{{ asset('dynamic_selects/dynamic_selects.css') }}"></link>
+<script src="{{ asset('dynamic_selects/dynamic_selects.js') }}"></script>
+<script>
+    const countries = {!! json_encode($countries) !!};
+    const dynamic_select_data = [];
 
-        for (let index = 0; index < countries.length; index++) {
-            const country = countries[index];
+    for (let index = 0; index < countries.length; index++) {
+        const country = countries[index];
 
-            // add to dynamic_select_data
-            dynamic_select_data.push({
-                value: country.id,
-                keyword: country.name,
-                html: `
-                <span class="big-icon flag-icon flag-icon-${country.code}"></span>
-                ${country.name}
-            `
-            });
-        }
-
-        const select = new DynamicSelect('#select_country', {
-            placeholder: "@lang('otherworlds.select_country')",
-            data: dynamic_select_data
+        // add to dynamic_select_data
+        dynamic_select_data.push({
+            value: country.id,
+            keyword: country.name,
+            html: `<span class="medium_i flag-icon flag-icon-${country.code}"></span>
+            ${country.name}
+        `
         });
+    }
 
-        @if ($user->country)
-            select.select_option({{ $user->country->id }})
-        @endif
+    const select = new DynamicSelect('#select_country', {
+        placeholder: "@lang('otherworlds.select_country')",
+        data: dynamic_select_data
+    });
+
+    @if ($user->country)
+        select.select_option({{ $user->country->id }})
+    @endif
     </script>
 @endsection

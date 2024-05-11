@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('img')->default('ph1.png');
             $table->date('birth_date')->nullable();
+            $table->boolean('active')->default(true);
 
             //foreign key country_id
             $table->unsignedBigInteger('country_id')->default(1);

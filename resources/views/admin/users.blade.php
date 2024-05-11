@@ -35,7 +35,7 @@
             </thead>
             <tbody>
                 @foreach ($users as $user)
-                <tr role="{{$user->role->name}}" title="Role: {{$user->role->name}}, User Id: {{$user->id}}" onclick="visit('{{$user->name}}')">
+                <tr active="{{$user->active ? 'true' : 'false'}}" role="{{$user->role->name}}" title="Role: {{$user->role->name}}, User Id: {{$user->id}}" onclick="visit('{{$user->name}}')">
                     <td class=>
                         @if($user->is_owner())
                         <i class="fa-solid fa-crown"></i>
@@ -47,7 +47,14 @@
                     <td class="text-center px-1">
                         <span class="flag-icon flag-icon-{{$user->country->code}}" title="{{$user->country->name}}"></span>
                     </td>
-                    <td>{{$user->name}}</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            @if($user->active == false)
+                            <i class="fa-solid fa-ban" style="color: red"></i>
+                            @endif
+                            {{$user->name}}</td>
+                        </div>
+
                     <td>{{$user->email}}</td>
                     <td class="text-end">{{$user->favorites->count()}}</td>
                 </tr>
@@ -84,6 +91,15 @@
     }
     tr[role="owner"]{
         border-left: 4px solid var(--purple_light);
+    }
+    tr[active="false"]{
+        position: relative;
+    }
+    tr[active="false"]::after{
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: var(--gray_opacity)
     }
 
 </style>

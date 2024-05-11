@@ -8,6 +8,7 @@ class Message {
     const TYPE_INFO = 'info';
     const TYPE_SUCCESS = 'success';
     const TYPE_ALERT = 'warning';
+    const TYPE_ERROR = 'err';
     const TYPE_OTHER = 'other';
 
     public $type, $icon, $text;
@@ -26,6 +27,9 @@ class Message {
                 break;
             case self::TYPE_ALERT:
                 $this->icon = 'fa-circle-exclamation';
+                break;
+            case self::TYPE_ERROR:
+                $this->icon = 'fa-triangle-exclamation';
                 break;
             default:
                 $this->icon = 'fa-question';

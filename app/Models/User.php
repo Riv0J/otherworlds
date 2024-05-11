@@ -21,6 +21,7 @@ class User extends Authenticatable{
         'name',
         'email',
         'password',
+        'active',
         'birth_date',
         'role_id',
         'country_id',
@@ -44,6 +45,10 @@ class User extends Authenticatable{
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function active(){
+        return $this->active;
+    }
 
     //get the user's role
     public function role(){

@@ -19,6 +19,9 @@
                 <h3 class="regular">@lang('otherworlds.edit_profile')</h3>
             </div>
             <nav class="buttons d-flex flex-row">
+                <button type="submit" class="button border info">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                </button>
             </nav>
         </div>
 
@@ -28,43 +31,64 @@
                 <span>@lang('otherworlds.admin_data')</span>
             </h4>
             <span> You can edit these fields because you are [{{strtoupper($logged->role->name)}}]</span>
-            {{-- role --}}
+
+            {{-- active --}}
             <div class="row col-12 my-3">
+                <label class="col-md-4 col-form-label text-md-end white" for="active">
+                    @lang('otherworlds.active')*
+                </label>
+                <div class="col-md-6 d-flex align-items-center gap-3">
+                    <input type="checkbox" name="active"
+                    @if($user->active == true)
+                        checked
+                    @endif
+                    >
+                    <small>(Uncheck to ban)</small>
+                </div>
+            </div>
+
+            {{-- role --}}
+            <div class="row col-12 mb-3">
                 <label class="col-md-4 col-form-label text-md-end white" for="birth_date">
                     @lang('otherworlds.role')*
                 </label>
                 <div class="col-md-2 d-inline-flex">
                     <select class="p-2 p-md-0" name="role" required>
-                        @foreach ($roles as $role)
-                            <option value="{{$role->id}}"
-                                @if ($user->role->name == $role->name)
-                                selected
-                                @endif
-                            >
-                                {{strtoupper($role->name)}}
-                            </option>
-                        @endforeach
+
+                        @if($user->role->name == 'owner')
+                            <option value="{{$user->role->id}}" selected>OWNER</option>
+                        @else
+                            @foreach ($roles as $role)
+                                <option value="{{$role->id}}"
+                                    @if ($user->role->name == $role->name)
+                                    selected
+                                    @endif
+                                >
+                                    {{strtoupper($role->name)}}
+                                </option>
+                            @endforeach
+                        @endif
                     </select>
                 </div>
             </div>
 
-            {{-- email--}}
+            {{-- email --}}
             <div class="row col-12 mb-3">
                 <label class="col-md-4 col-form-label text-md-end white" for="email">
                     @lang('otherworlds.email')*
                 </label>
                 <div class="col-md-6">
-                    <input type="email" class="form-control" value="{{$user->email}}" name="email" required>
+                    <input type="text" class="form-control" value="{{$user->email}}" name="email" required>
                 </div>
             </div>
 
-            {{-- password--}}
+            {{-- password --}}
             <div class="row col-12 mb-3">
                 <label class="col-md-4 col-form-label text-md-end white" for="password">
                     @lang('otherworlds.password')
                 </label>
                 <div class="col-md-6">
-                    <input type="password" class="form-control" value="" name="password">
+                    <input type="text" class="form-control" value="" placeholder="* * * * * * * *" name="password">
                 </div>
             </div>
         </fieldset>
@@ -105,9 +129,7 @@
             <i class="ri-arrow-right-s-line"></i>
             <span>@lang('otherworlds.optional_data')</span>
         </h4>
-        <style>
 
-        </style>
         {{-- birth_date --}}
         <div class="row col-12 mb-3">
             <label class="col-md-4 col-form-label text-md-end white" for="birth_date">
@@ -196,8 +218,7 @@
         dynamic_select_data.push({
             value: country.id,
             keyword: country.name,
-            html: `
-                <span class="medium_i flag-icon flag-icon-${country.code}"></span>
+            html: `<span class="medium_i flag-icon flag-icon-${country.code}"></span>
                 ${country.name}
             `
         });

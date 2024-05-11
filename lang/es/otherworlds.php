@@ -41,6 +41,7 @@ return [
 
     //section login
     'im_not_registered' => 'No estoy registrado',
+    'account_inactive' => 'El usuario está inactivo o suspendido',
 
     //section register
     'required_data' => 'Datos requeridos',
@@ -90,12 +91,16 @@ return [
     'view_all_images' => 'Ver todas las imágenes',
 
     // users controllers
-    'users' => 'Users',
+    'users' => 'Usuarios',
+    'active' => 'Active',
+    'favorite_places' => 'Lugares favoritos',
     'select_image' => 'Seleccionar imagen',
     'edit_profile' => 'Editar perfil',
     'profile_img' => 'Imagen de perfil',
     'save_changes' => 'Guardar cambios',
     'user_edit_success' => 'Usuario editado',
+    'name_taken' => 'Ya existe un usuario con el nombre ":field"',
+    'email_taken' => 'Ya existe un usuario con el email ":field"',
 
     // general
     'results' => 'Resultados',
@@ -115,5 +120,6 @@ return [
     'submit' => 'Enviar',
     'location' => 'Ubicación',
     'return' => 'Volver',
-    'cancel' => 'Cancelar'
+    'cancel' => 'Cancelar',
+    'no_privileges' => 'No tienes privilegios para acceder a esta dirección'
 ];

@@ -41,6 +41,7 @@ return [
 
     //section login
     'im_not_registered' => "I'm not registered yet",
+    'account_inactive' => 'Account is inactive or suspended',
 
     //section register
     'required_data' => 'Required',
@@ -90,12 +91,16 @@ return [
     'view_all_images' => 'View all images',
 
     // users controllers
-    'users' => 'Usuarios',
+    'users' => 'Users',
+    'active' => 'Active',
+    'favorite_places' => 'Favorite places',
     'select_image' => 'Select an image',
     'edit_profile' => 'Edit profile',
     'profile_img' => 'Profile image',
     'save_changes' => 'Save changes',
     'user_edit_success' => 'User edited',
+    'name_taken' => 'Name ":field" is already taken',
+    'email_taken' => 'Email ":field" is already in use',
 
     // general
     'results' => 'Results',
@@ -115,5 +120,6 @@ return [
     'submit' => 'Submit',
     'location' => 'Location',
     'return' => 'Return',
-    'cancel' => 'Cancel'
+    'cancel' => 'Cancel',
+    'no_privileges' => 'Not enough privileges to access this url'
 ];

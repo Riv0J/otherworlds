@@ -41,11 +41,11 @@ Route::prefix('{locale}')->group(function () {
     // front routes that automatically update app locale when visited with the $locale slug
     Route::middleware(['locale_updater'])->group(function () {
 
-        // search for a user's profile
+        // admin manage routes for users
         Route::middleware(['admin'])->group(function () { //admin middleware in kernel.php $routeMiddleware
             Route::get('/admin/users', [AdminController::class, 'users_index'])->name('users_index');
             Route::get('/admin/user/edit/{username}', [UserController::class, 'edit'])->name('user_edit');
-            Route::get('/admin/user/update', [UserController::class, 'update'])->name('user_update');
+            Route::post('/admin/user/update', [UserController::class, 'update'])->name('user_update');
         });
 
         // logged-in user routes (redirects to login route if no user is found)

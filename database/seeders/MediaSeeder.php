@@ -73,7 +73,11 @@ class MediaSeeder extends Seeder
                     $this->command->info('Media seeder wikimedia gallery: '.$wikimedia_url);
                 }
 
-                if($sucess == true){ break; }
+                if($sucess == true){
+                    $place->gallery_url = $wikimedia_url;
+                    $place->save();
+                    break;
+                }
             }
         }
     }
