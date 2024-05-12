@@ -106,7 +106,7 @@
                 gap: 0.5rem;
                 color: black;
                 pointer-events: all;
-                animation: fade 10s;
+                animation: fade 6s;
                 opacity: 0;
                 margin: 0 0
 

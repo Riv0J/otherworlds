@@ -148,7 +148,7 @@
                     position:absolute;
                     inset: 0;
                     background-color: var(--black_opacity);
-                    z-index: 10000;
+                    z-index: 1030;
                 }
             </style>
             @endif

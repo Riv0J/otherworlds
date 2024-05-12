@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,7 +15,18 @@ use App\Models\Country;
 use App\Models\Role;
 class UserController extends Controller{
 
-    /*
+    /**
+     * Show a the index of users to an admin
+     */
+    function index($locale){
+        $variables = [
+            'locale' => $locale,
+            'users' => User::orderBy('role_id', 'asc')->get(),
+            'logged' => auth()->user()
+        ];
+        return view('admin.users', $variables);
+    }
+    /**
      * Show a user's edit form to an admin
      */
     public function edit($locale, $username){
@@ -34,8 +44,8 @@ class UserController extends Controller{
         return view('admin.users.edit', $variables);
     }
 
-    /*
-     * Receive a user edit request from an admin
+    /**
+     * Process a user edit request from an admin
      */
     public function update(Request $request, $locale){
         $data = $request->all();
@@ -84,15 +94,10 @@ class UserController extends Controller{
         }
 
         if ($request->hasFile('profile_img')) {
-            //delete old img
-            if ($user->img != null && !str_contains($user->img, 'premade')) {
-                $old_img_route = public_path('users/'.$user->img);
-                if (File::exists($old_img_route)) {
-                    File::delete($old_img_route);
-                }
-            }
+            //delete current img file
+            $user->delete_img();
 
-            // move the file into public/users
+            // move the new file into public/users
             $image = $request->file('profile_img');
             $image->move(public_path('users'), $user->id . '.' . $image->getClientOriginalExtension());
             $user->img = $user->id . '.' . $image->getClientOriginalExtension();
@@ -102,4 +107,84 @@ class UserController extends Controller{
         Session::flash('message', new Message(Message::TYPE_SUCCESS, trans('otherworlds.user_edit_success')));
         return redirect()->route('user_edit',['locale'=> $locale, 'username'=> $user->name]);
     }
+
+
+    /**
+     * Ajax, Resets a user's profile image
+     */
+    public function ajax_reset_img(Request $request){
+        $response = [
+            'message' => null,
+            'user' => null
+        ];
+        try {
+            $data = $request->all();
+            $user = User::find($data['user_id']);
+            if(!$user){
+                // user not found, place a new message in response
+                $response['message'] = new Message(Message::TYPE_ERROR, 'User not found');
+                return response()->json($response);
+            }
+
+            $can_edit = $user->is_editable(Auth::user());
+            if(!$can_edit){
+                // no privilige to edit this user, place a new message in response
+                $response['message'] = new Message(Message::TYPE_ERROR, 'You can\'t edit this user');
+                return response()->json($response);
+            }
+
+            //delete current img file
+            $user->delete_img();
+
+            $user->img = 'ph'.rand(1,8).'.png';
+            $user->save();
+
+            $response['message'] = new Message(Message::TYPE_SUCCESS, "User '".$user->name."' image reset");
+            $response['user'] = $user;
+        } catch (\Throwable $th) {
+            $response['message'] = new Message(Message::TYPE_ERROR, 'Unknown error on user image reset');
+        }
+        return response()->json($response);
+    }
+
+    /**
+     * Ajax, toggle a user's active field
+     */
+    public function ajax_toggle_ban(Request $request){
+        $response = [
+            'message' => null,
+            'user' => null
+        ];
+        try {
+            $data = $request->all();
+            $user = User::find($data['user_id']);
+            if(!$user){
+                // user not found, place a new message in response
+                $response['message'] = new Message(Message::TYPE_ERROR, 'User not found');
+                return response()->json($response);
+            }
+
+            $can_edit = $user->is_editable(Auth::user());
+            if(!$can_edit){
+                // no privilige to edit this user, place a new message in response
+                $response['message'] = new Message(Message::TYPE_ERROR, 'You can\'t edit this user');
+                return response()->json($response);
+            }
+
+            $user->active = !$user->active;
+            $user->save();
+
+            if($user->active == false){
+                $response['message'] = new Message(Message::TYPE_BAN, "Banned '".$user->name."'!");
+            } else {
+                $response['message'] = new Message(Message::TYPE_SUCCESS, "User '".$user->name."' is active!");
+            }
+
+            $response['user'] = $user;
+        } catch (\Throwable $th) {
+            $response['message'] = new Message(Message::TYPE_ERROR, 'Unknown error on user image reset');
+        }
+        return response()->json($response);
+    }
+
 }

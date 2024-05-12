@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -63,8 +62,8 @@ class FrontUserController extends Controller{
         return view('front.users.edit', $variables);
     }
 
-    /*
-     * Receive a user edit request
+    /**
+     * Process a user's edit request
      */
     public function update(Request $request, $locale){
         $data = $request->all();
@@ -93,15 +92,10 @@ class FrontUserController extends Controller{
         $user->birth_date = $data['birth_date'];
 
         if ($request->hasFile('profile_img')) {
-            //delete old img
-            if ($user->img != null && !str_contains($user->img, 'premade')) {
-                $old_img_route = public_path('users/'.$user->img);
-                if (File::exists($old_img_route)) {
-                    File::delete($old_img_route);
-                }
-            }
+            //delete current img file
+            $user->delete_img();
 
-            // move the file into public/users
+            // move the new file into public/users
             $image = $request->file('profile_img');
             $image->move(public_path('users'), $user->id . '.' . $image->getClientOriginalExtension());
             $user->img = $user->id . '.' . $image->getClientOriginalExtension();
@@ -112,4 +106,23 @@ class FrontUserController extends Controller{
         return redirect()->route('user_show',['locale'=> $locale, 'username'=> $user->name]);
     }
 
+    /**
+     * Resets a logged-in user's profile image
+     */
+    public function reset_img(Request $request, $locale, $user_id){
+        $user = User::find($user_id);
+        if(!$user){ return redirect()->back()->withErrors("User not found"); }
+
+        $can_edit = $user->is_editable(Auth::user());
+        if(!$can_edit){ return redirect()->back()->withErrors("You cannot edit this user"); }
+
+        //delete current img file
+        $user->delete_img();
+
+        $user->img = 'ph1.png';
+        $user->save();
+
+        Session::flash('message', new Message(Message::TYPE_SUCCESS, trans('otherworlds.user_edit_success')));
+        return redirect()->back();
+    }
 }

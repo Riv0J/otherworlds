@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\File;
 class User extends Authenticatable{
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -139,5 +139,17 @@ class User extends Authenticatable{
         }
 
         return $rules;
+    }
+
+    /*
+     * Deletes this user's saved img file
+     */
+    public function delete_img(){
+        if ($this->img != null && !str_contains($this->img, 'premade') && !str_contains($this->img, 'ph')) {
+            $old_img_route = public_path('users/'.$this->img);
+            if (File::exists($old_img_route)) {
+                File::delete($old_img_route);
+            }
+        }
     }
 }

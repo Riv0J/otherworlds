@@ -43,16 +43,16 @@ Route::prefix('{locale}')->group(function () {
 
         // admin manage routes for users
         Route::middleware(['admin'])->group(function () { //admin middleware in kernel.php $routeMiddleware
-            Route::get('/admin/users', [AdminController::class, 'users_index'])->name('users_index');
-            Route::get('/admin/user/edit/{username}', [UserController::class, 'edit'])->name('user_edit');
-            Route::post('/admin/user/update', [UserController::class, 'update'])->name('user_update');
+            Route::get('/admin/users', [UserController::class, 'index'])->name('user_index');
+            Route::get('/admin/users/edit/{username}', [UserController::class, 'edit'])->name('user_edit');
+            Route::post('/admin/users/update', [UserController::class, 'update'])->name('user_update');
         });
 
-        // logged-in user routes (redirects to login route if no user is found)
+        // logged-in user front routes (redirects to login route if no user is found)
         Route::middleware(['auth'])->group(function () {
-            // edit and update front
             Route::get('/profile/edit', [FrontUserController::class, 'edit'])->name('profile_edit');
             Route::post('/profile/update', [FrontUserController::class, 'update'])->name('profile_update');
+            Route::get('/profile/reset_img/{user_id}', [FrontUserController::class, 'reset_img'])->name('reset_img');
         });
 
         // search for a user's profile
@@ -87,5 +87,9 @@ Route::prefix('{locale}')->group(function () {
 Route::post('/ajax/places/favorite', [FrontController::class, 'ajax_place_favorite']);
 // ajax place request
 Route::post('/ajax/places/request', [FrontController::class, 'ajax_place_request']);
+// ajax user reset img
+Route::post('/ajax/admin/users/reset_img', [UserController::class, 'ajax_reset_img']);
+// ajax user reset img
+Route::post('/ajax/admin/users/toggle_ban', [UserController::class, 'ajax_toggle_ban']);
 
 

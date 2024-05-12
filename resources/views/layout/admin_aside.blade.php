@@ -15,7 +15,7 @@
                 <i class="fa-solid fa-house-chimney"></i>
                 <h5 class="light">Dashboard</h5>
             </a>
-            <a href="{{route('users_index', ['locale' => $locale])}}">
+            <a href="{{route('user_index', ['locale' => $locale])}}">
                 <i class="fa-solid fa-users"></i>
                 <h5 class="light">Users</h5>
             </a>
