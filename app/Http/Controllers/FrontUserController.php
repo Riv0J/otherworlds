@@ -119,7 +119,7 @@ class FrontUserController extends Controller{
         //delete current img file
         $user->delete_img();
 
-        $user->img = 'ph1.png';
+        $user->img = 'premade/ph'.rand(1,8).'.png';
         $user->save();
 
         Session::flash('message', new Message(Message::TYPE_SUCCESS, trans('otherworlds.user_edit_success')));

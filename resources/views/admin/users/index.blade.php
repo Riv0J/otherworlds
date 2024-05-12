@@ -8,19 +8,20 @@
 <link rel="stylesheet" href="{{ asset('css/views/place_index.css') }}"/>
 
 <section class="wrapper col-12 col-lg-8">
-    <div class="mb-4 title">
+    <div class="mb-4 p-2 title">
         <div class="d-flex flex-row align-items-end gap-4">
-            <h3 class="regular pb-2">@lang('otherworlds.users')</h3>
+            <h3>@lang('otherworlds.users')</h3>
+            <small>@lang('otherworlds.results'): {{count($users)}}</small>
         </div>
 
         <nav class="buttons d-flex flex-row">
             <button title='@lang('otherworlds.edit')' id="edit_button" class="button info" style="border-radius: 0">
-                Add user<i class="fa-regular fa-pen-to-square"></i>
+                <i class="fa-regular fa-add"></i>Add user
             </button>
         </nav>
     </div>
 
-    <small>@lang('otherworlds.results'): {{count($users)}}</small>
+
     <div class="table_container">
         <table class="results_table">
             <thead>
@@ -36,13 +37,15 @@
             </thead>
             <tbody>
                 @foreach ($users as $user)
-                <tr user_id="{{$user->id}}" username='{{$user->name}}' active="{{$user->active ? 'true' : 'false'}}" role="{{$user->role->name}}" title="Role: {{$user->role->name}}, User Id: {{$user->id}}">
+                <tr {{$user->id == $logged->id ? 'you' : ''}} user_id="{{$user->id}}" username='{{$user->name}}' active="{{$user->active ? 'true' : 'false'}}" role="{{$user->role->name}}" title="Role: {{$user->role->name}}, User Id: {{$user->id}}">
                     <td>
-                        @if($user->is_owner())
-                        <i class="fa-solid fa-crown"></i>
-                        @elseif ($user->is_admin())
-                        <i class="fa-solid fa-user-astronaut"></i>
-                        @endif
+                        <div class="aligner">
+                            @if($user->is_owner())
+                            <i class="fa-solid fa-crown"></i>
+                            @elseif ($user->is_admin())
+                            <i class="fa-solid fa-user-astronaut"></i>
+                            @endif
+                        </div>
                     </td>
                     <td class="profile_img"><img src="{{asset('users/'.$user->img)}}"></td>
                     <td class="text-center px-1">
@@ -53,7 +56,9 @@
                             @if($user->active == false)
                             <i class="fa-solid fa-ban" style="color: red"></i>
                             @endif
-                            {{$user->name}}</td>
+                            {{$user->name}}
+                            {{$user->id == $logged->id ? '[YOU]' : ''}}
+                        </td>
                         </div>
 
                     <td>{{$user->email}}</td>
@@ -134,6 +139,9 @@
     }
     tbody>tr:hover{
         background-color: var(--gray_opacity);
+    }
+    tr[you]{
+        border: 2px solid red;
     }
     tr[role="admin"]{
         border-left: 4px solid var(--green_light);

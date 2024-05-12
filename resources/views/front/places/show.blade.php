@@ -231,11 +231,11 @@
     }
     #next{
         top: 50%;
-        right: 5svh;
+        right: 10%;
     }
     #last{
         top: 50%;
-        left: 5svh;
+        left: 10%;
     }
     #modal_closer{
         right: 0.5rem;

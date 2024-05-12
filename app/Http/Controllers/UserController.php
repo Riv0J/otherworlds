@@ -24,7 +24,7 @@ class UserController extends Controller{
             'users' => User::orderBy('role_id', 'asc')->get(),
             'logged' => auth()->user()
         ];
-        return view('admin.users', $variables);
+        return view('admin.users.index', $variables);
     }
     /**
      * Show a user's edit form to an admin
@@ -136,7 +136,7 @@ class UserController extends Controller{
             //delete current img file
             $user->delete_img();
 
-            $user->img = 'ph'.rand(1,8).'.png';
+            $user->img = 'premade/ph'.rand(1,8).'.png';
             $user->save();
 
             $response['message'] = new Message(Message::TYPE_SUCCESS, "User '".$user->name."' image reset");

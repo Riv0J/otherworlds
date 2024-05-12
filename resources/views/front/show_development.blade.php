@@ -16,7 +16,12 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">High prio</h3>
         <li>
             <h5>
-                User profile, edit, favorites
+                Admin User index, create, edit, update, delete
+            </h5>
+        </li>
+        <li>
+            <h5>
+                Rutas 99% traducidas
             </h5>
         </li>
         <li>
@@ -26,12 +31,12 @@ Dev | Otherworlds
         </li>
         <li>
             <h5>
-                Admin remove media
+                Admin Place index, create, edit, update, delete
             </h5>
         </li>
         <li>
             <h5>
-                Place filters
+                Front Place index search and category filter
             </h5>
         </li>
         <li>
@@ -41,12 +46,12 @@ Dev | Otherworlds
         </li>
         <li>
             <h5>
-                Implement Visits
+                Admin Visit index, show
             </h5>
         </li>
         <li>
             <h5>
-                Total 50 places.
+                Total 60 places
             </h5>
         </li>
         <h3 class="div_h div_gray my-4 pb-3 text-center">Low prio</h3>
@@ -83,6 +88,11 @@ Dev | Otherworlds
         <li>
             <h5 class="text-decoration-line-through">
                 Admin aside panel
+            </h5>
+        </li>
+        <li>
+            <h5 class="text-decoration-line-through">
+                Front User profile, edit, update
             </h5>
         </li>
     </ul>

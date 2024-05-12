@@ -46,7 +46,7 @@ class FrontController extends Controller{
             'all_categories' => Category::all(),
             'fav_places_ids' => $fav_places_ids
         ];
-        return view('front.place_index', $variables);
+        return view('front.places.index', $variables);
     }
 
     function place_view($locale, $section_slug, $place_slug){
@@ -75,7 +75,7 @@ class FrontController extends Controller{
             'source' => $place->getSource($locale)
         ];
 
-        return view('front.place_view', $variables);
+        return view('front.places.show', $variables);
     }
 
     function show_development($locale){

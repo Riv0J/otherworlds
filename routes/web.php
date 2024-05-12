@@ -38,7 +38,7 @@ Route::prefix('{locale}')->group(function () {
     // set the url locale
     Route::get('/{section_slug_key}/setlocale/{new_locale}', [App\Http\Controllers\LocaleController::class, 'setLocale'])->name('setLocale');
 
-    // front routes that automatically update app locale when visited with the $locale slug
+    // routes that automatically update app locale with the $locale prefix
     Route::middleware(['locale_updater'])->group(function () {
 
         // admin manage routes for users

@@ -85,7 +85,7 @@ class CategorySeeder extends Seeder
             [
                 'es' => [
                     'keyword' => 'Glaciares',
-                    'name' => 'Accidentes glaciares',
+                    'name' => 'Accidentes glaciales',
                     'description' => 'Características geográficas que involucran glaciares y paisajes nevados',
                 ],
                 'en' => [

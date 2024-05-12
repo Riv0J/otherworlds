@@ -145,7 +145,7 @@ class User extends Authenticatable{
      * Deletes this user's saved img file
      */
     public function delete_img(){
-        if ($this->img != null && !str_contains($this->img, 'premade') && !str_contains($this->img, 'ph')) {
+        if ($this->img != null && !str_contains($this->img, 'premade')) {
             $old_img_route = public_path('users/'.$this->img);
             if (File::exists($old_img_route)) {
                 File::delete($old_img_route);
