@@ -1037,7 +1037,34 @@ class PlaceSeeder extends Seeder
                 'category_keyword' => 'Oceanic',
                 'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Hopewell_Rocks'
             ],
+            [
+                'es' => [
+                    'name' => 'Bahía de los glaciares',
+                    'synopsis' => 'Uno de los mejores paisajes del mundo para observar la creación de icebergs',
+                ],
+                'en' => [
+                    'name' => 'Glacier Bay',
+                    'synopsis' => 'One of the best landscapes in the world to observe the creation of icebergs',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Glacier_Bay_National_Park_and_Preserve',
+                    ],
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Parque_nacional_y_reserva_de_la_Bah%C3%ADa_de_los_Glaciares',
+                    ],
+                ],
+                'country_name' => 'Alaska',
+                'category_keyword' => 'Glaciers',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Glaciers_of_Glacier_Bay_National_Park'
+            ],
 
         ];
     }
 }
+
+//potential: 
+//Quelccaya
+//Rwenzori Mountains
