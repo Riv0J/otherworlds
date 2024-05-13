@@ -92,13 +92,7 @@ class FrontUserController extends Controller{
         $user->birth_date = $data['birth_date'];
 
         if ($request->hasFile('profile_img')) {
-            //delete current img file
-            $user->delete_img();
-
-            // move the new file into public/users
-            $image = $request->file('profile_img');
-            $image->move(public_path('users'), $user->id . '.' . $image->getClientOriginalExtension());
-            $user->img = $user->id . '.' . $image->getClientOriginalExtension();
+            $user->save_img($request->file('profile_img'));
         }
 
         $user->save();

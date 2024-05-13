@@ -8,7 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
+
 class User extends Authenticatable{
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -79,7 +81,10 @@ class User extends Authenticatable{
         }
         return false;
     }
-    //check if user is editable by another
+
+    /*
+     * Check if this user is editable by another
+     */
     public function is_editable(?User $user){
         if($user == null){ return false; }
 
@@ -100,7 +105,10 @@ class User extends Authenticatable{
 
         return false;
     }
-    //override Model create
+
+    /*
+     * Override Model create
+     */
     public static function create(array $attributes = []){
         // check country_id attribute
         if(!isset($attributes['country_id'])){
@@ -115,9 +123,7 @@ class User extends Authenticatable{
 
         // create instance with given array
         $model = new static($attributes);
-        // save instance
         $model->save();
-
         return $model;
     }
 
@@ -140,6 +146,22 @@ class User extends Authenticatable{
 
         return $rules;
     }
+    public static function store_rules(Request $request){
+        $rules = [
+            'email' => 'required|email',
+            'password' => 'string|min:4',
+            'name' => 'required|string|min:3|max:255',
+            'country_id' => 'required',
+            'birth_date' => 'nullable|date|date_format:Y-m-d|before_or_equal:today|after_or_equal:1900-01-01',
+
+        ];
+
+        if ($request->hasFile('profile_img')) {
+            $rules['profile_img'] = 'image|mimes:jpg,jpeg,png,gif,webp';
+        }
+
+        return $rules;
+    }
 
     /*
      * Deletes this user's saved img file
@@ -151,5 +173,23 @@ class User extends Authenticatable{
                 File::delete($old_img_route);
             }
         }
+    }
+    /*
+     * Updates this user's saved img file
+     */
+    public function save_img(UploadedFile $image){
+
+        if ($image->isValid() == false) {
+            return false;
+        }
+
+        $this->delete_img();
+        $filename = $this->id . '.' . $image->getClientOriginalExtension();
+        $image->move(public_path('users'), $filename);
+
+        $this->img = $filename;
+        $this->save();
+
+        return true;
     }
 }

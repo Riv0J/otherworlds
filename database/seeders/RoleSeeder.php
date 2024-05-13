@@ -19,14 +19,22 @@ class RoleSeeder extends Seeder
         // create roles
         Role::create([
             'name' => 'owner',
+            'icon' => 'fa-crown'
         ]);
 
         Role::create([
             'name' => 'admin',
+            'icon' => 'fa-user-astronaut'
+        ]);
+
+        Role::create([
+            'name' => 'guest',
+            'icon' => 'fa-user-tie'
         ]);
 
         Role::create([
             'name' => 'user',
+            'icon' => 'fa-user'
         ]);
     }
 }

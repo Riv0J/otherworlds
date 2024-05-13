@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\FrontUserController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,25 +35,30 @@ Route::get('/lugares', function () {
 
 // front routes with $locale slug
 Route::prefix('{locale}')->group(function () {
-    // set the url locale
+    // set the url $locale slug
     Route::get('/{section_slug_key}/setlocale/{new_locale}', [App\Http\Controllers\LocaleController::class, 'setLocale'])->name('setLocale');
 
     // routes that automatically update app locale with the $locale prefix
     Route::middleware(['locale_updater'])->group(function () {
 
-        // admin manage routes for users
+        // BACK routes for admins
         Route::middleware(['admin'])->group(function () { //admin middleware in kernel.php $routeMiddleware
-            Route::get('/admin/users', [UserController::class, 'index'])->name('user_index');
-            Route::get('/admin/users/edit/{username}', [UserController::class, 'edit'])->name('user_edit');
-            Route::post('/admin/users/update', [UserController::class, 'update'])->name('user_update');
+            Route::get('/admin/users', [AdminUserController::class, 'index'])->name('user_index');
+            Route::get('/admin/users/edit/{username}', [AdminUserController::class, 'edit'])->name('user_edit');
+            Route::post('/admin/users/update', [AdminUserController::class, 'update'])->name('user_update');
+            Route::get('/admin/users/create', [AdminUserController::class, 'create'])->name('user_create');
+            Route::post('/admin/users/store', [AdminUserController::class, 'store'])->name('user_store');
+
         });
 
-        // logged-in user front routes (redirects to login route if no user is found)
+        // FRONT routes for logged users
         Route::middleware(['auth'])->group(function () {
             Route::get('/profile/edit', [FrontUserController::class, 'edit'])->name('profile_edit');
             Route::post('/profile/update', [FrontUserController::class, 'update'])->name('profile_update');
             Route::get('/profile/reset_img/{user_id}', [FrontUserController::class, 'reset_img'])->name('reset_img');
         });
+
+        // FRONT public routes:
 
         // search for a user's profile
         Route::get('/profile/{username}', [FrontUserController::class, 'show'])->name('user_show');
@@ -88,8 +93,8 @@ Route::post('/ajax/places/favorite', [FrontController::class, 'ajax_place_favori
 // ajax place request
 Route::post('/ajax/places/request', [FrontController::class, 'ajax_place_request']);
 // ajax user reset img
-Route::post('/ajax/admin/users/reset_img', [UserController::class, 'ajax_reset_img']);
+Route::post('/ajax/admin/users/reset_img', [AdminUserController::class, 'ajax_reset_img']);
 // ajax user reset img
-Route::post('/ajax/admin/users/toggle_ban', [UserController::class, 'ajax_toggle_ban']);
+Route::post('/ajax/admin/users/toggle_ban', [AdminUserController::class, 'ajax_toggle_ban']);
 
 

@@ -13,11 +13,10 @@
             <h3>@lang('otherworlds.users')</h3>
             <small>@lang('otherworlds.results'): {{count($users)}}</small>
         </div>
-
         <nav class="buttons d-flex flex-row">
-            <button title='@lang('otherworlds.edit')' id="edit_button" class="button info" style="border-radius: 0">
-                <i class="fa-regular fa-add"></i>Add user
-            </button>
+            <a href="{{route('user_create',['locale'=>$locale])}}" class="button info" style="border-radius: 0">
+                <i class="fa-regular fa-add"></i>@lang('otherworlds.create_user')
+            </a>
         </nav>
     </div>
 
@@ -40,10 +39,8 @@
                 <tr {{$user->id == $logged->id ? 'you' : ''}} user_id="{{$user->id}}" username='{{$user->name}}' active="{{$user->active ? 'true' : 'false'}}" role="{{$user->role->name}}" title="Role: {{$user->role->name}}, User Id: {{$user->id}}">
                     <td>
                         <div class="aligner">
-                            @if($user->is_owner())
-                            <i class="fa-solid fa-crown"></i>
-                            @elseif ($user->is_admin())
-                            <i class="fa-solid fa-user-astronaut"></i>
+                            @if(!$user->is_public())
+                                <i class="fa-solid {{$user->role->icon}}"></i>
                             @endif
                         </div>
                     </td>

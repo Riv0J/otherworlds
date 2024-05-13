@@ -13,7 +13,7 @@ use App\Models\User;
 use App\Models\Message;
 use App\Models\Country;
 use App\Models\Role;
-class UserController extends Controller{
+class AdminUserController extends Controller{
 
     /**
      * Show a the index of users to an admin
@@ -74,10 +74,10 @@ class UserController extends Controller{
         }
 
         $name_exists = User::where('name', $data['name'])->where('id','!=',$user->id)->exists();
-        if($name_exists){ return redirect()->back()->withErrors(trans('otherworlds.name_taken', ['field' => $data['name']])); }
+        if($name_exists){ return redirect()->back()->withErrors(trans('otherworlds.name_taken', ['field' => $data['name']]))->withInput(); }
 
         $email_exists = User::where('email', $data['email'])->where('id','!=',$user->id)->exists();
-        if($email_exists){ return redirect()->back()->withErrors(trans('otherworlds.email_taken', ['field' => $data['email']])); }
+        if($email_exists){ return redirect()->back()->withErrors(trans('otherworlds.email_taken', ['field' => $data['email']]))->withInput(); }
 
         $user->name = $data['name'];
         $user->email = $data['email'];
@@ -89,23 +89,69 @@ class UserController extends Controller{
         // can change role if current user role is user or admin
         if($user->is_public() || $user->is_admin()){
             $role = Role::find($data['role']);
-            if(!$role || $role->name == 'owner'){ return redirect()->back()->withErrors("Setting of owner role not permitted"); }
+            if(!$role || $role->name == 'owner'){ return redirect()->back()->withErrors("Setting of owner role not permitted")->withInput(); }
             $user->role_id = $role->id;
         }
 
         if ($request->hasFile('profile_img')) {
-            //delete current img file
-            $user->delete_img();
-
-            // move the new file into public/users
-            $image = $request->file('profile_img');
-            $image->move(public_path('users'), $user->id . '.' . $image->getClientOriginalExtension());
-            $user->img = $user->id . '.' . $image->getClientOriginalExtension();
+            $user->save_img($request->file('profile_img'));
         }
 
         $user->save();
         Session::flash('message', new Message(Message::TYPE_SUCCESS, trans('otherworlds.user_edit_success')));
         return redirect()->route('user_edit',['locale'=> $locale, 'username'=> $user->name]);
+    }
+    /**
+     * Show a create user form to an admin
+     */
+    public function create($locale){
+
+        $variables = [
+            'locale' => $locale,
+            'logged' => \Auth::user(),
+            'countries' => Country::all(),
+            'roles' => Role::where('name', '!=',"owner")->get(),
+        ];
+
+        return view('admin.users.create', $variables);
+    }
+
+    /**
+     * Store a new user created by an admin
+     */
+    public function store(Request $request, $locale){
+        $data = $request->all();
+        $rules = User::store_rules($request);
+
+        $validator = Validator::make($data, $rules);
+
+        // redirect if validator fails
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $name_exists = User::where('name', $data['name'])->exists();
+        if($name_exists){ return redirect()->back()->withErrors(trans('otherworlds.name_taken', ['field' => $data['name']]))->withInput(); }
+
+        $email_exists = User::where('email', $data['email'])->exists();
+        if($email_exists){ return redirect()->back()->withErrors(trans('otherworlds.email_taken', ['field' => $data['email']]))->withInput(); }
+
+        $new_user = User::create([
+            'active'=> $request->has('active'),
+            'name'=> $data['name'],
+            'email'=> $data['email'],
+            'password'=> Hash::make($data['password']),
+            'role_id'=> $data['role_id'],
+            'country_id'=> $data['country_id'],
+            'birth_date'=> $data['birth_date']
+        ]);
+
+        if ($request->hasFile('profile_img')) {
+            $new_user->save_img($request->file('profile_img'));
+        }
+
+        Session::flash('message', new Message(Message::TYPE_SUCCESS, trans('otherworlds.user_create_success')));
+        return redirect()->route('user_index',['locale'=>$locale]);
     }
 
 

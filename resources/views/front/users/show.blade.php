@@ -23,10 +23,8 @@
             </div>
             <div class="d-flex flex-column justify-content-between">
                 <h3 class="regular pb-2 d-inline-flex gap-2">
-                    @if($user->is_owner())
-                    <i class="fa-solid fa-crown"></i>
-                    @elseif ($user->is_admin())
-                    <i class="fa-solid fa-user-astronaut"></i>
+                    @if(!$user->is_public())
+                        <i class="fa-solid {{$user->role->icon}}"></i>
                     @endif
                     {{$user->name}}
                 </h3>

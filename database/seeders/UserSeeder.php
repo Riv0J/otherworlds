@@ -20,6 +20,7 @@ class UserSeeder extends Seeder{
     public function run(){
         $owner_role_id = (Role::where('name', 'owner')->first())->id;
         $admin_role_id = (Role::where('name', 'admin')->first())->id;
+        $guest_role_id = (Role::where('name', 'guest')->first())->id;
         $user_role_id = (Role::where('name', 'user')->first())->id;
 
         $owner = User::create([
@@ -56,6 +57,16 @@ class UserSeeder extends Seeder{
             'country_id' => Country::random()->id,
             'img' => 'premade/2.gif'
         ]);
+
+        $guest = User::create([
+            'name' => 'guest',
+            'email' => 'guest@gmail.com',
+            'password' => Hash::make('guest'),
+            'role_id' => $guest_role_id,
+            'country_id' => Country::random()->id,
+            'img' => 'premade/2.gif'
+        ]);
+
 
         //create 50 random users
         User::factory()->count(50)->create();

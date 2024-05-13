@@ -192,10 +192,9 @@
     </form>
 
     {{-- return START --}}
-    <button title="@lang('otherworlds.return')" id="return" class="d-none d-lg-flex button info border"
-        onclick="window.history.back()">
+    <a href="{{route("user_index",['locale'=>$locale])}}" id="return" class="button d-none d-lg-flex button info border">
         <i class="fa-solid fa-angles-left"></i>
-    </button>
+    </a>
     <style>
         #return {
             position: fixed;
