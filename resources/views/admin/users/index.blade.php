@@ -125,7 +125,7 @@
     }
     td img{
         width: 3rem;
-        margin: 0.5rem
+        margin: 0.25rem
     }
     th, td{
         padding: 0 0.5rem;
@@ -260,7 +260,6 @@
         console.log(user);
         row.querySelector('.profile_img img').setAttribute('src', "{{asset('users/null_img')}}".replace('null_img',user.img));
 
-
         const ban_button = row.querySelector('.ban_toggle');
         const ban_i = row.querySelector('.ban_toggle i');
         const name_container = row.querySelector('.name_td div')
@@ -276,6 +275,127 @@
             name_container.innerHTML = '<i class="fa-solid fa-ban" style="color: red"></i>'+user.name
 
         }
+    }
+</script>
+<script>
+    const logged = {!! json_encode($logged) !!};
+    const loaded_roles = organize_dic({!! json_encode($roles) !!});
+    const loaded_countries = organize_dic({!! json_encode($countries) !!});
+    document.addEventListener('DOMContentLoaded', function({
+        console.log(logged);
+        console.log({!! json_encode($countries) !!});
+        create_rows({!! json_encode($countries) !!})
+    }));
+
+    function create_rows(users){
+        users.forEach(user => {
+            const role = loaded_roles[user.role_id];
+
+            const row = document.createElement('tr');
+            row.setAttribute('user_id',user.id)
+            row.setAttribute('username',user.name)
+            row.setAttribute('role', role.name);
+            if(user.active == 1){
+                row.setAttribute('active',"true");
+            } else{
+                row.setAttribute('active',"false");
+            }
+            if(logged.id == user.id){
+                row.setAttribute("you", "");
+            }
+            row.setAttribute('title', "User Id: "+user.id);
+
+            row.innerHTML += `
+                    <td>
+                        <div class="aligner">
+                            @if(!$user->is_public())
+                                <i class="fa-solid ${role.icon}}"></i>
+                            @endif
+                        </div>
+                    </td>
+                    `;
+        });
+    }
+    //ajax variables
+    let current_page = 1;
+    let requesting = false;
+    let querying = false;
+
+    //on scroll event check if the end of the places container is visible
+    window.addEventListener('scroll', function() {
+        const container = document.querySelector('.results_table');
+
+        //check if scroll is not low enough return
+        if (container.getBoundingClientRect().bottom > window.innerHeight*1.25){
+            return;
+        }
+
+        if (requesting == false && querying == false) {
+            request();
+        } else if (requesting == true){
+            querying = true;
+        }
+    });
+
+
+
+    function request(){
+        if (current_page == -1){
+            //means there are no more places for this query
+            return;
+        }
+        const ajax_data = {
+            method: 'POST',
+            url: '{{ URL('/ajax/admin/users/request') }}',
+            request_data : {
+                _token: '{{ csrf_token() }}',
+                locale: '{{$locale}}',
+                current_page: current_page,
+            },
+            before_func: function(){
+                requesting = true;
+                // const ajax_loading = document.getElementById('ajax_loading'); //show #ajax_loading
+                // ajax_loading.style.display = 'flex';
+            },
+            success_func: function (response_data){
+                console.log(response_data);
+                current_page = response_data['current_page'];
+
+                //add the countries to loaded_countries
+                response_data['countries'].forEach(function(country) {
+                    if(loaded_countries[country.id] == null){
+                        loaded_countries[country.id] = country;
+                    }
+                });
+
+                //create_place_cards(response_data['places']); //create the place cards
+            },
+            after_func: function(){
+                //ajax_loading.style.display = 'none'; //hide #ajax_loading
+                request_cooldown();
+            }
+        }
+
+        ajax(ajax_data);
+    }
+    async function request_cooldown(){
+        await sleep(1000);
+        requesting = false;
+        if(querying == true){
+            querying = false;
+            request();
+        }
+    }
+    async function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    function organize_dic(dic){
+        const organized_dic = {};
+        for (let i = 0; i < Object.keys(dic).length; i++) {
+            const obj = dic[i];
+            organized_dic[obj.id] = obj;
+        }
+        return organized_dic;
     }
 </script>
 @endsection

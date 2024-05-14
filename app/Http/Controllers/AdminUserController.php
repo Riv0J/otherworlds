@@ -18,14 +18,18 @@ class AdminUserController extends Controller{
     /**
      * Show a the index of users to an admin
      */
-    function index($locale){
+    public function index($locale){
+        $users = $this->get_users(1);
         $variables = [
             'locale' => $locale,
-            'users' => User::orderBy('role_id', 'asc')->get(),
+            'users' => $users,
+            'roles' => Role::all(),
+            'countries' => $users->pluck('country')->unique()->values()->all(),
             'logged' => auth()->user()
         ];
         return view('admin.users.index', $variables);
     }
+
     /**
      * Show a user's edit form to an admin
      */
@@ -105,7 +109,6 @@ class AdminUserController extends Controller{
      * Show a create user form to an admin
      */
     public function create($locale){
-
         $variables = [
             'locale' => $locale,
             'logged' => \Auth::user(),
@@ -154,6 +157,48 @@ class AdminUserController extends Controller{
         return redirect()->route('user_index',['locale'=>$locale]);
     }
 
+    /**
+     * Get Users based on page
+     */
+    public static function get_users($page){
+        // calculate the start index based on the page, and per page
+        $per_page = 30;
+        $start_index = ($page - 1) * $per_page;
+
+        return User::orderBy('role_id','asc')
+        ->skip($start_index)
+        ->take($per_page)
+        ->get('users.*');
+    }
+
+    /**
+     * Ajax, request more users by page
+     */
+
+    public function ajax_user_request(Request $request){
+        $request_data = $request->all(); //get request data
+        app()->setLocale($request_data['locale']); //set locale to request
+        $next_page = $request_data['current_page'] + 1; //advance page
+
+        //get the places for next page
+        $users = AdminUserController::get_users($page = $next_page);
+
+        //get the countries for these users
+        $countries = $users->pluck('country')->unique()->values()->all();
+
+        if(count($users) === 0){
+            //if no places, means there is no next page
+            $next_page = -1;
+        }
+
+        $variables = [
+            'current_page' => $next_page,
+            'users' => $users,
+            'countries' => $countries,
+        ];
+
+        return response()->json($variables); //convert vars to json
+    }
 
     /**
      * Ajax, Resets a user's profile image

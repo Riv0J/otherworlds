@@ -10,7 +10,7 @@ use App\Models\Place;
 use App\Models\Category;
 
 class FrontController extends Controller{
-    protected $PER_PAGE = 10;
+    protected const PER_PAGE = 10;
 
     function home($locale){
         $variables = [
@@ -26,7 +26,7 @@ class FrontController extends Controller{
         // check if this section_slug is valid
 
         //get the places in the first page
-        $places = FrontController::getPlaces($page = 1, $per_page = $this->PER_PAGE);
+        $places = FrontController::getPlaces($page = 1);
 
         //get the countries of the places
         $countries = $places->pluck('country')->unique()->values()->all();
@@ -93,7 +93,7 @@ class FrontController extends Controller{
         $next_page = $request_data['current_page'] + 1; //advance page
 
         //get the places for next page
-        $places = FrontController::getPlaces($page = $next_page, $per_page = $this->PER_PAGE);
+        $places = FrontController::getPlaces($page = $next_page);
 
         //get the countries for these places
         $countries = $places->pluck('country')->unique()->values()->all();
@@ -138,9 +138,9 @@ class FrontController extends Controller{
     }
 
     // get places based on page
-    public static function getPlaces($page, $per_page){
+    public static function getPlaces($page){
         // calculate the start index based on the page, and per page
-        $startIndex = ($page - 1) * $per_page;
+        $startIndex = ($page - 1) * FrontController::PER_PAGE;
 
         //get the places ordered by name
         // $places = Place::join('places_translations', 'places.id', '=', 'places_translations.place_id')
@@ -153,7 +153,7 @@ class FrontController extends Controller{
         // get the places ordered by favorites
         $places = Place::orderBy('favorites_count', 'desc')
             ->skip($startIndex)
-            ->take($per_page)
+            ->take(FrontController::PER_PAGE)
             ->get('places.*');
         return $places;
     }

@@ -92,9 +92,13 @@ Route::prefix('{locale}')->group(function () {
 Route::post('/ajax/places/favorite', [FrontController::class, 'ajax_place_favorite']);
 // ajax place request
 Route::post('/ajax/places/request', [FrontController::class, 'ajax_place_request']);
+
+
 // ajax user reset img
 Route::post('/ajax/admin/users/reset_img', [AdminUserController::class, 'ajax_reset_img']);
-// ajax user reset img
+// ajax user toggle active
 Route::post('/ajax/admin/users/toggle_ban', [AdminUserController::class, 'ajax_toggle_ban']);
+// ajax user request
+Route::post('/ajax/admin/users/request', [AdminUserController::class, 'ajax_user_request']);
 
 
