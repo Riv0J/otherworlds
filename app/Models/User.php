@@ -74,6 +74,11 @@ class User extends Authenticatable{
     public function is_admin(){
         return $this->role->name === 'admin';
     }
+    //check if user is a guest
+    public function is_guest(){
+        return $this->role->name === 'guest';
+    }
+
     //check if user is a public user
     public function is_public(){
         if($this->role->name === 'user'){
@@ -88,13 +93,18 @@ class User extends Authenticatable{
     public function is_editable(?User $user){
         if($user == null){ return false; }
 
-        //if the user editing is owner
+        //if the user editing is an owner
         if($user->is_owner()){
             return true;
         }
 
         //if the user editing is admin, and it's trying to edit a public user
         if($user->is_admin() && $this->is_public()){
+            return true;
+        }
+
+        //if the user editing is admin, and it's trying to edit a guest
+        if($user->is_admin() && $this->is_guest()){
             return true;
         }
 

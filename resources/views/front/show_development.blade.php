@@ -18,6 +18,11 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">High prio</h3>
         <li>
             <h5>
+                Error al trigger del ajax de users
+            </h5>
+        </li>
+        <li>
+            <h5>
                 Admin User index*(+ajax), create*, edit*, update*, delete
             </h5>
         </li>

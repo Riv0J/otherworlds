@@ -1,12 +1,15 @@
 function ajax(ajax_data){
     //ajax_data has request_data which is a dic with the variables to send
     const request_data = ajax_data['request_data'];
-
+    const spinner = document.querySelector('.fa-spinner');
     //call before_func, if provided
     if(ajax_data['before_func']){
         ajax_data['before_func']();
     }
-
+    if(spinner){
+        spinner.style.visibility = "visible";
+    }
+    console.log(spinner);
     fetch(ajax_data['url'], {
         method: ajax_data['method'],
         headers: {
@@ -41,6 +44,9 @@ function ajax(ajax_data){
         //call after_func, if provided
         if(ajax_data['after_func']){
             ajax_data['after_func']();
+        }
+        if(spinner){
+            spinner.style.visibility = "hidden";
         }
     });
 }

@@ -91,7 +91,7 @@ class AdminUserController extends Controller{
         $user->password = Hash::make($data['password']);
 
         // can change role if current user role is user or admin
-        if($user->is_public() || $user->is_admin()){
+        if($user->is_owner() == false){
             $role = Role::find($data['role']);
             if(!$role || $role->name == 'owner'){ return redirect()->back()->withErrors("Setting of owner role not permitted")->withInput(); }
             $user->role_id = $role->id;
