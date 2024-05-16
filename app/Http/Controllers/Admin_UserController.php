@@ -13,7 +13,7 @@ use App\Models\User;
 use App\Models\Message;
 use App\Models\Country;
 use App\Models\Role;
-class AdminUserController extends Controller{
+class Admin_UserController extends Controller{
 
     /**
      * Show a the index of users to an admin
@@ -105,6 +105,7 @@ class AdminUserController extends Controller{
         Session::flash('message', new Message(Message::TYPE_SUCCESS, trans('otherworlds.user_edit_success')));
         return redirect()->route('user_edit',['locale'=> $locale, 'username'=> $user->name]);
     }
+
     /**
      * Show a create user form to an admin
      */
@@ -154,6 +155,22 @@ class AdminUserController extends Controller{
         }
 
         Session::flash('message', new Message(Message::TYPE_SUCCESS, trans('otherworlds.user_create_success')));
+        return redirect()->route('user_index',['locale'=>$locale]);
+    }
+    /**
+     * Process a user DELETE request by an admin
+     */
+    public function delete(Request $request, $locale){
+        $data = $request->all();
+
+        $user = User::find($data['user_id']);
+        if(!$user){ return redirect()->back()->withErrors("User not found"); }
+
+        // delete user image from the system
+        $user->delete_img();
+        $user->delete();
+
+        Session::flash('message', new Message(Message::TYPE_SUCCESS, trans('otherworlds.user_delete_success')));
         return redirect()->route('user_index',['locale'=>$locale]);
     }
 

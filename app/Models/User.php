@@ -181,9 +181,12 @@ class User extends Authenticatable{
             $old_img_route = public_path('users/'.$this->img);
             if (File::exists($old_img_route)) {
                 File::delete($old_img_route);
+                $this->img = '';
             }
         }
+        $this->save();
     }
+
     /*
      * Updates this user's saved img file
      */

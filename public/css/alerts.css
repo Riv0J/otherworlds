@@ -1,0 +1,81 @@
+#modal_confirm>article{
+    background-color: var(--black);
+    padding: 3rem 4rem;
+    scale: 0.3;
+    transition: all 0.25s;
+}
+#modal_confirm i:nth-child(1){
+    font-size: 5rem;
+}
+#modal_confirm button{
+    color: var(--white);
+    font-size: 1.25rem;
+    padding: 0.25rem 1.25rem;
+    border-radius: 0.5rem;
+}
+.modal_cancel{
+    background-color: var(--red_light)
+}
+.modal_cancel:hover{
+    background-color: var(--red_dark)
+}
+.modal_confirm{
+    background-color: var(--green_light)
+}
+.modal_confirm:hover{
+    background-color: var(--green_dark)
+}
+#popups, #modal_confirm{
+    position: fixed;
+    inset: 0;
+    z-index: 1035;
+    pointer-events: none;
+    transition: all 0.25s;
+}
+#modal_confirm{
+    visibility: hidden;
+    background-color: var(--black_opacity);
+    pointer-events: all;
+}
+#popups ul{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+#popups .alert{
+    padding-inline: 1.5rem;
+    padding-block: 0.75rem;
+    display: inline-flex;
+    gap: 0.5rem;
+    color: black;
+    pointer-events: all;
+    animation: fade 6s;
+    opacity: 0;
+    margin: 0 0
+}
+#popups .alert>*{
+    pointer-events: none
+}
+.alert i{
+    align-self: flex-start;
+}
+.alert .fa-xmark{
+    visibility: hidden;
+}
+.alert:hover .fa-xmark{
+    visibility: visible
+}
+@keyframes fade {
+    0% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 0.9;
+    }
+    100% {
+        opacity: 0;
+    }
+}

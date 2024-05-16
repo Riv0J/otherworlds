@@ -18,17 +18,12 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">High prio</h3>
         <li>
             <h5>
-                Error al trigger del ajax de users
+                Ver si es mejor usar jsons para traducciones
             </h5>
         </li>
         <li>
             <h5>
-                Admin User index*(+ajax), create*, edit*, update*, delete
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Rutas traducibles
+                Rutas traducibles[EN, ES, EU]
             </h5>
         </li>
         <li>
@@ -99,7 +94,12 @@ Dev | Otherworlds
         </li>
         <li>
             <h5 class="text-decoration-line-through">
-                Front User profile, edit, update
+                Front User profile*, edit*, update*
+            </h5>
+        </li>
+        <li>
+            <h5 class="text-decoration-line-through">
+                Admin User index*(+ajax), create*, edit*, update*, delete*
             </h5>
         </li>
     </ul>

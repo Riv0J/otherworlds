@@ -30,7 +30,6 @@
                         <th></th>
                         <th>@lang('otherworlds.username')</th>
                         <th>@lang('otherworlds.email')</th>
-                        <th>@lang('otherworlds.favorites')</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -291,7 +290,6 @@
         function create_row(user) {
             const role = loaded_roles[user.role_id];
             const country = loaded_countries[user.country_id];
-            console.log(role);
             const row = document.createElement('tr');
             row.setAttribute('user_id', user.id)
             row.setAttribute('username', user.name)
@@ -313,7 +311,6 @@
                 aligner.innerHTML += `<i class="fa-solid ${role.icon}"></i>`;
                 td1.appendChild(aligner);
             }
-
             row.appendChild(td1);
 
             // profile_img
@@ -344,9 +341,6 @@
 
             // email
             row.innerHTML += `<td>${user.email}</td>`;
-
-            // favorites
-            row.innerHTML += `<td>0</td>`;
 
             // buttons todo, check if its editable
             const td_buttons = document.createElement('td');

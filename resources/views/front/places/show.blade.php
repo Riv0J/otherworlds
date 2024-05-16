@@ -573,7 +573,7 @@
     function close_modal() {
         modal.style.opacity = 0;
         modal.style.zIndex = -1;
-        box.style.scale = 0;
+        box.style.scale = 0.3;
     }
     function open_modal(){
         modal.style.opacity = 1;

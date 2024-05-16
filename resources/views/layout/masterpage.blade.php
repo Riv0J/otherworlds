@@ -42,9 +42,9 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
-
         {{-- custom CSS --}}
         <link rel="stylesheet" href="{{ asset('css/app.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/alerts.css') }}"/>
 
     </head>
     <body class="d-flex flex-row">
@@ -63,8 +63,24 @@
             @include('layout.footer')
         </div>
 
+        <div id="modal_confirm" class="flex_center">
+            <article class="flex_center flex-column gap-5 border_gray">
+                <div class="flex_center flex-column gap-3">
+                    <div class="flex_center mb-4">
+                        <i class="fa-regular fa-circle-question"></i>
+                    </div>
+                    <h4 class="modal_title"></h4>
+                    <p class="modal_text"></p>
+                </div>
+                <div class="d-flex flex-row gap-5">
+                    <button class="modal_cancel"></button>
+                    <button class="modal_confirm"></button>
+                </div>
+            </article>
+        </div>
+
         <div id="popups" class="d-flex align-items-end justify-content-end m-3 mb-5 m-sm-5">
-            <ul class="">
+            <ul>
                 @if (Session::has('message'))
                     @php $message = Session::get('message') @endphp
                     <li class="alert alert-{{$message->type}}">
@@ -81,62 +97,8 @@
                         <i class="fa-solid fa-xmark"></i>
                     </li>
                 @endforeach
-
             </ul>
         </div>
-        <style>
-            #popups{
-                position: fixed;
-                inset: 0;
-                z-index: 1035;
-                pointer-events: none;
-            }
-            #popups ul{
-                list-style-type: none;
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-end;
-                align-items: flex-end;
-                gap: 0.5rem;
-            }
-            #popups .alert{
-                padding-inline: 1.5rem;
-                padding-block: 0.75rem;
-                display: inline-flex;
-                gap: 0.5rem;
-                color: black;
-                pointer-events: all;
-                animation: fade 6s;
-                opacity: 0;
-                margin: 0 0
-
-            }
-            #popups .alert>*{
-                pointer-events: none
-            }
-            .alert i{
-                align-self: flex-start;
-            }
-            .alert .fa-xmark{
-                visibility: hidden;
-            }
-            .alert:hover .fa-xmark{
-                visibility: visible
-            }
-            @keyframes fade {
-                0% {
-                    opacity: 1;
-                }
-                90% {
-                    opacity: 0.9;
-                }
-                100% {
-                    opacity: 0;
-                }
-            }
-
-
-        </style>
         <script>
             document.querySelectorAll('.alert').forEach(element => {
                 element.addEventListener('click', function(){
@@ -148,6 +110,7 @@
 
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/dropdowns.js') }}"></script>
+    <script src="{{ asset('js/alerts.js') }}"></script>
 
     @yield('script')
 </html>

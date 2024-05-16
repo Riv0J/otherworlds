@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\FrontUserController;
-use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\Admin_UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,11 +43,12 @@ Route::prefix('{locale}')->group(function () {
 
         // BACK routes for admins
         Route::middleware(['admin'])->group(function () { //admin middleware in kernel.php $routeMiddleware
-            Route::get('/admin/users', [AdminUserController::class, 'index'])->name('user_index');
-            Route::get('/admin/users/edit/{username}', [AdminUserController::class, 'edit'])->name('user_edit');
-            Route::post('/admin/users/update', [AdminUserController::class, 'update'])->name('user_update');
-            Route::get('/admin/users/create', [AdminUserController::class, 'create'])->name('user_create');
-            Route::post('/admin/users/store', [AdminUserController::class, 'store'])->name('user_store');
+            Route::get('/admin/users', [Admin_UserController::class, 'index'])->name('user_index');
+            Route::get('/admin/users/edit/{username}', [Admin_UserController::class, 'edit'])->name('user_edit');
+            Route::post('/admin/users/update', [Admin_UserController::class, 'update'])->name('user_update');
+            Route::get('/admin/users/create', [Admin_UserController::class, 'create'])->name('user_create');
+            Route::post('/admin/users/store', [Admin_UserController::class, 'store'])->name('user_store');
+            Route::delete('/admin/users/delete', [Admin_UserController::class, 'delete'])->name('user_delete');
 
         });
 
@@ -93,12 +94,14 @@ Route::post('/ajax/places/favorite', [FrontController::class, 'ajax_place_favori
 // ajax place request
 Route::post('/ajax/places/request', [FrontController::class, 'ajax_place_request']);
 
-
-// ajax user reset img
-Route::post('/ajax/admin/users/reset_img', [AdminUserController::class, 'ajax_reset_img']);
-// ajax user toggle active
-Route::post('/ajax/admin/users/toggle_ban', [AdminUserController::class, 'ajax_toggle_ban']);
-// ajax user request
-Route::post('/ajax/admin/users/request', [AdminUserController::class, 'ajax_user_request']);
+// BACK routes for admins
+Route::middleware(['admin'])->group(function () {
+    // ajax user reset img
+    Route::post('/ajax/admin/users/reset_img', [Admin_UserController::class, 'ajax_reset_img']);
+    // ajax user toggle active
+    Route::post('/ajax/admin/users/toggle_ban', [Admin_UserController::class, 'ajax_toggle_ban']);
+    // ajax user request
+    Route::post('/ajax/admin/users/request', [Admin_UserController::class, 'ajax_user_request']);
+});
 
 

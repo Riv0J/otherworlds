@@ -10,6 +10,10 @@
 
 @section('content')
     <link rel="stylesheet" href="{{asset('css/forms.css')}}">
+    <form action="{{ route('user_delete', ['locale'=>$locale]) }}" method="POST" id="delete_user_form">
+        @csrf @method('DELETE')
+        <input type="hidden" name="user_id" value="{{$user->id}}">
+    </form>
     <form class="wrapper col-12 col-lg-8" method="POST" enctype="multipart/form-data" action="{{ route('user_update', ['locale' => $locale]) }}">
         <input type="hidden" name="user_id" value="{{$user->id}}">
         @csrf
@@ -21,6 +25,9 @@
             <nav class="buttons d-flex flex-row">
                 <button type="submit" class="button border info">
                     <i class="fa-solid fa-floppy-disk"></i>
+                </button>
+                <button type="button" class="button border red" id="delete_user">
+                    <i class="fa-solid fa-trash"></i>
                 </button>
             </nav>
         </div>
@@ -178,6 +185,7 @@
         </script>
 
         <div class="div_h div_gray my-4"></div>
+
         {{-- form buttons --}}
         <div class="d-flex justify-content-center gap-3">
             <button type="button" class="button border red" onclick="window.history.back()">
@@ -234,5 +242,19 @@
     @if($user->country)
         select.select_option({{$user->country->id}})
     @endif
+
+    document.querySelector('#delete_user').addEventListener('click', function(){
+        const modal_data = {
+            'title': '@lang('otherworlds.confirm_delete_user_title')',
+            'body': '@lang('otherworlds.confirm_delete_user_body')',
+            'cancel': '@lang('otherworlds.cancel')',
+            'confirm': '@lang('otherworlds.confirm')',
+            'on_confirm': function(){
+                document.querySelector('#delete_user_form').submit()
+            }
+        }
+        modal_confirm(modal_data)
+    })
+
 </script>
 @endsection

@@ -12,8 +12,11 @@
 
     --cyan_light: #00f3ff;
     --green_light: #58D68D;
+    --green_dark: #36ae68;
     --purple_light: #da46ff;
     --yellow_bright: yellow;
+    --red_light: #f27474;
+    --red_dark: #ca4f4f;
 
     --black: rgb(29, 29, 29);
     --gray: rgb(46, 43, 52);
@@ -451,7 +454,7 @@ nav.buttons{
     gap: 0.5rem;
 }
 nav.buttons>.button{
-    border: 1px solid gray;
+    border: 1px solid var(--gray_light) !important;
 }
 .profile_img img{
     aspect-ratio: 1;
