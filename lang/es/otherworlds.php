@@ -98,11 +98,15 @@ return [
     'edit_profile' => 'Editar perfil',
     'profile_img' => 'Imagen de perfil',
     'save_changes' => 'Guardar cambios',
-    'user_edit_success' => 'Usuario editado',
     'name_taken' => 'Ya existe un usuario con el nombre ":field"',
     'email_taken' => 'Ya existe un usuario con el email ":field"',
+    'create_user' => 'Crear usuario',
+    'user_created_success' => 'Usuario creado',
+    'user_edit_success' => 'Usuario editado',
+    'user_delete_success' => 'Usuario eliminado',
 
     // general
+    'total' => 'Total',
     'results' => 'Resultados',
     'role' => 'Rol',
     'email' => 'Correo Electrónico',

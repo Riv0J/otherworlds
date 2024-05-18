@@ -99,16 +99,9 @@
                 @endforeach
             </ul>
         </div>
-        <script>
-            document.querySelectorAll('.alert').forEach(element => {
-                element.addEventListener('click', function(){
-                    event.target.style.display = 'none';
-                });
-            });
-        </script>
     </body>
 
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/header.js') }}"></script>
     <script src="{{ asset('js/dropdowns.js') }}"></script>
     <script src="{{ asset('js/alerts.js') }}"></script>
 

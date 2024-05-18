@@ -100,6 +100,8 @@
 
     // if open is false, close the aside
     const open = get_cookie("otherworlds_admin_nav");
+    toggle_admin_aside();
+    toggle_admin_aside();
     if(open == "false"){
         toggle_admin_aside();
     }

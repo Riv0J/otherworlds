@@ -23,6 +23,7 @@ class Admin_UserController extends Controller{
         $variables = [
             'locale' => $locale,
             'users' => $users,
+            'total' => User::count(),
             'roles' => Role::all(),
             'countries' => $users->pluck('country')->unique()->values()->all(),
             'logged' => auth()->user()

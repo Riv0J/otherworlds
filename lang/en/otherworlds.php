@@ -98,11 +98,15 @@ return [
     'edit_profile' => 'Edit profile',
     'profile_img' => 'Profile image',
     'save_changes' => 'Save changes',
-    'user_edit_success' => 'User edited',
     'name_taken' => 'Name ":field" is already taken',
     'email_taken' => 'Email ":field" is already in use',
+    'create_user' => 'Create user',
+    'user_created_success' => 'User created',
+    'user_edit_success' => 'User edited',
+    'user_delete_success' => 'User deleted',
 
     // general
+    'total' => 'Total',
     'results' => 'Results',
     'role' => 'Role',
     'email' => 'Email',

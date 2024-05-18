@@ -9,9 +9,10 @@
 
     <section class="wrapper col-12 col-lg-8">
         <div class="mb-4 p-2 title">
-            <div class="d-flex flex-row align-items-center gap-4">
+            <div class="d-flex flex-row align-items-center gap-2">
+                <i class="fa-solid fa-users"></i>
                 <h3>@lang('otherworlds.users')</h3>
-                <small id="total"></small>
+                <small class="mx-2">@lang('otherworlds.total'): {{$total}}</small>
             </div>
             <nav class="buttons d-flex flex-row gap-3">
                 <i class="fa-solid fa-spinner"></i>
@@ -25,7 +26,8 @@
             <table class="results_table">
                 <thead>
                     <tr>
-                        <th>@lang('otherworlds.role')</th>
+                        <th class="small"></th>
+                        <th class="small">@lang('otherworlds.role')</th>
                         <th></th>
                         <th></th>
                         <th>@lang('otherworlds.username')</th>
@@ -42,6 +44,7 @@
 
 @section('script')
     <script src="{{ asset('js/ajax.js') }}"></script>
+    <script src="{{ asset('js/tables.js') }}"></script>
     <script>
         function request_reset_img(request_url, user_id, row) {
             const ajax_data = {
@@ -122,10 +125,6 @@
         });
 
         function create_rows(users) {
-            //update total
-            total += users.length;
-            document.querySelector('#total').textContent = total;
-
             users.forEach(user => {
                 create_row(user);
             });
@@ -147,19 +146,17 @@
                 row.setAttribute("you", "");
             }
             row.setAttribute('title', "User ID =  " + user.id);
-
+            row.innerHTML += `<td class="id text-end">${user.id}</td>`
             // role
-            const td1 = document.createElement('td');
-            if (role.name != 'user') {
-                const aligner = create_aligner();
-                aligner.innerHTML += `<i class="fa-solid ${role.icon}"></i>`;
-                td1.appendChild(aligner);
+            const role_td = document.createElement('td')
+            if(role.name != 'user'){
+                role_td.innerHTML += `<div class="aligner"><i class="fa-solid ${role.icon}"></i></div>`;
             }
-            row.appendChild(td1);
+            row.appendChild(role_td);
 
             // profile_img
             const asset_route = "{{ asset('users') }}" + '/' + user.img;
-            row.innerHTML += `<td class="profile_img"><img src="${asset_route}"></td>`;
+            row.innerHTML += `<td class="px-0"><div class="profile_img aligner"><img src="${asset_route}"></div></td>`;
 
             // country
             row.innerHTML += `
@@ -186,10 +183,12 @@
             // email
             row.innerHTML += `<td>${user.email}</td>`;
 
-            // buttons todo, check if its editable
+            // buttons, check if its editable
             const td_buttons = document.createElement('td');
-            const aligner = create_aligner();
+
             if (user.id != logged.id && (role.name == 'user' || role.name == 'guest')) {
+                const aligner = create_aligner();
+                td_buttons.appendChild(aligner);
                 aligner.innerHTML += `
                     <button class="edit yellow">
                         <i class="fa-solid fa-pen-to-square"></i>
@@ -213,13 +212,12 @@
                 }
             }
 
-            td_buttons.appendChild(aligner);
             row.appendChild(td_buttons);
-            add_listeners(row);
+            add_row_listeners(row);
             results.appendChild(row);
         }
 
-        function add_listeners(row) {
+        function add_row_listeners(row) {
             const cells = row.querySelectorAll('td')
             const user_id = row.getAttribute('user_id')
             const username = row.getAttribute('username');
@@ -339,12 +337,6 @@
                 organized_dic[obj.id] = obj;
             }
             return organized_dic;
-        }
-
-        function create_aligner() {
-            const aligner = document.createElement('div');
-            aligner.className = 'aligner';
-            return aligner;
         }
     </script>
 @endsection

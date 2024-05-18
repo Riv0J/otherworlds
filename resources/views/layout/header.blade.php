@@ -63,7 +63,7 @@
 
                 <div class="dropdown_options">
                     <a href="{{ route('user_show', ['locale' => $locale, 'username' => $logged_user->name ]) }}">
-                        @lang('otherworlds.profile')[CON]
+                        @lang('otherworlds.profile')
                     </a>
 
                     <div class="dropdown_divider mt-1 mx-5 mx-md-2"></div>

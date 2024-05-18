@@ -10,7 +10,7 @@ function ajax(ajax_data){
         spinner.style.visibility = "visible";
     }
     fetch(ajax_data['url'], {
-        method: ajax_data['method'],
+        method: "POST",
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': request_data['_token']

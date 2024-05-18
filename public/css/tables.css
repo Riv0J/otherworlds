@@ -55,12 +55,18 @@ td img {
     margin: 0.25rem
 }
 
-th,
-td {
+th,td {
     padding: 0 0.5rem;
     border-top: 1px solid white;
 }
-
+th.small{
+    width: 0.2rem;
+    padding: 0;
+    white-space: nowrap;
+}
+td.id,th.id{
+    border-right: 1px solid white;
+}
 tr {
     cursor: pointer;
 }
