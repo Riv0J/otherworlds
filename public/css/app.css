@@ -459,3 +459,21 @@ nav.buttons>.button{
 .profile_img img{
     aspect-ratio: 1;
 }
+
+.fa-spinner {
+    visibility: hidden;
+    animation: rotate 3s ease-in-out infinite;
+}
+@keyframes rotate {
+    0% {
+        rotate: 0
+    }
+
+    50% {
+        rotate: 180deg
+    }
+
+    100% {
+        rotate: 360deg
+    }
+}

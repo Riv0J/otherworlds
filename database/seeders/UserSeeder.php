@@ -69,7 +69,7 @@ class UserSeeder extends Seeder{
 
 
         //create 50 random users
-        User::factory()->count(50)->create();
+        User::factory()->count(100)->create();
 
         //create random favorites
         foreach(User::all() as $user){

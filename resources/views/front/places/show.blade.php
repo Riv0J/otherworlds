@@ -359,7 +359,7 @@
         letter-spacing: 0.1rem;
     }
     .shadows_inline{
-        box-shadow: 10px 0 10px rgba(0, 0, 0, 0.5), -10px 0 10px rgba(0, 0, 0, 0.5);
+        inspect_box-shadow: 10px 0 10px rgba(0, 0, 0, 0.5), -10px 0 10px rgba(0, 0, 0, 0.5);
     }
     .img_icon{
         width: 2.5rem;
@@ -471,8 +471,8 @@
 <script>
     const loaded_medias = {!! json_encode($place->medias) !!};
     const organized_medias = [];
-    const modal = document.getElementById('inspect_modal');
-    const box = document.getElementById('inspect_box');
+    const inspect_modal = document.getElementById('inspect_modal');
+    const inspect_box = document.getElementById('inspect_box');
     let index = 0;
 
     function generate_medias_divs(medias){
@@ -499,13 +499,13 @@
             counter++;
         });
     }
-    //set a media in the inspect box
+    //set a media in the inspect inspect_box
     function set_media(media){
-        const img =  box.querySelector('img');
+        const img =  inspect_box.querySelector('img');
         img.src = media.url;
 
-        const a =  box.querySelector('a');
-        const p = box.querySelector('p');
+        const a =  inspect_box.querySelector('a');
+        const p = inspect_box.querySelector('p');
 
         if(media.page_url != null){
             a.href = media.page_url;
@@ -544,16 +544,16 @@
         }
     });
 
-    //onclick when modal is beign shown, close
+    //onclick when inspect_modal is beign shown, close
     document.addEventListener('click', function(){
-        if(event.target === modal){ close_modal() }
+        if(event.target === inspect_modal){ close_modal() }
     })
 
     //onclick #modal_closer
-    modal.querySelector('#modal_closer').addEventListener('click', close_modal);
+    inspect_modal.querySelector('#modal_closer').addEventListener('click', close_modal);
 
     //onclicks
-    modal.querySelector('#next').addEventListener('click', function(){
+    inspect_modal.querySelector('#next').addEventListener('click', function(){
         if(index + 1 >= loaded_medias.length){
             index = 0;
         } else {
@@ -561,7 +561,7 @@
         }
         set_media(loaded_medias[index]);
     });
-    modal.querySelector('#last').addEventListener('click', function(){
+    inspect_modal.querySelector('#last').addEventListener('click', function(){
         if(index - 1 <= 0){
             index = loaded_medias.length-1;
         } else {
@@ -571,14 +571,14 @@
     });
 
     function close_modal() {
-        modal.style.opacity = 0;
-        modal.style.zIndex = -1;
-        box.style.scale = 0.3;
+        inspect_modal.style.opacity = 0;
+        inspect_modal.style.zIndex = -1;
+        inspect_box.style.scale = 0.3;
     }
     function open_modal(){
-        modal.style.opacity = 1;
-        modal.style.zIndex = 1031;
-        box.style.scale = 1;
+        inspect_modal.style.opacity = 1;
+        inspect_modal.style.zIndex = 1031;
+        inspect_box.style.scale = 1;
     }
 </script>
 @endsection

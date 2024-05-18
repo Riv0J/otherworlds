@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/views/place_index.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/tables.css') }}" />
 
     <section class="wrapper col-12 col-lg-8">
         <div class="mb-4 p-2 title">
@@ -37,165 +37,12 @@
                 </tbody>
             </table>
         </div>
-
     </section>
-    <style>
-        .table_container{
-            max-height: 80svh;
-            overflow-y: scroll;
-            scrollbar-width: thin;
-        }
-        .table_container table{
-            width: 99%;
-        }
-        .aligner {
-            display: flex;
-            justify-content: center;
-            align-items: center
-        }
-
-        .aligner i {
-            font-size: 1.25rem;
-            width: 1.25rem;
-        }
-
-        td button {
-            background-color: transparent;
-            border: none;
-            padding: 0.5rem;
-        }
-
-        .red:hover {
-            color: red;
-        }
-
-        .green:hover {
-            color: var(--green_light);
-        }
-
-        .yellow {
-            color: white;
-        }
-
-        .yellow:hover {
-            color: var(--yellow_bright);
-        }
-
-        table {
-            border: 1px solid white;
-        }
-
-        td.profile_img {
-            padding: 0;
-        }
-
-        td img {
-            width: 3rem;
-            margin: 0.25rem
-        }
-
-        th,
-        td {
-            padding: 0 0.5rem;
-            border-top: 1px solid white;
-        }
-
-        tr {
-            cursor: pointer;
-        }
-
-        tbody>tr:hover {
-            background-color: var(--gray_opacity);
-        }
-
-        tr[you] {
-            border: 2px solid red;
-        }
-
-        tr[role="admin"] {
-            border-left: 4px solid var(--green_light);
-        }
-
-        tr[role="owner"] {
-            border-left: 4px solid var(--purple_light);
-        }
-
-        tr[active="false"] {
-            position: relative;
-        }
-
-        tr[active="false"]::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-color: var(--gray_opacity);
-            pointer-events: none;
-        }
-        .fa-spinner {
-            visibility: hidden;
-            animation: rotate 3s ease-in-out infinite; /* Ajusta el tiempo y la velocidad según lo necesites */
-        }
-        @keyframes rotate{
-            0%{
-                rotate: 0
-            }
-            50%{
-                rotate: 180deg
-            }
-            100%{
-                rotate: 360deg
-            }
-        }
-    </style>
 @endsection
 
 @section('script')
     <script src="{{ asset('js/ajax.js') }}"></script>
     <script>
-        function add_listeners(row) {
-            const cells = row.querySelectorAll('td')
-            const user_id = row.getAttribute('user_id')
-            const username = row.getAttribute('username');
-
-            for (let i = 0; i < cells.length; i++) {
-                const cell = cells[i];
-
-                if (i == cells.length - 1 && cell.children.length > 0) {
-                    break;
-                }
-
-                cell.addEventListener('click', function() {
-                    const route = "{{ route('user_show', ['locale' => $locale, 'username' => 'null']) }}".replace(
-                        '/null', '');
-                    window.location.href = route + '/' + username;
-                });
-            }
-
-            // assign listeners to the buttons in the row
-            const edit = row.querySelector('.edit');
-            if (edit) {
-                row.querySelector('.edit').addEventListener('click', function() {
-                    window.location.href =
-                        "{{ route('user_edit', ['locale' => $locale, 'username' => 'null_username']) }}".replace(
-                            'null_username', username);
-                });
-            }
-
-            const reset_img = row.querySelector('.reset_img');
-            if (reset_img) {
-                reset_img.addEventListener('click', function() {
-                    request_reset_img('{{ URL('/ajax/admin/users/reset_img') }}', user_id, row)
-                });
-            }
-
-            const toggle_ban = row.querySelector('.ban_toggle');
-            if (toggle_ban) {
-                toggle_ban.addEventListener('click', function() {
-                    request_toggle_ban('{{ URL('/ajax/admin/users/toggle_ban') }}', user_id, row)
-                });
-            }
-        }
-
         function request_reset_img(request_url, user_id, row) {
             const ajax_data = {
                 method: 'POST',
@@ -245,7 +92,6 @@
         }
 
         function refresh_row(row, user) {
-            console.log(user);
             row.querySelector('.profile_img img').setAttribute('src', "{{ asset('users/null_img') }}".replace('null_img',
                 user.img));
 
@@ -271,9 +117,7 @@
         const logged = {!! json_encode($logged) !!};
         const loaded_roles = organize_dic({!! json_encode($roles) !!});
         const loaded_countries = organize_dic({!! json_encode($countries) !!});
-        document.addEventListener('DOMContentLoaded', function(){
-            console.log(logged);
-            console.log({!! json_encode($users) !!});
+        document.addEventListener('DOMContentLoaded', function() {
             create_rows({!! json_encode($users) !!})
         });
 
@@ -375,25 +219,65 @@
             results.appendChild(row);
         }
 
+        function add_listeners(row) {
+            const cells = row.querySelectorAll('td')
+            const user_id = row.getAttribute('user_id')
+            const username = row.getAttribute('username');
+
+            for (let i = 0; i < cells.length; i++) {
+                const cell = cells[i];
+
+                if (i == cells.length - 1 && cell.children.length > 0) {
+                    break;
+                }
+
+                cell.addEventListener('click', function() {
+                    const route = "{{ route('user_show', ['locale' => $locale, 'username' => 'null']) }}".replace(
+                        '/null', '');
+                    window.location.href = route + '/' + username;
+                });
+            }
+
+            // assign listeners to the buttons in the row
+            const edit = row.querySelector('.edit');
+            if (edit) {
+                row.querySelector('.edit').addEventListener('click', function() {
+                    window.location.href =
+                        "{{ route('user_edit', ['locale' => $locale, 'username' => 'null_username']) }}".replace(
+                            'null_username', username);
+                });
+            }
+
+            const reset_img = row.querySelector('.reset_img');
+            if (reset_img) {
+                reset_img.addEventListener('click', function() {
+                    request_reset_img('{{ URL('/ajax/admin/users/reset_img') }}', user_id, row)
+                });
+            }
+
+            const toggle_ban = row.querySelector('.ban_toggle');
+            if (toggle_ban) {
+                toggle_ban.addEventListener('click', function() {
+                    request_toggle_ban('{{ URL('/ajax/admin/users/toggle_ban') }}', user_id, row)
+                });
+            }
+        }
+
         //ajax variables
         let total = 0;
         let current_page = 1;
         let requesting = false;
         let querying = false;
 
-        //on scroll event check if the end of the places container is visible
-        window.addEventListener('scroll', function() {
-            const container = document.querySelector('.results_table');
+        // on scroll event, when user has reached 75% of the cointainer's height
+        document.querySelector('.table_container').addEventListener('scroll', function() {
+            if (this.scrollTop >= (this.scrollHeight - this.offsetHeight) * 0.75) {
 
-            //check if scroll is not low enough return
-            if (container.getBoundingClientRect().bottom > window.innerHeight * 1.25) {
-                return;
-            }
-
-            if (requesting == false && querying == false) {
-                request();
-            } else if (requesting == true) {
-                querying = true;
+                if (requesting == false && querying == false) {
+                    request();
+                } else if (requesting == true) {
+                    querying = true;
+                }
             }
         });
 

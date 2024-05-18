@@ -9,7 +9,6 @@ function ajax(ajax_data){
     if(spinner){
         spinner.style.visibility = "visible";
     }
-    console.log(spinner);
     fetch(ajax_data['url'], {
         method: ajax_data['method'],
         headers: {

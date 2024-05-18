@@ -198,7 +198,7 @@ class Admin_UserController extends Controller{
         $next_page = $request_data['current_page'] + 1; //advance page
 
         //get the places for next page
-        $users = AdminUserController::get_users($page = $next_page);
+        $users = Admin_UserController::get_users($page = $next_page);
 
         //get the countries for these users
         $countries = $users->pluck('country')->unique()->values()->all();
