@@ -25,23 +25,23 @@
 
             {{-- development link --}}
             <a class="nav_link regular
-            @php if(isset($section_slug_key) && $section_slug_key == 'dev_slug'){ echo('active_link'); } @endphp"
+                @php if(isset($slug_key) && $slug_key == 'dev_slug'){ echo('active_link'); } @endphp"
                 href="{{ route('development',['locale' => $locale]) }}">
                 [Development]
             </a>
 
             {{-- places link --}}
             <a class="nav_link regular
-            @php if(isset($section_slug_key) && $section_slug_key == 'places_slug'){ echo('active_link'); } @endphp"
-                href="{{ route('place_index',['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')]) }}">
+                @php if(isset($slug_key) && $slug_key == 'places_slug'){ echo('active_link'); } @endphp"
+                href="{{places_url($locale)}}">
                 @lang('otherworlds.places')
             </a>
 
             {{-- login button --}}
             @if (Route::has('login') && $logged_user == null)
             <a class="nav_link regular
-            @php if(isset($section_slug_key) && $section_slug_key == 'login_slug'){ echo('active_link'); } @endphp"
-                href="{{ route('show_login', ['locale' => $locale]) }}">
+                @php if(isset($slug_key) && $slug_key == 'login_slug'){ echo('active_link'); } @endphp"
+                href="{{ get_url($locale, 'login_slug')}}">
                 <i class="ri-user-3-fill"></i>
                 <span class="mx-1">
                     @lang('otherworlds.sign_in')
@@ -62,7 +62,7 @@
                 </a>
 
                 <div class="dropdown_options">
-                    <a href="{{ route('user_show', ['locale' => $locale, 'username' => $logged_user->name ]) }}">
+                    <a href="{{ get_url($locale,'profile_slug').'/'.$logged_user->name }}">
                         @lang('otherworlds.profile')
                     </a>
 
@@ -85,7 +85,7 @@
                 <div class="dropdown_options">
                 @foreach (config('translatable.locales') as $loc)
                     @if ($loc != $locale)
-                        <a href="{{route('setLocale', ['locale' => $locale, 'new_locale' => $loc, 'section_slug_key' => $section_slug_key ?? 'home_slug'])}}">{{strtoupper($loc)}}</a>
+                        <a href="{{route('setLocale', ['locale' => $locale, 'new_locale' => $loc, 'slug_key' => $slug_key ?? 'home_slug'])}}">{{strtoupper($loc)}}</a>
                     @endif
                 @endforeach
                 </div>

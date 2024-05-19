@@ -1,13 +1,28 @@
 <?php
 
 return [
-    'keywords' => 'vacaciones, viaje, destino, visitar, maravillas naturales, natural, lugar, lugares, paisaje, montaña, cascada, valle, lago, ubicaciones',
+    // section slugs
+    'home_slug' => 'home',
+    'places_slug' => 'lugares',
+    'profile_slug' => 'perfil',
+    'login_slug' => 'acceder',
+    'register_slug' => 'registrarse',
+    'edit_slug' => 'editar',
+
+    // section titles
+    'lang' => 'Lang',
+    'places' => 'Lugares',
+    'requests' => 'Solicitudes',
+
+    //languages
+    'language_not_supported' => "':lang' language not supported",
 
     // page titles
     'title_home' => 'Otherworlds | Lugares únicos del mundo',
     'title_places' => 'Explora lugares increíbles',
 
     // page descriptions
+    'keywords' => 'vacaciones, viaje, destino, visitar, maravillas naturales, natural, lugar, lugares, paisaje, montaña, cascada, valle, lago, ubicaciones',
     'learn_more_about' => 'Saber más sobre',
     'description_home' => 'Explorar una colección de lugares naturales extraordinarios de todo el mundo. Descubre majestuosas montañas, cascadas impresionantes y demás lugares maravillosos, mientras te sumerges en la belleza única de la naturaleza. Busca sitios con los cuales puedas impresionarte e incluso planear tus siguientes vacaciones parar ir a visitarlos',
 
@@ -15,15 +30,6 @@ return [
 
     'description_login' => 'Iniciar sesión en Otherworlds',
     'description_register' => 'Registrarse en Otherworlds',
-
-    // section slugs
-    'home_slug' => 'home',
-    'places_slug' => 'lugares',
-
-    // section titles
-    'lang' => 'Lang',
-    'places' => 'Lugares',
-    'requests' => 'Solicitudes',
 
     // footer titles
     'sections'=> 'Secciones',
@@ -72,6 +78,7 @@ return [
     'unique_places' => 'Lugares únicos',
     'places_small' => 'Descubre lugares mágicos, alrededor del mundo.',
     'fav_button' => 'Agregar a favoritos',
+    'browse_places' => 'Ver todos los lugares',
 
     // section place_view
     'thumbnail' => 'Miniatura',
@@ -94,6 +101,7 @@ return [
     'users' => 'Usuarios',
     'active' => 'Active',
     'favorite_places' => 'Lugares favoritos',
+    'no_favorites_user' => 'Este usuario no tiene favoritos',
     'select_image' => 'Seleccionar imagen',
     'edit_profile' => 'Editar perfil',
     'profile_img' => 'Imagen de perfil',

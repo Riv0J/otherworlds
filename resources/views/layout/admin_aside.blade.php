@@ -19,11 +19,11 @@
                 <i class="fa-solid fa-users"></i>
                 <h5 class="light">Users</h5>
             </a>
-            <a href="{{route('place_index', ['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')])}}">
+            <a href="{{places_url($locale)}}">
                 <i class="fa-solid fa-panorama"></i>
                 <h5 class="light">Places</h5>
             </a>
-            <a href="{{route('place_index', ['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')])}}">
+            <a href="{{places_url($locale)}}">
                 <i class="fa-solid fa-chart-line"></i>
                 <h5 class="light">Visits</h5>
             </a>

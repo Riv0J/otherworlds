@@ -25,7 +25,7 @@
                 </a>
 
                 <a class="regular p-2"
-                    href="{{ route('place_index',['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')]) }}">
+                    href="{{ url($locale.'/'.trans('places_slug',[],$locale)) }}">
                     @lang('otherworlds.places')
                 </a>
 

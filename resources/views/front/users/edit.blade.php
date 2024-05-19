@@ -19,7 +19,7 @@
                 <h3 class="regular">@lang('otherworlds.edit_profile')</h3>
             </div>
             <nav class="buttons d-flex flex-row">
-                <button type="submit" class="button border info">
+                <button type="submit" class="button square border info">
                     <i class="fa-solid fa-floppy-disk"></i>
                 </button>
             </nav>

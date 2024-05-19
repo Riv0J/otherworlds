@@ -1,13 +1,28 @@
 <?php
 
 return [
-    'keywords' => 'vacation, travel, destination, visit, natural wonders, natural, place, places, landscape, mountain, waterfall, valley, lakes, locations',
+    // section slugs
+    'home_slug' => 'home',
+    'places_slug' => 'places',
+    'profile_slug' => 'profile',
+    'login_slug' => 'login',
+    'register_slug' => 'register',
+    'edit_slug' => 'edit',
+
+    // section titles
+    'lang' => 'Lang',
+    'places' => 'Places',
+    'requests' => 'Requests',
+
+    //languages
+    'language_not_supported' => "':lang' language not supported",
 
     // page titles
     'title_home' => 'Otherworlds | Unique places around the world',
     'title_places' => 'Explore extraordinary places',
 
     // page descriptions
+    'keywords' => 'vacation, travel, destination, visit, natural wonders, natural, place, places, landscape, mountain, waterfall, valley, lakes, locations',
     'learn_more_about' => 'Learn more about',
     'description_home' => 'Explore a collection of extraordinary natural locations from all around the world. Discover majestic mountains, breathtaking waterfalls, and other wonderful places, while immersing yourself in the unique beauty of nature. Be amazed at the diversity and maybe even plan your next vacations to visit some of these places from another world',
 
@@ -15,15 +30,6 @@ return [
 
     'description_login' => 'Login to Otherworlds',
     'description_register' => 'Register in Otherworlds',
-
-    // section slugs
-    'home_slug' => 'home',
-    'places_slug' => 'places',
-
-    // section titles
-    'lang' => 'Lang',
-    'places' => 'Places',
-    'requests' => 'Requests',
 
     // footer titles
     'sections'=> 'Sections',
@@ -72,6 +78,7 @@ return [
     'unique_places' => 'Unique places',
     'places_small' => 'Discover magical places around the world.',
     'fav_button' => 'Add to favorites',
+    'browse_places' => 'Browse all places',
 
     // section place_view
     'thumbnail' => 'Thumbnail',
@@ -94,6 +101,7 @@ return [
     'users' => 'Users',
     'active' => 'Active',
     'favorite_places' => 'Favorite places',
+    'no_favorites_user' => 'No favorite places for this user',
     'select_image' => 'Select an image',
     'edit_profile' => 'Edit profile',
     'profile_img' => 'Profile image',

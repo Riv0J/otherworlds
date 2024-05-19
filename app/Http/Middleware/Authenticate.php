@@ -18,7 +18,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request){
         if (! $request->expectsJson()) {
             $locale = $request->route('locale');
-            return route('login',['locale'=>$locale]);
+            return redirect(get_url($locale,'login_slug'));
         }
     }
 }

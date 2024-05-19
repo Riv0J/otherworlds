@@ -238,9 +238,7 @@
                 }
 
                 cell.addEventListener('click', function() {
-                    const route = "{{ route('user_show', ['locale' => $locale, 'username' => 'null']) }}".replace(
-                        '/null', '');
-                    window.location.href = route + '/' + username;
+                    window.location.href = "{{get_url($locale,'profile_slug')}}" + '/' + username;
                 });
             }
 

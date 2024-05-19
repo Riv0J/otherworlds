@@ -9,7 +9,7 @@
 @endsection
 
 @section('canonical')
-{{ route('place_index',['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')]) }}
+{{ url('/'.trans('places_slug',[],$locale)) }}
 @endsection
 
 @section('content')

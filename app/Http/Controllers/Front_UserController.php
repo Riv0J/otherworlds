@@ -33,7 +33,7 @@ class Front_UserController extends Controller{
         //get the countries of the places
         $countries = $places->pluck('country')->unique()->values()->all();
         $variables = [
-            'section_slug_key' => 'profile_slug',
+            'slug_key' => 'profile_slug',
             'locale' => $locale,
 
             'user' => $user,
@@ -54,6 +54,7 @@ class Front_UserController extends Controller{
      */
     public function edit($locale){
         $variables = [
+            'slug_key' => 'profile_slug',
             'locale' => $locale,
             'user' => \Auth::user(),
             'countries' => Country::all(),
@@ -97,7 +98,7 @@ class Front_UserController extends Controller{
 
         $user->save();
         Session::flash('message', new Message(Message::TYPE_SUCCESS, trans('otherworlds.user_edit_success')));
-        return redirect()->route('user_show',['locale'=> $locale, 'username'=> $user->name]);
+        return redirect(get_url($locale,'profile_slug').'/'.$user->name);
     }
 
     /**

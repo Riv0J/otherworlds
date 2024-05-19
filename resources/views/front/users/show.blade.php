@@ -40,7 +40,7 @@
             {{-- #edit_button START--}}
             @if($can_edit)
                 @if($logged->is_public())
-                <a title='@lang('otherworlds.edit')' href="{{route('profile_edit', ['locale' => $locale])}}" id="edit_button" class="button info">
+                <a title='@lang('otherworlds.edit')' href="{{get_url($locale,'profile_slug').'/'.$user->name.'/edit'}}" id="edit_button" class="button square info">
 
                 @else
                 <a title='@lang('otherworlds.edit')' href="{{route('user_edit', ['locale' => $locale, 'username' => $user->name])}}" id="edit_button" class="button info">
@@ -75,7 +75,7 @@
         #return{
             position: fixed;
             top: 50%;
-            left: 8%
+            left: 5%
         }
     </style>
     {{-- return END --}}

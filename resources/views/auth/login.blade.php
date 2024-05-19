@@ -103,7 +103,7 @@
                 </button>
             </div>
             <div class="flex_center col-md-6 offset-md-4 flex_center my-3 gap-2">
-                <a class="px-2" href="{{route('register', ['locale' => $locale])}}">@lang('otherworlds.im_not_registered')</a>
+                <a class="px-2" href="{{get_url($locale,'register_slug')}}">@lang('otherworlds.im_not_registered')</a>
             </div>
         </div>
 

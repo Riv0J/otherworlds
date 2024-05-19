@@ -43,8 +43,9 @@ class LoginController extends Controller
      * Show login form
      */
     public function show_login($locale){
+
         $variables = [
-            'section_slug_key' => 'login_slug',
+            'slug_key' => 'login_slug',
             'locale' => $locale,
         ];
         return view('auth.login', $variables);

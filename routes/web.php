@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
+use App\Http\Controllers\LocaleController;
+
 use App\Http\Controllers\Front_Controller;
 use App\Http\Controllers\Front_UserController;
 use App\Http\Controllers\Front_PlaceController;
@@ -22,36 +24,60 @@ use App\Http\Controllers\Admin_UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-$routes = [
-    'home',
-    'places',
-    'profile'
 
-
-];
-// general short routes
+// absolute home routes
 Route::get('/', function () {
     return (new Front_Controller())->home('en');
 });
 Route::get('/home', function () {
     return (new Front_Controller())->home('en');
 });
-Route::get('/places', function () {
-    return (new Front_Controller())->place_index('en','places');
-});
-Route::get('/lugares', function () {
-    return (new Front_Controller())->place_index('es','lugares');
-});
 
 // front routes with $locale slug
 Route::prefix('{locale}')->group(function () {
     // set the url $locale slug
-    Route::get('/{section_slug_key}/setlocale/{new_locale}', [App\Http\Controllers\LocaleController::class, 'setLocale'])->name('setLocale');
+    Route::get('/{slug_key}/setlocale/{new_locale}', [LocaleController::class, 'setLocale'])->name('setLocale');
 
     // routes that automatically update app locale with the $locale prefix
     Route::middleware(['locale_updater'])->group(function () {
+        // /en/
+        Route::get('/', [Front_Controller::class,'home']);
 
-        // BACK routes for admins
+        // /en/home
+        Route::get('/home', [Front_Controller::class,'home'])->name('home');
+
+        // /en/development
+        Route::get('/development', [Front_Controller::class, 'show_development'])->name('development');
+
+        // auth register, login, logout,
+        Auth::routes();
+
+        // $slug_key routes
+        foreach (config('translatable.locales') as $locale) {
+            // /{locale}/{places}
+            Route::get('/'.trans('otherworlds.places_slug', [], $locale), [Front_PlaceController::class,'index']);
+            // /{locale}/{places}/{place_slug}
+            Route::get('/'.trans('otherworlds.places_slug', [], $locale).'/{place_slug}', [Front_PlaceController::class,'show']);
+
+            // /{locale}/{login}
+            Route::get('/'.trans('otherworlds.login_slug', [], $locale), [LoginController::class, 'show_login']);
+            // /{locale}/{register}
+            Route::get('/'.trans('otherworlds.register_slug', [], $locale), [RegisterController::class, 'show_register']);
+
+            // /{locale}/{profile}/{username}
+            Route::get('/'.trans('otherworlds.profile_slug', [], $locale).'/{username}', [Front_UserController::class, 'show']);
+            // /{locale}/{profile}/{username}/edit
+            Route::get('/'.trans('otherworlds.profile_slug', [], $locale).'/{username}/edit',
+            [Front_UserController::class, 'edit'])->middleware(['auth']);
+        };
+
+        // POST overrides
+        Route::post('/login', [LoginController::class, 'handle_login'])->name('login');
+        Route::post('/register', [RegisterController::class, 'handle_register'])->name('register');
+        Route::post('/profile/update', [Front_UserController::class, 'update'])->name('profile_update');
+        Route::get('/profile/reset_img/{user_id}', [Front_UserController::class, 'reset_img'])->name('reset_img');
+
+        // ADMIN routes
         Route::middleware(['admin'])->group(function () { //admin middleware in kernel.php $routeMiddleware
             Route::get('/admin/users', [Admin_UserController::class, 'index'])->name('user_index');
             Route::get('/admin/users/edit/{username}', [Admin_UserController::class, 'edit'])->name('user_edit');
@@ -59,44 +85,24 @@ Route::prefix('{locale}')->group(function () {
             Route::get('/admin/users/create', [Admin_UserController::class, 'create'])->name('user_create');
             Route::post('/admin/users/store', [Admin_UserController::class, 'store'])->name('user_store');
             Route::delete('/admin/users/delete', [Admin_UserController::class, 'delete'])->name('user_delete');
-
         });
+    });
+});
 
-        // FRONT routes for logged users
-        Route::middleware(['auth'])->group(function () {
-            Route::get('/profile/edit', [Front_UserController::class, 'edit'])->name('profile_edit');
-            Route::post('/profile/update', [Front_UserController::class, 'update'])->name('profile_update');
-            Route::get('/profile/reset_img/{user_id}', [Front_UserController::class, 'reset_img'])->name('reset_img');
-        });
+// front routes with $locale slug
+Route::prefix('{locale}')->group(function () {
+
+    // routes that automatically update app locale with the $locale prefix
+    Route::middleware(['locale_updater'])->group(function () {
+
+
+
 
         // FRONT public routes:
 
-        // search for a user's profile
-        Route::get('/profile/{username}', [Front_UserController::class, 'show'])->name('user_show');
 
-        // auth register, login, logout,
-        Auth::routes();
-
-        // auth routes overrides
-        Route::get('/login', [LoginController::class, 'show_login'])->name('show_login');
-        Route::post('/login', [LoginController::class, 'handle_login'])->name('login');
-
-        Route::get('/register', [RegisterController::class, 'show_register'])->name('show_register');
-        Route::post('/register', [RegisterController::class, 'handle_register'])->name('register');
-
-        // home
-        Route::get('/', [Front_Controller::class, 'home'])->name('home');
-        Route::get('/home', [Front_Controller::class, 'home'])->name('home');
-
-        // general
-        Route::get('/development', [Front_Controller::class, 'show_development'])->name('development');
-
-        // place routes
-        Route::get('/{section_slug}/{place_slug}', [Front_PlaceController::class, 'show'])->name('place_view');
-        Route::get('/{section_slug}', [Front_PlaceController::class, 'index'])->name('place_index');
 
     });
-
 });
 
 // ajax favorite toggle

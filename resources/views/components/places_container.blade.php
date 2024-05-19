@@ -2,7 +2,10 @@
 <script src='{{asset('js/ajax.js')}}'></script>
 <div class="gap-2 gap-md-3 justify-content-center align-items-stretch" id="places_container">
     <div class="pl_card" id="no_places" style="display: none;">
-        No favorite places for this user.<a href="{{route('place_index',['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')])}}">Browse all places</a>
+        @lang('otherworlds.no_favorites_user').
+        <a href="{{ url($locale.'/'.trans('places_slug',[],$locale)) }}">
+            @lang('otherworlds.browse_places')
+        </a>
     </div>
 </div>
 <script>
@@ -22,8 +25,7 @@
         });
     });
 
-    const place_view_route = "{{ route('place_view', ['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug'), 'place_slug' => 'null']) }}".replace('/null', '');
-
+    const places_route = "{{places_url($locale)}}"
     const loaded_countries = organize_dic({!! json_encode($countries) !!});
     const loaded_categories = organize_dic({!! json_encode($all_categories) !!});
     const favorite_ids = {!! json_encode($fav_places_ids) !!};
@@ -39,7 +41,7 @@
 
             const pl_link = document.createElement('a');
             pl_link.className = "border-0";
-            pl_link.href = place_view_route + '/' + place.slug;
+            pl_link.href = places_route + '/' + place.slug;
 
             const card_top = document.createElement('div');
             card_top.className = 'card_top';

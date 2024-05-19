@@ -9,7 +9,7 @@
 @endsection
 
 @section('canonical')
-{{ URL::current() }}
+{{ url($locale.'/home') }}
 @endsection
 
 @section('content')
@@ -29,7 +29,7 @@
         <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
     </h4>
     <p>
-        <a class="py-1" href="{{route('place_view', ['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug'), 'place_slug' => $place->slug])}}">
+        <a class="py-1" href="{{places_url($locale).'/'.$place->slug}}">
             @lang('otherworlds.visit_place')
         </a>
     </p>
@@ -91,6 +91,14 @@
             'Generados por IA?... *| No, estos son reales.',
             'Descubre la belleza escondida... *| en el mismo planeta que llamamos hogar.',
             'Humanos pequeños... *| universo gigantesco.'
+        ],
+        'eu': [
+            'Beste munduetako tokiak... *| lurrean.',
+            'Inoiz bisitatu al duzu... *| beste mundu batekoa dirudien tokiren bat?',
+            'Baditugu egoteko tokiak... *| eta ezagutzeko pertsonak.',
+            'IAk sortuak?... *| Ez, hauek benetakoak dira.',
+            'Ezagut ezazu ezkutuko edertasuna... *| gure etxea deitzen dugun planeta berean.',
+            'Gizaki txikiak... *| unibertso erraldoia.'
         ]
     };
     const lang = `{{app()->getLocale()}}`;

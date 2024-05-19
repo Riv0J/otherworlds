@@ -176,7 +176,7 @@ trait AuthenticatesUsers
 
         return $request->wantsJson()
             ? new JsonResponse([], 204)
-            : redirect()->route('place_index',['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')]);
+            : redirect(places_url($locale));
     }
 
     /**

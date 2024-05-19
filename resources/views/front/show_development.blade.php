@@ -18,16 +18,6 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">High prio</h3>
         <li>
             <h5>
-                Ver si es mejor usar jsons para traducciones
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Rutas traducibles[EN, ES, EU]
-            </h5>
-        </li>
-        <li>
-            <h5>
                 Email verification & password reset
             </h5>
         </li>
@@ -100,6 +90,11 @@ Dev | Otherworlds
         <li>
             <h5 class="text-decoration-line-through">
                 Admin User index*(+ajax), create*, edit*, update*, delete*
+            </h5>
+        </li>
+        <li>
+            <h5 class="text-decoration-line-through">
+                Rutas FRONT 100% traducidas
             </h5>
         </li>
     </ul>

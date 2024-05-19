@@ -15,7 +15,7 @@ class Front_PlaceController extends Controller{
      *
      * @return \Illuminate\Http\Response
      */
-    function index($locale, $section_slug){
+    function index($locale){
         // check if this section_slug is valid
 
         //get the places in the first page
@@ -30,7 +30,7 @@ class Front_PlaceController extends Controller{
             $fav_places_ids = $user->favorites->pluck('id');
         }
         $variables = [
-            'section_slug_key' => 'places_slug',
+            'slug_key' => 'places_slug',
             'locale' => $locale,
 
             //#places_container variables
@@ -69,16 +69,14 @@ class Front_PlaceController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    function show($locale, $section_slug, $place_slug){
-        // check if this section_slug is valid
-
+    function show($locale, $place_slug){
         // try to get the place
         $place = Place::whereHas('translations', function ($query) use ($place_slug) {
             $query->where('slug', $place_slug);
         })->first();
 
         // redirect if no place is found
-        if( $place == null){ return redirect()->route('place_index', ['locale' => $locale, 'section_slug' => trans('otherworlds.places_slug')]); }
+        if( $place == null){ return redirect(places_url($locale)); }
 
         // add a view to the place
         $place->views_count += 1;
@@ -88,7 +86,7 @@ class Front_PlaceController extends Controller{
         session()->put('place_id', $place->id);
 
         $variables = [
-            'section_slug_key' => 'place_view_slug',
+            'slug_key' => 'place_view',
             'locale' => $locale,
 
             'place' => $place,

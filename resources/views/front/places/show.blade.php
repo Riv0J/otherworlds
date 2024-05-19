@@ -39,7 +39,7 @@
 
             {{-- #share_button START--}}
             <button title='@lang('otherworlds.share_button')' id="share_button" class="button square">
-                <input type="text" value="{{ route('place_view', ['locale' => $locale, 'section_slug' => trans('otherworlds.place_index_slug'), 'place_slug' => $place->slug]) }}" id="place_url" style="right: 500%; position:absolute">
+                <input type="text" value="{{places_url($locale).'/'.$place->slug}}" id="place_url" style="right: 500%; position:absolute">
                 <i class="ri-share-line" style="translate: -5% 2.5%"></i>
             </button>
             {{-- #share_button END--}}
