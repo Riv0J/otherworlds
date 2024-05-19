@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\RegisterController;
 
 use App\Http\Controllers\Front_Controller;
 use App\Http\Controllers\Front_UserController;
+use App\Http\Controllers\Front_PlaceController;
+
 use App\Http\Controllers\Admin_Controller;
 use App\Http\Controllers\Admin_UserController;
 
@@ -20,7 +22,13 @@ use App\Http\Controllers\Admin_UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+$routes = [
+    'home',
+    'places',
+    'profile'
 
+
+];
 // general short routes
 Route::get('/', function () {
     return (new Front_Controller())->home('en');
@@ -84,17 +92,17 @@ Route::prefix('{locale}')->group(function () {
         Route::get('/development', [Front_Controller::class, 'show_development'])->name('development');
 
         // place routes
-        Route::get('/{section_slug}/{place_slug}', [Front_Controller::class, 'place_view'])->name('place_view');
-        Route::get('/{section_slug}', [Front_Controller::class, 'place_index'])->name('place_index');
+        Route::get('/{section_slug}/{place_slug}', [Front_PlaceController::class, 'show'])->name('place_view');
+        Route::get('/{section_slug}', [Front_PlaceController::class, 'index'])->name('place_index');
 
     });
 
 });
 
 // ajax favorite toggle
-Route::post('/ajax/places/favorite', [Front_Controller::class, 'ajax_place_favorite']);
+Route::post('/ajax/places/favorite', [Front_PlaceController::class, 'ajax_place_favorite']);
 // ajax place request
-Route::post('/ajax/places/request', [Front_Controller::class, 'ajax_place_request']);
+Route::post('/ajax/places/request', [Front_PlaceController::class, 'ajax_place_request']);
 
 // BACK routes for admins
 Route::middleware(['admin'])->group(function () {
