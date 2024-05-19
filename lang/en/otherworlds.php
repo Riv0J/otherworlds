@@ -100,6 +100,7 @@ return [
     'save_changes' => 'Save changes',
     'name_taken' => 'Name ":field" is already taken',
     'email_taken' => 'Email ":field" is already in use',
+    'search_user' => 'Search username or email',
     'create_user' => 'Create user',
     'user_created_success' => 'User created',
     'user_edit_success' => 'User edited',

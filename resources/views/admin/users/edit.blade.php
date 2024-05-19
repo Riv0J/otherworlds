@@ -17,16 +17,16 @@
     <form class="wrapper col-12 col-lg-8" method="POST" enctype="multipart/form-data" action="{{ route('user_update', ['locale' => $locale]) }}">
         <input type="hidden" name="user_id" value="{{$user->id}}">
         @csrf
-        <div class="mb-4 title">
-            <div class="d-flex align-items-center gap-3 p-2">
+        <div class="title">
+            <div class="text">
                 <i class="fa-regular fa-pen-to-square"></i>
                 <h3 class="regular">@lang('otherworlds.edit_profile')</h3>
             </div>
-            <nav class="buttons d-flex flex-row">
-                <button type="submit" class="button border info">
+            <nav class="buttons">
+                <button type="submit" class="button square info">
                     <i class="fa-solid fa-floppy-disk"></i>
                 </button>
-                <button type="button" class="button border red" id="delete_user">
+                <button type="button" class="button square red" id="delete_user">
                     <i class="fa-solid fa-trash"></i>
                 </button>
             </nav>

@@ -45,6 +45,7 @@
         {{-- custom CSS --}}
         <link rel="stylesheet" href="{{ asset('css/app.css') }}"/>
         <link rel="stylesheet" href="{{ asset('css/alerts.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/search.css') }}"/>
 
     </head>
     <body class="d-flex flex-row">
@@ -101,6 +102,7 @@
         </div>
     </body>
 
+    <script src="{{ asset('js/helpers.js') }}"></script>
     <script src="{{ asset('js/header.js') }}"></script>
     <script src="{{ asset('js/dropdowns.js') }}"></script>
     <script src="{{ asset('js/alerts.js') }}"></script>

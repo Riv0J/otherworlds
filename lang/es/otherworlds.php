@@ -100,6 +100,7 @@ return [
     'save_changes' => 'Guardar cambios',
     'name_taken' => 'Ya existe un usuario con el nombre ":field"',
     'email_taken' => 'Ya existe un usuario con el email ":field"',
+    'search_user' => 'Buscar nombre o email',
     'create_user' => 'Crear usuario',
     'user_created_success' => 'Usuario creado',
     'user_edit_success' => 'Usuario editado',

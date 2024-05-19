@@ -15,8 +15,8 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/views/place_index.css') }}"/>
 
-<section class="wrapper col-12 col-lg-8">
-    <div class="mb-4 pb-3 title">
+<section class="wrapper col-12 col-lg-10">
+    <div class="title">
         <div class="d-flex flex-row align-items-end gap-4">
             <div class="profile_img">
                 <img src="{{asset('users/'.$user->img)}}" style="width: 5rem;" alt="@lang('otherworlds.user_image')">
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <nav class="buttons d-flex flex-row">
+        <nav class="buttons">
 
             {{-- #edit_button START--}}
             @if($can_edit)
@@ -75,7 +75,7 @@
         #return{
             position: fixed;
             top: 50%;
-            left: 10%
+            left: 8%
         }
     </style>
     {{-- return END --}}

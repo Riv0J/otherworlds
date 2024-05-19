@@ -52,7 +52,7 @@
 
             //fav_button
             const fav_button = document.createElement('button');
-            fav_button.className = 'd-flex gap-2 button fav_button';
+            fav_button.className = 'button border-0 fav_button';
             fav_button.id = place.id;
             card_top.appendChild(fav_button);
 

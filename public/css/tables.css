@@ -1,23 +1,20 @@
-.table_container {
-    max-height: 80svh;
-    overflow-y: scroll;
-    scrollbar-width: thin;
-    scrollbar-color: #888 #e0e0e0;
-}
-
-.table_container table {
-    width: 99%;
-}
-
 .aligner {
     display: flex;
     justify-content: center;
     align-items: center
 }
-
 .aligner i {
     font-size: 1.25rem;
     width: 1.25rem;
+}
+
+.table_container {
+    max-height: 80svh;
+    overflow-y: scroll;
+}
+
+.table_container table {
+    width: 100%;
 }
 
 td button {

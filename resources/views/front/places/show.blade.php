@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-<section class="wrapper col-12 col-lg-8">
+<section class="wrapper col-12 col-lg-10">
     {{-- title --}}
     <div class="title flex-column flex-sm-row">
         <div class="flex_center gap-4">
@@ -38,9 +38,9 @@
             <div class="div_v div_gray m-2"></div>
 
             {{-- #share_button START--}}
-            <button title='@lang('otherworlds.share_button')' id="share_button" class="button">
+            <button title='@lang('otherworlds.share_button')' id="share_button" class="button square">
                 <input type="text" value="{{ route('place_view', ['locale' => $locale, 'section_slug' => trans('otherworlds.place_index_slug'), 'place_slug' => $place->slug]) }}" id="place_url" style="right: 500%; position:absolute">
-                <i class="ri-share-line"></i>
+                <i class="ri-share-line" style="translate: -5% 2.5%"></i>
             </button>
             {{-- #share_button END--}}
 
@@ -174,7 +174,7 @@
         #return{
             position: fixed;
             top: 50%;
-            left: 10%;
+            left: 8%;
         }
     </style>
     {{-- return END --}}
@@ -325,9 +325,6 @@
     }
     #fav_button:hover{
         color: var(--yellow_bright);
-    }
-    #share_button{
-        width: 35px;
     }
     #share_button:hover{
         color: var(--green_light);

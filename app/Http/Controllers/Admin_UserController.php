@@ -19,7 +19,7 @@ class Admin_UserController extends Controller{
      * Show a the index of users to an admin
      */
     public function index($locale){
-        $users = $this->get_users(1);
+        $users = $this->get_users(1, '');
         $variables = [
             'locale' => $locale,
             'users' => $users,
@@ -176,30 +176,32 @@ class Admin_UserController extends Controller{
     }
 
     /**
-     * Get Users based on page
+     * Get Users based on page and search term
      */
-    public static function get_users($page){
+    public static function get_users($page, $search){
         // calculate the start index based on the page, and per page
         $per_page = 30;
         $start_index = ($page - 1) * $per_page;
 
-        return User::orderBy('role_id','asc')
+        return User::where('name', 'like', "%".$search.'%')
+        ->orWhere('email', 'like', "%".$search.'%')
+        ->orderBy('role_id', 'asc')
         ->skip($start_index)
         ->take($per_page)
-        ->get('users.*');
+        ->get();
     }
 
     /**
-     * Ajax, request more users by page
+     * Ajax, request more users by page and search
      */
-
     public function ajax_user_request(Request $request){
-        $request_data = $request->all(); //get request data
-        app()->setLocale($request_data['locale']); //set locale to request
-        $next_page = $request_data['current_page'] + 1; //advance page
+        $data = $request->all(); //get request data
+        app()->setLocale($data['locale']); //set locale to request
+        $next_page = $data['page'] + 1;
+        $search = $data['search'];
 
-        //get the places for next page
-        $users = Admin_UserController::get_users($page = $next_page);
+        //get users for the page requested
+        $users = Admin_UserController::get_users($next_page, $search);
 
         //get the countries for these users
         $countries = $users->pluck('country')->unique()->values()->all();
@@ -210,7 +212,7 @@ class Admin_UserController extends Controller{
         }
 
         $variables = [
-            'current_page' => $next_page,
+            'next_page' => $next_page,
             'users' => $users,
             'countries' => $countries,
         ];

@@ -7,16 +7,21 @@
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/tables.css') }}" />
 
-    <section class="wrapper col-12 col-lg-8">
-        <div class="mb-4 p-2 title">
-            <div class="d-flex flex-row align-items-center gap-2">
+    <section class="wrapper col-12 col-lg-10">
+        <div class="title">
+            <div class="text">
                 <i class="fa-solid fa-users"></i>
                 <h3>@lang('otherworlds.users')</h3>
-                <small class="mx-2">@lang('otherworlds.total'): {{$total}}</small>
+                <small>@lang('otherworlds.total'): {{ $total }}</small>
             </div>
-            <nav class="buttons d-flex flex-row gap-3">
+            <nav class="buttons">
                 <i class="fa-solid fa-spinner"></i>
-                <a href="{{ route('user_create', ['locale' => $locale]) }}" class="button info" style="border-radius: 0">
+                <div class="search_bar">
+                    <button class="search_button button"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <input type="text" placeholder="@lang('otherworlds.search_user')" name="search">
+                    <button class="clear_button button"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <a href="{{ route('user_create', ['locale' => $locale]) }}" class="button info">
                     <i class="fa-regular fa-add"></i>@lang('otherworlds.create_user')
                 </a>
             </nav>
@@ -29,7 +34,7 @@
                         <th class="small"></th>
                         <th class="small">@lang('otherworlds.role')</th>
                         <th></th>
-                        <th></th>
+                        <th class="small"></th>
                         <th>@lang('otherworlds.username')</th>
                         <th>@lang('otherworlds.email')</th>
                         <th></th>
@@ -111,7 +116,6 @@
                 ban_i.className = "fa-solid fa-rotate-left";
                 row.setAttribute('active', false);
                 name_container.innerHTML = '<i class="fa-solid fa-ban" style="color: red"></i>' + user.name
-
             }
         }
     </script>
@@ -124,6 +128,9 @@
             create_rows({!! json_encode($users) !!})
         });
 
+        function wipe_rows(){
+            results.innerHTML = '';
+        }
         function create_rows(users) {
             users.forEach(user => {
                 create_row(user);
@@ -146,10 +153,10 @@
                 row.setAttribute("you", "");
             }
             row.setAttribute('title', "User ID =  " + user.id);
-            row.innerHTML += `<td class="id text-end">${user.id}</td>`
+            row.innerHTML += `<td class="id text-end">${counter}</td>`
             // role
             const role_td = document.createElement('td')
-            if(role.name != 'user'){
+            if (role.name != 'user') {
                 role_td.innerHTML += `<div class="aligner"><i class="fa-solid ${role.icon}"></i></div>`;
             }
             row.appendChild(role_td);
@@ -168,7 +175,7 @@
             // name
             const div = document.createElement('div');
             div.className = "d-flex gap-2";
-            if (user.active = 0) {
+            if (user.active == 0) {
                 div.innerHTML += `<i class="fa-solid fa-ban" style="color: red"></i>`;
             }
             div.innerHTML += user.name;
@@ -215,6 +222,7 @@
             row.appendChild(td_buttons);
             add_row_listeners(row);
             results.appendChild(row);
+            counter += 1;
         }
 
         function add_row_listeners(row) {
@@ -262,44 +270,81 @@
         }
 
         //ajax variables
-        let total = 0;
-        let current_page = 1;
+        let counter = 1; //number of rows, incremented when a row is created and wiped on search
+        let page = 1;
+        let reached_end = false;
         let requesting = false;
         let querying = false;
+        let search = '';
+
+        const search_button = document.querySelector('.search_button');
+        const clear_button = document.querySelector('.clear_button');
+        const search_input = document.querySelector('.search_bar input');
+        clear_button.addEventListener('click', function(){
+            search = ''
+        })
+        search_input.addEventListener('input', function(){
+            if(search_input.value != ''){
+                clear_button.style.display = 'flex';
+            } else {
+                clear_button.style.display = 'none';
+            }
+        });
+        search_input.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') { search_button.click(); }
+        });
+
+        search_button.addEventListener('click', send_search);
+        clear_button.addEventListener('click', function(){
+            search_input.value = '';
+            clear_button.style.display = 'none';
+            send_search();
+        });
+
+        function send_search(){
+            //reset ajax variables
+            wipe_rows();
+            search = search_input.value;
+            page = 0;
+            counter = 1;
+            attempt_request();
+        }
+
 
         // on scroll event, when user has reached 75% of the cointainer's height
         document.querySelector('.table_container').addEventListener('scroll', function() {
             if (this.scrollTop >= (this.scrollHeight - this.offsetHeight) * 0.75) {
-
-                if (requesting == false && querying == false) {
-                    request();
-                } else if (requesting == true) {
-                    querying = true;
-                }
+                attempt_request();
             }
         });
-
-        function request() {
-            if (current_page == -1) {
-                //means there are no more places for this query
-                return;
+        function attempt_request(){
+            if (requesting == false && querying == false) {
+                request();
+            } else if (requesting == true) {
+                querying = true;
             }
+        }
+        function request() {
+            //means there are no more users for this query
+            if (page == -1) { return; }
+
+            console.log('Input value:', search);
             const ajax_data = {
                 method: 'POST',
                 url: '{{ URL('/ajax/admin/users/request') }}',
                 request_data: {
                     _token: '{{ csrf_token() }}',
                     locale: '{{ $locale }}',
-                    current_page: current_page,
+                    page: page,
+                    search: search
                 },
+
                 before_func: function() {
                     requesting = true;
-                    // const ajax_loading = document.getElementById('ajax_loading'); //show #ajax_loading
-                    // ajax_loading.style.display = 'flex';
                 },
                 success_func: function(response_data) {
                     console.log(response_data);
-                    current_page = response_data['current_page'];
+                    page = response_data['next_page'];
 
                     //add the countries to loaded_countries
                     response_data['countries'].forEach(function(country) {
@@ -310,10 +355,7 @@
 
                     create_rows(response_data['users']); //create the user rows
                 },
-                after_func: function() {
-                    //ajax_loading.style.display = 'none'; //hide #ajax_loading
-                    request_cooldown();
-                }
+                after_func: request_cooldown
             }
 
             ajax(ajax_data);
@@ -325,9 +367,6 @@
                 querying = false;
                 request();
             }
-        }
-        async function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
         }
 
         function organize_dic(dic) {
