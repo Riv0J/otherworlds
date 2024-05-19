@@ -24,8 +24,7 @@ use App\Http\Controllers\Admin_UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// absolute home routes
+// absolute routes
 Route::get('/', function () {
     return (new Front_Controller())->home('en');
 });
@@ -71,7 +70,7 @@ Route::prefix('{locale}')->group(function () {
             [Front_UserController::class, 'edit'])->middleware(['auth']);
         };
 
-        // POST overrides
+        // POST / ASYNC routes
         Route::post('/login', [LoginController::class, 'handle_login'])->name('login');
         Route::post('/register', [RegisterController::class, 'handle_register'])->name('register');
         Route::post('/profile/update', [Front_UserController::class, 'update'])->name('profile_update');
@@ -86,22 +85,6 @@ Route::prefix('{locale}')->group(function () {
             Route::post('/admin/users/store', [Admin_UserController::class, 'store'])->name('user_store');
             Route::delete('/admin/users/delete', [Admin_UserController::class, 'delete'])->name('user_delete');
         });
-    });
-});
-
-// front routes with $locale slug
-Route::prefix('{locale}')->group(function () {
-
-    // routes that automatically update app locale with the $locale prefix
-    Route::middleware(['locale_updater'])->group(function () {
-
-
-
-
-        // FRONT public routes:
-
-
-
     });
 });
 
