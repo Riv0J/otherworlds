@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-<section class="wrapper col-12 col-lg-10">
+<section class="wrapper col-12 col-lg-8">
     {{-- title --}}
     <div class="title flex-column flex-sm-row">
         <div class="flex_center gap-4">

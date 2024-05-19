@@ -31,9 +31,7 @@
 }
 
 .card_top {
-    position: relative;
-    display: flex;
-    align-items: center;
+    display: inline-flex;
     justify-content: space-between;
     gap: 0.5rem;
     padding: 0.5rem;
@@ -46,8 +44,6 @@
     position: relative;
     overflow: hidden;
     color: white;
-    border-width: 2px;
-    border-color: gray;
     border-radius: 1.5rem;
     display: flex;
     flex-direction: column;
