@@ -4,10 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\FrontController;
-use App\Http\Controllers\FrontUserController;
+
+use App\Http\Controllers\Front_Controller;
+use App\Http\Controllers\Front_UserController;
+use App\Http\Controllers\Admin_Controller;
 use App\Http\Controllers\Admin_UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,16 +23,16 @@ use App\Http\Controllers\Admin_UserController;
 
 // general short routes
 Route::get('/', function () {
-    return (new FrontController())->home('en');
+    return (new Front_Controller())->home('en');
 });
 Route::get('/home', function () {
-    return (new FrontController())->home('en');
+    return (new Front_Controller())->home('en');
 });
 Route::get('/places', function () {
-    return (new FrontController())->place_index('en','places');
+    return (new Front_Controller())->place_index('en','places');
 });
 Route::get('/lugares', function () {
-    return (new FrontController())->place_index('es','lugares');
+    return (new Front_Controller())->place_index('es','lugares');
 });
 
 // front routes with $locale slug
@@ -54,15 +56,15 @@ Route::prefix('{locale}')->group(function () {
 
         // FRONT routes for logged users
         Route::middleware(['auth'])->group(function () {
-            Route::get('/profile/edit', [FrontUserController::class, 'edit'])->name('profile_edit');
-            Route::post('/profile/update', [FrontUserController::class, 'update'])->name('profile_update');
-            Route::get('/profile/reset_img/{user_id}', [FrontUserController::class, 'reset_img'])->name('reset_img');
+            Route::get('/profile/edit', [Front_UserController::class, 'edit'])->name('profile_edit');
+            Route::post('/profile/update', [Front_UserController::class, 'update'])->name('profile_update');
+            Route::get('/profile/reset_img/{user_id}', [Front_UserController::class, 'reset_img'])->name('reset_img');
         });
 
         // FRONT public routes:
 
         // search for a user's profile
-        Route::get('/profile/{username}', [FrontUserController::class, 'show'])->name('user_show');
+        Route::get('/profile/{username}', [Front_UserController::class, 'show'])->name('user_show');
 
         // auth register, login, logout,
         Auth::routes();
@@ -75,24 +77,24 @@ Route::prefix('{locale}')->group(function () {
         Route::post('/register', [RegisterController::class, 'handle_register'])->name('register');
 
         // home
-        Route::get('/', [FrontController::class, 'home'])->name('home');
-        Route::get('/home', [FrontController::class, 'home'])->name('home');
+        Route::get('/', [Front_Controller::class, 'home'])->name('home');
+        Route::get('/home', [Front_Controller::class, 'home'])->name('home');
 
         // general
-        Route::get('/development', [FrontController::class, 'show_development'])->name('development');
+        Route::get('/development', [Front_Controller::class, 'show_development'])->name('development');
 
         // place routes
-        Route::get('/{section_slug}/{place_slug}', [FrontController::class, 'place_view'])->name('place_view');
-        Route::get('/{section_slug}', [FrontController::class, 'place_index'])->name('place_index');
+        Route::get('/{section_slug}/{place_slug}', [Front_Controller::class, 'place_view'])->name('place_view');
+        Route::get('/{section_slug}', [Front_Controller::class, 'place_index'])->name('place_index');
 
     });
 
 });
 
 // ajax favorite toggle
-Route::post('/ajax/places/favorite', [FrontController::class, 'ajax_place_favorite']);
+Route::post('/ajax/places/favorite', [Front_Controller::class, 'ajax_place_favorite']);
 // ajax place request
-Route::post('/ajax/places/request', [FrontController::class, 'ajax_place_request']);
+Route::post('/ajax/places/request', [Front_Controller::class, 'ajax_place_request']);
 
 // BACK routes for admins
 Route::middleware(['admin'])->group(function () {

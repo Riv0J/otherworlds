@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\User;
 use App\Models\Place;
 use App\Models\Category;
 
-class FrontController extends Controller{
+class Front_Controller extends Controller{
     protected const PER_PAGE = 10;
 
     function home($locale){

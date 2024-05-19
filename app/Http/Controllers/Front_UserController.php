@@ -12,7 +12,7 @@ use App\Models\User;
 use App\Models\Message;
 use App\Models\Country;
 use App\Models\Category;
-class FrontUserController extends Controller{
+class Front_UserController extends Controller{
     /*
      * Show a user's profile
      */

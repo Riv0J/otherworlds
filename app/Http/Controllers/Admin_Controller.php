@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Role;
-class AdminController extends Controller{
+class Admin_Controller extends Controller{
 
 }

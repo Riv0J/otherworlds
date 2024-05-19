@@ -15,10 +15,21 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/views/place_index.css') }}"/>
 
-<section class="col-12 mt-2 px-lg-5 pb-2 header_offset app_bg">
-    <h2 class="semibold display-5 gap-2 col-12 py-2 white">
+<section class="col-12 py-2 px-lg-5 app_bg d-inline-flex justify-content-between">
+    <h2 class="semibold display-5">
         @lang('otherworlds.unique_places')
     </h2>
+    {{-- <nav class="buttons">
+        <i class="fa-solid fa-spinner"></i>
+        <div class="search_bar">
+            <button class="search_button button"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <input type="text" placeholder="@lang('otherworlds.search_user')" name="search">
+            <button class="clear_button button"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <a href="{{ route('user_create', ['locale' => $locale]) }}" class="button info">
+            <i class="fa-regular fa-add"></i>@lang('otherworlds.create_user')
+        </a>
+    </nav> --}}
 </section>
 <section class="col-12 px-1 px-lg-2 py-3">
     @include('components.places_container')

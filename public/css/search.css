@@ -1,5 +1,6 @@
 .search_bar{
     min-width: 250px;
+    max-height: 3rem;
     display: inline-flex;
     justify-content: space-between;
     color: white;
