@@ -1056,7 +1056,7 @@ class PlaceSeeder extends Seeder
                         'url' => 'https://es.wikipedia.org/wiki/Parque_nacional_y_reserva_de_la_Bah%C3%ADa_de_los_Glaciares',
                     ],
                 ],
-                'country_name' => 'Alaska',
+                'country_name' => 'United States',
                 'category_keyword' => 'Glaciers',
                 'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Glaciers_of_Glacier_Bay_National_Park'
             ],
@@ -1065,6 +1065,6 @@ class PlaceSeeder extends Seeder
     }
 }
 
-//potential: 
+//potential:
 //Quelccaya
 //Rwenzori Mountains
