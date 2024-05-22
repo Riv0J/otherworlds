@@ -33,12 +33,12 @@ Dev | Otherworlds
         </li>
         <li>
             <h5>
-                Place comments
+                Front User - Place comments
             </h5>
         </li>
         <li>
             <h5>
-                Admin Visit index, show
+                Admin dashboard [Visit index, show]
             </h5>
         </li>
         <li>
@@ -94,7 +94,7 @@ Dev | Otherworlds
         </li>
         <li>
             <h5 class="text-decoration-line-through">
-                Rutas FRONT 100% traducidas
+                Rutas front 99% traducidas
             </h5>
         </li>
     </ul>

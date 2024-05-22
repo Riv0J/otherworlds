@@ -232,7 +232,6 @@
     /* mobile breakpoint */
     @media screen and (max-width: 992px) {
         header {
-            position: relative;
             background: rgb(29, 29, 29) !important;
         }
 

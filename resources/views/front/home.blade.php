@@ -37,7 +37,6 @@
 <style>
     #home_window_container img {
         max-height: 60svh;
-        width: auto;
         height: auto;
     }
     #home_window_title_container{
