@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.4",
         "spatie/laravel-translatable": "^6.5",
+        "stevebauman/location": "^7.2",
         "symfony/dom-crawler": "^7.0",
         "symfony/http-client": "^7.0"
     },

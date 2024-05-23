@@ -46,8 +46,11 @@ class PlaceSeeder extends Seeder
 
             // generate slug for each of the place's locale
             foreach (config('translatable.locales') as $locale) {
-                $place_data[$locale]['slug'] = OHelper::sluggify($place_data[$locale]['name']);
+                if(isset($place_data[$locale])){
+                    $place_data[$locale]['slug'] = OHelper::sluggify($place_data[$locale]['name']);
+                }
             }
+
             // generate public slug, main language directory is english
             $place_data['public_slug'] = OHelper::sluggify($place_data['en']['name']);
 
