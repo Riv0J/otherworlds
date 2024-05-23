@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Visit extends Model{
     protected $table = 'visits';
-    protected $fillable = ['ip', 'user_agent', 'route', 'country_id'];
+    protected $fillable = ['ip', 'browser', 'os', 'route', 'country_id'];
     public $timestamps = true;
 
     public function country(){

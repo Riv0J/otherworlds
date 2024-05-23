@@ -23,7 +23,7 @@
                 <i class="fa-solid fa-panorama"></i>
                 <h5 class="light">Places</h5>
             </a>
-            <a href="{{places_url($locale)}}">
+            <a href="{{route('visit_index', ['locale' => $locale])}}">
                 <i class="fa-solid fa-chart-line"></i>
                 <h5 class="light">Visits</h5>
             </a>

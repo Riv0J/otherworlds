@@ -17,7 +17,8 @@ return new class extends Migration
         Schema::create('visits', function (Blueprint $table) {
             $table->id();
             $table->string('ip');
-            $table->string('user_agent'); // browser
+            $table->string('browser');
+            $table->string('os');
             $table->string('route');
 
             //foreign country_id

@@ -6,13 +6,12 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Closure;
 
+use Jenssegers\Agent\Agent;
 use Stevebauman\Location\Facades\Location;
-use App\Http\Controllers\VisitController;
 use App\Models\Visit;
 use App\Models\CountryTranslation;
 
 class VisitsMiddleware{
-
     /**
      * Handle an incoming request.
      *
@@ -24,9 +23,14 @@ class VisitsMiddleware{
         $ip = $request->ip();
         $country_id = $this->get_country_id($ip);
 
+        $agent = new Agent();
+        $browser = $agent->browser();
+        $platform = $agent->platform();
+
         Visit::create([
             'ip' => $ip,
-            'user_agent' => $request->userAgent(),
+            'browser' => $browser." ".$agent->version($browser),
+            'os' => $platform." ".$agent->version($platform),
             'route' => $request->path(),
             'country_id' => $country_id,
         ]);

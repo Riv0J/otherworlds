@@ -11,8 +11,8 @@ use App\Http\Controllers\Front_Controller;
 use App\Http\Controllers\Front_UserController;
 use App\Http\Controllers\Front_PlaceController;
 
-use App\Http\Controllers\Admin_Controller;
 use App\Http\Controllers\Admin_UserController;
+use App\Http\Controllers\Admin_VisitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +84,8 @@ Route::prefix('{locale}')->group(function () {
             Route::get('/admin/users/create', [Admin_UserController::class, 'create'])->name('user_create');
             Route::post('/admin/users/store', [Admin_UserController::class, 'store'])->name('user_store');
             Route::delete('/admin/users/delete', [Admin_UserController::class, 'delete'])->name('user_delete');
+
+            Route::get('/admin/visits', [Admin_VisitController::class, 'index'])->name('visit_index');
         });
     });
 });
