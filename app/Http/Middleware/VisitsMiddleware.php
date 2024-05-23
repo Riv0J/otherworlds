@@ -1,16 +1,18 @@
 <?php
 
+
+
 namespace App\Http\Middleware;
-
-use App\Models\CountryTranslation;
-use Closure;
 use Illuminate\Http\Request;
-use App\Models\Country;
-use App\Models\Visit;
-use Stevebauman\Location\Facades\Location;
+use Closure;
 
-class VisitsMiddleware
-{
+use Stevebauman\Location\Facades\Location;
+use App\Http\Controllers\VisitController;
+use App\Models\Visit;
+use App\Models\CountryTranslation;
+
+class VisitsMiddleware{
+
     /**
      * Handle an incoming request.
      *
@@ -20,35 +22,25 @@ class VisitsMiddleware
      */
     public function handle(Request $request, Closure $next){
         $ip = $request->ip();
+        $country_id = $this->get_country_id($ip);
 
-        if ($this->is_loopback($ip)) {
-            return $next($request);
-        }
-
-        $country = $this->get_country($ip);
         Visit::create([
             'ip' => $ip,
             'user_agent' => $request->userAgent(),
             'route' => $request->path(),
-            'country_id' => $country->id,
+            'country_id' => $country_id,
         ]);
+
         return $next($request);
     }
 
     /**
      * Get a country, given an IP
      */
-    public function get_country($ip){
+    public function get_country_id($ip){
         $location = Location::get($ip);
         $country_name = $location ? $location->countryName : 'Unknown';
-
-        dd($ip." ".$country_name);
-        return CountryTranslation::join('countries', 'countries.id', 'countries_translations.country_id')
-        ->where('countries_translations.name',$country_name)->get('countries.*');
+        return CountryTranslation::where('name', $country_name)->value('country_id');
     }
 
-    private function is_loopback($ip) {
-        // Verificar tanto direcciones IPv4 como IPv6 de loopback
-        return $ip === '127.0.0.1' || $ip === '::1';
-    }
 }
