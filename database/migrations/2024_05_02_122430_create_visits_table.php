@@ -25,7 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('country_id');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
 
-            $table->timestamps();
+            $table->timestamp('created_at');
         });
 
     }

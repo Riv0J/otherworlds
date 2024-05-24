@@ -26,7 +26,13 @@ class MediaSeeder extends Seeder
             'victoria-falls' => 'https://commons.wikimedia.org/wiki/Category:Aerial_photographs_of_Victoria_Falls#/media/File:Cataratas_Victoria,_Zambia-Zimbabue,_2018-07-27,_DD_04.jpg',
             'hopewell-rocks' => 'https://www.parcsnbparks.info/en/parks/33/hopewell-rocks-provincial-park',
             'rwenzori-mountains' => 'https://commons.wikimedia.org/wiki/Category:Ruwenzori_Range#/media/File:Ruwenzori_Vegetation_7.jpg',
-            'bungle-bungle-range' => 'https://commons.wikimedia.org/wiki/File:00_2161_Purnululu-Nationalpark_-_Western_Australia.jpg'
+            'bungle-bungle-range' => 'https://commons.wikimedia.org/wiki/File:00_2161_Purnululu-Nationalpark_-_Western_Australia.jpg',
+            'caucasus-mountains '=> 'https://commons.wikimedia.org/wiki/File:Maly_and_Bolshoy_Tkhach%27s,_Adygea,_%D0%9C%D0%B0%D0%BB%D1%8B%D0%B9_%D0%B8_%D0%91%D0%BE%D0%BB%D1%8C%D1%88%D0%BE%D0%B9_%D0%A2%D1%85%D0%B0%D1%87,_%D0%90%D0%B4%D1%8B%D0%B3%D0%B5%D1%8F.jpg',
+            'wrangel-island' => 'https://commons.wikimedia.org/wiki/File:%D0%9C%D0%B0%D0%BC%D0%B0-%D0%BC%D0%B5%D0%B4%D0%B2%D0%B5%D0%B4%D0%B8%D1%86%D0%B0_%D1%81_%D1%82%D1%80%D0%BE%D0%B9%D0%BD%D1%8F%D1%88%D0%BA%D0%B0%D0%BC%D0%B8.jpg',
+            'lut-desert' => 'https://commons.wikimedia.org/wiki/File:Irnj256-Po%C5%9Br%C3%B3d_osta%C5%84c%C3%B3w_na_Pustyni_Loota.jpg',
+            'the-sundarbans' => 'https://en.wikipedia.org/wiki/Tiger_attacks_in_the_Sundarbans#/media/File:Sundarban_Tiger.jpg',
+            'okavango-delta' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Red_Lechwe_in_the_Okavango.jpg/2560px-Red_Lechwe_in_the_Okavango.jpg',
+
         ];
 
         foreach (\App\Models\Place::all() as $place) {

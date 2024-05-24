@@ -33,6 +33,7 @@ class VisitsMiddleware{
             'os' => $platform." ".$agent->version($platform),
             'route' => $request->path(),
             'country_id' => $country_id,
+            'created_at' => now()
         ]);
 
         return $next($request);

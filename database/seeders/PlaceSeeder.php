@@ -1109,8 +1109,125 @@ class PlaceSeeder extends Seeder
                 'category_keyword' => 'Mountains',
                 'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Bungle_Bungle_Range'
             ],
+            [
+                'es' => [
+                    'name' => 'Cordillera del Cáucaso',
+                    'synopsis' => 'Cordillera transcontinental que tiene el pico del Monte Elbrus, la montaña más alta de Europa',
+                ],
+                'en' => [
+                    'name' => 'Caucasus Mountains',
+                    'synopsis' => 'Transcontinental montain range, contains the highest peak in Europe, Mount Elbrus',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Caucasus_Mountains',
+                    ],
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Cordillera_del_C%C3%A1ucaso',
+                    ],
+                ],
+                'country_name' => 'Georgia',
+                'category_keyword' => 'Mountains',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Caucasus'
+            ],
+            [
+                'es' => [
+                    'name' => 'Isla de Wrangel',
+                    'synopsis' => 'Importante ecosistema y biodiversidad de la fauna ártica, especialmente osos polares y aves migratorias',
+                ],
+                'en' => [
+                    'name' => 'Wrangel Island',
+                    'synopsis' => 'Important ecosystem and biodiversity of arctic wildlife, especially polar bears and migratory birds',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Wrangel_Island',
+                    ],
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Isla_de_Wrangel',
+                    ],
+                ],
+                'country_name' => 'Russia',
+                'category_keyword' => 'Nature',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Coasts_of_Wrangel_Island'
+            ],
+            [
+                'es' => [
+                    'name' => 'Desierto de Lut',
+                    'synopsis' => 'Conocido como "Dasht-e Lut", que significa Desierto del Vacío en persa, es uno de los lugares más secos y calurosos del mundo',
+                ],
+                'en' => [
+                    'name' => 'Lut Desert',
+                    'synopsis' => "Known as \"Dasht-e Lut\", Emptiness Plain in Persian,  one of the world's driest and hottest places",
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Dasht-e_Lut',
+                    ],
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Desierto_de_Lut',
+                    ],
+                ],
+                'country_name' => 'Iran',
+                'category_keyword' => 'Valleys',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Dasht-e_Lut'
+            ],
+            [
+                'es' => [
+                    'name' => 'Manglar de Sundarbans',
+                    'synopsis' => 'El bosque de manglar más grande de la Tierra, formado en el delta del río Ganges',
+                ],
+                'en' => [
+                    'name' => 'The Sundarbans',
+                    'synopsis' => "The largest mangrove forest in the world, formed in the delta of the Ganges river",
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Sundarbans',
+                    ],
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Sundarbans',
+                    ],
+                ],
+                'country_name' => 'Bangladesh',
+                'category_keyword' => 'Nature',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Sundarbans_West_Wildlife_Sanctuary'
+            ],
+            [
+                'es' => [
+                    'name' => 'Delta del Okavango',
+                    'synopsis' => 'Asombroso ejemplo de biodiversidad africana en la desembocadura del río Okavango, especialmente durante las temporadas de lluvias',
+                ],
+                'en' => [
+                    'name' => 'Okavango Delta',
+                    'synopsis' => "Amazing example of african biodiversity at the Okavango river delta, especially during rainy seasons",
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Okavango_Delta',
+                    ],
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Delta_del_Okavango',
+                    ],
+                ],
+                'country_name' => 'Botswana',
+                'category_keyword' => 'Nature',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Mammals_of_the_Okavango_Delta'
+            ],
 
         ];
+
+
     }
 }
 

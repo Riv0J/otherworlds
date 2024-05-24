@@ -99,6 +99,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Azerbaijan'
             ],
+            'code' => 'aze'
         ],
         [
             'en' => [
@@ -117,10 +118,12 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Bangladesh'
             ],
+            'code' => 'bgd'
         ],[
             'en' => [
                 'name' => 'Barbados'
             ],
+            'code' => 'brb'
         ],
         [
             'es' => [
@@ -129,6 +132,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Belarus'
             ],
+            'code' => 'blr'
         ],
         [
             'es' => [
@@ -137,6 +141,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Belgium'
             ],
+            'code' => 'bel'
         ],
         [
             'es' => [
@@ -154,6 +159,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Benin'
             ],
+            'code' => 'ben'
         ],[
             'es' => [
                 'name' => 'Bután'
@@ -175,6 +181,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Bosnia and Herzegovina'
             ],
+            'code' => 'bih'
         ],
         [
             'es' => [
@@ -183,6 +190,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Botswana'
             ],
+            'code' => 'bwa'
         ],
         [
             'es' => [
@@ -191,6 +199,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Brazil'
             ],
+            'code' => 'bra'
         ],[
             'es' => [
                 'name' => 'Brunéi'
@@ -198,16 +207,19 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Brunei'
             ],
+            'code' => 'brn'
         ],
         [
             'en' => [
                 'name' => 'Bulgaria'
             ],
+            'code' => 'bgr'
         ],
         [
             'en' => [
                 'name' => 'Burkina Faso'
             ],
+            'code' => 'bfa'
         ],
         [
             'en' => [
@@ -529,11 +541,13 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Iceland'
             ],
+            'code' => 'isl'
         ],
         [
             'en' => [
                 'name' => 'India'
             ],
+            'code' => 'ind'
         ],
         [
             'en' => [
@@ -548,6 +562,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Iran'
             ],
+            'code' => 'irn'
         ],
         [
             'es' => [
@@ -556,6 +571,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Iraq'
             ],
+            'code' => 'irq'
         ],
         [
             'es' => [
@@ -1002,6 +1018,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Russia'
             ],
+            'code'=> 'rus'
         ],
         [
             'es' => [
