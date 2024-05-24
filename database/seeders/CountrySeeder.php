@@ -79,6 +79,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Armenia'
             ],
+            'code' => 'arm'
         ],
         [
             'en' => [
@@ -295,6 +296,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Croatia'
             ],
+            'code' => 'hrv'
         ],
         [
             'en' => [
@@ -414,6 +416,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'France'
             ],
+            'code' => 'fra'
         ],
         [
             'es' => [
@@ -422,16 +425,19 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Gabon'
             ],
+            'code' => 'gab'
         ],
         [
             'en' => [
                 'name' => 'Gambia'
             ],
+            'code' => 'gmb'
         ],
         [
             'en' => [
                 'name' => 'Georgia'
             ],
+            'code' => 'geo'
         ],
         [
             'es' => [
@@ -440,11 +446,13 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Germany'
             ],
+            'code' => 'deu'
         ],
         [
             'en' => [
                 'name' => 'Ghana'
             ],
+            'code' => 'gha'
         ],
         [
             'es' => [
@@ -453,6 +461,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Greece'
             ],
+            'code' => 'grc'
         ],
         [
             'es' => [
@@ -461,16 +470,19 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Grenada'
             ],
+            'code' => 'grd'
         ],
         [
             'en' => [
                 'name' => 'Guatemala'
             ],
+            'code' => 'gtm'
         ],
         [
             'en' => [
                 'name' => 'Guinea'
             ],
+            'code' => 'gin'
         ],
         [
             'es' => [
@@ -479,11 +491,13 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Guinea-Bissau'
             ],
+            'code' => 'gnb'
         ],
         [
             'en' => [
                 'name' => 'Guyana'
             ],
+            'code' => 'guy'
         ],
         [
             'es' => [
@@ -492,11 +506,13 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Haiti'
             ],
+            'code' => 'hti'
         ],
         [
             'en' => [
                 'name' => 'Honduras'
             ],
+            'code' => 'hnd'
         ],
         [
             'es' => [
@@ -1087,6 +1103,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Singapore'
             ],
+            'code' => 'sgp'
         ],
         [
             'es' => [
@@ -1303,6 +1320,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'United Kingdom'
             ],
+            'code' => 'gbr'
         ],
         [
             'es' => [
