@@ -1296,6 +1296,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Uganda'
             ],
+            'code' => 'uga'
         ],
         [
             'es' => [

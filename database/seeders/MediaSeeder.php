@@ -24,7 +24,9 @@ class MediaSeeder extends Seeder
             'towers-of-paine' => 'https://commons.wikimedia.org/wiki/Category:Torres_del_Paine_(mountain)#/media/File:CL_Torres_del_Paine_PN_0702_091_(17227574802).jpg',
             'los-glaciares' => 'https://commons.wikimedia.org/wiki/File:Perito_Moreno_Glacier_Patagonia_Argentina_Luca_Galuzzi_2005.JPG',
             'victoria-falls' => 'https://commons.wikimedia.org/wiki/Category:Aerial_photographs_of_Victoria_Falls#/media/File:Cataratas_Victoria,_Zambia-Zimbabue,_2018-07-27,_DD_04.jpg',
-            'hopewell-rocks' => 'https://www.parcsnbparks.info/en/parks/33/hopewell-rocks-provincial-park'
+            'hopewell-rocks' => 'https://www.parcsnbparks.info/en/parks/33/hopewell-rocks-provincial-park',
+            'rwenzori-mountains' => 'https://commons.wikimedia.org/wiki/Category:Ruwenzori_Range#/media/File:Ruwenzori_Vegetation_7.jpg',
+            'bungle-bungle-range' => 'https://commons.wikimedia.org/wiki/File:00_2161_Purnululu-Nationalpark_-_Western_Australia.jpg'
         ];
 
         foreach (\App\Models\Place::all() as $place) {

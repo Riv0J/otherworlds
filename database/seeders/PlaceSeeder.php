@@ -1063,11 +1063,55 @@ class PlaceSeeder extends Seeder
                 'category_keyword' => 'Glaciers',
                 'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Glaciers_of_Glacier_Bay_National_Park'
             ],
+            [
+                'es' => [
+                    'name' => 'Montañas Rwenzori',
+                    'synopsis' => 'Fauna variada, aves endémicas y flora inusual',
+                ],
+                'en' => [
+                    'name' => 'Rwenzori Mountains',
+                    'synopsis' => 'Variety of fauna, endemic birds and unusual flora',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Rwenzori_Mountains_National_Park',
+                    ],
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Monta%C3%B1as_Rwenzori',
+                    ],
+                ],
+                'country_name' => 'Uganda',
+                'category_keyword' => 'Nature',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Rwenzori-Virunga_montane_moorlands'
+            ],
+            [
+                'es' => [
+                    'name' => 'Montañas Bungle Bungle',
+                    'synopsis' => 'Formaciones de arenisca con forma de colmenas, en el Parque Nacional Purnululu',
+                ],
+                'en' => [
+                    'name' => 'Bungle Bungle Range',
+                    'synopsis' => 'Beehive-like sandstone rock formations, in the Purnululu National Park',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Purnululu_National_Park',
+                    ],
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Parque_nacional_Purnululu',
+                    ],
+                ],
+                'country_name' => 'Australia',
+                'category_keyword' => 'Mountains',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Bungle_Bungle_Range'
+            ],
 
         ];
     }
 }
 
 //potential:
-//Quelccaya
-//Rwenzori Mountains
