@@ -1,7 +1,7 @@
 @extends('layout.masterpage')
 
 @section('title')
-    @lang('otherworlds.user_create') | Otherworlds
+    @lang('otherworlds.user_create') | Admin {{ config('app.name') }}
 @endsection
 
 @section('canonical')

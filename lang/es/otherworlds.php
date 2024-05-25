@@ -24,9 +24,9 @@ return [
     // page descriptions
     'keywords' => 'vacaciones, viaje, destino, visitar, maravillas naturales, natural, lugar, lugares, paisaje, montaña, cascada, valle, lago, ubicaciones',
     'learn_more_about' => 'Saber más sobre',
-    'description_home' => 'Explorar una colección de lugares naturales extraordinarios de todo el mundo. Descubre majestuosas montañas, cascadas impresionantes y demás lugares maravillosos, mientras te sumerges en la belleza única de la naturaleza. Busca sitios con los cuales puedas impresionarte e incluso planear tus siguientes vacaciones parar ir a visitarlos',
+    'description_home' => 'Explorar una colección de lugares naturales extraordinarios de todo el mundo. Asómbrate con estos sitios maravillosos y planea tus siguientes vacaciones',
 
-    'description_places' => 'Explorar una colección de lugares naturales extraordinarios de todo el mundo, con el buscador de Otherworlds. Puedes buscar los lugares por su país, categoría y por nombre',
+    'description_places' => 'Explorar una colección de lugares naturales extraordinarios de todo el mundo Puedes buscar lugares por su país, categoría y nombre',
 
     'description_login' => 'Iniciar sesión en Otherworlds',
     'description_register' => 'Registrarse en Otherworlds',
@@ -97,7 +97,7 @@ return [
     'view_image_source' => 'Ver el origen de la imagen',
     'view_all_images' => 'Ver todas las imágenes',
 
-    // users controllers
+    // user controller
     'users' => 'Usuarios',
     'active' => 'Active',
     'favorite_places' => 'Lugares favoritos',
@@ -113,8 +113,21 @@ return [
     'user_created_success' => 'Usuario creado',
     'user_edit_success' => 'Usuario editado',
     'user_delete_success' => 'Usuario eliminado',
+    'confirm_delete_user_title' => 'Confirmar eliminación de usuario',
+    'confirm_delete_user_body' => '¿Eliminar completamente este usuario?',
+
+    // place controller
+    'search_place' => 'Buscar nombre de lugar',
+    'create_place' => 'Crear lugar',
 
     // general
+    'confirm' => 'Confirmar',
+    'name' => 'Nombre',
+    'visits' => 'Visitas',
+    'browser' => 'Navegador',
+    'platform' => 'Plataforma',
+    'route' => 'Ruta',
+    'date' => 'Fecha',
     'total' => 'Total',
     'results' => 'Resultados',
     'role' => 'Rol',

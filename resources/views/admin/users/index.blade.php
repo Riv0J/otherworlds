@@ -1,11 +1,15 @@
 @extends('layout.masterpage')
 
 @section('title')
-    @lang('otherworlds.users') | Otherworlds
+    @lang('otherworlds.users') | Admin {{ config('app.name') }}
+@endsection
+
+@section('canonical')
+    {{ URL::current() }}
 @endsection
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/tables.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/tables.css') }}"/>
 
     <section class="wrapper col-12 col-lg-10">
         <div class="title">
@@ -33,11 +37,19 @@
                     <tr>
                         <th class="small"></th>
                         <th class="small">@lang('otherworlds.role')</th>
-                        <th></th>
-                        <th class="small"></th>
+                        <th class="small" title="@lang('otherworlds.country')">
+                            <div class="aligner">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                        </th>
+                        <th class="medium">
+                            <div class="aligner">
+                                <i class="fa-solid fa-image"></i>
+                            </div>
+                        </th>
                         <th>@lang('otherworlds.username')</th>
                         <th>@lang('otherworlds.email')</th>
-                        <th></th>
+                        <th class="medium"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -123,7 +135,7 @@
         const results = document.querySelector('.results_table tbody');
         const logged = {!! json_encode($logged) !!};
         const loaded_roles = organize_dic({!! json_encode($roles) !!});
-        const loaded_countries = organize_dic({!! json_encode($countries) !!});
+
         document.addEventListener('DOMContentLoaded', function() {
             create_rows({!! json_encode($users) !!})
         });
@@ -139,7 +151,7 @@
 
         function create_row(user) {
             const role = loaded_roles[user.role_id];
-            const country = loaded_countries[user.country_id];
+            const country = user.country;
             const row = document.createElement('tr');
             row.setAttribute('user_id', user.id)
             row.setAttribute('username', user.name)
@@ -153,7 +165,7 @@
                 row.setAttribute("you", "");
             }
             row.setAttribute('title', "User ID =  " + user.id);
-            row.innerHTML += `<td class="id text-end">${counter}</td>`
+            row.innerHTML += `<td class="text-end number">${counter}</td>`
             // role
             const role_td = document.createElement('td')
             if (role.name != 'user') {
@@ -161,16 +173,16 @@
             }
             row.appendChild(role_td);
 
-            // profile_img
-            const asset_route = "{{ asset('users') }}" + '/' + user.img;
-            row.innerHTML += `<td class="px-0"><div class="profile_img aligner"><img src="${asset_route}"></div></td>`;
-
             // country
             row.innerHTML += `
-                    <td class="text-center px-1">
+                    <td>
                         <span class="flag-icon flag-icon-${country.code}" title="${country.name}"></span>
                     </td>
             `;
+
+            // profile_img
+            const asset_route = "{{ asset('users') }}" + '/' + user.img;
+            row.innerHTML += `<td class="px-0"><div class="profile_img aligner"><img src="${asset_route}"></div></td>`;
 
             // name
             const div = document.createElement('div');
@@ -270,7 +282,6 @@
         //ajax variables
         let counter = 1; //number of rows, incremented when a row is created and wiped on search
         let page = 1;
-        let reached_end = false;
         let requesting = false;
         let querying = false;
         let search = '';
@@ -308,10 +319,9 @@
             attempt_request();
         }
 
-
-        // on scroll event, when user has reached 75% of the cointainer's height
+        // on scroll event, when user has reached 50% of the cointainer's height
         document.querySelector('.table_container').addEventListener('scroll', function() {
-            if (this.scrollTop >= (this.scrollHeight - this.offsetHeight) * 0.75) {
+            if (this.scrollTop >= (this.scrollHeight - this.offsetHeight) * 0.5) {
                 attempt_request();
             }
         });
@@ -343,13 +353,6 @@
                 success_func: function(response_data) {
                     console.log(response_data);
                     page = response_data['next_page'];
-
-                    //add the countries to loaded_countries
-                    response_data['countries'].forEach(function(country) {
-                        if (loaded_countries[country.id] == null) {
-                            loaded_countries[country.id] = country;
-                        }
-                    });
 
                     create_rows(response_data['users']); //create the user rows
                 },

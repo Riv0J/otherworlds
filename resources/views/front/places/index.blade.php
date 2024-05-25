@@ -9,7 +9,7 @@
 @endsection
 
 @section('canonical')
-{{ url('/'.trans('places_slug',[],$locale)) }}
+{{ places_url($locale)}}
 @endsection
 
 @section('content')

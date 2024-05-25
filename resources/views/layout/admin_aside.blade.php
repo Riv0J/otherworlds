@@ -17,15 +17,15 @@
             </a>
             <a href="{{route('user_index', ['locale' => $locale])}}">
                 <i class="fa-solid fa-users"></i>
-                <h5 class="light">Users</h5>
+                <h5 class="light">@lang('otherworlds.users')</h5>
             </a>
-            <a href="{{places_url($locale)}}">
+            <a href="{{route('place_index', ['locale' => $locale])}}">
                 <i class="fa-solid fa-panorama"></i>
-                <h5 class="light">Places</h5>
+                <h5 class="light">@lang('otherworlds.places')</h5>
             </a>
             <a href="{{route('visit_index', ['locale' => $locale])}}">
                 <i class="fa-solid fa-chart-line"></i>
-                <h5 class="light">Visits</h5>
+                <h5 class="light">@lang('otherworlds.visits')</h5>
             </a>
         </div>
         <div>

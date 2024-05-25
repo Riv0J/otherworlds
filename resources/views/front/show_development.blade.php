@@ -18,38 +18,38 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">High prio</h3>
         <li>
             <h5>
+                Admin Place index(+ajax, +filters country, category), create, edit, update, delete
+            </h5>
+        </li>
+        <li>
+            <h5>
+                Admin Place-Media create, delete
+            </h5>
+        </li>
+        <li>
+            <h5>
+                Admin home (dashboard)
+            </h5>
+        </li>
+        <li>
+            <h5>
                 Email verification & password reset
             </h5>
         </li>
         <li>
             <h5>
-                Admin Place index, create, edit, update, delete
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Front Place index search and category filter
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Front User - Place comments
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Admin dashboard [Visit index, show]
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Total 60 places
+                Total 75 places
             </h5>
         </li>
         <h3 class="div_h div_gray my-4 pb-3 text-center">Low prio</h3>
         <li>
             <h5>
-                Big Sitemap
+                SEO CHECK(index, robots.txt, etc):<a href="https://www.seobility.net/en/seocheck/">FREE SEO CHECKER</a>
+            </h5>
+        </li>
+        <li>
+            <h5>
+                Big Sitemap(HTML, XML, etc)
             </h5>
         </li>
         <li>
@@ -60,7 +60,7 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">Extras</h3>
         <li>
             <h5>
-                Geo Classification
+                Front Place index search and filters (country, category)
             </h5>
         </li>
         <li>
@@ -68,7 +68,11 @@ Dev | Otherworlds
                 Media order in gallery
             </h5>
         </li>
-
+        <li>
+            <h5>
+                Place show comments
+            </h5>
+        </li>
     </ol>
     <ul class="mx-5">
         <h3 class="div_h div_gray my-4 pb-3 text-center">Completed</h3>
@@ -89,12 +93,17 @@ Dev | Otherworlds
         </li>
         <li>
             <h5 class="text-decoration-line-through">
-                Admin User index*(+ajax), create*, edit*, update*, delete*
+                Admin User index(+ajax)*, create*, edit*, update*, delete*
             </h5>
         </li>
         <li>
             <h5 class="text-decoration-line-through">
                 Rutas front 99% traducidas
+            </h5>
+        </li>
+        <li>
+            <h5 class="text-decoration-line-through">
+                Admin Visit index(+ajax)*
             </h5>
         </li>
     </ul>

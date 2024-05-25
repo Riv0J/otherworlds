@@ -40,31 +40,34 @@ td button {
 }
 
 table {
-    border: 1px solid white;
+    border: 1px solid var(--gray_light);
 }
-
-td.profile_img {
-    padding: 0;
-}
-
-td img {
-    width: 3rem;
-    margin: 0.25rem
-}
-
-th,td {
-    padding: 0 0.5rem;
-    border-top: 1px solid white;
+th, td {
+    padding: 0.25rem 0.5rem !important;
+    border: 1px solid var(--gray_light);
 }
 th.small{
     width: 0.2rem;
     padding: 0;
     white-space: nowrap;
 }
-td.id,th.id{
-    border-right: 1px solid white;
+th.medium{
+    width: 5rem;
 }
-tr {
+th i{
+    font-size: 1.25rem;
+    width: 1.25rem;
+}
+td img {
+    width: 3rem;
+}
+td.number{
+    font-family: 'Reddit Mono'
+}
+td.profile_img {
+    padding: 0;
+}
+tbody>tr{
     cursor: pointer;
 }
 

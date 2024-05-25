@@ -668,6 +668,7 @@ class PlaceSeeder extends Seeder
                 ],
                 'country_name' => 'Vietnam',
                 'category_keyword' => 'Caves',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Son_Doong_Cave'
             ],
             [
                 'es' => [
@@ -691,7 +692,7 @@ class PlaceSeeder extends Seeder
                     ],
                 ],
                 'country_name' => 'United States',
-                'category_keyword' => 'Mountains',
+                'category_keyword' => 'Valleys',
             ],
             [
                 'es' => [

@@ -25,7 +25,6 @@ class Admin_UserController extends Controller{
             'users' => $users,
             'total' => User::count(),
             'roles' => Role::all(),
-            'countries' => $users->pluck('country')->unique()->values()->all(),
             'logged' => auth()->user()
         ];
         return view('admin.users.index', $variables);
@@ -183,7 +182,7 @@ class Admin_UserController extends Controller{
         $per_page = 30;
         $start_index = ($page - 1) * $per_page;
 
-        return User::where('name', 'like', "%".$search.'%')
+        return User::with('country')->where('name', 'like', "%".$search.'%')
         ->orWhere('email', 'like', "%".$search.'%')
         ->orderBy('role_id', 'asc')
         ->skip($start_index)
@@ -201,10 +200,7 @@ class Admin_UserController extends Controller{
         $search = $data['search'];
 
         //get users for the page requested
-        $users = Admin_UserController::get_users($next_page, $search);
-
-        //get the countries for these users
-        $countries = $users->pluck('country')->unique()->values()->all();
+        $users = self::get_users($next_page, $search);
 
         if(count($users) === 0){
             //if no places, means there is no next page
@@ -214,7 +210,6 @@ class Admin_UserController extends Controller{
         $variables = [
             'next_page' => $next_page,
             'users' => $users,
-            'countries' => $countries,
         ];
 
         return response()->json($variables); //convert vars to json

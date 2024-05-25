@@ -24,9 +24,9 @@ return [
     // page descriptions
     'keywords' => 'vacation, travel, destination, visit, natural wonders, natural, place, places, landscape, mountain, waterfall, valley, lakes, locations',
     'learn_more_about' => 'Learn more about',
-    'description_home' => 'Explore a collection of extraordinary natural locations from all around the world. Discover majestic mountains, breathtaking waterfalls, and other wonderful places, while immersing yourself in the unique beauty of nature. Be amazed at the diversity and maybe even plan your next vacations to visit some of these places from another world',
+    'description_home' => 'Explore extraordinary natural locations from all around the world. Be amazed at the diversity and plan your next vacations to admire the place we call Earth',
 
-    'description_places' => "Explore a collection of extraordinary natural locations from around the world with Otherworlds' search engine. You can search for places by country, category, and the place's name",
+    'description_places' => "Explore a collection of extraordinary natural locations from around the world with Otherworlds' search engine. Filter places by country, category, and name",
 
     'description_login' => 'Login to Otherworlds',
     'description_register' => 'Register in Otherworlds',
@@ -97,7 +97,7 @@ return [
     'view_image_source' => 'View image source',
     'view_all_images' => 'View all images',
 
-    // users controllers
+    // user controller
     'users' => 'Users',
     'active' => 'Active',
     'favorite_places' => 'Favorite places',
@@ -113,8 +113,21 @@ return [
     'user_created_success' => 'User created',
     'user_edit_success' => 'User edited',
     'user_delete_success' => 'User deleted',
+    'confirm_delete_user_title' => 'Confirm user deletion',
+    'confirm_delete_user_body' => 'Delete this user completely?',
+
+    // place controller
+    'search_place' => 'Search place name',
+    'create_place' => 'Create place',
 
     // general
+    'confirm' => 'Confirm',
+    'name' => 'Name',
+    'visits' => 'Visits',
+    'browser' => 'Browser',
+    'platform' => 'Platform',
+    'route' => 'Route',
+    'date' => 'Date',
     'total' => 'Total',
     'results' => 'Results',
     'role' => 'Role',
@@ -134,5 +147,5 @@ return [
     'location' => 'Location',
     'return' => 'Return',
     'cancel' => 'Cancel',
-    'no_privileges' => 'Not enough privileges to access this url'
+    'no_privileges' => 'Not enough privileges to access this url',
 ];

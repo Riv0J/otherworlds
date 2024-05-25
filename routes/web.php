@@ -13,6 +13,8 @@ use App\Http\Controllers\Front_PlaceController;
 
 use App\Http\Controllers\Admin_UserController;
 use App\Http\Controllers\Admin_VisitController;
+use App\Http\Controllers\Admin_PlaceController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +88,7 @@ Route::prefix('{locale}')->group(function () {
             Route::delete('/admin/users/delete', [Admin_UserController::class, 'delete'])->name('user_delete');
 
             Route::get('/admin/visits', [Admin_VisitController::class, 'index'])->name('visit_index');
+            Route::get('/admin/places', [Admin_PlaceController::class, 'index'])->name('place_index');
         });
     });
 });
@@ -97,12 +100,14 @@ Route::post('/ajax/places/request', [Front_PlaceController::class, 'ajax_place_r
 
 // BACK routes for admins
 Route::middleware(['admin'])->group(function () {
-    // ajax user reset img
+    // ajax toggles, single click
     Route::post('/ajax/admin/users/reset_img', [Admin_UserController::class, 'ajax_reset_img']);
-    // ajax user toggle active
     Route::post('/ajax/admin/users/toggle_ban', [Admin_UserController::class, 'ajax_toggle_ban']);
-    // ajax user request
+
+    // ajax paginated requests
     Route::post('/ajax/admin/users/request', [Admin_UserController::class, 'ajax_user_request']);
+    Route::post('/ajax/admin/visits/request', [Admin_VisitController::class, 'ajax_visit_request']);
+    Route::post('/ajax/admin/places/request', [Admin_PlaceController::class, 'ajax_place_request']);
 });
 
 
