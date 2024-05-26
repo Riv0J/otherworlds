@@ -115,12 +115,11 @@
                     </div>
                 </td>
             `;
-        }
-
-        row.querySelector('.delete_visit').addEventListener('click', function(){
+            row.querySelector('.delete_visit').addEventListener('click', function(){
             row.style.backgroundColor = "gray";
             delete_visit(row,visit.id);
         });
+        }
 
         results.appendChild(row);
         counter++;
