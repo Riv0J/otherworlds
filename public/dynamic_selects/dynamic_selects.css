@@ -121,3 +121,7 @@
   .dynamic-select-quit{
     scale: 1.35;
   }
+.dynamic-select-quit:hover{
+    background-color: transparent;
+    color: red !important;
+}

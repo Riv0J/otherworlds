@@ -32,6 +32,14 @@ function ajax(ajax_data){
     .then(response_data => {
         if(ajax_data['success_func']){
             ajax_data['success_func'](response_data);
+            if(response_data['message']){
+                show_message(response_data['message'])
+            }
+            if(response_data['messages']){
+                response_data['messages'].forEach(function(message){
+                    show_message(message)
+                });
+            }
         }
     })
     // fetch error

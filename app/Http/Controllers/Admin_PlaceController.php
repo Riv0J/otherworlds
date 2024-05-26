@@ -19,8 +19,8 @@ class Admin_PlaceController extends Controller{
             'categories' => Category::all(),
             'countries' => Country::whereExists(function ($query) {
                 $query->select('country_id')
-                      ->from('places')
-                      ->whereRaw('places.country_id = countries.id');
+                ->from('places')
+                ->whereRaw('places.country_id = countries.id');
             })->get(),
             'logged' => auth()->user(),
             'places' => self::get_places(1,'',$locale,0,0)

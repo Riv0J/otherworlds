@@ -39,6 +39,9 @@
                         <th>@lang('otherworlds.platform')</th>
                         <th>@lang('otherworlds.route')</th>
                         <th class="text-end">@lang('otherworlds.date')</th>
+                        @if($logged->is_owner())
+                        <th class="small"></th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -89,7 +92,7 @@
         console.log(visit);
         const country = visit.country;
         const row = document.createElement('tr');
-
+        row.setAttribute('id',visit.id)
         row.innerHTML += `
             <td class="text-end number">${counter}</td>
             <td>
@@ -102,10 +105,26 @@
             <td class="text-end number">${visit.created_at}</td>
         `;
 
+        if(logged.role.name == 'owner'){
+            row.innerHTML += `
+                <td>
+                    <div class="aligner">
+                        <button class="delete_visit red">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+        }
+
+        row.querySelector('.delete_visit').addEventListener('click', function(){
+            row.style.backgroundColor = "gray";
+            delete_visit(row,visit.id);
+        });
+
         results.appendChild(row);
         counter++;
     }
-
     let page = 1;
     let requesting = false;
     let querying = false;
@@ -127,7 +146,7 @@
                 requesting = true;
             },
             success_func: function(response_data) {
-                console.log(response_data);
+                // console.log(response_data);
                 page = response_data['next_page'];
                 create_rows(response_data['visits']);
             },
@@ -144,6 +163,28 @@
             querying = false;
             request();
         }
+    }
+
+    function delete_visit(row, visit_id) {
+        const ajax_data = {
+            method: 'POST',
+            url: '{{ URL('/ajax/admin/visits/delete') }}',
+            request_data: {
+                _token: '{{ csrf_token() }}',
+                visit_id: visit_id,
+            },
+
+            before_func: function() {
+                requesting = true;
+            },
+            success_func: function(response_data) {
+                console.log(response_data);
+                row.parentElement.removeChild(row);
+            },
+            after_func: request_cooldown
+        }
+
+        ajax(ajax_data);
     }
 </script>
 

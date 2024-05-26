@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
 
         'locale_updater' => \App\Http\Middleware\LocaleMiddleware::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'owner' => \App\Http\Middleware\OwnerMiddleware::class,
     ];
 }

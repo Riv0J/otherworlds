@@ -73,9 +73,6 @@
                 },
                 before_func: function() {},
                 success_func: function(response_data) {
-
-                    show_message(response_data.message)
-
                     if (response_data.user != null) {
                         refresh_row(row, response_data.user)
                     }
@@ -97,9 +94,6 @@
                 },
                 before_func: function() {},
                 success_func: function(response_data) {
-
-                    show_message(response_data.message)
-
                     if (response_data.user != null) {
                         refresh_row(row, response_data.user)
                     }

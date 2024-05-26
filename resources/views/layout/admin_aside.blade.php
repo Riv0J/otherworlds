@@ -11,19 +11,24 @@
                 <h5 class="regular quicksand text-center">therworlds</h5>
             </a>
             <div class="div_h"></div>
-            <a href="#">
+            @php $current_url = url()->current(); @endphp
+            <a href="#"
+                @php if(str_ends_with($current_url,'admin/dashboard')){ echo('active'); } @endphp>
                 <i class="fa-solid fa-house-chimney"></i>
                 <h5 class="light">Dashboard</h5>
             </a>
-            <a href="{{route('user_index', ['locale' => $locale])}}">
+            <a href="{{route('user_index', ['locale' => $locale])}}"
+                @php if(str_ends_with($current_url,'admin/users')){ echo('active'); } @endphp>
                 <i class="fa-solid fa-users"></i>
                 <h5 class="light">@lang('otherworlds.users')</h5>
             </a>
-            <a href="{{route('place_index', ['locale' => $locale])}}">
+            <a href="{{route('place_index', ['locale' => $locale])}}"
+                @php if(str_ends_with($current_url,'admin/places')){ echo('active'); } @endphp>
                 <i class="fa-solid fa-panorama"></i>
                 <h5 class="light">@lang('otherworlds.places')</h5>
             </a>
-            <a href="{{route('visit_index', ['locale' => $locale])}}">
+            <a href="{{route('visit_index', ['locale' => $locale])}}"
+                @php if(str_ends_with($current_url,'admin/visits')){ echo('active'); } @endphp>
                 <i class="fa-solid fa-chart-line"></i>
                 <h5 class="light">@lang('otherworlds.visits')</h5>
             </a>
@@ -53,15 +58,23 @@
         justify-content: space-between
     }
     #admin_aside a{
+        position: relative;
         display: flex;
         padding-inline: 1.5rem !important;
         gap: 0.5rem;
+    }
+    #admin_aside a[active]:not(#home_anchor)::after{
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-left: 3px solid var(--cyan_light);
+        background-color: var(--gray_opacity);
+        z-index: -1;
     }
     #admin_aside a:not(#home_anchor){
         padding-block: 0.5rem !important;
         border-bottom: 2px solid var(--gray);
     }
-
     #home_anchor{
         padding-block: 1rem !important;
         border: 0;

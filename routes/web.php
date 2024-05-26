@@ -110,4 +110,7 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/ajax/admin/places/request', [Admin_PlaceController::class, 'ajax_place_request']);
 });
 
+Route::middleware(['owner'])->group(function () {
+    Route::post('/ajax/admin/visits/delete', [Admin_VisitController::class, 'ajax_delete_visit']);
+});
 

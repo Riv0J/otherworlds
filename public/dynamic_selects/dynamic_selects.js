@@ -21,6 +21,7 @@ class DynamicSelect {
             onChange: function() {}
         };
         this.options = Object.assign(defaults, options);
+        this.active = false;
         this.selectElement = typeof element === 'string' ? document.querySelector(element) : element;
         for(const prop in this.selectElement.dataset) {
             if (this.options[prop] !== undefined) {
@@ -82,18 +83,18 @@ class DynamicSelect {
             this.toggleSearch(true); //search on
             this.refresh_options(this.options.data); //generate the option divs
             this.scroll_to_options();
+            this.active = true;
         };
 
         //onclick away, lose focus
         document.addEventListener('click', event => {
-            if (!event.target.closest('.' + this.name) && !event.target.closest('label[for="' + this.selectElement.id + '"]')
-                || event.target == this.element.querySelector('.dynamic-select-quit')) {
+            if (this.element.contains(event.target) == false || event.target == this.element.querySelector('.dynamic-select-quit')) {
                 this.element.querySelector('.dynamic-select-header').classList.remove('dynamic-select-header-active'); //header remove active
 
                 this.toggleSearch(false); //search off
-                const current_select_value = this.element.querySelector('input[name='+this.name+']').value;
+                const select = this.element.querySelector('input[name='+this.name+']');
 
-                if(current_select_value == ''){
+                if(select.value === ""){ //if nothing is selected, turn ph on
                     this.toggleComponent('dynamic-select-header-placeholder', true); //placeholder on
                     this.toggleComponent('dynamic-selected', false); //selected off
                 } else {

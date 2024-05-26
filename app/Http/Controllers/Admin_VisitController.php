@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Visit;
+use App\Models\Message;
 class Admin_VisitController extends Controller{
     /**
      * Show the list of visits to an admin
@@ -57,5 +58,16 @@ class Admin_VisitController extends Controller{
         ];
 
         return response()->json($variables); //convert vars to json
+    }
+
+    /**
+     * Ajax, delete a visit
+     */
+    public function ajax_delete_visit(Request $request){
+        $data = $request->all();
+        $visit = Visit::find($data['visit_id']);
+        $visit->delete();
+        $response['message'] = new Message(Message::TYPE_SUCCESS, 'Visit deleted');
+        return response()->json($response);
     }
 }

@@ -173,7 +173,6 @@
         results.innerHTML = '';
         counter = 1;
     }
-
     function create_rows(places) {
         places.forEach(place => {
             create_row(place);
@@ -230,7 +229,13 @@
             success_func: function(response_data) {
                 console.log(response_data);
                 page = response_data['next_page'];
-                create_rows(response_data['places']);
+                const places = response_data['places'];
+                if(places.length == 0 && counter == 1){
+                    //no results for query
+                } else {
+                    create_rows(response_data['places']);
+                }
+
             },
             after_func: request_cooldown
         }
