@@ -369,14 +369,5 @@
                 request();
             }
         }
-
-        function organize_dic(dic) {
-            const organized_dic = {};
-            for (let i = 0; i < Object.keys(dic).length; i++) {
-                const obj = dic[i];
-                organized_dic[obj.id] = obj;
-            }
-            return organized_dic;
-        }
     </script>
 @endsection

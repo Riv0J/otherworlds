@@ -44,7 +44,7 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">Low prio</h3>
         <li>
             <h5>
-                SEO CHECK(index, robots.txt, etc):<a href="https://www.seobility.net/en/seocheck/">FREE SEO CHECKER</a>
+                SEO CHECK(index.html, sitemap.xml, robots.txt, view-source:, .DS_Store, apache .htaccess, etc):<a href="https://www.seobility.net/en/seocheck/">FREE SEO CHECKER</a>
             </h5>
         </li>
         <li>

@@ -112,9 +112,6 @@ document.querySelector('#places_container').innerHTML += `
             request_places();
         }
     }
-    async function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
 </script>
 @endsection
 

@@ -119,8 +119,10 @@ return [
     // place controller
     'search_place' => 'Search place name',
     'create_place' => 'Create place',
+    'select_category' => 'Select a category',
 
     // general
+    'all' => 'All',
     'confirm' => 'Confirm',
     'name' => 'Name',
     'visits' => 'Visits',

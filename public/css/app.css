@@ -463,6 +463,9 @@ fieldset{
 .wrapper .text h3{
     margin-left: 0.5rem;
 }
+.wrapper .text small{
+    text-wrap: nowrap;
+}
 nav.buttons{
     display: flex;
     flex-direction: row;

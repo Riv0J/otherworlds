@@ -58,7 +58,7 @@ class DynamicSelect {
                     </span>
                     <span class="dynamic-select-header-input d-none">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input style="width:100%" type="text">
+                        <input style="width:100%" type="text" placeholder="${this.options.placeholder}">
                         <i class="fa-solid fa-xmark dynamic-select-quit"></i>
                     </span>
                 </div>

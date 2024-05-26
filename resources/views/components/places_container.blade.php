@@ -21,7 +21,7 @@
 
         //format every .short_number
         document.querySelectorAll('.short_number').forEach(element => {
-            element.textContent = formatNumber(element.textContent);
+            element.textContent = format_number(element.textContent);
         });
     });
 
@@ -68,7 +68,7 @@
             }
 
             const fav_count = document.createElement('h5');
-            fav_count.textContent = formatNumber(place.favorites_count);
+            fav_count.textContent = format_number(place.favorites_count);
 
             //add fav_count and star_icon to fav_button
             fav_button.appendChild(fav_count);
@@ -115,7 +115,7 @@
                         star_icon.className = 'fa-solid fa-star';
                         fav_button.classList.add('yellow');
                     }
-                    fav_count.textContent = formatNumber(response_data['favorites_count']);
+                    fav_count.textContent = format_number(response_data['favorites_count']);
                 }
             }
             //on click fav_button when logged in
@@ -141,7 +141,7 @@
         }
     }
 
-    function organize_dic(dic){
+    function organize_dic(dic) {
         const organized_dic = {};
         for (let i = 0; i < Object.keys(dic).length; i++) {
             const obj = dic[i];
@@ -149,14 +149,5 @@
         }
         return organized_dic;
     }
-
-    function formatNumber(number) {
-        if (number < 1000) {
-            return number.toString();
-        } else {
-            const formattedNumber = Math.abs(number) >= 1.0e+9 ? (Math.abs(number) / 1.0e+9).toFixed(1) + 'B' : (Math.abs(number) >= 1.0e+6 ? (Math.abs(number) / 1.0e+6).toFixed(1) + 'M' : (Math.abs(number) >= 1.0e+3 ? (Math.abs(number) / 1.0e+3).toFixed(1) + 'k' : Math.abs(number)));
-            return formattedNumber;
-        }
-    }
-
 </script>
+
