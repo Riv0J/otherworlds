@@ -35,7 +35,7 @@ Route::get('/home', function () {
 });
 
 // front routes with $locale slug
-Route::prefix('{locale}')->group(function () {
+Route::prefix('{locale}')->middleware('visits')->group(function () {
     // set the url $locale slug
     Route::get('/{slug_key}/setlocale/{new_locale}', [LocaleController::class, 'setLocale'])->name('setLocale');
 
