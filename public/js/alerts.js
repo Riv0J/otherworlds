@@ -1,11 +1,24 @@
-const modal = document.querySelector('#modal_confirm');
+const modal = document.querySelector('#modal');
 const box = modal.querySelector('article');
 function modal_confirm(modal_data){
     modal_open();
+    let icon_class = 'fa-regular fa-circle-question';
+    switch (modal_data.icon) {
+        case "info":
+            icon_class = 'fa-solid fa-circle-info';
+            break;
+        case "danger":
+            icon_class = 'fa-solid fa-triangle-exclamation';
+            break;
+        default:
+            break;
+    }
+    modal.querySelector('.modal_icon').className = "modal_icon "+icon_class;
     modal.querySelector('.modal_title').textContent = modal_data.title;
     modal.querySelector('.modal_text').textContent = modal_data.body;
     modal.querySelector('.modal_cancel').textContent = modal_data.cancel;
     modal.querySelector('.modal_confirm').textContent = modal_data.confirm;
+
 
     const input_box = modal.querySelector('.modal_input_box')
     const input = modal.querySelector('input')
@@ -19,7 +32,7 @@ function modal_confirm(modal_data){
     } else {
         input_box.style.display = 'none';
     }
-
+    modal.querySelector('.modal_closer').addEventListener('click', modal_close)
     modal.querySelector('.modal_cancel').addEventListener('click', function(){
         modal_close();
     });

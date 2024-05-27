@@ -67,11 +67,12 @@
             @include('layout.footer')
         </div>
 
-        <div id="modal_confirm" class="flex_center">
-            <article class="flex_center flex-column gap-5 border_gray">
+        <div id="modal" class="flex_center">
+            <article class="flex_center flex-column gap-5 border_gray position-relative">
+                <button class="modal_closer button red"><i class="fa-solid fa-xmark"></i></button>
                 <div class="flex_center flex-column gap-3">
-                    <div class="flex_center mb-4">
-                        <i class="fa-regular fa-circle-question"></i>
+                    <div class="flex_center mb-4 icon_container">
+                        <i class="modal_icon"></i>
                     </div>
                     <h4 class="modal_title"></h4>
                     <p class="modal_text"></p>
@@ -80,21 +81,27 @@
                         <input type="text">
                     </div>
                 </div>
-                <div class="d-flex flex-row gap-5">
+                <div class="modal_options d-flex flex-row gap-5">
                     <button class="modal_cancel"></button>
                     <button class="modal_confirm"></button>
                 </div>
             </article>
         </div>
         <style>
-            #modal_confirm input{
+            #modal input{
                 background-color: var(--black);
                 border: 1px solid gray;
                 border-radius: 0.5rem;
                 padding: 0.25rem 1rem;
             }
-            #modal_confirm input:focus{
+            #modal input:focus{
                 outline: none;
+            }
+            #modal .modal_closer{
+                border: none;
+                position: absolute;
+                top: 0.5rem;
+                right: 0.5rem;
             }
         </style>
 

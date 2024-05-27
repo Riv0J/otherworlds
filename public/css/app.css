@@ -434,7 +434,7 @@ fieldset{
 }
 .button.red:hover{
     background-color: var(--black);
-    color: red;
+    color: red !important;
 }
 
 .wrapper{
