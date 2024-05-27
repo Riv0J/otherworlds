@@ -31,6 +31,7 @@
                     <input type="text" placeholder="@lang('otherworlds.search_place')" name="search">
                     <button class="clear_button button"><i class="fa-solid fa-xmark"></i></button>
                 </div>
+                <div class="div_v div_gray m-2"></div>
                 <a href="" class="button info">
                     <i class="fa-regular fa-add"></i>@lang('otherworlds.create_place')
                 </a>

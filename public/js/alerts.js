@@ -7,13 +7,26 @@ function modal_confirm(modal_data){
     modal.querySelector('.modal_cancel').textContent = modal_data.cancel;
     modal.querySelector('.modal_confirm').textContent = modal_data.confirm;
 
+    const input_box = modal.querySelector('.modal_input_box')
+    const input = modal.querySelector('input')
+
+    if(modal_data['input_config']){
+        input_box.style.display = 'flex';
+
+        input.setAttribute('type', modal_data['input_config']['type'])
+        input.setAttribute('placeholder', modal_data['input_config']['placeholder'])
+        modal.querySelector('label').textContent = modal_data['input_config']['label'];
+    } else {
+        input_box.style.display = 'none';
+    }
+
     modal.querySelector('.modal_cancel').addEventListener('click', function(){
         modal_close();
     });
 
     modal.querySelector('.modal_confirm').addEventListener('click', function(){
         modal_close();
-        modal_data['on_confirm']();
+        modal_data['on_confirm'](input.value);
     });
 }
 

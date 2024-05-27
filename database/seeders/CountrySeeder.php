@@ -997,6 +997,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Philippines'
             ],
+            'code' => 'phl'
         ],
         [
             'es' => [
@@ -1011,6 +1012,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Portugal'
             ],
+            'code' => 'prt'
         ],
         [
             'es' => [
@@ -1019,6 +1021,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Qatar'
             ],
+            'code' => 'qat'
         ],
         [
             'es' => [
@@ -1027,6 +1030,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Romania'
             ],
+            'code' => 'rou'
         ],
         [
             'es' => [
@@ -1044,6 +1048,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Rwanda'
             ],
+            'code' => 'rwa'
         ],
         [
             'es' => [
@@ -1052,6 +1057,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Saint Kitts and Nevis'
             ],
+            'code' => 'kna'
         ],
         [
             'es' => [
@@ -1060,6 +1066,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Saint Lucia'
             ],
+            'code' => 'lca'
         ],
         [
             'es' => [
@@ -1068,11 +1075,13 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Saint Vincent and the Grenadines'
             ],
+            'code' => 'vct'
         ],
         [
             'en' => [
                 'name' => 'Samoa'
             ],
+            'code' => 'wsm'
         ],
         [
             'es' => [
@@ -1081,6 +1090,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'San Marino'
             ],
+            'code' => 'smr'
         ],
         [
             'es' => [
@@ -1089,6 +1099,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Sao Tome and Principe'
             ],
+            'code' => 'stp'
         ],
         [
             'es' => [
@@ -1097,6 +1108,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Saudi Arabia'
             ],
+            'code' => 'sau'
         ],
         [
             'es' => [

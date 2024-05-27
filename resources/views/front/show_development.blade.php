@@ -18,17 +18,32 @@ Dev | Otherworlds
         <h3 class="div_h div_gray my-4 pb-3 text-center">High prio</h3>
         <li>
             <h5>
-                Admin Place index(+ajax, +filters country, category), create, edit, update, delete
+                Modular modals(confirm*, input*, image inspector)
             </h5>
         </li>
         <li>
             <h5>
-                Admin Place-Media create, delete
+                Admin Place index(+ajax, +filters country, category)*, create, edit, update, delete
+            </h5>
+        </li>
+        <li>
+            <h5>
+                Admin Place-Media create, edit, delete
+            </h5>
+        </li>
+        <li>
+            <h5>
+                Domain name & SSL cert(HTTPS)
             </h5>
         </li>
         <li>
             <h5>
                 Admin home (dashboard)
+            </h5>
+        </li>
+        <li>
+            <h5>
+                Favicon
             </h5>
         </li>
         <li>
@@ -103,7 +118,7 @@ Dev | Otherworlds
         </li>
         <li>
             <h5 class="text-decoration-line-through">
-                Admin Visit index(+ajax)*
+                Admin Visit index(+ajax)*, delete*
             </h5>
         </li>
     </ul>

@@ -75,6 +75,10 @@
                     </div>
                     <h4 class="modal_title"></h4>
                     <p class="modal_text"></p>
+                    <div class="modal_input_box flex-column w-100 gap-2 align-items-center">
+                        <label></label>
+                        <input type="text">
+                    </div>
                 </div>
                 <div class="d-flex flex-row gap-5">
                     <button class="modal_cancel"></button>
@@ -82,6 +86,17 @@
                 </div>
             </article>
         </div>
+        <style>
+            #modal_confirm input{
+                background-color: var(--black);
+                border: 1px solid gray;
+                border-radius: 0.5rem;
+                padding: 0.25rem 1rem;
+            }
+            #modal_confirm input:focus{
+                outline: none;
+            }
+        </style>
 
         <div id="popups" class="d-flex align-items-end justify-content-end m-3 mb-5 m-sm-5">
             <ul>

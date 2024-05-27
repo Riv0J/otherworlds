@@ -249,7 +249,12 @@
             'body': '@lang('otherworlds.confirm_delete_user_body')',
             'cancel': '@lang('otherworlds.cancel')',
             'confirm': '@lang('otherworlds.confirm')',
-            'on_confirm': function(){
+            // 'input_config': {
+            //     type: "text",
+            //     placeholder: 'Place my holder',
+            //     label: 'Hold my Label'
+            // },
+            'on_confirm': function(input_value){
                 document.querySelector('#delete_user_form').submit()
             }
         }

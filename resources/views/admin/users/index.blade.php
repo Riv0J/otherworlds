@@ -25,6 +25,7 @@
                     <input type="text" placeholder="@lang('otherworlds.search_user')" name="search">
                     <button class="clear_button button"><i class="fa-solid fa-xmark"></i></button>
                 </div>
+                <div class="div_v div_gray m-2"></div>
                 <a href="{{ route('user_create', ['locale' => $locale]) }}" class="button info">
                     <i class="fa-regular fa-add"></i>@lang('otherworlds.create_user')
                 </a>
