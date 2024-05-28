@@ -89,6 +89,8 @@ Route::prefix('{locale}')->middleware('visits')->group(function () {
 
             Route::get('/admin/visits', [Admin_VisitController::class, 'index'])->name('visit_index');
             Route::get('/admin/places', [Admin_PlaceController::class, 'index'])->name('place_index');
+            Route::get('/admin/places/create', [Admin_PlaceController::class, 'create'])->name('place_create');
+            Route::post('/admin/places/store', [Admin_PlaceController::class, 'store'])->name('place_store');
         });
     });
 });

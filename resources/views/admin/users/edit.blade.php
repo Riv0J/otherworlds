@@ -259,7 +259,7 @@
                 document.querySelector('#delete_user_form').submit()
             }
         }
-        modal_confirm(modal_data)
+        show_modal('confirm', modal_data)
     })
 
 </script>

@@ -120,6 +120,13 @@ return [
     'search_place' => 'Buscar nombre de lugar',
     'create_place' => 'Crear lugar',
     'select_category' => 'Selecciona una categoría',
+    'create_place_options' => 'Opciones para crear lugar',
+    'wikipedia_link' => 'Enlace de Wikipedia',
+    'from_scratch' => 'Desde cero',
+    'from_wikipedia' => 'Desde Wikipedia',
+
+    // modals
+    'choose_option' => 'Elige una opción',
 
     // general
     'all' => 'Todos',

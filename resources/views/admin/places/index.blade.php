@@ -32,12 +32,35 @@
                     <button class="clear_button button"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <div class="div_v div_gray m-2"></div>
-                <a href="" class="button info">
+                <button id="create_place" class="button info">
                     <i class="fa-regular fa-add"></i>@lang('otherworlds.create_place')
-                </a>
+                </button>
             </nav>
         </div>
+        <script>
+            document.querySelector("#create_place").addEventListener('click', function(){
+                const modal_data = {
+                    'title': '@lang('otherworlds.create_place_options')',
+                    'body': '@lang('otherworlds.choose_option')',
+                    'cancel': '@lang('otherworlds.from_scratch')',
+                    'confirm': '@lang('otherworlds.from_wikipedia')',
+                    'input_config': {
+                        type: "text",
+                        placeholder: '@lang('otherworlds.wikipedia_link')',
+                        label: '@lang('otherworlds.wikipedia_link')'
+                    },
+                    'on_confirm': function(input_value){
+                        console.log('On confirm clicked Value: '+input_value);
 
+                    },
+                    'on_cancel': function(input_value){
+                        console.log('On cancel clicked');
+                        window.location.href = "{{route('place_create',['locale'=>$locale])}}"
+                    }
+                }
+                show_modal('choice', modal_data)
+            })
+        </script>
         <div class="table_container">
             <table class="results_table">
                 <thead>
@@ -290,7 +313,6 @@
     select.select_option('0')
 </script>
 <script>
-    console.log();
     const categories_select_data = [
         {
             value: 0,
@@ -323,32 +345,4 @@
 
     select2.select_option('0')
 </script>
-<style>
-    .dynamic-select{
-        background-color: unset;
-        border: 1px solid var(--gray_light);
-        height: 3rem;
-        justify-content: center;
-        border-radius: 0.5rem;
-    }
-    .dynamic-select i{
-        width: 1rem;
-        font-size: 1rem;
-    }
-    .dynamic-selected, .dynamic-select-option, .dynamic-select-header-input input, .dynamic-select i{
-        color: white !important;
-        border: unset;
-        background-color: unset;
-    }
-    .dynamic-select-header-input input:focus{
-        outline: none;
-    }
-    .dynamic-select-options{
-        background-color: var(--black) !important;
-        border: 1px solid var(--gray_light);
-    }
-    .dynamic-select-option:hover{
-        background-color: var(--gray_light) !important;
-    }
-</style>
 @endsection

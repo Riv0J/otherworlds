@@ -10,20 +10,19 @@ Dev | Otherworlds
 
 @section('content')
 <section class="bg_black shadows_inline white col-12 col-lg-8 px-2 px-lg-4 py-3 flex-column flex-md-row justify-content-center align-items-center">
-    <div class="spacer mt-4 pt-5"></div>
-    <h3 class="m-5 d-inline-flex gap-3">
+    <h3 class="m-3 d-inline-flex gap-3">
         <i class="ri-arrow-right-s-line"></i> Tasks
     </h3>
     <ol class="m-5">
-        <h3 class="div_h div_gray my-4 pb-3 text-center">High prio</h3>
+        <h3 class="div_h div_gray mb-4 pb-3 text-center">High prio</h3>
         <li>
             <h5>
-                Modular modals(confirm*, input*, image inspector)
+                Form styles
             </h5>
         </li>
         <li>
             <h5>
-                Admin Place index(+ajax, +filters country, category)*, create, edit, update, delete
+                Admin Place index(+ajax*, +filters country&category*)*, create(from scratch, from wikipedia), edit, update, delete
             </h5>
         </li>
         <li>
@@ -119,6 +118,11 @@ Dev | Otherworlds
         <li>
             <h5 class="text-decoration-line-through">
                 Admin Visit index(+ajax)*, delete*
+            </h5>
+        </li>
+        <li>
+            <h5 class="text-decoration-line-through">
+                Modular modals(confirm*, input*, image inspector)
             </h5>
         </li>
     </ul>

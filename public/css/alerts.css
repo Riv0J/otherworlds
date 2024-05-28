@@ -1,8 +1,11 @@
 #modal>article{
+    min-width: 350px;
     background-color: var(--black);
-    padding: 3rem 4rem;
     scale: 0.3;
     transition: all 0.25s;
+}
+#modal>article>*:not(.modal_options){
+    width: 100%;
 }
 #modal .modal_icon:nth-child(1){
     font-size: 5rem;
@@ -10,8 +13,11 @@
 #modal .modal_options button{
     color: var(--white);
     font-size: 1.25rem;
-    padding: 0.25rem 1.25rem;
+    padding: 0.25rem 1.5rem;
     border-radius: 0.5rem;
+}
+.modal_closer{
+    border: none;
 }
 .modal_cancel{
     background-color: var(--red_light)
@@ -24,6 +30,18 @@
 }
 .modal_confirm:hover{
     background-color: var(--green_dark)
+}
+.modal_choice_1 {
+    background-color: var(--bg_blue_office) !important; /* Color de fondo normal (gris claro) */
+}
+.modal_choice_1:hover {
+    background-color: var(--bg_blue_office_hover) !important; /* Color de fondo al pasar el mouse (gris más oscuro) */
+}
+.modal_choice_2 {
+    background-color: var(--bg_gray_office) !important; /* Color de fondo normal (gris muy claro) */
+}
+.modal_choice_2:hover {
+    background-color: var(--bg_gray_office_hover) !important; /* Color de fondo al pasar el mouse (gris medio) */
 }
 #popups, #modal{
     position: fixed;

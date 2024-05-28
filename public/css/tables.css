@@ -98,3 +98,31 @@ tr[active="false"]::after {
     background-color: var(--gray_opacity);
     pointer-events: none;
 }
+
+/* GENERIC ADMIN STYLES */
+.dynamic-select{
+    background-color: unset;
+    border: 1px solid var(--gray_light);
+    height: 3rem;
+    justify-content: center;
+    border-radius: 0.5rem;
+}
+.dynamic-select i{
+    width: 1rem;
+    font-size: 1rem;
+}
+.dynamic-selected, .dynamic-select-option, .dynamic-select-header-input input, .dynamic-select i{
+    color: white !important;
+    border: unset;
+    background-color: unset;
+}
+.dynamic-select-header-input input:focus{
+    outline: none !important;
+}
+.dynamic-select-options{
+    background-color: var(--black) !important;
+    border: 1px solid var(--gray_light);
+}
+.dynamic-select-option:hover{
+    background-color: var(--gray_light) !important;
+}

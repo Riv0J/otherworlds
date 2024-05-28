@@ -120,6 +120,13 @@ return [
     'search_place' => 'Search place name',
     'create_place' => 'Create place',
     'select_category' => 'Select a category',
+    'create_place_options' => 'Create place options',
+    'wikipedia_link' => 'Wikipedia link',
+    'from_scratch' => 'From scratch',
+    'from_wikipedia' => 'From Wikipedia',
+
+    // modals
+    'choose_option' => 'Choose an option',
 
     // general
     'all' => 'All',

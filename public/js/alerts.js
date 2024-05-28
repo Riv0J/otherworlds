@@ -1,6 +1,6 @@
 const modal = document.querySelector('#modal');
 const box = modal.querySelector('article');
-function modal_confirm(modal_data){
+function show_modal(modal_type, modal_data){
     modal_open();
     let icon_class = 'fa-regular fa-circle-question';
     switch (modal_data.icon) {
@@ -14,11 +14,25 @@ function modal_confirm(modal_data){
             break;
     }
     modal.querySelector('.modal_icon').className = "modal_icon "+icon_class;
+
     modal.querySelector('.modal_title').textContent = modal_data.title;
     modal.querySelector('.modal_text').textContent = modal_data.body;
-    modal.querySelector('.modal_cancel').textContent = modal_data.cancel;
-    modal.querySelector('.modal_confirm').textContent = modal_data.confirm;
 
+    const modal_confirm = clone(modal.querySelector('.modal_confirm'))
+    const modal_cancel = clone(modal.querySelector('.modal_cancel'))
+
+    modal_confirm.textContent = modal_data.confirm;
+    modal_cancel.textContent = modal_data.cancel;
+
+    modal_confirm.className="modal_confirm"
+    modal_cancel.className="modal_cancel"
+
+    switch (modal_type) {
+        case 'choice':
+            modal_confirm.className +=" modal_choice_1"
+            modal_cancel.className +=" modal_choice_2"
+            break;
+    }
 
     const input_box = modal.querySelector('.modal_input_box')
     const input = modal.querySelector('input')
@@ -32,15 +46,21 @@ function modal_confirm(modal_data){
     } else {
         input_box.style.display = 'none';
     }
-    modal.querySelector('.modal_closer').addEventListener('click', modal_close)
-    modal.querySelector('.modal_cancel').addEventListener('click', function(){
-        modal_close();
-    });
 
-    modal.querySelector('.modal_confirm').addEventListener('click', function(){
+    //add listeners
+    modal_confirm.addEventListener('click', function(){
         modal_close();
-        modal_data['on_confirm'](input.value);
+        if(modal_data['on_confirm']){
+            modal_data['on_confirm'](input.value);
+        }
     });
+    modal_cancel.addEventListener('click', function(){
+        modal_close();
+        if(modal_data['on_cancel']){
+            modal_data['on_cancel'](input.value);
+        }
+    });
+    modal.querySelector('.modal_closer').addEventListener('click', modal_close)
 }
 
 function modal_close(){
@@ -80,3 +100,9 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 });
 
+// copy and replace an element, wipes listeners
+function clone(element){
+    let new_element = element.cloneNode(true);
+    element.parentNode.replaceChild(new_element, element);
+    return new_element;
+}

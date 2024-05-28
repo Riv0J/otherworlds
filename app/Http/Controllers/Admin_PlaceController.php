@@ -29,6 +29,18 @@ class Admin_PlaceController extends Controller{
     }
 
     /**
+     * Show the create place form to an admin
+     */
+    public function create($locale){
+        $variables = [
+            'locale' => $locale,
+            'categories' => Category::all(),
+            'countries' => Country::all()
+        ];
+        return view('admin.places.create', $variables);
+    }
+
+    /**
      * Get Users based on page and search term
      */
     public static function get_places($page, $search, $locale, $category_id, $country_id){

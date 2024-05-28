@@ -68,26 +68,32 @@
         </div>
 
         <div id="modal" class="flex_center">
-            <article class="flex_center flex-column gap-5 border_gray position-relative">
-                <button class="modal_closer button red"><i class="fa-solid fa-xmark"></i></button>
+            <article class="d-flex flex-column gap-3 p-3 border_gray">
+                <nav class="d-inline-flex justify-content-between align-items-center app_border_bottom pb-3 mb-3">
+                    <h4 class="modal_title"></h4>
+                    <button class="modal_closer button red"><i class="fa-solid fa-xmark"></i></button>
+                </nav>
+
                 <div class="flex_center flex-column gap-3">
                     <div class="flex_center mb-4 icon_container">
                         <i class="modal_icon"></i>
                     </div>
-                    <h4 class="modal_title"></h4>
+
                     <p class="modal_text"></p>
-                    <div class="modal_input_box flex-column w-100 gap-2 align-items-center">
+                    <div class="w-100 modal_input_box flex-column gap-2 align-items-center">
                         <label></label>
-                        <input type="text">
+                        <input class="w-100" type="text">
                     </div>
                 </div>
-                <div class="modal_options d-flex flex-row gap-5">
+                <div class="modal_options justify-content-around d-flex flex-row gap-5">
                     <button class="modal_cancel"></button>
                     <button class="modal_confirm"></button>
                 </div>
             </article>
         </div>
         <style>
+            #modal nav{
+            }
             #modal input{
                 background-color: var(--black);
                 border: 1px solid gray;
@@ -96,12 +102,6 @@
             }
             #modal input:focus{
                 outline: none;
-            }
-            #modal .modal_closer{
-                border: none;
-                position: absolute;
-                top: 0.5rem;
-                right: 0.5rem;
             }
         </style>
 

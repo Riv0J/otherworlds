@@ -18,6 +18,11 @@
     --red_light: #f27474;
     --red_dark: #ca4f4f;
 
+    --bg_gray_office: #8e8e8e;
+    --bg_gray_office_hover: #505050;
+    --bg_blue_office: #494ecd;
+    --bg_blue_office_hover: #3f4299;
+
     --black: rgb(29, 29, 29);
     --gray: rgb(46, 43, 52);
     --white: rgb(245, 245, 245);
