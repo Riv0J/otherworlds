@@ -37,14 +37,6 @@ Dev | Otherworlds
             <ul>
                 <li>Email verification & password reset</li>
                 <li>Admin home (dashboard)</li>
-                <li>Total 75 Places</li>
-            </ul>
-        </fieldset>
-        <fieldset>
-            <legend>Styles</legend>
-            <ul>
-                <li>CSS Forms</li>
-                <li>Favicon</li>
             </ul>
         </fieldset>
         <fieldset>
@@ -52,27 +44,28 @@ Dev | Otherworlds
             <ul>
                 <li>Domain name</li>
                 <li>SSL cert(HTTPS)</li>
-                <li>Sitemaps(HTML, XML, etc)</li>
+                <li>Crawler Optimization(HTML, XML, etc)</li>
                 <li><a href="https://www.seobility.net/en/seocheck/">Free SEO Checker</a></li>
             </ul>
         </fieldset>
     </div>
 
-    <h3 class="div_h div_gray my-4 pb-3 text-center">Low Prio</h3>
+    <h3>Low Prio</h3>
     <div class="notes">
         <fieldset>
             <legend>[Front] Place</legend>
             <ul>
+                <li>Total 75 Places</li>
                 <li>Index search + filters</li>
                 <li>Show comments</li>
                 <li>Media order</li>
             </ul>
         </fieldset>
         <fieldset>
-            <legend>Crawler Optimization</legend>
+            <legend>Styles</legend>
             <ul>
-                <li>index.html, sitemap.xml, robots.txt</li>
-                <li>view-source:, .DS_Store, apache .htaccess</li>
+                <li>CSS Forms</li>
+                <li>Favicon</li>
             </ul>
         </fieldset>
         <fieldset>
@@ -85,7 +78,7 @@ Dev | Otherworlds
         </fieldset>
     </div>
 
-    <h3 class="div_h div_gray my-4 pb-3 mt-5 text-center">Complete</h3>
+    <h3>Complete</h3>
     <div class="notes">
         <fieldset>
             <legend>[Front] User</legend>
@@ -137,6 +130,13 @@ Dev | Otherworlds
     </div>
 </section>
 <style>
+    h3:not(:first-of-type){
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        text-align: center;
+        border-bottom: 1px solid gray;
+    }
     .notes{
         display: flex;
         flex-direction: row;
