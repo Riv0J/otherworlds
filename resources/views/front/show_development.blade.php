@@ -9,130 +9,166 @@ Dev | Otherworlds
 @endsection
 
 @section('content')
-<section class="bg_black shadows_inline white col-12 col-lg-8 px-2 px-lg-4 py-3 flex-column flex-md-row justify-content-center align-items-center">
+<section class="wrapper col-12 col-lg-10">
     <h3 class="m-3 d-inline-flex gap-3">
         <i class="ri-arrow-right-s-line"></i> Tasks
     </h3>
-    <ol class="m-5">
-        <h3 class="div_h div_gray mb-4 pb-3 text-center">High prio</h3>
-        <li>
-            <h5>
-                Form styles
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Admin Place index(+ajax*, +filters country&category*)*, create(from scratch, from wikipedia), edit, update, delete
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Admin Place-Media create, edit, delete
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Domain name & SSL cert(HTTPS)
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Admin home (dashboard)
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Favicon
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Email verification & password reset
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Total 75 places
-            </h5>
-        </li>
-        <h3 class="div_h div_gray my-4 pb-3 text-center">Low prio</h3>
-        <li>
-            <h5>
-                SEO CHECK(index.html, sitemap.xml, robots.txt, view-source:, .DS_Store, apache .htaccess, etc):<a href="https://www.seobility.net/en/seocheck/">FREE SEO CHECKER</a>
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Big Sitemap(HTML, XML, etc)
-            </h5>
-        </li>
-        <li>
-            <h5>
-                More languages(EU,FR,IT)
-            </h5>
-        </li>
-        <h3 class="div_h div_gray my-4 pb-3 text-center">Extras</h3>
-        <li>
-            <h5>
-                Front Place index search and filters (country, category)
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Media order in gallery
-            </h5>
-        </li>
-        <li>
-            <h5>
-                Place show comments
-            </h5>
-        </li>
-    </ol>
-    <ul class="mx-5">
-        <h3 class="div_h div_gray my-4 pb-3 text-center">Completed</h3>
-        <li>
-            <h5 class="text-decoration-line-through">
-                Place gallery from wikimedia
-            </h5>
-        </li>
-        <li>
-            <h5 class="text-decoration-line-through">
-                Admin aside panel
-            </h5>
-        </li>
-        <li>
-            <h5 class="text-decoration-line-through">
-                Front User profile*, edit*, update*
-            </h5>
-        </li>
-        <li>
-            <h5 class="text-decoration-line-through">
-                Admin User index(+ajax)*, create*, edit*, update*, delete*
-            </h5>
-        </li>
-        <li>
-            <h5 class="text-decoration-line-through">
-                Rutas front 99% traducidas
-            </h5>
-        </li>
-        <li>
-            <h5 class="text-decoration-line-through">
-                Admin Visit index(+ajax)*, delete*
-            </h5>
-        </li>
-        <li>
-            <h5 class="text-decoration-line-through">
-                Modular modals(confirm*, input*, image inspector)
-            </h5>
-        </li>
-    </ul>
+    <div class="notes">
+        <fieldset>
+            <legend>[ADMIN] Place</legend>
+            <ul>
+                <li>Index(ajax + filters)*</li>
+                <li>Create(from scratch, from wikipedia)</li>
+                <li>Edit</li>
+                <li>Delete</li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>[ADMIN] Media</legend>
+            <ul>
+                <li>Index?</li>
+                <li>Create(from scratch, from wikimedia)</li>
+                <li>Edit</li>
+                <li>Delete</li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>Implementations</legend>
+            <ul>
+                <li>Email verification & password reset</li>
+                <li>Admin home (dashboard)</li>
+                <li>Total 75 Places</li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>Styles</legend>
+            <ul>
+                <li>CSS Forms</li>
+                <li>Favicon</li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>SEO</legend>
+            <ul>
+                <li>Domain name</li>
+                <li>SSL cert(HTTPS)</li>
+                <li>Sitemaps(HTML, XML, etc)</li>
+                <li><a href="https://www.seobility.net/en/seocheck/">Free SEO Checker</a></li>
+            </ul>
+        </fieldset>
+    </div>
+
+    <h3 class="div_h div_gray my-4 pb-3 text-center">Low Prio</h3>
+    <div class="notes">
+        <fieldset>
+            <legend>[Front] Place</legend>
+            <ul>
+                <li>Index search + filters</li>
+                <li>Show comments</li>
+                <li>Media order</li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>Crawler Optimization</legend>
+            <ul>
+                <li>index.html, sitemap.xml, robots.txt</li>
+                <li>view-source:, .DS_Store, apache .htaccess</li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>Languages</legend>
+            <ul>
+                <li>EU</li>
+                <li>FR</li>
+                <li>IT</li>
+            </ul>
+        </fieldset>
+    </div>
+
+    <h3 class="div_h div_gray my-4 pb-3 mt-5 text-center">Complete</h3>
+    <div class="notes">
+        <fieldset>
+            <legend>[Front] User</legend>
+            <ul>
+                <li>Auth (login/logout, register)</li>
+                <li>Show (profile, favorites)</li>
+                <li>Edit</li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>[Front] Place</legend>
+            <ul>
+                <li>Index (+ajax, favorites)</li>
+                <li>Show (info, gallery)</li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>[Admin] User</legend>
+            <ul>
+                <li>Index (+ajax)</li>
+                <li>Create</li>
+                <li>Edit</li>
+                <li>Delete</li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>[Admin] Visit</legend>
+            <ul>
+                <li>Index (+ajax)</li>
+                <li>Delete</li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>Layout / routes</legend>
+            <ul>
+                <li>Rutas 100% traducidas</li>
+                <li>Admin panel</li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>Modals</legend>
+            <ul>
+                <li>Confirm</li>
+                <li>Input</li>
+                <li>Choice</li>
+                <li>Image Inspector</li>
+            </ul>
+        </fieldset>
+    </div>
 </section>
 <style>
-    section{
-        min-height: 100vh;
+    .notes{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5rem;
     }
-    .shadows_inline{
-        box-shadow: 10px 0 10px rgba(0, 0, 0, 0.5), -10px 0 10px rgba(0, 0, 0, 0.5);
+    fieldset{
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        background-color: var(--black);
+        border: 1px solid rgb(94, 94, 94);
+    }
+    fieldset h5{
+        margin-bottom: 0.5rem;
+    }
+    fieldset li{
+        font-weight: 400;
+        list-style-type: circle;
+    }
+    fieldset *{
+        color: white !important;
+    }
+    legend{
+        width: unset;
+        float: unset;
+        border-radius: inherit;
+        background-color: #c7545f;
+        font-family: 'Lato';
+        font-size: 1.25rem;
+        font-weight: 300;
+        padding: 0.25rem 1rem;
+        margin: 0;
     }
 </style>
 
