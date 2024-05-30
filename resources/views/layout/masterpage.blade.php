@@ -104,7 +104,6 @@
                 outline: none;
             }
         </style>
-
         <div id="popups" class="d-flex align-items-end justify-content-end m-3 mb-5 m-sm-5">
             <ul>
                 @if (Session::has('message'))
@@ -125,8 +124,9 @@
                 @endforeach
             </ul>
         </div>
+        <div id="modal_container">
+        </div>
     </body>
-
     <script src="{{ asset('js/helpers.js') }}"></script>
     <script src="{{ asset('js/header.js') }}"></script>
     <script src="{{ asset('js/dropdowns.js') }}"></script>

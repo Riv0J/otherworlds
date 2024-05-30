@@ -1,14 +1,14 @@
 function ajax(ajax_data){
     //ajax_data has request_data which is a dic with the variables to send
     const request_data = ajax_data['request_data'];
-    const spinner = document.querySelector('.fa-spinner');
+    const spinners = document.querySelectorAll('.fa-spinner');
+    toggle_spinners(spinners);
+
     //call before_func, if provided
     if(ajax_data['before_func']){
         ajax_data['before_func']();
     }
-    if(spinner){
-        spinner.style.visibility = "visible";
-    }
+
     fetch(ajax_data['url'], {
         method: "POST",
         headers: {
@@ -52,8 +52,16 @@ function ajax(ajax_data){
         if(ajax_data['after_func']){
             ajax_data['after_func']();
         }
-        if(spinner){
-            spinner.style.visibility = "hidden";
+        toggle_spinners(spinners);
+    });
+}
+
+function toggle_spinners(spinners){
+    spinners.forEach(function(spinner){
+        if(spinner.style.visibility == "visible"){
+            spinner.style.visibility == "hidden"
+        } else {
+            spinner.style.visibility == "visible"
         }
     });
 }

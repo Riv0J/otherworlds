@@ -65,6 +65,7 @@ Dev | Otherworlds
             <legend>Styles</legend>
             <ul>
                 <li>CSS Forms</li>
+                <li>CSS Admin panel</li>
                 <li>Favicon</li>
             </ul>
         </fieldset>

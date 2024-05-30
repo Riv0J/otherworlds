@@ -18,35 +18,51 @@
             </div>
 
             <nav class="buttons">
+                <i class="fa-solid fa-spinner"></i>
+                {{-- <button type="button" class="button square border red" onclick="window.history.back();">
+                    <i class="fa-solid fa-angles-left"></i>
+                </button> --}}
                 <button type="submit" class="button square border info">
                     <i class="fa-solid fa-floppy-disk"></i>
                 </button>
             </nav>
         </div>
+
+        {{-- country & category --}}
+        <div class="form_row">
+            <div class="form_line">
+                <label for="name">@lang('otherworlds.country')</label>
+                <div class="dynamic_select_container">
+                    <select id="select_country" name="country" required></select>
+                </div>
+            </div>
+            <div class="form_line">
+                <label for="name">@lang('otherworlds.category')</label>
+                <div class="dynamic_select_container">
+                    <select id="select_category" name="category" required></select>
+                </div>
+            </div>
+        </div>
+
+        {{-- name --}}
         <div class="form_line">
             <label for="name">@lang('otherworlds.place_name')</label>
             <input type="text" name="name">
         </div>
+
+        {{-- gallery_url --}}
         <div class="form_line">
             <label for="name">@lang('otherworlds.gallery_url')</label>
             <input type="text" name="gallery_url" placeholder="@lang('otherworlds.wikimedia_url')">
         </div>
+
+        {{-- synopsis --}}
         <div class="form_line">
             <label for="synopsis">@lang('otherworlds.synopsis')</label>
             <textarea name="synopsis"></textarea>
         </div>
-        <div class="form_line">
-            <label for="name">@lang('otherworlds.country')</label>
-            <div class="dynamic_select_container">
-                <select id="select_country" name="country" required></select>
-            </div>
-        </div>
-        <div class="form_line">
-            <label for="name">@lang('otherworlds.category')</label>
-            <div class="dynamic_select_container">
-                <select id="select_category" name="category" required></select>
-            </div>
-        </div>
+
+
         <style>
             input, textarea{
                 background-color: transparent;
@@ -55,9 +71,10 @@
                 padding: 0.25rem 0.75rem;
                 min-height: 2.5rem;
             }
-            /* input:focus{
-                outline: none
-            } */
+            .form_row{
+                display: inline-flex;
+                gap: 0.5rem;
+            }
             .form_line{
                 display: flex;
                 flex-direction: column;
@@ -65,7 +82,7 @@
                 margin-bottom: 1rem;
             }
             .dynamic_select_container{
-                max-width: 300px
+                width: 200px;
             }
         </style>
 

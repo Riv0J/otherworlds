@@ -10,6 +10,8 @@
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/tables.css') }}"/>
+    <link rel="stylesheet" href="{{asset('modals/modals.css')}}">
+    <script src="{{asset('modals/modals.js')}}"></script>
 
     <section class="wrapper col-12 col-lg-10">
         <div class="title">
@@ -55,7 +57,8 @@
                     },
                     'on_cancel': function(input_value){
                         console.log('On cancel clicked');
-                        window.location.href = "{{route('place_create',['locale'=>$locale])}}"
+                        const modal = new Modal(null);
+                        //window.location.href = "{{route('place_create',['locale'=>$locale])}}"
                     }
                 }
                 show_modal('choice', modal_data)

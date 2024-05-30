@@ -287,6 +287,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Colombia'
             ],
+            'code' => 'col'
         ],
         [
             'es' => [
@@ -341,11 +342,13 @@ class CountrySeeder extends Seeder
             'es' => [
                 'name' => 'Yibuti'
             ],
+            'code' => 'dji'
         ],
         [
             'en' => [
                 'name' => 'Dominica'
             ],
+            'code' => 'dma'
         ],
         [
             'es' => [
@@ -354,12 +357,13 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Dominican Republic'
             ],
-
+            'code' => 'dom'
         ],
         [
             'en' => [
                 'name' => 'Ecuador'
             ],
+            'code' => 'ecu'
         ],
         [
             'es' => [
@@ -368,11 +372,13 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Egypt'
             ],
+            'code' => 'egy'
         ],
         [
             'en' => [
                 'name' => 'El Salvador'
             ],
+            'code' => 'slv'
         ],
         [
             'es' => [
@@ -381,21 +387,25 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Equatorial Guinea'
             ],
+            'code' => 'gnq'
         ],
         [
             'en' => [
                 'name' => 'Eritrea'
             ],
+            'code' => 'eri'
         ],
         [
             'en' => [
                 'name' => 'Estonia'
             ],
+            'code' => 'est'
         ],
         [
             'en' => [
                 'name' => 'Eswatini'
             ],
+            'code' => 'swz'
         ],
         [
             'es' => [
@@ -413,6 +423,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Fiji'
             ],
+            'code' => 'fji'
         ],
         [
             'es' => [
@@ -421,6 +432,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Finland'
             ],
+            'code' => 'fin'
         ],
         [
             'es' => [
