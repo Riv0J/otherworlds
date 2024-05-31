@@ -214,9 +214,14 @@
 @endsection
 
 @section('script')
+{{-- modals assets --}}
+<link rel="stylesheet" href="{{asset('modals/modals.css')}}"></link>
+<script src="{{asset('modals/modals.js')}}"></script>
+
 {{-- dynamic select assets --}}
 <link rel="stylesheet" href="{{asset('dynamic_selects/dynamic_selects.css')}}"></link>
 <script src="{{asset('dynamic_selects/dynamic_selects.js')}}"></script>
+
 <script>
     const countries = {!! json_encode($countries) !!};
     const dynamic_select_data = [];
@@ -244,9 +249,9 @@
     @endif
 
     document.querySelector('#delete_user').addEventListener('click', function(){
+        const modal_options = {title: '@lang("otherworlds.confirm_delete_user_title")'};
         const modal_data = {
             'icon': 'danger',
-            'title': '@lang('otherworlds.confirm_delete_user_title')',
             'body': '@lang('otherworlds.confirm_delete_user_body')',
             'cancel': '@lang('otherworlds.cancel')',
             'confirm': '@lang('otherworlds.confirm')',
@@ -256,10 +261,11 @@
             //     label: 'Hold my Label'
             // },
             'on_confirm': function(input_value){
+                console.log('On confirm');
                 document.querySelector('#delete_user_form').submit()
             }
         }
-        show_modal('confirm', modal_data)
+        modal = new Confirm_Modal(modal_options, modal_data);
     })
 
 </script>

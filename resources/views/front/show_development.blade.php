@@ -15,6 +15,17 @@ Dev | Otherworlds
     </h3>
     <div class="notes">
         <fieldset>
+            <legend>Modals</legend>
+            <ul>
+                <li>Confirm*</li>
+                <li>Input*</li>
+                <li>Choice</li>
+                <li>Image Inspector</li>
+                <li>Place Create</li>
+                <li>Place Edit</li>
+            </ul>
+        </fieldset>
+        <fieldset>
             <legend>[ADMIN] Place</legend>
             <ul>
                 <li>Index(ajax + filters)*</li>
@@ -33,13 +44,6 @@ Dev | Otherworlds
             </ul>
         </fieldset>
         <fieldset>
-            <legend>Implementations</legend>
-            <ul>
-                <li>Email verification & password reset</li>
-                <li>Admin home (dashboard)</li>
-            </ul>
-        </fieldset>
-        <fieldset>
             <legend>SEO</legend>
             <ul>
                 <li>Domain name</li>
@@ -52,6 +56,13 @@ Dev | Otherworlds
 
     <h3>Low Prio</h3>
     <div class="notes">
+        <fieldset>
+            <legend>Implementations</legend>
+            <ul>
+                <li>Email verification & password reset</li>
+                <li>Admin home (dashboard)</li>
+            </ul>
+        </fieldset>
         <fieldset>
             <legend>[Front] Place</legend>
             <ul>
@@ -117,15 +128,6 @@ Dev | Otherworlds
             <ul>
                 <li>Rutas 100% traducidas</li>
                 <li>Admin panel</li>
-            </ul>
-        </fieldset>
-        <fieldset>
-            <legend>Modals</legend>
-            <ul>
-                <li>Confirm</li>
-                <li>Input</li>
-                <li>Choice</li>
-                <li>Image Inspector</li>
             </ul>
         </fieldset>
     </div>

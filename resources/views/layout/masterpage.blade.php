@@ -67,43 +67,6 @@
             @include('layout.footer')
         </div>
 
-        <div id="modal" class="flex_center">
-            <article class="d-flex flex-column gap-3 p-3 border_gray">
-                <nav class="d-inline-flex justify-content-between align-items-center app_border_bottom pb-3 mb-3">
-                    <h4 class="modal_title"></h4>
-                    <button class="modal_closer button red"><i class="fa-solid fa-xmark"></i></button>
-                </nav>
-
-                <div class="flex_center flex-column gap-3">
-                    <div class="flex_center mb-4 icon_container">
-                        <i class="modal_icon"></i>
-                    </div>
-
-                    <p class="modal_text"></p>
-                    <div class="w-100 modal_input_box flex-column gap-2 align-items-center">
-                        <label></label>
-                        <input class="w-100" type="text">
-                    </div>
-                </div>
-                <div class="modal_options justify-content-around d-flex flex-row gap-5">
-                    <button class="modal_cancel"></button>
-                    <button class="modal_confirm"></button>
-                </div>
-            </article>
-        </div>
-        <style>
-            #modal nav{
-            }
-            #modal input{
-                background-color: var(--black);
-                border: 1px solid gray;
-                border-radius: 0.5rem;
-                padding: 0.25rem 1rem;
-            }
-            #modal input:focus{
-                outline: none;
-            }
-        </style>
         <div id="popups" class="d-flex align-items-end justify-content-end m-3 mb-5 m-sm-5">
             <ul>
                 @if (Session::has('message'))
@@ -124,6 +87,18 @@
                 @endforeach
             </ul>
         </div>
+        <style>
+            input, textarea{
+                background-color: var(--black);
+                border: 1px solid gray;
+                border-radius: 0.5rem;
+                padding: 0.25rem 1rem;
+            }
+
+            input:focus{
+                outline: none;
+            }
+        </style>
         <div id="modal_container">
         </div>
     </body>
