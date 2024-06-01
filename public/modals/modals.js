@@ -298,3 +298,83 @@ class Place_Create_Modal extends Modal {
         this.element.querySelector('button[type="submit"]').disabled = false;
     }
 }
+class Place_Edit_Modal extends Modal {
+    constructor(data) {
+        super(data);
+    }
+
+    _setup(){
+        const place = this.data.place;
+        console.log(place);
+        this.element.querySelector('.modal_save').classList.remove('d-none');
+        this.element.querySelector('.modal_body').innerHTML += `
+        <div class="d-inline-flex gap-3 w-100">
+            <div class="thumbnail_preview" style="background-image: url('${this.data.thumbnail}');">
+                <input type="file" class="d-none custom-file-input" id="thumbnail" name="thumbnail">
+                <label class="button border" for="thumbnail">
+                    <i class="fa-solid fa-file-arrow-up"></i>
+                </label>
+            </div>
+            <div class="flex-grow-1">
+                <div class="form_row">
+                    <div class="form_line">
+                        <label>${this.data.labels.country}</label>
+                        <select id="create_select_country" name="create_select_country"></select>
+                    </div>
+                    <div class="form_line">
+                        <label>${this.data.labels.category}</label>
+                        <select id="create_select_category" name="create_select_category"></select>
+                    </div>
+                </div>
+
+                <div class="form_line">
+                    <label for="name">${this.data.labels.name}</label>
+                    <input type="text" name="name"
+                    value="${place.name}">
+                </div>
+
+                <div class="form_line">
+                    <label for="name">${this.data.labels.gallery_url}</label>
+                    <input type="text" name="gallery_url" placeholder="${this.data.labels.gallery_url_ph}"
+                    value="${place.gallery_url}">
+                </div>
+
+                <div class="form_line">
+                    <label for="synopsis">${this.data.labels.synopsis}</label>
+                    <textarea name="synopsis">${place.synopsis}</textarea>
+                </div>
+
+                <div class="aligner modal_options">
+                    <button type="submit" class="modal_choice_1">${this.data.labels.submit}</button>
+                </div>
+            </div>
+        </div>
+        `;
+        setTimeout(() => {
+            this.data['on_load']();
+            auto_resize(this.element.querySelector('textarea'));
+            this.element.querySelector('.working').classList.remove('d-none');
+            this.element.querySelector('#thumbnail').addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.querySelector('.thumbnail_preview').style.backgroundImage = `url(${e.target.result})`;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }, 250);
+    }
+
+    _listeners(){
+        super._listeners();
+        this.element.querySelector('button[type="submit"]').addEventListener('click', (event) => {
+            this.data['on_submit'](this);
+        });
+        this.element.querySelector('.modal_save').addEventListener('click', (event) => {
+            this.data['on_submit'](this);
+        });
+
+    }
+}

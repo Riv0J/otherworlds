@@ -202,7 +202,8 @@
 
         results.appendChild(row);
         row.addEventListener('click',function(){
-            window.location.href = `{{places_url($locale)}}/${place.slug}`;
+            show_place_edit_modal(place)
+            //window.location.href = `{{places_url($locale)}}/${place.slug}`;
         });
         counter++;
     }
@@ -329,9 +330,9 @@
                 country: "@lang('otherworlds.country')",
                 category: "@lang('otherworlds.category')",
                 name: "@lang('otherworlds.name') (@lang('otherworlds.unique'))",
-                thumbnail_url: "@lang('otherworlds.thumbnail_url')",
-                gallery_url: "@lang('otherworlds.gallery_url')",
-                gallery_url_ph: "@lang('otherworlds.wikimedia_url')",
+                thumbnail_url: "@lang('otherworlds.thumbnail') URL",
+                gallery_url: "@lang('otherworlds.gallery') URL",
+                gallery_url_ph: "Wikimedia URL",
                 synopsis: "@lang('otherworlds.synopsis')",
                 submit: "@lang('otherworlds.submit')",
             },
@@ -359,7 +360,7 @@
         const modal = modal_object.element;
         const thumbnail = modal.querySelector('input[name="thumbnail"]')
         let can_create = true;
-        if(thumbnail.files.length == 0 && modal.querySelector('input[name="thumbnail_url"]').value == ""){
+        if(thumbnail.files.length == 0){
             can_create = false
             show_message({type: 'danger', icon: 'fa-exclamation', text: '@lang("otherworlds.thumbnail_required")'});
         }
@@ -390,6 +391,7 @@
                 if(response_data['success'] && response_data['success'] == true){
                     send_search();
                     modal_object._close();
+                    show_place_edit_modal(response_data['place'])
                 }
 
             },
@@ -400,6 +402,41 @@
         }
 
         ajax(ajax_data);
+    }
+
+    function show_place_edit_modal(place){
+        const create_modal = new Place_Edit_Modal({
+            place: place,
+            lang: '{{$locale}}',
+            title: "@lang('otherworlds.edit_place') [{{strtoupper($locale)}}]",
+            thumbnail: "{{asset('places')}}/"+place.public_slug+'/'+place.thumbnail,
+            labels: {
+                country: "@lang('otherworlds.country')",
+                category: "@lang('otherworlds.category')",
+                name: "@lang('otherworlds.name') (@lang('otherworlds.unique'))",
+                gallery_url: "@lang('otherworlds.gallery') URL",
+                gallery_url_ph: "Wikimedia URL",
+                synopsis: "@lang('otherworlds.synopsis')",
+                submit: "@lang('otherworlds.submit')",
+            },
+            on_load: function(){
+                const cselect = new DynamicSelect('#create_select_country',{
+                    placeholder: "@lang('otherworlds.select_country')",
+                    data: country_data
+                });
+                cselect.select_option(place.country_id);
+                const cselect2 = new DynamicSelect('#create_select_category', {
+                    placeholder: "@lang('otherworlds.select_category')",
+                    data: category_data
+                });
+                cselect2.select_option(place.category_id);
+            },
+            on_submit: function(modal_object){
+
+                create_place(modal_object);
+            }
+            }
+        )
     }
 </script>
 @endsection

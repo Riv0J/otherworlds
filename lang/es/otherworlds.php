@@ -124,11 +124,13 @@ return [
     'wikipedia_link' => 'Enlace de Wikipedia',
     'from_scratch' => 'Desde cero',
     'from_wikipedia' => 'Desde Wikipedia',
+    'synopsis' => 'Sinopsis',
 
     // modals
     'choose_option' => 'Elige una opción',
 
     // general
+    'unique' => 'Único',
     'all' => 'Todos',
     'confirm' => 'Confirmar',
     'name' => 'Nombre',
