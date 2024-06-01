@@ -87,18 +87,6 @@
                 @endforeach
             </ul>
         </div>
-        <style>
-            input, textarea{
-                background-color: var(--black);
-                border: 1px solid gray;
-                border-radius: 0.5rem;
-                padding: 0.25rem 1rem;
-            }
-
-            input:focus{
-                outline: none;
-            }
-        </style>
         <div id="modal_container">
         </div>
     </body>

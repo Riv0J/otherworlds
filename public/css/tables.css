@@ -126,3 +126,32 @@ tr[active="false"]::after {
 .dynamic-select-option:hover{
     background-color: var(--gray_light) !important;
 }
+
+.dynamic_select_container{
+    width: 200px;
+}
+input, textarea{
+    background-color: transparent;
+    border: 1px solid gray;
+    border-radius: 0.5rem;
+    padding: 0.25rem 1rem;
+    min-height: 2.5rem;
+}
+/* input:focus{
+    outline: none;
+} */
+.form_row{
+    display: inline-flex;
+    gap: 0.5rem;
+}
+.form_line{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+button[disabled]{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+

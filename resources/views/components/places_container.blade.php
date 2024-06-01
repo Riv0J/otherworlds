@@ -91,7 +91,7 @@
             pl_info.appendChild(synopsis);
 
             //add to pl_link
-            const url = '{{asset('places/')}}' + '/' + place.public_slug + '/t.png';
+            const url = '{{asset('places/')}}' + '/' + place.public_slug + '/'+ place.thumbnail;
             pl_link.innerHTML += `<div class='img_bg' style='background-image:url(${url})'></div>`;
             pl_link.appendChild(pl_info);
 

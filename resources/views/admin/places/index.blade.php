@@ -39,31 +39,7 @@
                 </button>
             </nav>
         </div>
-        <script>
-            document.querySelector("#create_place").addEventListener('click', function(){
-                const modal_data = {
-                    'title': '@lang('otherworlds.create_place_options')',
-                    'body': '@lang('otherworlds.choose_option')',
-                    'cancel': '@lang('otherworlds.from_scratch')',
-                    'confirm': '@lang('otherworlds.from_wikipedia')',
-                    'input_config': {
-                        type: "text",
-                        placeholder: '@lang('otherworlds.wikipedia_link')',
-                        label: '@lang('otherworlds.wikipedia_link')'
-                    },
-                    'on_confirm': function(input_value){
-                        console.log('On confirm clicked Value: '+input_value);
 
-                    },
-                    'on_cancel': function(input_value){
-                        console.log('On cancel clicked');
-                        const modal = new Modal(null);
-                        //window.location.href = "{{route('place_create',['locale'=>$locale])}}"
-                    }
-                }
-                show_modal('choice', modal_data)
-            })
-        </script>
         <div class="table_container">
             <table class="results_table">
                 <thead>
@@ -284,68 +260,146 @@
 <link rel="stylesheet" href="{{asset('dynamic_selects/dynamic_selects.css')}}"></link>
 <script src="{{asset('dynamic_selects/dynamic_selects.js')}}"></script>
 <script>
-    const countries_select_data = [
-        {
-            value: 0,
-            keyword: '@lang('otherworlds.all')',
-            html: `
-                <div class="aligner gap-2">
-                    <i class="fa-solid fa-location-dot"></i>
-                    @lang('otherworlds.all')
-                </div>
-            `
-        }
-    ];
+    const countries_select_data = create_country_select_data(Object.values(countries));
 
-    Object.values(countries).forEach(function(country){
-        countries_select_data.push({
-            value: country.id,
-            keyword: country.name,
-            html: `
-                <span class="big-icon flag-icon flag-icon-${country.code}"></span>
-                ${country.name}
-            `
-        });
-    })
+    countries_select_data.unshift({
+        value: 0,
+        keyword: '@lang('otherworlds.all')',
+        html: `
+            <div class="aligner gap-2">
+                <i class="fa-solid fa-location-dot"></i>
+                @lang('otherworlds.all')
+            </div>
+        `
+    });
 
     const select = new DynamicSelect('#select_country', {
         placeholder: "@lang('otherworlds.select_country')",
         data: countries_select_data
     });
-
     select.select_option('0')
 </script>
 <script>
-    const categories_select_data = [
-        {
-            value: 0,
-            keyword: '@lang('otherworlds.all')',
-            html: `
-                <div class="aligner gap-2">
-                    <i class="fa-regular fa-circle"></i>
-                    @lang('otherworlds.all')
-                </div>
-            `
-        }
-    ];
+    const categories_select_data = create_categories_select_data(Object.values(categories));
 
-    Object.values(categories).forEach(function(cat){
-        categories_select_data.push({
-            value: cat.id,
-            keyword: cat.keyword,
-            html: `
-                <div class="aligner gap-2">
-                    <i class="small_i fa-solid fa-${cat.img_name}"></i>
-                        ${cat.keyword}
-                </div>
-            `
-        });
+    categories_select_data.unshift({
+        value: 0,
+        keyword: '@lang("otherworlds.all")',
+        html: `
+            <div class="aligner gap-2">
+                <i class="fa-regular fa-circle"></i>
+                @lang('otherworlds.all')
+            </div>
+        `
     });
     const select2 = new DynamicSelect('#select_category', {
         placeholder: "@lang('otherworlds.select_category')",
         data: categories_select_data
     });
-
     select2.select_option('0')
+</script>
+<script>
+    const category_data = create_categories_select_data(Object.values(categories));
+    const country_data = create_country_select_data(Object.values(countries));
+    document.querySelector("#create_place").addEventListener('click', function(){
+        const modal_data = {
+            title: '@lang('otherworlds.create_place_options')',
+            body: '@lang('otherworlds.choose_option')',
+            cancel: '@lang('otherworlds.from_scratch')',
+            confirm: '@lang('otherworlds.from_wikipedia')',
+            input_config: {
+                type: "text",
+                placeholder: '@lang('otherworlds.wikipedia_link')',
+                label: '@lang('otherworlds.wikipedia_link')'
+            },
+            on_confirm: function(input_value){
+                show_create_place_modal(input_value);
+            },
+            on_cancel: show_create_place_modal
+        }
+        const modal = new Choice_Modal(modal_data);
+    })
+
+    function show_create_place_modal(input_value){
+        const create_modal = new Place_Create_Modal({
+            lang: '{{$locale}}',
+            title: "@lang('otherworlds.create_place') [{{strtoupper($locale)}}]",
+            thumbnail: "{{asset('places/_placeholders/t.png')}}",
+            labels: {
+                country: "@lang('otherworlds.country')",
+                category: "@lang('otherworlds.category')",
+                name: "@lang('otherworlds.name') (@lang('otherworlds.unique'))",
+                thumbnail_url: "@lang('otherworlds.thumbnail_url')",
+                gallery_url: "@lang('otherworlds.gallery_url')",
+                gallery_url_ph: "@lang('otherworlds.wikimedia_url')",
+                synopsis: "@lang('otherworlds.synopsis')",
+                submit: "@lang('otherworlds.submit')",
+            },
+            on_load: function(){
+                const cselect = new DynamicSelect('#create_select_country',{
+                    placeholder: "@lang('otherworlds.select_country')",
+                    data: country_data
+                });
+                cselect.select_option('1');
+                const cselect2 = new DynamicSelect('#create_select_category', {
+                    placeholder: "@lang('otherworlds.select_category')",
+                    data: category_data
+                });
+                cselect2.select_option('1');
+            },
+            on_submit: function(modal_object){
+
+                create_place(modal_object);
+            }
+            }
+        )
+    }
+    function create_place(modal_object){
+        modal_object._disable();
+        const modal = modal_object.element;
+        const thumbnail = modal.querySelector('input[name="thumbnail"]')
+        let can_create = true;
+        if(thumbnail.files.length == 0 && modal.querySelector('input[name="thumbnail_url"]').value == ""){
+            can_create = false
+            show_message({type: 'danger', icon: 'fa-exclamation', text: '@lang("otherworlds.thumbnail_required")'});
+        }
+        if(can_create == false){
+            modal_object._enable();
+            return;
+        }
+        const form_data = new FormData();
+        form_data.append('_token', '{{ csrf_token() }}');
+        form_data.append('locale', '{{ $locale }}');
+        form_data.append('user_id', {{$logged->id}});
+        form_data.append('country_id', modal.querySelector('input[name="create_select_country"]').value);
+        form_data.append('category_id', modal.querySelector('input[name="create_select_category"]').value);
+        form_data.append('name', modal.querySelector('input[name="name"]').value);
+        form_data.append('gallery_url', modal.querySelector('input[name="gallery_url"]').value);
+        form_data.append('thumbnail_url', modal.querySelector('input[name="thumbnail_url"]').value);
+        form_data.append('synopsis', modal.querySelector('textarea[name="synopsis"]').value);
+        form_data.append('thumbnail', thumbnail.files[0]);
+
+        const ajax_data = {
+            url: '{{ URL('/ajax/admin/places/create') }}',
+            request_data: form_data,
+            before_func: function(){
+                modal_object._working(true)
+            },
+            success_func: function(response_data) {
+                console.log(response_data);
+                if(response_data['success'] && response_data['success'] == true){
+                    send_search();
+                    modal_object._close();
+                }
+
+            },
+            after_func: function(){
+                modal_object._working(false)
+                modal_object._enable();
+            }
+        }
+
+        ajax(ajax_data);
+    }
 </script>
 @endsection

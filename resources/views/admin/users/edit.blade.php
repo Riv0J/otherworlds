@@ -249,23 +249,23 @@
     @endif
 
     document.querySelector('#delete_user').addEventListener('click', function(){
-        const modal_options = {title: '@lang("otherworlds.confirm_delete_user_title")'};
         const modal_data = {
-            'icon': 'danger',
-            'body': '@lang('otherworlds.confirm_delete_user_body')',
-            'cancel': '@lang('otherworlds.cancel')',
-            'confirm': '@lang('otherworlds.confirm')',
+            title: '@lang("otherworlds.confirm_delete_user_title")',
+            icon: 'danger',
+            body: '@lang('otherworlds.confirm_delete_user_body')',
+            cancel: '@lang('otherworlds.cancel')',
+            confirm: '@lang('otherworlds.confirm')',
             // 'input_config': {
             //     type: "text",
             //     placeholder: 'Place my holder',
             //     label: 'Hold my Label'
             // },
-            'on_confirm': function(input_value){
+            on_confirm: function(input_value){
                 console.log('On confirm');
                 document.querySelector('#delete_user_form').submit()
             }
         }
-        modal = new Confirm_Modal(modal_options, modal_data);
+        modal = new Confirm_Modal(modal_data);
     })
 
 </script>

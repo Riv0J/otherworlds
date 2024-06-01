@@ -1,21 +1,31 @@
 function ajax(ajax_data){
     //ajax_data has request_data which is a dic with the variables to send
     const request_data = ajax_data['request_data'];
-    const spinners = document.querySelectorAll('.fa-spinner');
-    toggle_spinners(spinners);
+    toggle_spinners(true);
 
     //call before_func, if provided
     if(ajax_data['before_func']){
         ajax_data['before_func']();
     }
 
-    fetch(ajax_data['url'], {
-        method: "POST",
-        headers: {
+    // check if request_data is a FormData instance
+    let body;
+    let headers = {};
+    if (request_data instanceof FormData) {
+        headers['X-CSRF-TOKEN'] = request_data.get('_token'); // Agrega CSRF token al header si es FormData
+        body = request_data;
+    } else {
+        headers = {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': request_data['_token']
-        },
-        body: JSON.stringify(request_data),
+        };
+        body = JSON.stringify(request_data);
+    }
+
+    fetch(ajax_data['url'], {
+        method: "POST",
+        headers: headers,
+        body: body,
     })
     // fetch response
     .then(response => {
@@ -32,19 +42,21 @@ function ajax(ajax_data){
     .then(response_data => {
         if(ajax_data['success_func']){
             ajax_data['success_func'](response_data);
-            if(response_data['message']){
-                show_message(response_data['message'])
-            }
-            if(response_data['messages']){
-                response_data['messages'].forEach(function(message){
-                    show_message(message)
-                });
-            }
+        }
+        //show messages, if any
+        if(response_data['message']){
+            show_message(response_data['message'])
+        }
+        if(response_data['messages']){
+            response_data['messages'].forEach(function(message){
+                show_message(message)
+            });
         }
     })
     // fetch error
     .catch(error => {
-        console.error('Request Error:', error);
+        console.error('AJAX Request Error:', error);
+        show_message({type:'danger', icon:'fa-exclamation', text: error});
     })
     // fetch complete
     .finally(() => {
@@ -52,16 +64,19 @@ function ajax(ajax_data){
         if(ajax_data['after_func']){
             ajax_data['after_func']();
         }
-        toggle_spinners(spinners);
+        toggle_spinners(false);
     });
 }
 
-function toggle_spinners(spinners){
+function toggle_spinners(show){
+    const spinners = document.querySelectorAll('.fa-spinner');
+    if(show == false){ sleep(500); }
+
     spinners.forEach(function(spinner){
-        if(spinner.style.visibility == "visible"){
-            spinner.style.visibility == "hidden"
+        if(show){
+            spinner.style.visibility = "visible"
         } else {
-            spinner.style.visibility == "visible"
+            spinner.style.visibility = "hidden"
         }
     });
 }

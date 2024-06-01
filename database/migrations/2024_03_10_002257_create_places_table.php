@@ -14,12 +14,12 @@ return new class extends Migration{
     {
         Schema::create('places', function (Blueprint $table) {
             $table->id();
-            $table->string('public_slug');
+            $table->string('public_slug')->unique();
             $table->integer('views_count')->default(0);
             $table->integer('favorites_count')->default(0);
             $table->boolean('natural')->default(true);
-            $table->double('latitude', 10, 6);
-            $table->double('longitude', 10, 6);
+            $table->double('latitude', 10, 6)->default(0);
+            $table->double('longitude', 10, 6)->default(0);
 
             //wikimedia link with images to this place
             $table->string('gallery_url')->nullable();
@@ -32,6 +32,7 @@ return new class extends Migration{
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 
+            $table->string('thumbnail')->default('t.png');
             $table->timestamps();
         });
 

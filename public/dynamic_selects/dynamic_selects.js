@@ -216,7 +216,7 @@ class DynamicSelect {
         scrollToElement(this.element.querySelector('.dynamic-select-options'));
     }
     _updateSelected() {
-        if (this.selectedValue) {
+        if (this.selectedValue && this.element.querySelector('.dynamic-select-selected')) {
             this.element.querySelector('.dynamic-selected').innerHTML = this.element.querySelector('.dynamic-select-selected').innerHTML;
         }
     }
@@ -296,9 +296,40 @@ document.querySelectorAll('[data-dynamic-select]').forEach(select => new Dynamic
 
 function scrollToElement(element) {
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } else {
-      console.error("Elemento no encontrado");
+        console.error("Elemento no encontrado");
     }
-  }
+}
+
+function create_country_select_data(countries){
+    const data = [];
+    countries.forEach(function(country){
+        data.push({
+            value: country.id,
+            keyword: country.name,
+            html: `
+                <span class="big-icon flag-icon flag-icon-${country.code}"></span>
+                ${country.name}
+            `
+        });
+    });
+    return data;
+}
+function create_categories_select_data(categories){
+    const data = [];
+    categories.forEach(function(cat){
+        data.push({
+            value: cat.id,
+            keyword: cat.keyword,
+            html: `
+                <div class="aligner gap-2">
+                    <i class="small_i fa-solid fa-${cat.img_name}"></i>
+                        ${cat.keyword}
+                </div>
+            `
+        });
+    });
+    return data;
+}
 

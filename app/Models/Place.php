@@ -4,6 +4,8 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Translatable;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
 
 use \App\Models\Crawly;
 class Place extends Model{
@@ -135,6 +137,35 @@ class Place extends Model{
             error_log("---NO IMAGES IN WIKI GALLERY: ".$wikimedia_url);
         }
         return false;
+    }
+
+    /*
+     * Deletes this places's saved thumbnail image
+     */
+    public function delete_thumbnail(){
+        if($this->thumbnail == null){ return; }
+        $old_img_route = public_path('places/'.$this->public_slug.'/t.png');
+        if (File::exists($old_img_route)) {
+            File::delete($old_img_route);
+        }
+    }
+
+    /*
+     * Updates this places's saved thumbnail image
+     */
+    public function save_thumbnail(UploadedFile $image){
+        if ($image->isValid() == false) {
+            return false;
+        }
+
+        $this->delete_thumbnail();
+        $filename = 't.' . $image->getClientOriginalExtension();
+        $image->move(public_path('places/'.$this->public_slug), $filename);
+
+        $this->thumbnail = $filename;
+        $this->save();
+
+        return true;
     }
 }
 

@@ -18,3 +18,9 @@ function organize_dic(dic) {
     }
     return organized_dic;
 }
+
+function auto_resize(textarea) {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+}
+

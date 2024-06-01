@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\PlaceTranslation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
+
 use App\Models\Place;
 use App\Models\Category;
 use App\Models\Country;
-
+use App\Models\Media;
+use App\Models\Message;
+use App\Models\OHelper;
 class Admin_PlaceController extends Controller{
     /**
      * Show a list of places to an admin
@@ -17,11 +23,12 @@ class Admin_PlaceController extends Controller{
             'locale' => $locale,
             'total' => Place::count(),
             'categories' => Category::all(),
-            'countries' => Country::whereExists(function ($query) {
-                $query->select('country_id')
-                ->from('places')
-                ->whereRaw('places.country_id = countries.id');
-            })->get(),
+            // 'countries' => Country::whereExists(function ($query) {
+            //     $query->select('country_id')
+            //     ->from('places')
+            //     ->whereRaw('places.country_id = countries.id');
+            // })->get(),
+            'countries' => Country::all(),
             'logged' => auth()->user(),
             'places' => self::get_places(1,'',$locale,0,0)
         ];
@@ -51,8 +58,8 @@ class Admin_PlaceController extends Controller{
         ->join('places_translations', 'places_translations.place_id', 'places.id')
         ->where('places_translations.locale', $locale)
         ->where('places_translations.name', 'like', '%' . $search . '%')
-        ->orderBy('places.views_count', 'desc');
-
+        // ->orderBy('places.views_count', 'desc');
+        ->orderBy('places.created_at', 'desc');
         if($category_id != null && $category_id != 0){
             $query->where('category_id',$category_id);
         }
@@ -89,6 +96,81 @@ class Admin_PlaceController extends Controller{
             'places' => $places,
         ];
 
-        return response()->json($variables); //convert vars to json
+        return response()->json($variables);
+    }
+
+    /**
+     * Ajax, create a place from the place index modal view
+     */
+    public function ajax_place_create(Request $request){
+        $data = $request->all();
+        $locale = 'en';
+        app()->setLocale($locale);
+        $validator = Validator::make($data, [
+            'user_id' => 'required|integer|exists:users,id',
+            'country_id' => 'required|integer|exists:countries,id',
+            'category_id' => 'required|integer|exists:categories,id',
+            'name' => 'required|string|max:255',
+            'thumbnail_url' => 'nullable|string|max:255',
+            'gallery_url' => 'nullable|url|max:255',
+            'synopsis' => 'required|string',
+            'thumbnail' => 'required|file|mimes:jpeg,png,jpg,gif',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'messages' => $validator->errors()->all(),
+            ], 422);
+        }
+        if(PlaceTranslation::where('name', $data['name'])->exists()){
+            return response()->json([
+                'message' => new Message(Message::TYPE_ERROR, "Duplicate name, choose a different name"),
+            ], 200);
+        }
+        $variables = [];
+        try {
+            $slug = OHelper::sluggify($data['name']);
+            $place_data = [
+                'public_slug' => $slug,
+                'country_id' => $data['country_id'],
+                'category_id' => $data['category_id'],
+                'gallery_url' => $data['gallery_url'],
+                'en' => [
+                    'slug' => $slug,
+                    'name' => $data['name'],
+                    'synopsis' => $data['synopsis'],
+                ]
+            ];
+            $new_place = Place::create($place_data);
+
+            // create an img directory for this place in english name if it doesnt exist
+            $path = public_path('places/'.$place_data['public_slug']);
+            if (!File::exists($path)) {
+                File::makeDirectory($path, 0777, true, true);
+            }
+
+            // save the thumbnail image
+            $new_place->save_thumbnail($request->file('thumbnail'));
+
+            // create the thumbnail media
+            $media_data = [
+                'url' => asset('places/'.$new_place->public_slug).'/'.$new_place->thumbnail,
+                'place_id' => $new_place->id,
+                'page_url' => $data['thumbnail_url']
+            ];
+            Media::create($media_data);
+
+            // create media images from the url
+            $new_place->create_medias($new_place->gallery_url);
+            $variables['success'] = true;
+            $variables['place'] = $new_place;
+            $variables['message'] = new Message(Message::TYPE_SUCCESS, trans('otherworlds.place_created'));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => new Message(Message::TYPE_ERROR, "Generic error, please try again"),
+            ], 500);
+        }
+        return response()->json($variables);
     }
 }

@@ -61,31 +61,6 @@
             <label for="synopsis">@lang('otherworlds.synopsis')</label>
             <textarea name="synopsis"></textarea>
         </div>
-
-
-        <style>
-            input, textarea{
-                background-color: transparent;
-                border: 1px solid gray;
-                border-radius: 0.5rem;
-                padding: 0.25rem 0.75rem;
-                min-height: 2.5rem;
-            }
-            .form_row{
-                display: inline-flex;
-                gap: 0.5rem;
-            }
-            .form_line{
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-                margin-bottom: 1rem;
-            }
-            .dynamic_select_container{
-                width: 200px;
-            }
-        </style>
-
     </form>
 @endsection
 

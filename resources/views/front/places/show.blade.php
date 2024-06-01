@@ -53,7 +53,7 @@
         {{-- img container START--}}
         <div class="border_gray bg_gray col-md-6 p-2 pb-4 mb-3" style="margin-right: 1.3em; float:left">
             <div class="img_gradient_bottom img_gradient_top">
-                <img src="{{asset('places/'.$place->public_slug.'/t.png')}}" alt="@lang('otherworlds.thumbnail'): {{$place->name}}">
+                <img src="{{asset('places/'.$place->public_slug.'/'.$place->thumbnail)}}" alt="@lang('otherworlds.thumbnail'): {{$place->name}}">
             </div>
             <p class="text-center m-2">{{$place->synopsis}}.</p>
 

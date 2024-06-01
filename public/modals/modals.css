@@ -6,7 +6,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999;
+    z-index: 999;
     background-color: var(--black_opacity)
 }
 .small_modal{
@@ -16,11 +16,11 @@
     width: 100%
 }
 .modal{
+    width: 75%;
     pointer-events: all;
     top: unset;
     left: unset;
     display: block;
-    width: 60%;
     height: auto;
     background-color: var(--black);
     border: 1px solid gray;
@@ -29,6 +29,7 @@
     scale: 0.3;
     opacity: 0.5;
     transition: all 0.25s;
+    overflow: visible
 }
 .modal_header{
     display: inline-flex;
@@ -38,6 +39,9 @@
     margin-bottom: 1rem;
     border-bottom: 1px solid var(--alt_dark);
 }
+.modal_header h4{
+    align-self: flex-end;
+}
 .modal_icon:nth-child(1){
     font-size: 5rem;
 }
@@ -46,6 +50,12 @@
     font-size: 1.25rem;
     padding: 0.25rem 1.5rem;
     border-radius: 0.5rem;
+}
+.modal_options{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 1rem;
 }
 .modal_closer{
     border: none !important;
@@ -73,4 +83,18 @@
 }
 .modal_choice_2:hover {
     background-color: var(--bg_gray_office_hover) !important; /* Color de fondo al pasar el mouse (gris medio) */
+}
+.thumbnail_preview{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    width: 18rem;
+    border-radius: 0.5rem;
+}
+.thumbnail_preview label{
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
 }
