@@ -119,12 +119,15 @@ return [
     // place controller
     'search_place' => 'Buscar nombre de lugar',
     'create_place' => 'Crear lugar',
+    'edit_place' => 'Editar lugar',
     'select_category' => 'Selecciona una categoría',
     'create_place_options' => 'Opciones para crear lugar',
     'wikipedia_link' => 'Enlace de Wikipedia',
     'from_scratch' => 'Desde cero',
     'from_wikipedia' => 'Desde Wikipedia',
     'synopsis' => 'Sinopsis',
+    'place_created' => 'Lugar Creado',
+    'thumbnail_required' => 'Miniatura requerida',
 
     // modals
     'choose_option' => 'Elige una opción',

@@ -1,4 +1,5 @@
 #modal_container{
+    overflow: scroll;
     visibility: hidden;
     pointer-events: none;
     position: fixed;
@@ -8,9 +9,6 @@
     justify-content: center;
     z-index: 999;
     background-color: var(--black_opacity)
-}
-.small_modal{
-    width: 350px !important;
 }
 .modal>*{
     width: 100%
@@ -30,6 +28,13 @@
     opacity: 0.5;
     transition: all 0.25s;
     overflow: visible
+}
+.small_modal{
+    width: 350px !important;
+}
+.scroll_modal{
+    position: absolute;
+    top: 5%;
 }
 .modal_header{
     display: inline-flex;
@@ -97,4 +102,23 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
+}
+.medias{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.5rem;
+}
+.media{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    aspect-ratio: 1;
+    border-radius: 0.5rem;
+    position: relative;
+}
+.media .delete_button{
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
 }

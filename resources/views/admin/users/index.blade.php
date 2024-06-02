@@ -314,12 +314,13 @@
             attempt_request();
         }
 
-        // on scroll event, when user has reached 50% of the cointainer's height
-        document.querySelector('.table_container').addEventListener('scroll', function() {
-            if (this.scrollTop >= (this.scrollHeight - this.offsetHeight) * 0.5) {
+        window.addEventListener('scroll', function() {
+        const container = document.querySelector('.table_container');
+            if (container.getBoundingClientRect().bottom < window.innerHeight*1.5){
                 attempt_request();
             }
         });
+
         function attempt_request(){
             if (requesting == false && querying == false) {
                 request();

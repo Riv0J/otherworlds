@@ -124,7 +124,7 @@ class Admin_PlaceController extends Controller{
         }
         if(PlaceTranslation::where('name', $data['name'])->exists()){
             return response()->json([
-                'message' => new Message(Message::TYPE_ERROR, "Duplicate name, choose a different name"),
+                'message' => new Message(Message::TYPE_ERROR, "A place with that name already exists"),
             ], 200);
         }
         $variables = [];
@@ -162,8 +162,9 @@ class Admin_PlaceController extends Controller{
 
             // create media images from the url
             $new_place->create_medias($new_place->gallery_url);
+
             $variables['success'] = true;
-            $variables['place'] = $new_place;
+            $variables['place'] = Place::with('medias')->where('id',$new_place->id)->first();
             $variables['message'] = new Message(Message::TYPE_SUCCESS, trans('otherworlds.place_created'));
         } catch (\Throwable $th) {
             return response()->json([
@@ -171,6 +172,19 @@ class Admin_PlaceController extends Controller{
                 'message' => new Message(Message::TYPE_ERROR, "Generic error, please try again"),
             ], 500);
         }
+        return response()->json($variables);
+    }
+
+    /**
+     * Ajax, get a place from an ID and locale
+     */
+    public function ajax_place_find(Request $request){
+        $data = $request->all();
+        app()->setLocale($data['locale']);
+        $variables =[
+            'locale' => $data['locale'],
+            'place' => Place::with('medias')->where('id',$data['place_id'])->first()
+        ];
         return response()->json($variables);
     }
 }

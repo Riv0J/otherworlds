@@ -84,6 +84,7 @@
 <script src="{{ asset('js/ajax.js') }}"></script>
 <script>
     const logged = {!! json_encode($logged) !!};
+    const locales = {!! json_encode(config('translatable.locales')) !!};
     const countries = organize_dic({!! json_encode($countries) !!});
     const categories = organize_dic({!! json_encode($categories) !!});
 
@@ -92,9 +93,9 @@
         create_rows({!! json_encode($places) !!})
     });
 
-    document.querySelector('.table_container').addEventListener('scroll', function() {
-        // on scroll event, when user has reached 50% of the cointainer's height
-        if (this.scrollTop >= (this.scrollHeight - this.offsetHeight) * 0.5) {
+    window.addEventListener('scroll', function() {
+        const container = document.querySelector('.table_container');
+        if (container.getBoundingClientRect().bottom < window.innerHeight*1.5){
             attempt_request();
         }
     });
@@ -202,7 +203,7 @@
 
         results.appendChild(row);
         row.addEventListener('click',function(){
-            show_place_edit_modal(place)
+            show_edit_place_modal(place)
             //window.location.href = `{{places_url($locale)}}/${place.slug}`;
         });
         counter++;
@@ -349,7 +350,6 @@
                 cselect2.select_option('1');
             },
             on_submit: function(modal_object){
-
                 create_place(modal_object);
             }
             }
@@ -391,7 +391,7 @@
                 if(response_data['success'] && response_data['success'] == true){
                     send_search();
                     modal_object._close();
-                    show_place_edit_modal(response_data['place'])
+                    show_edit_place_modal(response_data['place']);
                 }
 
             },
@@ -404,39 +404,40 @@
         ajax(ajax_data);
     }
 
-    function show_place_edit_modal(place){
+    function show_edit_place_modal(place){
         const create_modal = new Place_Edit_Modal({
             place: place,
             lang: '{{$locale}}',
-            title: "@lang('otherworlds.edit_place') [{{strtoupper($locale)}}]",
+            title: "@lang('otherworlds.edit_place')",
             thumbnail: "{{asset('places')}}/"+place.public_slug+'/'+place.thumbnail,
-            labels: {
-                country: "@lang('otherworlds.country')",
-                category: "@lang('otherworlds.category')",
-                name: "@lang('otherworlds.name') (@lang('otherworlds.unique'))",
-                gallery_url: "@lang('otherworlds.gallery') URL",
-                gallery_url_ph: "Wikimedia URL",
-                synopsis: "@lang('otherworlds.synopsis')",
-                submit: "@lang('otherworlds.submit')",
-            },
+            locales: locales,
             on_load: function(){
-                const cselect = new DynamicSelect('#create_select_country',{
+                const cselect = new DynamicSelect('#edit_select_country',{
                     placeholder: "@lang('otherworlds.select_country')",
                     data: country_data
                 });
                 cselect.select_option(place.country_id);
-                const cselect2 = new DynamicSelect('#create_select_category', {
+                const cselect2 = new DynamicSelect('#edit_select_category', {
                     placeholder: "@lang('otherworlds.select_category')",
                     data: category_data
                 });
                 cselect2.select_option(place.category_id);
             },
+            on_locale_change: function(modal_object){
+                const new_place = get_place(place.id);
+                console.log(new_place);
+                // switch_place(modal_object);
+            },
             on_submit: function(modal_object){
-
                 create_place(modal_object);
             }
             }
         )
+    }
+    function switch_place(){
+        const = ajax_data{
+
+        }
     }
 </script>
 @endsection

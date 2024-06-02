@@ -63,9 +63,9 @@
         create_rows({!! json_encode($visits) !!})
     });
 
-    document.querySelector('.table_container').addEventListener('scroll', function() {
-        // on scroll event, when user has reached 50% of the cointainer's height
-        if (this.scrollTop >= (this.scrollHeight - this.offsetHeight) * 0.5) {
+    window.addEventListener('scroll', function() {
+        const container = document.querySelector('.table_container');
+        if (container.getBoundingClientRect().bottom < window.innerHeight*1.5){
             attempt_request();
         }
     });
@@ -89,7 +89,6 @@
         });
     }
     function create_row(visit) {
-        console.log(visit);
         const country = visit.country;
         const row = document.createElement('tr');
         row.setAttribute('id',visit.id)
