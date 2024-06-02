@@ -13,7 +13,6 @@ class Place extends Model{
     protected $table = 'places';
     protected $fillable = ['category_id', 'country_id', 'public_slug', 'views_count','favorites_count','natural', 'gallery_url', 'latitude', 'longitude'];
     public $translatedAttributes = ['name', 'synopsis', 'slug'];
-
     public function country(){
         return $this->belongsTo(Country::class, 'country_id');
     }
@@ -47,6 +46,55 @@ class Place extends Model{
     public static function random(){
         return Place::inRandomOrder()->first();
     }
+
+    /**
+     *  Get this place's full public path
+     */
+    public function get_path(){
+        return public_path('places/'.$this->public_slug);
+    }
+
+    /**
+     * Update this place's public slug
+     */
+    public function update_public_slug($new_value){
+        $old_path = $this->get_path();
+        $this->public_slug = $new_value;
+        $new_path = $this->get_path();
+        if (File::exists($old_path)) {
+            File::move($old_path, $new_path);
+        }
+    }
+
+    /*
+     * Deletes this places's saved thumbnail image
+     */
+    public function delete_thumbnail(){
+        if($this->thumbnail == null){ return; }
+        $old_img_route = public_path('places/'.$this->public_slug.'/'.$this->thumbnail);
+        if (File::exists($old_img_route)) {
+            File::delete($old_img_route);
+        }
+    }
+
+    /*
+     * Updates this places's saved thumbnail image
+     */
+    public function save_thumbnail(UploadedFile $image){
+        if ($image->isValid() == false) {
+            return false;
+        }
+
+        $this->delete_thumbnail();
+        $filename = 't.' . $image->getClientOriginalExtension();
+        $image->move(public_path('places/'.$this->public_slug), $filename);
+
+        $this->thumbnail = $filename;
+        $this->save();
+
+        return true;
+    }
+
     /**
      * Generates the Wikimedia URL for this place's gallery
      *
@@ -137,35 +185,6 @@ class Place extends Model{
             error_log("---NO IMAGES IN WIKI GALLERY: ".$wikimedia_url);
         }
         return false;
-    }
-
-    /*
-     * Deletes this places's saved thumbnail image
-     */
-    public function delete_thumbnail(){
-        if($this->thumbnail == null){ return; }
-        $old_img_route = public_path('places/'.$this->public_slug.'/t.png');
-        if (File::exists($old_img_route)) {
-            File::delete($old_img_route);
-        }
-    }
-
-    /*
-     * Updates this places's saved thumbnail image
-     */
-    public function save_thumbnail(UploadedFile $image){
-        if ($image->isValid() == false) {
-            return false;
-        }
-
-        $this->delete_thumbnail();
-        $filename = 't.' . $image->getClientOriginalExtension();
-        $image->move(public_path('places/'.$this->public_slug), $filename);
-
-        $this->thumbnail = $filename;
-        $this->save();
-
-        return true;
     }
 }
 

@@ -176,6 +176,43 @@ class Admin_PlaceController extends Controller{
     }
 
     /**
+     * Ajax, update a place's basic info in a specific locale
+     */
+    public function ajax_place_update(Request $request){
+
+        $data = $request->all();
+
+        app()->setLocale($data['locale']);
+        $place = Place::with('medias')->where('id',$data['place_id'])->first();
+
+        if(PlaceTranslation::where('name', $data['name'])->where('place_id','!=',$place->id)->exists()){
+            return response()->json([
+                'message' => new Message(Message::TYPE_ERROR, "A place with that name already exists"),
+            ], 200);
+        }
+
+        $place->country_id = $data['country_id'];
+        $place->category_id = $data['category_id'];
+        $place->name = $data['name'];
+        $place->slug = OHelper::sluggify($data['name']);
+        $place->gallery_url = $data['gallery_url'];
+        $place->synopsis = $data['synopsis'];
+
+        if($request->hasFile('thumbnail')){
+            $place->save_thumbnail($request->file('thumbnail'));
+        }
+        $place->save();
+
+        $variables =[
+            'locale' => $data['locale'],
+            'place' => $place,
+            'success' => true,
+            'message' => new Message(Message::TYPE_SUCCESS, "Updated place basic info"),
+            'thumbnail_edited' => $request->hasFile('thumbnail')
+        ];
+        return response()->json($variables);
+    }
+    /**
      * Ajax, get a place from an ID and locale
      */
     public function ajax_place_get(Request $request){

@@ -15,14 +15,21 @@ Dev | Otherworlds
     </h3>
     <div class="notes">
         <fieldset>
-            <legend>Modals</legend>
+            <legend>Basic Modals</legend>
             <ul>
                 <li>Confirm*</li>
                 <li>Input*</li>
-                <li>Choice</li>
-                <li>Image Inspector</li>
-                <li>Place Create</li>
-                <li>Place Edit</li>
+                <li>Choice*</li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>Advanced Place Modals</legend>
+            <ul>
+                <li>Create*</li>
+                <li>Edit - Basic Info*</li>
+                <li>Edit - Sources</li>
+                <li>Media Inspector</li>
+                <li>Delete media ajax</li>
             </ul>
         </fieldset>
         <fieldset>

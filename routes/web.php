@@ -112,6 +112,7 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/ajax/admin/places/request', [Admin_PlaceController::class, 'ajax_place_request']);
     Route::post('/ajax/admin/places/create', [Admin_PlaceController::class, 'ajax_place_create']);
     Route::post('/ajax/admin/places/get', [Admin_PlaceController::class, 'ajax_place_get']);
+    Route::post('/ajax/admin/places/update', [Admin_PlaceController::class, 'ajax_place_update']);
 });
 
 Route::middleware(['owner'])->group(function () {

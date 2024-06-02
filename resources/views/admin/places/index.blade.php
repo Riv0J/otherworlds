@@ -203,8 +203,7 @@
 
         results.appendChild(row);
         row.addEventListener('click',function(){
-            show_edit_place_modal(place)
-            //window.location.href = `{{places_url($locale)}}/${place.slug}`;
+            show_edit_place_modal(place);
         });
         counter++;
     }
@@ -392,10 +391,10 @@
     function show_edit_place_modal(place){
         const create_modal = new Place_Edit_Modal({
             place: place,
-            lang: '{{$locale}}',
-            title: "@lang('otherworlds.edit_place')",
-            thumbnail: "{{asset('places')}}/"+place.public_slug+'/'+place.thumbnail,
             locales: locales,
+            locale: '{{$locale}}',
+            title: "@lang('otherworlds.edit_place')",
+            thumbnail_prefix: "{{asset('places')}}"+'/',
             on_load: function(){
                 const cselect = new DynamicSelect('#edit_select_country',{
                     placeholder: "@lang('otherworlds.select_country')",
@@ -409,29 +408,59 @@
                 cselect2.select_option(place.category_id);
             },
             on_locale_change: function(modal_object, new_locale){
-                const new_place = get_place(place.id, new_locale);
-                console.log(new_place);
-                // switch_place(modal_object);
+
+                const ajax_data = {
+                    url: '{{ URL('/ajax/admin/places/get') }}',
+                    request_data:{
+                        _token: '{{ csrf_token() }}',
+                        locale: new_locale,
+                        place_id: place.id
+                    },
+                    success_func: function(response_data) {
+                        console.log(response_data);
+                        modal_object._setplace(response_data['place']);
+                    }
+                }
+                ajax(ajax_data);
             },
             on_submit: function(modal_object){
-                create_place(modal_object);
+                console.log('submitted');
+                update_place(modal_object, place);
             }
             }
         )
     }
-    function get_place(place_id, new_locale){
+
+    function update_place(modal_object, place){
+        modal_object._disable();
+        const modal = modal_object.element;
+
+        const form_data = new FormData();
+        form_data.append('_token', '{{ csrf_token() }}');
+        form_data.append('locale', modal.querySelector('#edit_select_locale').value);
+        form_data.append('place_id', place.id);
+        form_data.append('country_id', modal.querySelector('input[name="edit_select_country"]').value);
+        form_data.append('category_id', modal.querySelector('input[name="edit_select_category"]').value);
+        form_data.append('name', modal.querySelector('input[name="name"]').value);
+        form_data.append('synopsis', modal.querySelector('textarea[name="synopsis"]').value);
+        form_data.append('gallery_url', modal.querySelector('input[name="gallery_url"]').value);
+        form_data.append('thumbnail', modal.querySelector('input[name="thumbnail"]').files[0]);
+        modal.querySelector('input[name="thumbnail"]').value= '';
         const ajax_data = {
-            url: '{{ URL('/ajax/admin/places/get') }}',
-            request_data:{
-                _token: '{{ csrf_token() }}',
-                locale: new_locale,
-                place_id: place_id
-            },
+            url: '{{ URL('/ajax/admin/places/update') }}',
+            request_data: form_data,
             success_func: function(response_data) {
                 console.log(response_data);
-                return response_data['place'];
+                if(response_data['success'] && response_data['success'] == true){
+                    modal_object._setplace(response_data['place']);
+                    send_search();
+                }
+            },
+            after_func: function(){
+                modal_object._enable();
             }
         }
+
         ajax(ajax_data);
     }
 </script>

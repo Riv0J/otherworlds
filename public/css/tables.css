@@ -142,6 +142,11 @@ select{
     color: white;
     min-height: 3rem
 }
+input[readonly]{
+    cursor: not-allowed;
+    background-color: rgb(83, 83, 83);
+    user-select: none;
+}
 /* input:focus{
     outline: none;
 } */

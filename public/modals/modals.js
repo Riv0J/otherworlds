@@ -64,6 +64,9 @@ class Modal {
             this.element.style.opacity = 1;
         }, 100);
     }
+    query(selector){
+        return this.element.querySelector(selector);
+    }
 
 }
 class Confirm_Modal extends Modal {
@@ -233,14 +236,14 @@ class Place_Create_Modal extends Modal {
                 </div>
 
                 <div class="form_line">
-                    <label for="name">Gallery URL</label>
-                    <input type="text" name="gallery_url" placeholder="Wikimedia URL"
-                    value="https://commons.wikimedia.org/wiki/Category:Catedral_de_M%C3%A1rmol">
+                    <label for="synopsis">Synopsis</label>
+                    <textarea name="synopsis">Caves of carbonate mineral formations, carved in the middle of Lake General Carrera</textarea>
                 </div>
 
                 <div class="form_line">
-                    <label for="synopsis">Synopsis</label>
-                    <textarea name="synopsis">Caves of carbonate mineral formations, carved in the middle of Lake General Carrera</textarea>
+                    <label for="name">Gallery URL</label>
+                    <input type="text" name="gallery_url" placeholder="Wikimedia URL"
+                    value="https://commons.wikimedia.org/wiki/Category:Catedral_de_M%C3%A1rmol">
                 </div>
 
                 <div class="aligner modal_options">
@@ -295,7 +298,7 @@ class Place_Edit_Modal extends Modal {
     _body(){
         return `
         <div class="d-inline-flex gap-3 w-100">
-            <div class="thumbnail_preview" style="background-image: url('${this.data.thumbnail}');">
+            <div class="thumbnail_preview">
                 <input type="file" class="d-none custom-file-input" id="thumbnail" name="thumbnail">
                 <label class="button border" for="thumbnail">
                     <i class="fa-solid fa-file-arrow-up"></i>
@@ -316,41 +319,54 @@ class Place_Edit_Modal extends Modal {
                         <select id="edit_select_category" name="edit_select_category"></select>
                     </div>
                 </div>
-
+                <div class="form_line">
+                    <label for="slug">Slug</label>
+                    <input type="text" name="slug" readonly>
+                </div>
                 <div class="form_line">
                     <label for="name">Name</label>
-                    <input type="text" name="name"
-                    value="${this.data.place.name}">
+                    <input type="text" name="name">
                 </div>
-
-                <div class="form_line">
-                    <label for="name">Gallery URL</label>
-                    <div class="form_row">
-                        <input class="flex-grow-1" type="text" name="gallery_url" placeholder="Wikimedia URL"
-                        value="${this.data.place.gallery_url}">
-                        <a href="${this.data.place.gallery_url}" target="_blank" class="button">
-                            <i class="small_i fa-solid fa-up-right-from-square"></i>
-                        </a>
-                    </div>
-                </div>
-
                 <div class="form_line">
                     <label for="synopsis">Synopsis</label>
-                    <textarea name="synopsis">${this.data.place.synopsis}</textarea>
+                    <textarea name="synopsis"></textarea>
                 </div>
             </div>
         </div>
         <h4 class="my-3 pb-3 app_border_bottom w-100">Medias</h4>
+        <div class="form_line">
+            <label for="name">Gallery URL</label>
+            <div class="form_row">
+                <input class="flex-grow-1" type="text" name="gallery_url" placeholder="Wikimedia URL">
+                <button class="button gallery_link" class="button">
+                    <i class="small_i fa-solid fa-up-right-from-square"></i>
+                </button>
+            </div>
+        </div>
         <div class="medias"></div>
         `;
+    }
+    _setplace(place){
+        this.query('.thumbnail_preview').style.backgroundImage = `url('${this.data.thumbnail_prefix}/${place.public_slug}/${place.thumbnail}?_=${new Date().getTime()}')`;
+        this.query('[name="slug"]').value = place.slug;
+        this.query('[name="name"]').value = place.name;
+        this.query('[name="synopsis"]').value = place.synopsis;
+        this.query('[name="gallery_url"]').value = place.gallery_url;
     }
     _onload(){
         super._onload();
         this.element.className += ' scroll_modal';
+        this._setplace(this.data.place);
         auto_resize(this.element.querySelector('textarea'));
+
         const select_locale = this.element.querySelector('#edit_select_locale');
+        const current_locale = this.data.locale;
         this.data.locales.forEach(function(locale){
-            select_locale.innerHTML += `<option value="${locale}">${locale.toUpperCase()}</option>`;
+            if(locale == current_locale){
+                select_locale.innerHTML += `<option selected value="${locale}">${locale.toUpperCase()}</option>`;
+            } else {
+                select_locale.innerHTML += `<option value="${locale}">${locale.toUpperCase()}</option>`;
+            }
         });
 
         const medias_container = document.querySelector('.medias');
@@ -364,11 +380,11 @@ class Place_Edit_Modal extends Modal {
     }
     _listeners(){
         super._listeners();
-        this.element.querySelector('.modal_save').addEventListener('click', (event) => {
+        this.query('.modal_save').addEventListener('click', (event) => {
             console.log('on submit');
             this.data['on_submit'](this);
         });
-        this.element.querySelector('#thumbnail').addEventListener('change', function() {
+        this.query('#thumbnail').addEventListener('change', function() {
             const file = this.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -378,8 +394,17 @@ class Place_Edit_Modal extends Modal {
                 reader.readAsDataURL(file);
             }
         });
-        this.element.querySelector('#edit_select_locale').addEventListener('change', (event) =>{
+        this.query('#edit_select_locale').addEventListener('change', (event) =>{
             this.data['on_locale_change'](this, event.target.value);
         });
+        this.query('.gallery_link').addEventListener('click', (event) =>{
+            window.open(this.query('[name="gallery_url"]').value, '_blank');
+        });
+    }
+    _disable(){
+        this.query('.modal_save').disabled = true;
+    }
+    _enable(){
+        this.query('.modal_save').disabled = false;
     }
 }
