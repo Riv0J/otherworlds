@@ -6,46 +6,42 @@ class Modal {
 
         this._template();
         this._setup();
-        this._listeners();
+
+        setTimeout(() => {
+            this._onload();
+            this._listeners();
+        }, 250);
         this._show();
     }
 
     _template() {
-        let template = `
+        const template = `
         <div class="modal">
             <div class="modal_header">
                 <h4>${this.data.title}</h4>
-                <nav class="buttons">
-                    <div class="working d-inline-flex d-none align-items-center gap-2" style="display: none; visibility: hidden">
-                        <i class="fa-solid fa-spinner"></i>Please wait
-                    </div>
-
-                    <button class="modal_closer button red"><i class="fa-solid fa-xmark"></i></button>
-                </nav>
+                <nav class="buttons"></nav>
             </div>
             <div class="modal_body"></div>
         </div>
         `;
-
         const temp = document.createElement('div');
         temp.innerHTML = template;
         this.element = temp.firstElementChild;
     }
     _setup(){
-        throw new Error('Implement this method in child classes.');
+        this.element.querySelector('.buttons').innerHTML += this._buttons();
+        this.element.querySelector('.buttons').innerHTML += `<button class="modal_closer button red"><i class="fa-solid fa-xmark"></i></button>`;
+        this.element.querySelector('.modal_body').innerHTML += this._body();
+    }
+    _buttons(){ throw new Error('Implement this method in child classes.'); }
+    _body(){ throw new Error('Implement this method in child classes.'); }
+    _onload(){
+        if(this.data['on_load']){ this.data['on_load'](this)}
     }
     _listeners(){
         this.element.querySelector('.modal_closer').addEventListener('click', () => {
             this._close();
         });
-    }
-    _working(bool){
-        const working = this.element.querySelector('.working');
-        if(bool){
-            working.style.visibility = 'visible';
-        } else {
-            working.style.visibility = 'hidden';
-        }
     }
     _close(){
         this.element.style.scale = 0.3;
@@ -74,12 +70,13 @@ class Confirm_Modal extends Modal {
     constructor(data) {
         super(data);
     }
-
-    _setup(){
-        this.element.className += " small_modal";
-        this.element.querySelector('.modal_body').innerHTML += `
+    _buttons(){
+        return ``;
+    }
+    _body(){
+        return `
             <div class="flex_center mb-4 icon_container">
-                <i class="modal_icon"></i>
+                <i class="modal_icon fa-solid fa-triangle-exclamation"></i>
             </div>
 
             <p class="text-center mb-2">${this.data.body}</p>
@@ -92,19 +89,10 @@ class Confirm_Modal extends Modal {
                 <button class="modal_confirm">${this.data.confirm}</button>
             </div>
         `;
-
-        let icon_class = 'fa-regular fa-circle-question';
-        switch (this.data.icon) {
-            case "info":
-                icon_class = 'fa-solid fa-circle-info';
-                break;
-            case "danger":
-                icon_class = 'fa-solid fa-triangle-exclamation';
-                break;
-            default:
-                break;
-        }
-        this.element.querySelector('.modal_icon').className = "modal_icon "+icon_class;
+    }
+    _onload(){
+        super._onload();
+        this.element.className += " small_modal";
 
         const input_box = this.element.querySelector('.modal_input_box')
         const input = this.element.querySelector('input')
@@ -119,7 +107,6 @@ class Confirm_Modal extends Modal {
             input_box.style.display = 'none';
         }
     }
-
     _listeners(){
         super._listeners();
 
@@ -144,53 +131,42 @@ class Choice_Modal extends Modal {
     constructor(data) {
         super(data);
     }
-
-    _setup(){
-        const modal_data = this.data;
-        this.element.className += " small_modal";
-        this.element.querySelector('.modal_body').innerHTML += `
+    _buttons(){
+        return ``;
+    }
+    _body(){
+        return `
             <div class="flex_center mb-4 icon_container">
-                <i class="modal_icon"></i>
+                <i class="modal_icon fa-solid fa-circle-info"></i>
             </div>
 
-            <p class="text-center mb-2">${modal_data.body}</p>
+            <p class="text-center mb-2">${this.data.body}</p>
             <div class="w-100 modal_input_box flex-column gap-2 align-items-center">
                 <label></label>
                 <input class="w-100" type="text">
             </div>
             <div class="modal_options">
-                <button class="modal_cancel modal_choice_2">${modal_data.cancel}</button>
-                <button class="modal_confirm modal_choice_1">${modal_data.confirm}</button>
+                <button class="modal_cancel modal_choice_2">${this.data.cancel}</button>
+                <button class="modal_confirm modal_choice_1">${this.data.confirm}</button>
             </div>
         `;
-
-        let icon_class = 'fa-regular fa-circle-question';
-        switch (modal_data.icon) {
-            case "info":
-                icon_class = 'fa-solid fa-circle-info';
-                break;
-            case "danger":
-                icon_class = 'fa-solid fa-triangle-exclamation';
-                break;
-            default:
-                break;
-        }
-        this.element.querySelector('.modal_icon').className = "modal_icon "+icon_class;
-
+    }
+    _onload(){
+        super._onload();
+        this.element.className += " small_modal";
         const input_box = this.element.querySelector('.modal_input_box')
         const input = this.element.querySelector('input')
 
-        if(modal_data['input_config']){
+        if(this.data['input_config']){
             input_box.style.display = 'flex';
 
-            input.setAttribute('type', modal_data['input_config']['type'])
-            input.setAttribute('placeholder', modal_data['input_config']['placeholder'])
-            this.element.querySelector('label').textContent = modal_data['input_config']['label'];
+            input.setAttribute('type', this.data['input_config']['type'])
+            input.setAttribute('placeholder', this.data['input_config']['placeholder'])
+            this.element.querySelector('label').textContent = this.data['input_config']['label'];
         } else {
             input_box.style.display = 'none';
         }
     }
-
     _listeners(){
         super._listeners();
 
@@ -215,9 +191,16 @@ class Place_Create_Modal extends Modal {
     constructor(data) {
         super(data);
     }
-
-    _setup(){
-        this.element.querySelector('.modal_body').innerHTML += `
+    _buttons(){
+        return `
+        <div class="working d-inline-flex align-items-center gap-2" style="display: none; visibility: hidden">
+            <i class="fa-solid fa-spinner"></i>Please wait
+        </div>
+        <button class="modal_save button info"><i class="fa-solid fa-floppy-disk"></i></button>
+        `;
+    }
+    _body(){
+        return `
         <div class="d-inline-flex gap-3 w-100">
             <div class="thumbnail_preview" style="background-image: url('${this.data.thumbnail}');">
                 <input type="file" class="d-none custom-file-input" id="thumbnail" name="thumbnail">
@@ -228,65 +211,64 @@ class Place_Create_Modal extends Modal {
             <div class="flex-grow-1">
                 <div class="form_row">
                     <div class="form_line">
-                        <label>${this.data.labels.country}</label>
+                        <label>Country</label>
                         <select id="create_select_country" name="create_select_country"></select>
                     </div>
                     <div class="form_line">
-                        <label>${this.data.labels.category}</label>
+                        <label>Category</label>
                         <select id="create_select_category" name="create_select_category"></select>
                     </div>
                 </div>
 
                 <div class="form_line">
-                    <label for="name">${this.data.labels.thumbnail_url}</label>
+                    <label for="name">Thumbnail URL</label>
                     <input type="text" name="thumbnail_url"
                     value="https://commons.wikimedia.org/wiki/File:Capilla_de_Marmol_2017.jpg">
                 </div>
 
                 <div class="form_line">
-                    <label for="name">${this.data.labels.name}</label>
+                    <label for="name">Name</label>
                     <input type="text" name="name"
                     value="Marble Cathedral">
                 </div>
 
                 <div class="form_line">
-                    <label for="name">${this.data.labels.gallery_url}</label>
-                    <input type="text" name="gallery_url" placeholder="${this.data.labels.gallery_url_ph}"
+                    <label for="name">Gallery URL</label>
+                    <input type="text" name="gallery_url" placeholder="Wikimedia URL"
                     value="https://commons.wikimedia.org/wiki/Category:Catedral_de_M%C3%A1rmol">
                 </div>
 
                 <div class="form_line">
-                    <label for="synopsis">${this.data.labels.synopsis}</label>
+                    <label for="synopsis">Synopsis</label>
                     <textarea name="synopsis">Caves of carbonate mineral formations, carved in the middle of Lake General Carrera</textarea>
                 </div>
 
                 <div class="aligner modal_options">
-                    <button type="submit" class="modal_choice_1">${this.data.labels.submit}</button>
+                    <button type="submit" class="modal_choice_1">Submit</button>
                 </div>
             </div>
         </div>
         `;
-        setTimeout(() => {
-            this.data['on_load']();
-            auto_resize(this.element.querySelector('textarea'));
-            this.element.querySelector('.working').classList.remove('d-none');
-            this.element.querySelector('#thumbnail').addEventListener('change', function() {
-                const file = this.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        document.querySelector('.thumbnail_preview').style.backgroundImage = `url(${e.target.result})`;
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-        }, 250);
     }
-
+    _onload(){
+        super._onload();
+        this.element.className += ' scroll_modal';
+        auto_resize(this.element.querySelector('textarea'));
+    }
     _listeners(){
         super._listeners();
         this.element.querySelector('button[type="submit"]').addEventListener('click', (event) => {
             this.data['on_submit'](this);
+        });
+        this.element.querySelector('#thumbnail').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector('.thumbnail_preview').style.backgroundImage = `url(${e.target.result})`;
+                }
+                reader.readAsDataURL(file);
+            }
         });
     }
     _disable(){
@@ -301,32 +283,17 @@ class Place_Edit_Modal extends Modal {
         super(data);
     }
 
-    _template() {
-        let template = `
-        <div class="modal scroll_modal">
-            <div class="modal_header">
-                <h4>${this.data.title}</h4>
-                <nav class="buttons">
-                    <div class="working d-inline-flex align-items-center gap-2" style="display: none; visibility: hidden">
-                        <i class="fa-solid fa-spinner"></i>Please wait
-                    </div>
-
-                    <button class="modal_save button info"><i class="fa-solid fa-floppy-disk"></i></button>
-                    <button class="modal_closer button red"><i class="fa-solid fa-xmark"></i></button>
-                </nav>
-            </div>
-            <div class="modal_body"></div>
+    _buttons() {
+        return `
+        <div class="working d-inline-flex align-items-center gap-2" style="display: none; visibility: hidden">
+            <i class="fa-solid fa-spinner"></i>Please wait
         </div>
+        <button class="modal_save button info"><i class="fa-solid fa-floppy-disk"></i></button>
         `;
-
-        const temp = document.createElement('div');
-        temp.innerHTML = template;
-        this.element = temp.firstElementChild;
     }
 
-    _setup(){
-        const place = this.data.place;
-        this.element.querySelector('.modal_body').innerHTML += `
+    _body(){
+        return `
         <div class="d-inline-flex gap-3 w-100">
             <div class="thumbnail_preview" style="background-image: url('${this.data.thumbnail}');">
                 <input type="file" class="d-none custom-file-input" id="thumbnail" name="thumbnail">
@@ -353,15 +320,15 @@ class Place_Edit_Modal extends Modal {
                 <div class="form_line">
                     <label for="name">Name</label>
                     <input type="text" name="name"
-                    value="${place.name}">
+                    value="${this.data.place.name}">
                 </div>
 
                 <div class="form_line">
                     <label for="name">Gallery URL</label>
                     <div class="form_row">
                         <input class="flex-grow-1" type="text" name="gallery_url" placeholder="Wikimedia URL"
-                        value="${place.gallery_url}">
-                        <a href="${place.gallery_url}" target="_blank" class="button">
+                        value="${this.data.place.gallery_url}">
+                        <a href="${this.data.place.gallery_url}" target="_blank" class="button">
                             <i class="small_i fa-solid fa-up-right-from-square"></i>
                         </a>
                     </div>
@@ -369,49 +336,50 @@ class Place_Edit_Modal extends Modal {
 
                 <div class="form_line">
                     <label for="synopsis">Synopsis</label>
-                    <textarea name="synopsis">${place.synopsis}</textarea>
+                    <textarea name="synopsis">${this.data.place.synopsis}</textarea>
                 </div>
             </div>
         </div>
         <h4 class="my-3 pb-3 app_border_bottom w-100">Medias</h4>
         <div class="medias"></div>
         `;
-
-        setTimeout(() => {
-            this.data['on_load']();
-            const select_locale = this.element.querySelector('#edit_select_locale');
-            this.data.locales.forEach(function(locale){
-                select_locale.innerHTML += `<option value="${locale}">${locale.toUpperCase()}</option>`;
-            });
-            auto_resize(this.element.querySelector('textarea'));
-
-            this.element.querySelector('#thumbnail').addEventListener('change', function() {
-                const file = this.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        document.querySelector('.thumbnail_preview').style.backgroundImage = `url(${e.target.result})`;
-                    }
-                    reader.readAsDataURL(file);
-                }
-            });
-            const medias_container = document.querySelector('.medias');
-            place.medias.forEach(media => {
-                medias_container.innerHTML += `
-                <div class="media" style="background-image: url('${media.url}')">
-                <button class="button delete_button red"><i class="small_i fa-solid fa-trash"></i></button>
-                </div>
-                `;
-            });
-        }, 250);
     }
+    _onload(){
+        super._onload();
+        this.element.className += ' scroll_modal';
+        auto_resize(this.element.querySelector('textarea'));
+        const select_locale = this.element.querySelector('#edit_select_locale');
+        this.data.locales.forEach(function(locale){
+            select_locale.innerHTML += `<option value="${locale}">${locale.toUpperCase()}</option>`;
+        });
 
+        const medias_container = document.querySelector('.medias');
+        this.data.place.medias.forEach(media => {
+            medias_container.innerHTML += `
+            <div class="media" style="background-image: url('${media.url}')">
+            <button class="button delete_button red"><i class="small_i fa-solid fa-trash"></i></button>
+            </div>
+            `;
+        });
+    }
     _listeners(){
         super._listeners();
         this.element.querySelector('.modal_save').addEventListener('click', (event) => {
             console.log('on submit');
             this.data['on_submit'](this);
         });
-
+        this.element.querySelector('#thumbnail').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelector('.thumbnail_preview').style.backgroundImage = `url(${e.target.result})`;
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        this.element.querySelector('#edit_select_locale').addEventListener('change', (event) =>{
+            this.data['on_locale_change'](this, event.target.value);
+        });
     }
 }

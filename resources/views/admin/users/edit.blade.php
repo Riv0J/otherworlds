@@ -251,7 +251,6 @@
     document.querySelector('#delete_user').addEventListener('click', function(){
         const modal_data = {
             title: '@lang("otherworlds.confirm_delete_user_title")',
-            icon: 'danger',
             body: '@lang('otherworlds.confirm_delete_user_body')',
             cancel: '@lang('otherworlds.cancel')',
             confirm: '@lang('otherworlds.confirm')',

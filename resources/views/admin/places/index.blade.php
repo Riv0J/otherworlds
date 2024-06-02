@@ -327,16 +327,6 @@
             lang: '{{$locale}}',
             title: "@lang('otherworlds.create_place') [{{strtoupper($locale)}}]",
             thumbnail: "{{asset('places/_placeholders/t.png')}}",
-            labels: {
-                country: "@lang('otherworlds.country')",
-                category: "@lang('otherworlds.category')",
-                name: "@lang('otherworlds.name') (@lang('otherworlds.unique'))",
-                thumbnail_url: "@lang('otherworlds.thumbnail') URL",
-                gallery_url: "@lang('otherworlds.gallery') URL",
-                gallery_url_ph: "Wikimedia URL",
-                synopsis: "@lang('otherworlds.synopsis')",
-                submit: "@lang('otherworlds.submit')",
-            },
             on_load: function(){
                 const cselect = new DynamicSelect('#create_select_country',{
                     placeholder: "@lang('otherworlds.select_country')",
@@ -383,9 +373,6 @@
         const ajax_data = {
             url: '{{ URL('/ajax/admin/places/create') }}',
             request_data: form_data,
-            before_func: function(){
-                modal_object._working(true)
-            },
             success_func: function(response_data) {
                 console.log(response_data);
                 if(response_data['success'] && response_data['success'] == true){
@@ -393,10 +380,8 @@
                     modal_object._close();
                     show_edit_place_modal(response_data['place']);
                 }
-
             },
             after_func: function(){
-                modal_object._working(false)
                 modal_object._enable();
             }
         }
@@ -423,8 +408,8 @@
                 });
                 cselect2.select_option(place.category_id);
             },
-            on_locale_change: function(modal_object){
-                const new_place = get_place(place.id);
+            on_locale_change: function(modal_object, new_locale){
+                const new_place = get_place(place.id, new_locale);
                 console.log(new_place);
                 // switch_place(modal_object);
             },
@@ -434,10 +419,20 @@
             }
         )
     }
-    function switch_place(){
-        const = ajax_data{
-
+    function get_place(place_id, new_locale){
+        const ajax_data = {
+            url: '{{ URL('/ajax/admin/places/get') }}',
+            request_data:{
+                _token: '{{ csrf_token() }}',
+                locale: new_locale,
+                place_id: place_id
+            },
+            success_func: function(response_data) {
+                console.log(response_data);
+                return response_data['place'];
+            }
         }
+        ajax(ajax_data);
     }
 </script>
 @endsection

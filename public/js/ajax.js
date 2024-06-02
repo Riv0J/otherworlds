@@ -70,13 +70,23 @@ function ajax(ajax_data){
 
 function toggle_spinners(show){
     const spinners = document.querySelectorAll('.fa-spinner');
-    if(show == false){ sleep(500); }
+    const workings = document.querySelectorAll('.working');
+
+    if(show == false){ sleep(750); }
 
     spinners.forEach(function(spinner){
         if(show){
             spinner.style.visibility = "visible"
         } else {
             spinner.style.visibility = "hidden"
+        }
+    });
+
+    workings.forEach(function(working){
+        if(show){
+            working.style.visibility = "visible"
+        } else {
+            working.style.visibility = "hidden"
         }
     });
 }

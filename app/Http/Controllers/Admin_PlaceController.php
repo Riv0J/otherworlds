@@ -178,7 +178,7 @@ class Admin_PlaceController extends Controller{
     /**
      * Ajax, get a place from an ID and locale
      */
-    public function ajax_place_find(Request $request){
+    public function ajax_place_get(Request $request){
         $data = $request->all();
         app()->setLocale($data['locale']);
         $variables =[
