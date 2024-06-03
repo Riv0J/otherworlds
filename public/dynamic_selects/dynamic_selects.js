@@ -94,7 +94,7 @@ class DynamicSelect {
                 this.toggleSearch(false); //search off
                 const select = this.element.querySelector('input[name='+this.name+']');
 
-                if(select.value === ""){ //if nothing is selected, turn ph on
+                if(select && select.value === ""){ //if nothing is selected, turn ph on
                     this.toggleComponent('dynamic-select-header-placeholder', true); //placeholder on
                     this.toggleComponent('dynamic-selected', false); //selected off
                 } else {

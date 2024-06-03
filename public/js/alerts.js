@@ -8,9 +8,11 @@ function show_message(message){
         <i class="fa-solid fa-xmark"></i>
     </li>
     `;
-    if(ul.children.length >= 5){
-        ul.children[0].parentElement.removeChild(ul.children[0])
-    }
+    setTimeout(() => {
+        if(ul.children.length >= 1){
+            ul.children[0].parentElement.removeChild(ul.children[0])
+        }
+    }, 5000);
 }
 
 // make alerts dismissable

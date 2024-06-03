@@ -26,11 +26,11 @@ return new class extends Migration{
 
             //foreign country_id
             $table->unsignedBigInteger('country_id');
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('restrict');
 
             //foreign category_id
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');
 
             $table->string('thumbnail')->default('t.png');
             $table->timestamps();

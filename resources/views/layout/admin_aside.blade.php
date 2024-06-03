@@ -1,61 +1,54 @@
-<aside id="admin_aside">
-    <nav>
-        <div>
-            <a href="javascript:void(0)" class="minimizer">
-                <i class="fa-solid fa-arrow-left"></i>
-                <h5></h5>
-            </a>
-            <div class="div_h"></div>
-            <a id="home_anchor" href="{{route('home', ['locale' => $locale])}}" class="flex_center">
-                @include('icons.moon_white')
-                <h5 class="regular quicksand text-center">therworlds</h5>
-            </a>
-            <div class="div_h"></div>
-            @php $current_url = url()->current(); @endphp
-            <a href="#"
-                @php if(str_ends_with($current_url,'admin/dashboard')){ echo('active'); } @endphp>
-                <i class="fa-solid fa-house-chimney"></i>
-                <h5 class="light">Dashboard</h5>
-            </a>
-            <a href="{{route('user_index', ['locale' => $locale])}}"
-                @php if(str_ends_with($current_url,'admin/users')){ echo('active'); } @endphp>
-                <i class="fa-solid fa-users"></i>
-                <h5 class="light">@lang('otherworlds.users')</h5>
-            </a>
-            <a href="{{route('place_index', ['locale' => $locale])}}"
-                @php if(str_ends_with($current_url,'admin/places')){ echo('active'); } @endphp>
-                <i class="fa-solid fa-panorama"></i>
-                <h5 class="light">@lang('otherworlds.places')</h5>
-            </a>
-            <a href="{{route('visit_index', ['locale' => $locale])}}"
-                @php if(str_ends_with($current_url,'admin/visits')){ echo('active'); } @endphp>
-                <i class="fa-solid fa-chart-line"></i>
-                <h5 class="light">@lang('otherworlds.visits')</h5>
-            </a>
-        </div>
-        <div>
-            <a href="javascript:void(0)" class="minimizer">
-                <i class="fa-solid fa-arrow-left"></i>
-                <h5></h5>
-            </a>
-        </div>
-    </nav>
-
-</aside>
+<nav id="admin_aside">
+    <div>
+        <a href="javascript:void(0)" class="minimizer">
+            <i class="fa-solid fa-arrow-left"></i>
+            <h5></h5>
+        </a>
+        <div class="div_h"></div>
+        <a id="home_anchor" href="{{route('home', ['locale' => $locale])}}" class="flex_center">
+            @include('icons.moon_white')
+            <h5 class="regular quicksand text-center">therworlds</h5>
+        </a>
+        <div class="div_h"></div>
+        @php $current_url = url()->current(); @endphp
+        <a href="#"
+            @php if(str_ends_with($current_url,'admin/dashboard')){ echo('active'); } @endphp>
+            <i class="fa-solid fa-house-chimney"></i>
+            <h5 class="light">Dashboard</h5>
+        </a>
+        <a href="{{route('user_index', ['locale' => $locale])}}"
+            @php if(str_ends_with($current_url,'admin/users')){ echo('active'); } @endphp>
+            <i class="fa-solid fa-users"></i>
+            <h5 class="light">@lang('otherworlds.users')</h5>
+        </a>
+        <a href="{{route('place_index', ['locale' => $locale])}}"
+            @php if(str_ends_with($current_url,'admin/places')){ echo('active'); } @endphp>
+            <i class="fa-solid fa-panorama"></i>
+            <h5 class="light">@lang('otherworlds.places')</h5>
+        </a>
+        <a href="{{route('visit_index', ['locale' => $locale])}}"
+            @php if(str_ends_with($current_url,'admin/visits')){ echo('active'); } @endphp>
+            <i class="fa-solid fa-chart-line"></i>
+            <h5 class="light">@lang('otherworlds.visits')</h5>
+        </a>
+    </div>
+    <div>
+        <a href="javascript:void(0)" class="minimizer">
+            <i class="fa-solid fa-arrow-left"></i>
+            <h5></h5>
+        </a>
+    </div>
+</nav>
 <style>
     #admin_aside{
-        position: relative;
-    }
-    #admin_aside>nav{
-        position: fixed;
+        position: sticky; top: 0;
         background-color: var(--black);
         min-height: 100svh;
         border-right: 2px solid var(--gray);
-        z-index: 1032;
 
         display: flex;
         flex-direction: column;
-        justify-content: space-between
+        justify-content: space-between;
     }
     #admin_aside a{
         position: relative;
@@ -113,11 +106,7 @@
 
     // if open is false, close the aside
     const open = get_cookie("otherworlds_admin_nav");
-    toggle_admin_aside();
-    toggle_admin_aside();
-    if(open == "false"){
-        toggle_admin_aside();
-    }
+    if(open == "false"){ toggle_admin_aside(); }
 
     // event listeners
     minimizers.forEach(minimizer => {
@@ -126,7 +115,6 @@
             toggle_admin_aside()
         });
     });
-
 
     function toggle_admin_aside(){
         // toggle minimized
@@ -157,9 +145,6 @@
                 i.style.rotate = '180deg';
             }
         });
-
-
-        menu.style.width = menu.querySelector('nav').offsetWidth + "px";
     }
 </script>
 

@@ -12,10 +12,9 @@ use App\Models\CategoryTranslation;
 use App\Models\Place;
 use App\Models\Source;
 use App\Models\OHelper;
+use App\Models\User;
 
-
-class PlaceSeeder extends Seeder
-{
+class PlaceSeeder extends Seeder{
     /**
      * Run the database seeds.
      *

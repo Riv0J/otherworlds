@@ -15,14 +15,6 @@ Dev | Otherworlds
     </h3>
     <div class="notes">
         <fieldset>
-            <legend>Basic Modals</legend>
-            <ul>
-                <li>Confirm*</li>
-                <li>Input*</li>
-                <li>Choice*</li>
-            </ul>
-        </fieldset>
-        <fieldset>
             <legend>Advanced Place Modals</legend>
             <ul>
                 <li>Create*</li>
@@ -99,6 +91,14 @@ Dev | Otherworlds
 
     <h3>Complete</h3>
     <div class="notes">
+        <fieldset>
+            <legend>Basic Modals</legend>
+            <ul>
+                <li>Confirm*</li>
+                <li>Input*</li>
+                <li>Choice*</li>
+            </ul>
+        </fieldset>
         <fieldset>
             <legend>[Front] User</legend>
             <ul>
