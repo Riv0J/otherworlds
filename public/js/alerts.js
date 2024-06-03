@@ -1,17 +1,21 @@
 // show a Message object from the model
 function show_message(message){
     const ul = document.querySelector('#popups ul');
-    ul.innerHTML += `
-    <li class="alert alert-${message.type}" onclick="event.target.style.display = 'none'">
+    const li = document.createElement('li');
+    li.className = `alert alert-${message.type}`;
+    li.onclick = `event.target.style.display = 'none'`;
+    li.innerHTML = `
         <i class="fa-solid ${message.icon}"></i>
         ${message.text}
         <i class="fa-solid fa-xmark"></i>
-    </li>
     `;
+    ul.appendChild(li);
+
+    if(ul.children.length > 3){
+        ul.removeChild(ul.children[0])
+    }
     setTimeout(() => {
-        if(ul.children.length >= 1){
-            ul.children[0].parentElement.removeChild(ul.children[0])
-        }
+        ul.removeChild(li);
     }, 5000);
 }
 
