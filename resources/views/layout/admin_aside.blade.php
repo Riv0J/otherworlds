@@ -43,7 +43,7 @@
     #admin_aside{
         position: sticky; top: 0;
         background-color: var(--black);
-        min-height: 100svh;
+        height: 100svh;
         border-right: 2px solid var(--gray);
 
         display: flex;
@@ -100,8 +100,6 @@
 </style>
 <script src="{{asset('js/cookies.js')}}"></script>
 <script>
-    const menu = document.querySelector('#admin_aside');
-    const minimizers = document.querySelectorAll('.minimizer');
     let minimized = false;
 
     // if open is false, close the aside
@@ -109,7 +107,7 @@
     if(open == "false"){ toggle_admin_aside(); }
 
     // event listeners
-    minimizers.forEach(minimizer => {
+    document.querySelectorAll('.minimizer').forEach(minimizer => {
         minimizer.addEventListener('click', function(){
             create_cookie("otherworlds_admin_nav", minimized, 31);
             toggle_admin_aside()
@@ -121,7 +119,7 @@
         minimized = !minimized;
 
         // change each anchor
-        const anchors = menu.querySelectorAll('a');
+        const anchors = document.querySelector('#admin_aside').querySelectorAll('a');
         anchors.forEach(anchor => {
 
             const h5 = anchor.querySelector('h5');
@@ -136,8 +134,8 @@
             h5.style.width = new_width;
         });
 
-        // flip the minimizer
-        minimizers.forEach(minimizer => {
+        // flip all minimizers
+        document.querySelectorAll('.minimizer').forEach(minimizer => {
             const i = minimizer.querySelector('i');
             if(minimized == false){
                 i.style.rotate = '0deg';
