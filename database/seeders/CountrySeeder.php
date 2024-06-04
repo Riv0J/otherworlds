@@ -60,6 +60,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Angola'
             ],
+            'code' => 'ago'
         ],
         [
             'es' => [
@@ -68,6 +69,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Antigua and Barbuda'
             ],
+            'code' => 'atg'
         ],
         [
             'en' => [
@@ -106,6 +108,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Bahamas'
             ],
+            'code' => 'bhs'
         ],
         [
             'es' => [
@@ -114,6 +117,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Bahrain'
             ],
+            'code' => 'bhr'
         ],
         [
             'en' => [
@@ -1135,11 +1139,13 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Senegal'
             ],
+            'code' => 'sen'
         ],
         [
             'en' => [
                 'name' => 'Serbia'
             ],
+            'code' => 'srb'
         ],
         [
             'en' => [
@@ -1154,6 +1160,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Sierra Leone'
             ],
+            'code' => 'sle'
         ],
         [
             'es' => [
@@ -1171,6 +1178,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Slovakia'
             ],
+            'code' => 'svk'
         ],
         [
             'es' => [
@@ -1179,6 +1187,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Slovenia'
             ],
+            'code' => 'svn'
         ],
         [
             'es' => [
@@ -1187,11 +1196,13 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Solomon Islands'
             ],
+            'code' => 'slb'
         ],
         [
             'en' => [
                 'name' => 'Somalia'
             ],
+            'code' => 'som'
         ],
         [
             'es' => [
@@ -1200,6 +1211,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'South Africa'
             ],
+            'code' => 'zaf'
         ],
         [
             'es' => [
@@ -1208,6 +1220,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'South Korea'
             ],
+            'code' => 'kor'
         ],
         [
             'es' => [
@@ -1216,6 +1229,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'South Sudan'
             ],
+            'code' => 'ssd'
         ],
         [
             'es' => [
@@ -1230,6 +1244,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Sri Lanka'
             ],
+            'code' => 'lka'
         ],
         [
             'es' => [
@@ -1238,6 +1253,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Sudan'
             ],
+            'code' => 'sdn'
         ],
         [
             'es' => [
@@ -1246,6 +1262,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Suriname'
             ],
+            'code' => 'sur'
         ],
         [
             'es' => [
@@ -1254,6 +1271,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Sweden'
             ],
+            'code' => 'swe'
         ],
         [
             'es' => [
@@ -1262,6 +1280,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Switzerland'
             ],
+            'code' => 'che'
         ],
         [
             'es' => [
@@ -1270,6 +1289,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Syria'
             ],
+            'code' => 'syr'
         ],
         [
             'es' => [
@@ -1278,6 +1298,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Tajikistan'
             ],
+            'code' => 'tjk'
         ],
         [
             'es' => [
@@ -1286,6 +1307,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Tanzania'
             ],
+            'code' => 'tza'
         ],
         [
             'es' => [
@@ -1294,6 +1316,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Thailand'
             ],
+            'code' => 'tha'
         ],
         [
             'es' => [
@@ -1302,16 +1325,19 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Timor-Leste'
             ],
+            'code' => 'tls'
         ],
         [
             'en' => [
                 'name' => 'Togo'
             ],
+            'code' => 'tgo'
         ],
         [
             'en' => [
                 'name' => 'Tonga'
             ],
+            'code' => 'ton'
         ],
         [
             'es' => [
@@ -1320,6 +1346,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Trinidad and Tobago'
             ],
+            'code' => 'tto'
         ],
         [
             'es' => [
@@ -1328,6 +1355,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Tunisia'
             ],
+            'code' => 'tun'
         ],
         [
             'es' => [
@@ -1345,11 +1373,13 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Turkmenistan'
             ],
+            'code' => 'tkm'
         ],
         [
             'en' => [
                 'name' => 'Tuvalu'
             ],
+            'code' => 'tuv'
         ],
         [
             'en' => [
@@ -1364,6 +1394,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Ukraine'
             ],
+            'code' => 'ukr'
         ],
         [
             'es' => [
@@ -1372,6 +1403,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'United Arab Emirates'
             ],
+            'code' => 'are'
         ],
         [
             'es' => [
@@ -1395,6 +1427,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Uruguay'
             ],
+            'code' => 'ury'
         ],
         [
             'es' => [
@@ -1403,11 +1436,13 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Uzbekistan'
             ],
+            'code' => 'uzb'
         ],
         [
             'en' => [
                 'name' => 'Vanuatu'
             ],
+            'code' => 'vut'
         ],
         [
             'es' => [
@@ -1416,6 +1451,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Vatican City'
             ],
+            'code' => 'vat'
         ],
         [
             'en' => [
