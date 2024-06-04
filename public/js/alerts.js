@@ -3,7 +3,7 @@ function show_message(message){
     const ul = document.querySelector('#popups ul');
     const li = document.createElement('li');
     li.className = `alert alert-${message.type}`;
-    li.onclick = `event.target.style.display = 'none'`;
+    li.setAttribute('onclick','event.target.style.display = "none"');
     li.innerHTML = `
         <i class="fa-solid ${message.icon}"></i>
         ${message.text}

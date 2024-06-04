@@ -39,7 +39,7 @@ body{
 *{
     color: var(--white);
 }
-a {
+a, .app_link {
     text-decoration: none;
     color: inherit;
     cursor: pointer;
@@ -49,7 +49,7 @@ main{
     overflow-x: hidden;
     /* min-height: 100svh; */
 }
-main a{
+main a, .app_link{
     padding-inline: 0.5rem;
     border-bottom: 1px rgb(255, 255, 255) solid;
     display: flex;
@@ -58,7 +58,7 @@ main a{
     gap: 0.5rem;
     width: max-content;
 }
-main a:hover{
+main a:hover, .app_link:hover{
     background-color: var(--hover_gray);
 }
 main>*{
@@ -523,3 +523,5 @@ nav.buttons>.button{
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(128, 128, 128);
 }
+
+

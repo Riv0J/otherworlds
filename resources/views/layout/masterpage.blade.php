@@ -56,7 +56,7 @@
         {{-- admin header --}}
         @php $logged_user = Auth::user(); @endphp
         @if($logged_user && ($logged_user->is_admin() || $logged_user->is_owner() ))
-            @include('layout.admin_aside')
+            @include('layout.admin_nav')
         @endif
 
         <div class="flex-grow-1" style="width: fit-content">

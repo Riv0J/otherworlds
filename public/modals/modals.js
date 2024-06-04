@@ -129,7 +129,6 @@ class Confirm_Modal extends Modal {
         });
     }
 }
-
 class Choice_Modal extends Modal {
     constructor(data) {
         super(data);
@@ -285,7 +284,29 @@ class Place_Edit_Modal extends Modal {
     constructor(data) {
         super(data);
     }
+    _template() {
 
+        const template = `
+        <div class="modal">
+            <ul class="modal_tabs">
+                <li active>Edit Place</li>
+                <li>Medias</li>
+                <li>Sources</li>
+                <li fill class="flex-grow-1"></li>
+            </ul>
+            <div class="modal_content">
+                <div class="modal_header">
+                    <h4>${this.data.title}</h4>
+                    <nav class="buttons"></nav>
+                </div>
+                <div class="modal_body"></div>
+            </div>
+        </div>
+        `;
+        const temp = document.createElement('div');
+        temp.innerHTML = template;
+        this.element = temp.firstElementChild;
+    }
     _buttons() {
         return `
         <div class="working d-inline-flex align-items-center gap-2" style="display: none; visibility: hidden">
@@ -333,15 +354,24 @@ class Place_Edit_Modal extends Modal {
                 </div>
             </div>
         </div>
-        <h4 class="my-3 pb-3 app_border_bottom w-100">Medias</h4>
+        <div class="modal_header mt-3">
+            <div class="flex_center gap-2">
+                <h4>Medias</h4>
+                <a href='javascript:void(0)' class='gallery_link app_link'>View current gallery</a>
+            </div>
+            <nav class="buttons">
+                <button class="button" class="button">
+                    <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add Media
+                </button>
+                <button class="button" class="button">
+                    <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-images"></i></i>Add Medias
+                </button>
+
+            </nav>
+        </div>
         <div class="form_line">
             <label for="name">Gallery URL</label>
-            <div class="form_row">
-                <input class="flex-grow-1" type="text" name="gallery_url" placeholder="Wikimedia URL">
-                <button class="button gallery_link" class="button">
-                    <i class="small_i fa-solid fa-up-right-from-square"></i>
-                </button>
-            </div>
+            <input class="flex-grow-1" type="text" name="gallery_url" placeholder="Wikimedia URL">
         </div>
         <div class="medias"></div>
         `;
@@ -355,6 +385,7 @@ class Place_Edit_Modal extends Modal {
     }
     _onload(){
         super._onload();
+        // this.query('.modal').className += ' scroll_modal';
         this.element.className += ' scroll_modal';
         this._setplace(this.data.place);
         auto_resize(this.element.querySelector('textarea'));

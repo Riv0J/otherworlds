@@ -14,7 +14,7 @@ use App\Http\Controllers\Front_PlaceController;
 use App\Http\Controllers\Admin_UserController;
 use App\Http\Controllers\Admin_VisitController;
 use App\Http\Controllers\Admin_PlaceController;
-
+use App\Http\Controllers\Admin_MediaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,7 +115,9 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/ajax/admin/places/update', [Admin_PlaceController::class, 'ajax_place_update']);
 });
 
+//owner only routes
 Route::middleware(['owner'])->group(function () {
     Route::post('/ajax/admin/visits/delete', [Admin_VisitController::class, 'ajax_delete_visit']);
+    Route::post('/ajax/admin/medias/delete', [Admin_MediaController::class, 'ajax_delete']);
 });
 

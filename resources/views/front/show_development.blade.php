@@ -29,7 +29,7 @@ Dev | Otherworlds
             <ul>
                 <li>Index(ajax + filters)*</li>
                 <li>Create(from scratch, from wikipedia)</li>
-                <li>Edit</li>
+                <li>Edit Basic Info</li>
                 <li>Delete</li>
             </ul>
         </fieldset>
