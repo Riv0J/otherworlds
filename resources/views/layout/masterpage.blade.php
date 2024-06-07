@@ -48,8 +48,6 @@
         <link rel="stylesheet" href="{{ asset('css/alerts.css') }}"/>
         <link rel="stylesheet" href="{{ asset('css/search.css') }}"/>
 
-
-
     </head>
     <body class="d-flex flex-row">
 
@@ -59,7 +57,7 @@
             @include('layout.admin_nav')
         @endif
 
-        <div class="flex-grow-1" style="width: fit-content">
+        <div class="flex-grow-1" style="isolation: isolate">
             @include('layout.header')
             <main class="flex_center flex-column justify-content-start">
                 @yield('content')

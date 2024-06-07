@@ -285,13 +285,12 @@ class Place_Edit_Modal extends Modal {
         super(data);
     }
     _template() {
-
         const template = `
         <div class="modal">
             <ul class="modal_tabs">
-                <li active>Edit Place</li>
-                <li>Medias</li>
-                <li>Sources</li>
+                <li for="edit_place">Edit Place</li>
+                <li for="medias">Medias</li>
+                <li for="sources">Sources</li>
                 <li fill class="flex-grow-1"></li>
             </ul>
             <div class="modal_content">
@@ -318,62 +317,69 @@ class Place_Edit_Modal extends Modal {
 
     _body(){
         return `
-        <div class="d-inline-flex gap-3 w-100">
-            <div class="thumbnail_preview">
-                <input type="file" class="d-none custom-file-input" id="thumbnail" name="thumbnail">
-                <label class="button border" for="thumbnail">
-                    <i class="fa-solid fa-file-arrow-up"></i>
-                </label>
-            </div>
-            <div class="flex-grow-1">
-                <div class="form_row">
-                    <div class="form_line">
-                        <label>Locale</label>
-                        <select id="edit_select_locale" name="edit_select_locale"></select>
+        <div class="modal_tab_content" id="content_medias">
+            medias
+        </div>
+        <div class="modal_tab_content" id="content_sources">
+            Sources
+        </div>
+        <div class="modal_tab_content" id="content_edit_place">
+            <div class="d-inline-flex gap-3 w-100">
+                <div class="thumbnail_preview">
+                    <input type="file" class="d-none custom-file-input" id="thumbnail" name="thumbnail">
+                    <label class="button border" for="thumbnail">
+                        <i class="fa-solid fa-file-arrow-up"></i>
+                    </label>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="form_row">
+                        <div class="form_line">
+                            <label>Locale</label>
+                            <select id="edit_select_locale" name="edit_select_locale"></select>
+                        </div>
+                        <div class="form_line">
+                            <label>Country</label>
+                            <select id="edit_select_country" name="edit_select_country"></select>
+                        </div>
+                        <div class="form_line">
+                            <label>Category</label>
+                            <select id="edit_select_category" name="edit_select_category"></select>
+                        </div>
                     </div>
                     <div class="form_line">
-                        <label>Country</label>
-                        <select id="edit_select_country" name="edit_select_country"></select>
+                        <label for="slug">Slug</label>
+                        <input type="text" name="slug" readonly>
                     </div>
                     <div class="form_line">
-                        <label>Category</label>
-                        <select id="edit_select_category" name="edit_select_category"></select>
+                        <label for="name">Name</label>
+                        <input type="text" name="name">
+                    </div>
+                    <div class="form_line">
+                        <label for="synopsis">Synopsis</label>
+                        <textarea name="synopsis"></textarea>
                     </div>
                 </div>
-                <div class="form_line">
-                    <label for="slug">Slug</label>
-                    <input type="text" name="slug" readonly>
-                </div>
-                <div class="form_line">
-                    <label for="name">Name</label>
-                    <input type="text" name="name">
-                </div>
-                <div class="form_line">
-                    <label for="synopsis">Synopsis</label>
-                    <textarea name="synopsis"></textarea>
-                </div>
             </div>
-        </div>
-        <div class="modal_header mt-3">
-            <div class="flex_center gap-2">
-                <h4>Medias</h4>
-                <a href='javascript:void(0)' class='gallery_link app_link'>View current gallery</a>
+            <div class="modal_header mt-3">
+                <div class="flex_center gap-2">
+                    <h4>Medias</h4>
+                    <a href='javascript:void(0)' class='gallery_link app_link'>View current gallery</a>
+                </div>
+                <nav class="buttons">
+                    <button class="button" class="button">
+                        <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add Media
+                    </button>
+                    <button class="button" class="button">
+                        <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-images"></i></i>Add medias from wikimedia [NYI]
+                    </button>
+                </nav>
             </div>
-            <nav class="buttons">
-                <button class="button" class="button">
-                    <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add Media
-                </button>
-                <button class="button" class="button">
-                    <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-images"></i></i>Add Medias
-                </button>
-
-            </nav>
+            <div class="form_line">
+                <label for="name">Gallery URL</label>
+                <input class="flex-grow-1" type="text" name="gallery_url" placeholder="Wikimedia URL">
+            </div>
+            <div class="medias"></div>
         </div>
-        <div class="form_line">
-            <label for="name">Gallery URL</label>
-            <input class="flex-grow-1" type="text" name="gallery_url" placeholder="Wikimedia URL">
-        </div>
-        <div class="medias"></div>
         `;
     }
     _setplace(place){
@@ -408,6 +414,35 @@ class Place_Edit_Modal extends Modal {
             </div>
             `;
         });
+
+
+        const tabs = this.element.querySelectorAll('.modal_tabs li');
+        this._tab(tabs[0].getAttribute('for'))
+        tabs.forEach(element=>{
+            element.addEventListener('click', () => {
+                console.log('click');
+                this._tab(element.getAttribute('for'))
+
+            });
+        });
+
+    }
+    _tab(tab_name){
+        console.log('activating '+tab_name);
+        //hide current tab
+        const active_tab = this.query('.modal_tabs li[active="true"]')
+        if(active_tab){
+            active_tab.setAttribute('active', false)
+            this.query('#content_'+active_tab.getAttribute('for')).style.display = 'none'
+        }
+
+        //show new tab
+        const new_tab = this.query(`.modal_tabs li[for='${tab_name}']`);
+        new_tab.setAttribute('active', true);
+        const content = this.query('#content_'+new_tab.getAttribute('for'))
+        console.log(content);
+        content.style.display = 'block';
+        this.query('h4').textContent = new_tab.textContent;
     }
     _listeners(){
         super._listeners();

@@ -46,11 +46,12 @@
     border: 1px solid gray;
     background-color: var(--black);
     cursor: pointer;
+    transition: all 0.5s;
 }
 .modal_tabs li:hover:not([fill]){
     background-color: var(--gray);
 }
-.modal_tabs li[active]{
+.modal_tabs li[active="true"]{
     border-bottom: none;
 }
 .modal_tabs li[fill]{
@@ -144,4 +145,7 @@
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
+}
+.modal_tab_content{
+    display: none;
 }
