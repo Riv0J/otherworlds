@@ -20,6 +20,7 @@ function organize_dic(dic) {
 }
 
 function auto_resize(textarea) {
+    console.log(textarea);
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight + 'px';
 }

@@ -33,6 +33,16 @@
         </a>
     </div>
     <div>
+        <a href="#"
+            @php if(str_ends_with($current_url,'admin/config')){ echo('active'); } @endphp>
+            <i class="fa-solid fa-gear"></i>
+            <h5 class="light">@lang('otherworlds.config')[NYI]</h5>
+        </a>
+        <a href="#"
+            @php if(str_ends_with($current_url,'admin/database')){ echo('active'); } @endphp>
+            <i class="fa-solid fa-database"></i>
+            <h5 class="light">@lang('otherworlds.database')[NYI]</h5>
+        </a>
         <a href="javascript:void(0)" class="minimizer">
             <i class="fa-solid fa-arrow-left"></i>
             <h5></h5>

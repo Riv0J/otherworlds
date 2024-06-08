@@ -57,6 +57,7 @@
 .modal_tabs li[fill]{
     border-top: none;
     border-right: none;
+    background-color: transparent;
 }
 
 .modal_header{

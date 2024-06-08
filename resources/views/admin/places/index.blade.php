@@ -437,7 +437,7 @@
 
         const form_data = new FormData();
         form_data.append('_token', '{{ csrf_token() }}');
-        form_data.append('locale', modal.querySelector('#edit_select_locale').value);
+        form_data.append('locale', modal.querySelector('#select_locale').value);
         form_data.append('place_id', place.id);
         form_data.append('country_id', modal.querySelector('input[name="edit_select_country"]').value);
         form_data.append('category_id', modal.querySelector('input[name="edit_select_category"]').value);

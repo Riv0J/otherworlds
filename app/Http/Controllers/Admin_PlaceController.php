@@ -54,7 +54,7 @@ class Admin_PlaceController extends Controller{
         // calculate the start index based on the page, and per page
         $per_page = 30;
         $start_index = ($page - 1) * $per_page;
-        $query = Place::with('medias')
+        $query = Place::with('medias')->with('sources')
         ->join('places_translations', 'places_translations.place_id', 'places.id')
         ->where('places_translations.locale', $locale)
         ->where('places_translations.name', 'like', '%' . $search . '%')
@@ -77,7 +77,6 @@ class Admin_PlaceController extends Controller{
      * Ajax, request more places by page and search
      */
     public function ajax_place_request(Request $request){
-
         $data = $request->all(); //get request data
         app()->setLocale($data['locale']); //set locale to request
         $next_page = $data['page'] + 1;

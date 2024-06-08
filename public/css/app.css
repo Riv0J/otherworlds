@@ -481,6 +481,9 @@ nav.buttons{
 nav.buttons>.button{
     border: 1px solid var(--gray_light) !important;
 }
+nav.buttons>select{
+    min-height: auto;
+}
 .profile_img img{
     aspect-ratio: 1;
 }

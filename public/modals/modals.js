@@ -1,5 +1,3 @@
-
-
 class Modal {
     constructor(data) {
         this.data = data;
@@ -11,6 +9,7 @@ class Modal {
             this._onload();
             this._listeners();
         }, 250);
+        this._textareas();
         this._show();
     }
 
@@ -43,6 +42,12 @@ class Modal {
             this._close();
         });
     }
+    _textareas(){
+        //resize all textareas
+        this.element.querySelectorAll('textarea').forEach(textarea =>  {
+            auto_resize(textarea);
+        });
+    }
     _close(){
         this.element.style.scale = 0.3;
         this.element.style.opacity = 0;
@@ -67,7 +72,6 @@ class Modal {
     query(selector){
         return this.element.querySelector(selector);
     }
-
 }
 class Confirm_Modal extends Modal {
     constructor(data) {
@@ -255,7 +259,7 @@ class Place_Create_Modal extends Modal {
     _onload(){
         super._onload();
         this.element.className += ' scroll_modal';
-        auto_resize(this.element.querySelector('textarea'));
+
     }
     _listeners(){
         super._listeners();
@@ -288,9 +292,9 @@ class Place_Edit_Modal extends Modal {
         const template = `
         <div class="modal">
             <ul class="modal_tabs">
-                <li for="edit_place">Edit Place</li>
-                <li for="medias">Medias</li>
-                <li for="sources">Sources</li>
+                <li name="edit_place" save_button="true">Edit Place</li>
+                <li name="medias" save_button="false">Medias</li>
+                <li name="sources" save_button="true">Sources</li>
                 <li fill class="flex-grow-1"></li>
             </ul>
             <div class="modal_content">
@@ -311,17 +315,34 @@ class Place_Edit_Modal extends Modal {
         <div class="working d-inline-flex align-items-center gap-2" style="display: none; visibility: hidden">
             <i class="fa-solid fa-spinner"></i>Please wait
         </div>
+        <select id="select_locale" name="select_locale"></select>
         <button class="modal_save button info"><i class="fa-solid fa-floppy-disk"></i></button>
         `;
     }
-
     _body(){
         return `
         <div class="modal_tab_content" id="content_medias">
-            medias
+            <div class="medias"></div>
         </div>
         <div class="modal_tab_content" id="content_sources">
-            Sources
+            <div class="form_row w-100">
+                <div class="form_line" style="max-width: 4rem">
+                    <label for="slug">Locale</label>
+                    <input type="text" name="source_locale" readonly>
+                </div>
+                <div class="form_line flex-grow-1">
+                    <label for="slug">Source Title</label>
+                    <input type="text" name="source_title">
+                </div>
+            </div>
+            <div class="form_line">
+                <label for="slug">Source URL</label>
+                <input type="text" name="source_url">
+            </div>
+            <div class="form_line">
+                <label>Source Content</label>
+                <textarea name="source_content"></textarea>
+            </div>
         </div>
         <div class="modal_tab_content" id="content_edit_place">
             <div class="d-inline-flex gap-3 w-100">
@@ -332,11 +353,7 @@ class Place_Edit_Modal extends Modal {
                     </label>
                 </div>
                 <div class="flex-grow-1">
-                    <div class="form_row">
-                        <div class="form_line">
-                            <label>Locale</label>
-                            <select id="edit_select_locale" name="edit_select_locale"></select>
-                        </div>
+                    <div class="form_row w-100">
                         <div class="form_line">
                             <label>Country</label>
                             <select id="edit_select_country" name="edit_select_country"></select>
@@ -344,6 +361,12 @@ class Place_Edit_Modal extends Modal {
                         <div class="form_line">
                             <label>Category</label>
                             <select id="edit_select_category" name="edit_select_category"></select>
+                        </div>
+                        <div class="form_line flex-grow-1">
+                            <label for="name" class="d-inline-flex gap-3">
+                                Gallery URL
+                            </label>
+                            <input type="text" name="gallery_url" placeholder="Wikimedia URL" style="height: 3rem">
                         </div>
                     </div>
                     <div class="form_line">
@@ -363,7 +386,7 @@ class Place_Edit_Modal extends Modal {
             <div class="modal_header mt-3">
                 <div class="flex_center gap-2">
                     <h4>Medias</h4>
-                    <a href='javascript:void(0)' class='gallery_link app_link'>View current gallery</a>
+
                 </div>
                 <nav class="buttons">
                     <button class="button" class="button">
@@ -374,29 +397,31 @@ class Place_Edit_Modal extends Modal {
                     </button>
                 </nav>
             </div>
-            <div class="form_line">
-                <label for="name">Gallery URL</label>
-                <input class="flex-grow-1" type="text" name="gallery_url" placeholder="Wikimedia URL">
-            </div>
-            <div class="medias"></div>
         </div>
         `;
     }
     _setplace(place){
+        //edit place tab
         this.query('.thumbnail_preview').style.backgroundImage = `url('${this.data.thumbnail_prefix}/${place.public_slug}/${place.thumbnail}?_=${new Date().getTime()}')`;
         this.query('[name="slug"]').value = place.slug;
         this.query('[name="name"]').value = place.name;
         this.query('[name="synopsis"]').value = place.synopsis;
         this.query('[name="gallery_url"]').value = place.gallery_url;
+
+        //sources tab
+        const source = this.data.place.sources.find(source => source.locale === this.data.locale);
+        this.query('[name="source_locale"]').value = source.locale.toUpperCase();
+        this.query('[name="source_title"]').value = source.title;
+        this.query('[name="source_url"]').value = source.url;
+        this.query('[name="source_content"]').value = source.content;
+        this._textareas();
     }
     _onload(){
         super._onload();
-        // this.query('.modal').className += ' scroll_modal';
         this.element.className += ' scroll_modal';
         this._setplace(this.data.place);
-        auto_resize(this.element.querySelector('textarea'));
 
-        const select_locale = this.element.querySelector('#edit_select_locale');
+        const select_locale = this.query('#select_locale');
         const current_locale = this.data.locale;
         this.data.locales.forEach(function(locale){
             if(locale == current_locale){
@@ -410,45 +435,50 @@ class Place_Edit_Modal extends Modal {
         this.data.place.medias.forEach(media => {
             medias_container.innerHTML += `
             <div class="media" style="background-image: url('${media.url}')">
-            <button class="button delete_button red"><i class="small_i fa-solid fa-trash"></i></button>
+                <button class="button delete_button red"><i class="small_i fa-solid fa-trash"></i></button>
             </div>
             `;
         });
-
-
-        const tabs = this.element.querySelectorAll('.modal_tabs li');
-        this._tab(tabs[0].getAttribute('for'))
-        tabs.forEach(element=>{
-            element.addEventListener('click', () => {
-                console.log('click');
-                this._tab(element.getAttribute('for'))
-
-            });
-        });
-
     }
+    _active_tab(){
+        return this.query('.modal_tabs li[active="true"]');
+    }
+
     _tab(tab_name){
-        console.log('activating '+tab_name);
+        console.log('activating TAB: '+tab_name);
         //hide current tab
-        const active_tab = this.query('.modal_tabs li[active="true"]')
+        const active_tab = this._active_tab();
         if(active_tab){
             active_tab.setAttribute('active', false)
-            this.query('#content_'+active_tab.getAttribute('for')).style.display = 'none'
+            this.query('#content_'+active_tab.getAttribute('name')).style.display = 'none'
         }
 
         //show new tab
-        const new_tab = this.query(`.modal_tabs li[for='${tab_name}']`);
+        const new_tab = this.query(`.modal_tabs li[name='${tab_name}']`);
         new_tab.setAttribute('active', true);
-        const content = this.query('#content_'+new_tab.getAttribute('for'))
-        console.log(content);
-        content.style.display = 'block';
+        const content = this.query('#content_'+new_tab.getAttribute('name'))
+
         this.query('h4').textContent = new_tab.textContent;
+        if(new_tab.getAttribute('save_button') == "true"){
+            this.query('.modal_save').style.display = 'flex'
+        } else {
+            this.query('.modal_save').style.display = 'none'
+        }
+        content.style.display = 'block';
     }
     _listeners(){
         super._listeners();
         this.query('.modal_save').addEventListener('click', (event) => {
-            console.log('on submit');
-            this.data['on_submit'](this);
+            const tab_name = this._active_tab().getAttribute('name');
+            console.log('on submit active tab = '+tab_name);
+            switch (tab_name) {
+                case "edit_place":
+                    this.data['on_submit'](this);
+                    break;
+
+                default:
+                    break;
+            }
         });
         this.query('#thumbnail').addEventListener('change', function() {
             const file = this.files[0];
@@ -460,11 +490,20 @@ class Place_Edit_Modal extends Modal {
                 reader.readAsDataURL(file);
             }
         });
-        this.query('#edit_select_locale').addEventListener('change', (event) =>{
+        this.query('#select_locale').addEventListener('change', (event) =>{
             this.data['on_locale_change'](this, event.target.value);
+            this.data.locale = event.target.value;
+            console.log(event.target.value);
         });
-        this.query('.gallery_link').addEventListener('click', (event) =>{
-            window.open(this.query('[name="gallery_url"]').value, '_blank');
+
+        const tabs = this.element.querySelectorAll('.modal_tabs li');
+        this._tab(tabs[0].getAttribute('name'))
+        tabs.forEach(element=>{
+            if(element.getAttribute('fill')) { return }
+            element.addEventListener('click', () => {
+                this._tab(element.getAttribute('name'))
+
+            });
         });
     }
     _disable(){
