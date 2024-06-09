@@ -15,22 +15,18 @@ Dev | Otherworlds
     </h3>
     <div class="notes">
         <fieldset>
-            <legend>Advanced Place Modals</legend>
-            <ul>
-                <li>Create*</li>
-                <li>Edit - Basic Info*</li>
-                <li>Edit - Sources</li>
-                <li>Media Inspector</li>
-                <li>Delete media ajax</li>
-            </ul>
-        </fieldset>
-        <fieldset>
             <legend>[ADMIN] Place</legend>
             <ul>
                 <li>Index(ajax + filters)*</li>
                 <li>Create(from scratch, from wikipedia)</li>
-                <li>Edit Basic Info</li>
+                <li>Edit Basic Info*</li>
                 <li>Delete</li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>[ADMIN] Source</legend>
+            <ul>
+                <li>Edit</li>
             </ul>
         </fieldset>
         <fieldset>

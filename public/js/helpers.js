@@ -20,8 +20,18 @@ function organize_dic(dic) {
 }
 
 function auto_resize(textarea) {
-    console.log(textarea);
-    textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight + 'px';
 }
 
+function format_html(html) {
+    html = html.replace(/<p>/g, '<p>\n');
+    html = html.replace(/<\/p>/g, '\n</p>\n');
+    return html.trim();
+}
+
+function unformat_html(html) {
+    html = html.replace(/<p>\n/g, '<p>');
+    html = html.replace(/\n<\/p>\n/g, '</p>');
+    html = html.replace(/\n<\/p>/g, '</p>');
+    return html.trim();
+}

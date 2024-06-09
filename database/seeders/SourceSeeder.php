@@ -19,22 +19,10 @@ class SourceSeeder extends Seeder
     {
         foreach (Source::all() as $source) {
             try {
-                $content_data = OHelper::getWikiContent($source->url);
+                $content_data = $source->scrape_fill();
                 $this->command->info($source->place->name.": ".strlen($content_data['content']));
-
-                $source->content = $content_data['content'];
-                $source->title = $content_data['title'];
-                $source->save();
-
-                //apply the coords
                 if($content_data['latitude'] != null && $content_data['longitude'] != null){
-                    $source->place->latitude = $content_data['latitude'];
-                    $source->place->longitude = $content_data['longitude'];
-                    $source->place->save();
-
-                    // $this->command->info("Saved Coordinates: ".$content_data['latitude'].",".$content_data['longitude']);
-                }else{
-
+                    $this->command->info("Saved Coordinates: ".$content_data['latitude'].",".$content_data['longitude']);
                 }
             } catch (\Throwable $th) {
                 $this->command->error('No resource for Place: '.$source->place->name.'.');

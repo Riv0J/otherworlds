@@ -9,7 +9,6 @@ class Modal {
             this._onload();
             this._listeners();
         }, 250);
-        this._textareas();
         this._show();
     }
 
@@ -317,6 +316,10 @@ class Place_Edit_Modal extends Modal {
         </div>
         <select id="select_locale" name="select_locale"></select>
         <button class="modal_save button info"><i class="fa-solid fa-floppy-disk"></i></button>
+        <a href='#' target="_blank" class="place_link button info">
+            <i class="fa-solid fa-binoculars"></i>
+            View place
+        </a>
         `;
     }
     _body(){
@@ -327,20 +330,23 @@ class Place_Edit_Modal extends Modal {
         <div class="modal_tab_content" id="content_sources">
             <div class="form_row w-100">
                 <div class="form_line" style="max-width: 4rem">
-                    <label for="slug">Locale</label>
+                    <label for="source_locale">Locale</label>
                     <input type="text" name="source_locale" readonly>
                 </div>
                 <div class="form_line flex-grow-1">
-                    <label for="slug">Source Title</label>
+                    <label for="source_title">Source Title</label>
                     <input type="text" name="source_title">
                 </div>
             </div>
             <div class="form_line">
-                <label for="slug">Source URL</label>
-                <input type="text" name="source_url">
+                <label for="source_url">Source URL</label>
+                <div class="form_row">
+                    <input class="flex-grow-1" type="text" name="source_url">
+                    <a href="#" target="_blank" class="button source_link"><i class="fa-solid fa-up-right-from-square"></i></a>
+                </div>
             </div>
             <div class="form_line">
-                <label>Source Content</label>
+                <label>Source Content (leave empty with a Wikipedia URL on source URL to attempt scrape)</label>
                 <textarea name="source_content"></textarea>
             </div>
         </div>
@@ -402,6 +408,7 @@ class Place_Edit_Modal extends Modal {
     }
     _setplace(place){
         //edit place tab
+        this.query('.place_link').setAttribute('href',`${this.data.place_prefix}/${this.data.place.slug}`)
         this.query('.thumbnail_preview').style.backgroundImage = `url('${this.data.thumbnail_prefix}/${place.public_slug}/${place.thumbnail}?_=${new Date().getTime()}')`;
         this.query('[name="slug"]').value = place.slug;
         this.query('[name="name"]').value = place.name;
@@ -410,12 +417,17 @@ class Place_Edit_Modal extends Modal {
 
         //sources tab
         const source = this.data.place.sources.find(source => source.locale === this.data.locale);
-        this.query('[name="source_locale"]').value = source.locale.toUpperCase();
-        this.query('[name="source_title"]').value = source.title;
-        this.query('[name="source_url"]').value = source.url;
-        this.query('[name="source_content"]').value = source.content;
-        this._textareas();
+        const locale = (source?.locale ?? this.data.locale).toUpperCase();
+        this.query('[name="source_locale"]').value = locale;
+        if(!source){
+            this.query('[name="source_url"]').placeholder = `This place has no source in `+locale;
+        }
+        this.query('.source_link').setAttribute('href', source?.url ?? '#');
+        this.query('[name="source_title"]').value = source?.title ?? '';
+        this.query('[name="source_url"]').value = source?.url ?? '';
+        this.query('[name="source_content"]').value = format_html(source?.content ?? '');
     }
+
     _onload(){
         super._onload();
         this.element.className += ' scroll_modal';
@@ -465,15 +477,17 @@ class Place_Edit_Modal extends Modal {
             this.query('.modal_save').style.display = 'none'
         }
         content.style.display = 'block';
+        this._textareas();
     }
     _listeners(){
         super._listeners();
         this.query('.modal_save').addEventListener('click', (event) => {
             const tab_name = this._active_tab().getAttribute('name');
             console.log('on submit active tab = '+tab_name);
+            this.data['on_submit_'+tab_name](this);
             switch (tab_name) {
                 case "edit_place":
-                    this.data['on_submit'](this);
+
                     break;
 
                 default:
@@ -490,10 +504,10 @@ class Place_Edit_Modal extends Modal {
                 reader.readAsDataURL(file);
             }
         });
+
         this.query('#select_locale').addEventListener('change', (event) =>{
             this.data['on_locale_change'](this, event.target.value);
             this.data.locale = event.target.value;
-            console.log(event.target.value);
         });
 
         const tabs = this.element.querySelectorAll('.modal_tabs li');
@@ -505,6 +519,9 @@ class Place_Edit_Modal extends Modal {
 
             });
         });
+    }
+    _selected_locale(){
+        return this.query('#select_locale').value;
     }
     _disable(){
         this.query('.modal_save').disabled = true;

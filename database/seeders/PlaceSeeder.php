@@ -791,7 +791,7 @@ class PlaceSeeder extends Seeder{
             [
                 'es' => [
                     'name' => 'Acantilados de Moher',
-                    'synopsis' => '14Km de acantilados que llegan a alcanzar hasta 214 metros sobre el nivel del oceano atlántico',
+                    'synopsis' => '14Km de acantilados que llegan a alcanzar hasta 214 metros sobre el nivel del océano atlántico',
 
                 ],
                 'en' => [

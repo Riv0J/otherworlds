@@ -261,6 +261,7 @@
 <link rel="stylesheet" href="{{asset('dynamic_selects/dynamic_selects.css')}}"></link>
 <script src="{{asset('dynamic_selects/dynamic_selects.js')}}"></script>
 <script>
+    const csrf_token = '{{ csrf_token() }}';
     const countries_select_data = create_country_select_data(Object.values(countries));
 
     countries_select_data.unshift({
@@ -391,6 +392,7 @@
     function show_edit_place_modal(place){
         const create_modal = new Place_Edit_Modal({
             place: place,
+            place_prefix: '{{places_url($locale)}}',
             locales: locales,
             locale: '{{$locale}}',
             title: "@lang('otherworlds.edit_place')",
@@ -423,9 +425,13 @@
                 }
                 ajax(ajax_data);
             },
-            on_submit: function(modal_object){
-                console.log('submitted');
+            on_submit_edit_place: function(modal_object){
+                console.log('called on_submit_edit_place');
                 update_place(modal_object, place);
+            },
+            on_submit_sources: function(modal_object){
+                console.log('called on_submit_sources');
+                source_update(modal_object, place)
             }
             }
         )
@@ -461,6 +467,62 @@
             }
         }
 
+        ajax(ajax_data);
+    }
+    function source_create(modal_object, place, selected_locale){
+        modal_object._disable();
+        const ajax_data = {
+            url: '{{ URL('/ajax/admin/sources/create') }}',
+            request_data: {
+                _token: csrf_token,
+                place_id: place.id,
+                locale: selected_locale,
+                source_title: modal_object.query('[name="source_title"]').value,
+                source_url: modal_object.query('[name="source_url"]').value,
+                source_content: unformat_html(modal_object.query('[name="source_content"]').value),
+            },
+            success_func: function(response_data) {
+                console.log(response_data);
+                if(response_data['success'] && response_data['success'] == true){
+                    modal_object.data.place.sources.push(response_data['source']); //add the source
+                    modal_object._setplace(modal_object.data.place);
+                    send_search();
+                }
+            },
+            after_func: function(){
+                modal_object._enable();
+            }
+        }
+        ajax(ajax_data);
+    }
+    function source_update(modal_object, place){
+        modal_object._disable();
+        const selected_locale = modal_object._selected_locale();
+        const source = modal_object.data.place.sources.find(source => source.locale === selected_locale);
+        if(!source){ return source_create(modal_object, place, selected_locale); }
+
+        const ajax_data = {
+            url: '{{ URL('/ajax/admin/sources/update') }}',
+            request_data: {
+                _token: csrf_token,
+                source_id: source.id,
+                source_title: modal_object.query('[name="source_title"]').value,
+                source_url: modal_object.query('[name="source_url"]').value,
+                source_content: unformat_html(modal_object.query('[name="source_content"]').value),
+            },
+            success_func: function(response_data) {
+                console.log(response_data);
+                if(response_data['success'] && response_data['success'] == true){
+                    const index = modal_object.data.place.sources.findIndex(s => s.locale === selected_locale);
+                    modal_object.data.place.sources[index] = response_data['source'];
+                    modal_object._setplace(modal_object.data.place);
+                    send_search();
+                }
+            },
+            after_func: function(){
+                modal_object._enable();
+            }
+        }
         ajax(ajax_data);
     }
 </script>
