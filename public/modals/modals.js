@@ -325,9 +325,20 @@ class Place_Edit_Modal extends Modal {
     _body(){
         return `
         <div class="modal_tab_content" id="content_medias">
+            <div class="form_row w-100 justify-content-end gap-3 mb-3">
+                <button class="button" class="button">
+                    <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add Media [NYI]
+                </button>
+                <button class="button" class="button">
+                    <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-images"></i>Add medias from wikimedia [NYI]
+                </button>
+            </div>
             <div class="medias"></div>
         </div>
         <div class="modal_tab_content" id="content_sources">
+            <div class="form_row w-100 justify-content-end gap-3">
+                <button id="delete_source" class="button red">Delete Source<i class="fa-solid fa-trash"></i></button>
+            </div>
             <div class="form_row w-100">
                 <div class="form_line" style="max-width: 4rem">
                     <label for="source_locale">Locale</label>
@@ -346,10 +357,11 @@ class Place_Edit_Modal extends Modal {
                 </div>
             </div>
             <div class="form_line">
-                <label>Source Content (leave empty with a Wikipedia URL on source URL to attempt scrape)</label>
+                <label>Source Content</label>
                 <textarea name="source_content"></textarea>
             </div>
         </div>
+
         <div class="modal_tab_content" id="content_edit_place">
             <div class="d-inline-flex gap-3 w-100">
                 <div class="thumbnail_preview">
@@ -389,20 +401,6 @@ class Place_Edit_Modal extends Modal {
                     </div>
                 </div>
             </div>
-            <div class="modal_header mt-3">
-                <div class="flex_center gap-2">
-                    <h4>Medias</h4>
-
-                </div>
-                <nav class="buttons">
-                    <button class="button" class="button">
-                        <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add Media
-                    </button>
-                    <button class="button" class="button">
-                        <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-images"></i></i>Add medias from wikimedia [NYI]
-                    </button>
-                </nav>
-            </div>
         </div>
         `;
     }
@@ -420,12 +418,17 @@ class Place_Edit_Modal extends Modal {
         const locale = (source?.locale ?? this.data.locale).toUpperCase();
         this.query('[name="source_locale"]').value = locale;
         if(!source){
-            this.query('[name="source_url"]').placeholder = `This place has no source in `+locale;
+            this.query('[name="source_url"]').placeholder = 'This place has no source in '+locale;
+            this.query('#delete_source').style.display = 'none';
+        } else {
+            this.query('[name="source_url"]').placeholder = '';
+            this.query('#delete_source').style.display = 'flex';
         }
         this.query('.source_link').setAttribute('href', source?.url ?? '#');
         this.query('[name="source_title"]').value = source?.title ?? '';
         this.query('[name="source_url"]').value = source?.url ?? '';
         this.query('[name="source_content"]').value = format_html(source?.content ?? '');
+        this._textareas();
     }
 
     _onload(){
@@ -505,9 +508,13 @@ class Place_Edit_Modal extends Modal {
             }
         });
 
-        this.query('#select_locale').addEventListener('change', (event) =>{
-            this.data['on_locale_change'](this, event.target.value);
+        this.query('#select_locale').addEventListener('change', (event)=>{
             this.data.locale = event.target.value;
+            this.data['on_locale_change'](this, this.data.locale);
+        });
+
+        this.query('#delete_source').addEventListener('click', (event)=>{
+            this.data['on_delete_source'](this);
         });
 
         const tabs = this.element.querySelectorAll('.modal_tabs li');

@@ -24,15 +24,8 @@ Dev | Otherworlds
             </ul>
         </fieldset>
         <fieldset>
-            <legend>[ADMIN] Source</legend>
-            <ul>
-                <li>Edit</li>
-            </ul>
-        </fieldset>
-        <fieldset>
             <legend>[ADMIN] Media</legend>
             <ul>
-                <li>Index?</li>
                 <li>Create(from scratch, from wikimedia)</li>
                 <li>Edit</li>
                 <li>Delete</li>
@@ -87,6 +80,14 @@ Dev | Otherworlds
 
     <h3>Complete</h3>
     <div class="notes">
+        <fieldset>
+            <legend>[ADMIN] Source</legend>
+            <ul>
+                <li>Create*</li>
+                <li>Edit*</li>
+                <li>Delete*</li>
+            </ul>
+        </fieldset>
         <fieldset>
             <legend>Basic Modals</legend>
             <ul>

@@ -20,7 +20,13 @@ class Admin_SourceController extends Controller{
                 'message' => new Message(Message::TYPE_ERROR, "Source not found"),
             ], 200);
         }
+        if(!$data['source_url']){
+            return response()->json([
+                'message' => new Message(Message::TYPE_ERROR, "Source URL required"),
+            ], 200);
+        }
         $source->url = $data['source_url'];
+
         $messages = [];
         if($data['source_url'] && !$data['source_content']){
             try {
@@ -105,10 +111,10 @@ class Admin_SourceController extends Controller{
                 'message' => new Message(Message::TYPE_ERROR, "Source not found"),
             ], 200);
         }
+        $source->delete();
         $variables = [
             'success' => true,
             'message' => new Message(Message::TYPE_SUCCESS, "Source deleted"),
-            'source' => $source
         ];
         return response()->json($variables);
     }

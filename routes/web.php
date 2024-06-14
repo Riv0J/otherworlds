@@ -110,10 +110,14 @@ Route::middleware(['admin'])->group(function () {
     // ajax paginated requests
     Route::post('/ajax/admin/users/request', [Admin_UserController::class, 'ajax_user_request']);
     Route::post('/ajax/admin/visits/request', [Admin_VisitController::class, 'ajax_visit_request']);
+
+    // ajax places
     Route::post('/ajax/admin/places/request', [Admin_PlaceController::class, 'ajax_place_request']);
     Route::post('/ajax/admin/places/create', [Admin_PlaceController::class, 'ajax_place_create']);
     Route::post('/ajax/admin/places/get', [Admin_PlaceController::class, 'ajax_place_get']);
     Route::post('/ajax/admin/places/update', [Admin_PlaceController::class, 'ajax_place_update']);
+
+    // ajax sources
     Route::post('/ajax/admin/sources/create', [Admin_SourceController::class, 'ajax_create']);
     Route::post('/ajax/admin/sources/update', [Admin_SourceController::class, 'ajax_update']);
     Route::post('/ajax/admin/sources/delete', [Admin_SourceController::class, 'ajax_delete']);

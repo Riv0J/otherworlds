@@ -410,7 +410,6 @@
                 cselect2.select_option(place.category_id);
             },
             on_locale_change: function(modal_object, new_locale){
-
                 const ajax_data = {
                     url: '{{ URL('/ajax/admin/places/get') }}',
                     request_data:{
@@ -431,7 +430,11 @@
             },
             on_submit_sources: function(modal_object){
                 console.log('called on_submit_sources');
-                source_update(modal_object, place)
+                source_update(modal_object, place);
+            },
+            on_delete_source: function(modal_object, locale){
+                console.log('called on_delete_source');
+                source_delete(modal_object);
             }
             }
         )
@@ -515,6 +518,33 @@
                 if(response_data['success'] && response_data['success'] == true){
                     const index = modal_object.data.place.sources.findIndex(s => s.locale === selected_locale);
                     modal_object.data.place.sources[index] = response_data['source'];
+                    modal_object._setplace(modal_object.data.place);
+                    send_search();
+                }
+            },
+            after_func: function(){
+                modal_object._enable();
+            }
+        }
+        ajax(ajax_data);
+    }
+    function source_delete(modal_object){
+        const selected_locale = modal_object._selected_locale();
+        const source = modal_object.data.place.sources.find(source => source.locale === selected_locale);
+        if(!source){ return show_message({type: 'danger', icon: 'fa-exclamation', text: 'Source not found'}); }
+
+        modal_object._disable();
+        const ajax_data = {
+            url: '{{ URL("/ajax/admin/sources/delete") }}',
+            request_data: {
+                _token: csrf_token,
+                source_id: source.id,
+            },
+            success_func: function(response_data) {
+                console.log(response_data);
+                if(response_data['success'] && response_data['success'] == true){
+                    const index = modal_object.data.place.sources.findIndex(s => s.locale === selected_locale);
+                    modal_object.data.place.sources.splice(index, 1);
                     modal_object._setplace(modal_object.data.place);
                     send_search();
                 }
