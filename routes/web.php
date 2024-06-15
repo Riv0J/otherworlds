@@ -113,7 +113,6 @@ Route::middleware(['back'])->group(function () {
 
     // ajax places
     Route::post('/ajax/admin/places/request', [Admin_PlaceController::class, 'ajax_place_request']);
-    Route::post('/ajax/admin/places/create', [Admin_PlaceController::class, 'ajax_place_create']);
     Route::post('/ajax/admin/places/get', [Admin_PlaceController::class, 'ajax_place_get']);
     Route::post('/ajax/admin/places/update', [Admin_PlaceController::class, 'ajax_place_update']);
 
@@ -128,6 +127,7 @@ Route::middleware(['back'])->group(function () {
 // BACK EDIT routes for admins/owner
 Route::middleware(['back_edit'])->group(function () {
     // places
+    Route::post('/ajax/admin/places/create', [Admin_PlaceController::class, 'ajax_create']);
     Route::post('/ajax/admin/places/delete', [Admin_PlaceController::class, 'ajax_delete']);
 
     // medias

@@ -101,18 +101,20 @@ class Admin_PlaceController extends Controller{
     /**
      * Ajax, create a place from the place index modal view
      */
-    public function ajax_place_create(Request $request){
+    public function ajax_create(Request $request){
         $data = $request->all();
-        app()->setLocale('en'); //default en create
+        $locale = $data['current_locale'];
+        app()->setLocale($locale);
         $validator = Validator::make($data, [
             'user_id' => 'required|integer|exists:users,id',
             'country_id' => 'required|integer|exists:countries,id',
             'category_id' => 'required|integer|exists:categories,id',
             'name' => 'required|string|max:255',
-            'thumbnail_url' => 'nullable|string|max:255',
-            'gallery_url' => 'nullable|url|max:255',
             'synopsis' => 'required|string',
             'thumbnail' => 'required|file|mimes:jpeg,png,jpg,gif',
+
+            'thumbnail_url' => 'nullable|string|max:255',
+            'gallery_url' => 'nullable|url|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -133,26 +135,26 @@ class Admin_PlaceController extends Controller{
                 'country_id' => $data['country_id'],
                 'category_id' => $data['category_id'],
                 'gallery_url' => $data['gallery_url'],
-                'en' => [
-                    'slug' => $slug,
-                    'name' => $data['name'],
-                    'synopsis' => $data['synopsis'],
-                ]
             ];
-            //set locale to eng
-            app()->setLocale('en');
+            $place_data[$locale] = [
+                'slug' => $slug,
+                'name' => $data['name'],
+                'synopsis' => $data['synopsis'],
+            ];
 
-            // create names for this place in each locale
-            foreach (config('translatable.locales') as $locale) {
-                if($locale == 'en'){ continue; }
+            // create translated attributes for this place in each locale
+            foreach (config('translatable.locales') as $loc) {
+                if($loc == $locale){ continue; }
 
-                $locale_str = '['.strtoupper($locale).']';
-                $place_data[$locale] = [
-                    'slug' => $slug.'-'.$locale,
+                $locale_str = '['.strtoupper($loc).']';
+                $place_data[$loc] = [
+                    'slug' => $slug.'-'.$loc,
                     'name' => $data['name'].' '.$locale_str,
                     'synopsis' => $data['synopsis'].' '.$locale_str,
                 ];
             }
+
+            //create using data
             $new_place = Place::create($place_data);
 
             // create an img directory for this place in english name if it doesnt exist
@@ -176,8 +178,6 @@ class Admin_PlaceController extends Controller{
             if($new_place->gallery_url){
                 $new_place->create_medias($new_place->gallery_url);
             }
-
-            app()->setLocale($data['current_locale']);
 
             $variables['success'] = true;
             $variables['place'] = Place::with('medias')->where('id',$new_place->id)->first();

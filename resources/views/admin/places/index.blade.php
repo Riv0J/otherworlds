@@ -324,7 +324,7 @@
 
     function show_create_place_modal(input_value){
         const create_modal = new Place_Create_Modal({
-            title: 'Create Place [EN]',
+            title: 'Create Place '+'[{{$locale}}]'.toUpperCase(),
             thumbnail: "{{asset('places/_placeholders/t.png')}}",
             on_load: function(){
                 const cselect = new DynamicSelect('#create_select_country',{
