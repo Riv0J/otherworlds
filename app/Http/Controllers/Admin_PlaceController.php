@@ -103,8 +103,7 @@ class Admin_PlaceController extends Controller{
      */
     public function ajax_place_create(Request $request){
         $data = $request->all();
-        $locale = 'en';
-        app()->setLocale($locale);
+        app()->setLocale('en'); //default en create
         $validator = Validator::make($data, [
             'user_id' => 'required|integer|exists:users,id',
             'country_id' => 'required|integer|exists:countries,id',
@@ -140,6 +139,20 @@ class Admin_PlaceController extends Controller{
                     'synopsis' => $data['synopsis'],
                 ]
             ];
+            //set locale to eng
+            app()->setLocale('en');
+
+            // create names for this place in each locale
+            foreach (config('translatable.locales') as $locale) {
+                if($locale == 'en'){ continue; }
+
+                $locale_str = '['.strtoupper($locale).']';
+                $place_data[$locale] = [
+                    'slug' => $slug.'-'.$locale,
+                    'name' => $data['name'].' '.$locale_str,
+                    'synopsis' => $data['synopsis'].' '.$locale_str,
+                ];
+            }
             $new_place = Place::create($place_data);
 
             // create an img directory for this place in english name if it doesnt exist
@@ -160,7 +173,11 @@ class Admin_PlaceController extends Controller{
             Media::create($media_data);
 
             // create media images from the url
-            $new_place->create_medias($new_place->gallery_url);
+            if($new_place->gallery_url){
+                $new_place->create_medias($new_place->gallery_url);
+            }
+
+            app()->setLocale($data['current_locale']);
 
             $variables['success'] = true;
             $variables['place'] = Place::with('medias')->where('id',$new_place->id)->first();
@@ -222,5 +239,27 @@ class Admin_PlaceController extends Controller{
             'place' => Place::with('medias')->where('id',$data['place_id'])->first()
         ];
         return response()->json($variables);
+    }
+
+    /**
+     * Ajax, DELETE an specific place
+     */
+    public function ajax_delete(Request $request){
+        $data = $request->all();
+        $place = Place::find($data['place_id']);
+
+        if(auth()->user()->has_admin_privileges() == false){
+            return response()->json([
+                'message' => new Message(Message::TYPE_ERROR, "Not enough privileges to edit"),
+            ], 200);
+        }
+
+        if(!$place){
+            return response()->json([
+                'message' => new Message(Message::TYPE_ERROR, "Could not find this place"),
+            ], 200);
+        }
+        $place->delete();
+        return response()->json(['success' => true]);
     }
 }

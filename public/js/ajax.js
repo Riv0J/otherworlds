@@ -1,7 +1,7 @@
-function ajax(ajax_data){
+function ajax(ajax_data, loading_text){
     //ajax_data has request_data which is a dic with the variables to send
     const request_data = ajax_data['request_data'];
-    toggle_spinners(true);
+    toggle_spinners(true, loading_text);
 
     //call before_func, if provided
     if(ajax_data['before_func']){
@@ -21,7 +21,7 @@ function ajax(ajax_data){
         };
         body = JSON.stringify(request_data);
     }
-
+    // fetch send
     fetch(ajax_data['url'], {
         method: "POST",
         headers: headers,
@@ -33,9 +33,9 @@ function ajax(ajax_data){
         if (response.ok) {
             return response.json();
         }
-        // error request
+        // error response
         else {
-            throw new Error('Error ' + response.statusText);
+            throw new Error('Error on response ' + response.statusText);
         }
     })
     // fetch handle data
@@ -68,7 +68,7 @@ function ajax(ajax_data){
     });
 }
 
-function toggle_spinners(show){
+function toggle_spinners(show, loading_text){
     const spinners = document.querySelectorAll('.fa-spinner');
     const workings = document.querySelectorAll('.working');
 
@@ -76,17 +76,23 @@ function toggle_spinners(show){
 
     spinners.forEach(function(spinner){
         if(show){
-            spinner.style.visibility = "visible"
+            spinner.style.visibility = "visible";
         } else {
-            spinner.style.visibility = "hidden"
+            spinner.style.visibility = "hidden";
         }
     });
 
     workings.forEach(function(working){
+        const node = working.querySelector('span');
+        if(loading_text){
+            node.textContent = loading_text;
+        }else{
+            node.textContent = "Please wait";
+        }
         if(show){
-            working.style.visibility = "visible"
+            working.style.visibility = "visible";
         } else {
-            working.style.visibility = "hidden"
+            working.style.visibility = "hidden";
         }
     });
 }

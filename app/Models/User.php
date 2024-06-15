@@ -86,7 +86,13 @@ class User extends Authenticatable{
         }
         return false;
     }
-
+    //check if user has admin privileges
+    public function has_admin_privileges(){
+        if($this->is_admin() || $this->is_owner()){
+            return true;
+        }
+        return false;
+    }
     /*
      * Check if this user is editable by another
      */

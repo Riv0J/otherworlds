@@ -158,7 +158,7 @@ class Choice_Modal extends Modal {
     }
     _onload(){
         super._onload();
-        this.element.className += " small_modal";
+        this.element.className += " small_modal modal_bg";
         const input_box = this.element.querySelector('.modal_input_box')
         const input = this.element.querySelector('input')
 
@@ -199,9 +199,8 @@ class Place_Create_Modal extends Modal {
     _buttons(){
         return `
         <div class="working d-inline-flex align-items-center gap-2" style="display: none; visibility: hidden">
-            <i class="fa-solid fa-spinner"></i>Please wait
+            <i class="fa-solid fa-spinner"></i><span>Please wait</span>
         </div>
-        <button class="modal_save button info"><i class="fa-solid fa-floppy-disk"></i></button>
         `;
     }
     _body(){
@@ -257,8 +256,7 @@ class Place_Create_Modal extends Modal {
     }
     _onload(){
         super._onload();
-        this.element.className += ' scroll_modal';
-
+        this.element.className += ' scroll_modal modal_bg';
     }
     _listeners(){
         super._listeners();
@@ -294,6 +292,7 @@ class Place_Edit_Modal extends Modal {
                 <li name="edit_place" save_button="true">Edit Place</li>
                 <li name="medias" save_button="false">Medias</li>
                 <li name="sources" save_button="true">Sources</li>
+                <li name="danger_zone" save_button="false">Danger zone</li>
                 <li fill class="flex-grow-1"></li>
             </ul>
             <div class="modal_content">
@@ -312,7 +311,7 @@ class Place_Edit_Modal extends Modal {
     _buttons() {
         return `
         <div class="working d-inline-flex align-items-center gap-2" style="display: none; visibility: hidden">
-            <i class="fa-solid fa-spinner"></i>Please wait
+            <i class="fa-solid fa-spinner"></i><span>Please wait</span>
         </div>
         <select id="select_locale" name="select_locale"></select>
         <button class="modal_save button info"><i class="fa-solid fa-floppy-disk"></i></button>
@@ -324,14 +323,20 @@ class Place_Edit_Modal extends Modal {
     }
     _body(){
         return `
+        <div class="modal_tab_content" id="content_danger_zone">
+            <button id="delete_place" class="button red">Delete this place<i class="fa-solid fa-trash"></i></button>
+        </div>
         <div class="modal_tab_content" id="content_medias">
-            <div class="form_row w-100 justify-content-end gap-3 mb-3">
-                <button class="button" class="button">
-                    <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add Media [NYI]
-                </button>
-                <button class="button" class="button">
-                    <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-images"></i>Add medias from wikimedia [NYI]
-                </button>
+            <div class="form_row w-100 justify-content-between gap-3 mb-3">
+                <input class="flex-grow-1" name="media_url" placeholder="Wikimedia image or gallery URL">
+                <div class="d-inline-flex gap-3">
+                    <button class="button" class="button" id="media_add_one">
+                        <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add one
+                    </button>
+                    <button class="button" class="button">
+                        <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-images"></i>Add gallery
+                    </button>
+                </div>
             </div>
             <div class="medias"></div>
         </div>
@@ -414,6 +419,9 @@ class Place_Edit_Modal extends Modal {
         this.query('[name="gallery_url"]').value = place.gallery_url;
 
         //sources tab
+        if(!this.data.place.sources){
+            this.data.place.sources = [];
+        }
         const source = this.data.place.sources.find(source => source.locale === this.data.locale);
         const locale = (source?.locale ?? this.data.locale).toUpperCase();
         this.query('[name="source_locale"]').value = locale;
@@ -429,6 +437,8 @@ class Place_Edit_Modal extends Modal {
         this.query('[name="source_url"]').value = source?.url ?? '';
         this.query('[name="source_content"]').value = format_html(source?.content ?? '');
         this._textareas();
+
+        this._show_medias();
     }
 
     _onload(){
@@ -446,19 +456,60 @@ class Place_Edit_Modal extends Modal {
             }
         });
 
-        const medias_container = document.querySelector('.medias');
-        this.data.place.medias.forEach(media => {
-            medias_container.innerHTML += `
-            <div class="media" style="background-image: url('${media.url}')">
-                <button class="button delete_button red"><i class="small_i fa-solid fa-trash"></i></button>
-            </div>
-            `;
-        });
+        this._load_medias();
     }
     _active_tab(){
         return this.query('.modal_tabs li[active="true"]');
     }
+    async _load_medias(){
+        if(this.data.place.medias.length == 0){ return; }
 
+        toggle_spinners(true, "Loading Medias");
+        let loaded_images_count = 0;
+        this.data.place.medias.forEach(media => {
+            load_image(media.url, () => {
+                loaded_images_count++;
+                if(loaded_images_count === this.data.place.medias.length){
+                    toggle_spinners(false);
+                }
+            });
+        });
+    }
+    async _show_medias(){
+        const medias_container = document.querySelector('.medias');
+        medias_container.innerHTML = '';
+
+        if(!this.data.place.medias || this.data.place.medias.length == 0){ return; }
+
+        toggle_spinners(true, "Showing Medias");
+        let loaded_images_count = 0;
+        this.data.place.medias.forEach(media => {
+            load_image(media.url, () => {
+                medias_container.appendChild(this._media_template(media));
+
+                loaded_images_count++;
+                if(loaded_images_count === this.data.place.medias.length){
+                    toggle_spinners(false);
+                }
+            });
+        });
+    }
+    _media_template(media){
+        const media_element = document.createElement('div');
+        media_element.className = 'media';
+        media_element.setAttribute('media_id', media.id);
+        media_element.setAttribute('style', `background-image: url('${media.url}'); order: ${media.id}`);
+
+        const delete_button = document.createElement('button');
+        delete_button.className = 'button red delete_button';
+        delete_button.innerHTML = `<i class="small_i fa-solid fa-trash"></i>`;
+        media_element.appendChild(delete_button);
+
+        delete_button.addEventListener('click', (event) => {
+            this.data['on_delete_media'](this, media.id);
+        });
+        return media_element;
+    }
     _tab(tab_name){
         console.log('activating TAB: '+tab_name);
         //hide current tab
@@ -488,14 +539,6 @@ class Place_Edit_Modal extends Modal {
             const tab_name = this._active_tab().getAttribute('name');
             console.log('on submit active tab = '+tab_name);
             this.data['on_submit_'+tab_name](this);
-            switch (tab_name) {
-                case "edit_place":
-
-                    break;
-
-                default:
-                    break;
-            }
         });
         this.query('#thumbnail').addEventListener('change', function() {
             const file = this.files[0];

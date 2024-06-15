@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
 
         'locale_updater' => \App\Http\Middleware\LocaleMiddleware::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'ajax_edit' => \App\Http\Middleware\AjaxMiddleware::class,
         'owner' => \App\Http\Middleware\OwnerMiddleware::class,
         'visits' => \App\Http\Middleware\VisitsMiddleware::class
     ];

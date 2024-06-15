@@ -20,6 +20,7 @@ class Admin_MediaController extends Controller{
             $response['message'] = new Message(Message::TYPE_ERROR, 'Media not found');
         } else {
             $media->delete();
+            $response['success'] = true;
             $response['message'] = new Message(Message::TYPE_SUCCESS, 'Media deleted');
         }
         return response()->json($response);

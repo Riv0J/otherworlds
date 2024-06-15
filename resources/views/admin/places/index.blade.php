@@ -324,8 +324,7 @@
 
     function show_create_place_modal(input_value){
         const create_modal = new Place_Create_Modal({
-            lang: '{{$locale}}',
-            title: "@lang('otherworlds.create_place') [{{strtoupper($locale)}}]",
+            title: 'Create Place [EN]',
             thumbnail: "{{asset('places/_placeholders/t.png')}}",
             on_load: function(){
                 const cselect = new DynamicSelect('#create_select_country',{
@@ -360,7 +359,7 @@
         }
         const form_data = new FormData();
         form_data.append('_token', '{{ csrf_token() }}');
-        form_data.append('locale', '{{ $locale }}');
+        form_data.append('current_locale', '{{$locale}}');
         form_data.append('user_id', {{$logged->id}});
         form_data.append('country_id', modal.querySelector('input[name="create_select_country"]').value);
         form_data.append('category_id', modal.querySelector('input[name="create_select_category"]').value);
@@ -386,7 +385,7 @@
             }
         }
 
-        ajax(ajax_data);
+        ajax(ajax_data,'Creating place');
     }
 
     function show_edit_place_modal(place){
@@ -435,6 +434,10 @@
             on_delete_source: function(modal_object, locale){
                 console.log('called on_delete_source');
                 source_delete(modal_object);
+            },
+            on_delete_media: function(modal_object, media_id){
+                console.log('called on_delete_media');
+                media_delete(modal_object, media_id);
             }
             }
         )
@@ -496,7 +499,7 @@
                 modal_object._enable();
             }
         }
-        ajax(ajax_data);
+        ajax(ajax_data,'Creating Source');
     }
     function source_update(modal_object, place){
         modal_object._disable();
@@ -547,6 +550,32 @@
                     modal_object.data.place.sources.splice(index, 1);
                     modal_object._setplace(modal_object.data.place);
                     send_search();
+                }
+            },
+            after_func: function(){
+                modal_object._enable();
+            }
+        }
+        ajax(ajax_data);
+    }
+    function media_delete(modal_object, media_id){
+        if(!media_id){ return show_message({type: 'danger', icon: 'fa-exclamation', text: 'Media not found'}); }
+
+        const ajax_data = {
+            url: '{{ URL("/ajax/admin/medias/delete") }}',
+            request_data: {
+                _token: csrf_token,
+                media_id: media_id,
+            },
+            before_func: function(){
+                modal_object._disable();
+            },
+            success_func: function(response_data) {
+                console.log(response_data);
+                if(response_data['success'] && response_data['success'] == true){
+                    const index = modal_object.data.place.medias.findIndex(media => media.id === media_id);
+                    modal_object.data.place.medias.splice(index, 1);
+                    modal_object._setplace(modal_object.data.place);
                 }
             },
             after_func: function(){

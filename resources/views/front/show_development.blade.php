@@ -18,7 +18,7 @@ Dev | Otherworlds
             <legend>[ADMIN] Place</legend>
             <ul>
                 <li>Index(ajax + filters)*</li>
-                <li>Create(from scratch, from wikipedia)</li>
+                <li>Create(from scratch*, from wikipedia)</li>
                 <li>Edit Basic Info*</li>
                 <li>Delete</li>
             </ul>
@@ -26,9 +26,9 @@ Dev | Otherworlds
         <fieldset>
             <legend>[ADMIN] Media</legend>
             <ul>
-                <li>Create(from scratch, from wikimedia)</li>
-                <li>Edit</li>
-                <li>Delete</li>
+                <li>Create(upload, single, gallery)</li>
+                <li>Edit(url, translations)</li>
+                <li>Delete*</li>
             </ul>
         </fieldset>
         <fieldset>

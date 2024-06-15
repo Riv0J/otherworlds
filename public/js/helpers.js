@@ -1,7 +1,11 @@
 async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
+function load_image(url, callback) {
+    const img = new Image();
+    img.onload = callback;
+    img.src = url;
+}
 function format_number(number) {
     if (number < 1000) {
         return number.toString();

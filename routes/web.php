@@ -101,7 +101,7 @@ Route::post('/ajax/places/favorite', [Front_PlaceController::class, 'ajax_place_
 // ajax place request
 Route::post('/ajax/places/request', [Front_PlaceController::class, 'ajax_place_request']);
 
-// BACK routes for admins
+// BACK VIEW routes for admins
 Route::middleware(['admin'])->group(function () {
     // ajax toggles, single click
     Route::post('/ajax/admin/users/reset_img', [Admin_UserController::class, 'ajax_reset_img']);
@@ -121,11 +121,18 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/ajax/admin/sources/create', [Admin_SourceController::class, 'ajax_create']);
     Route::post('/ajax/admin/sources/update', [Admin_SourceController::class, 'ajax_update']);
     Route::post('/ajax/admin/sources/delete', [Admin_SourceController::class, 'ajax_delete']);
+
+    //ajax medias
+    Route::post('/ajax/admin/medias/delete', [Admin_MediaController::class, 'ajax_delete']);
 });
 
-//owner only routes
+// BACK EDIT routes for admins($user->has_admin_privileges())
+Route::middleware(['ajax_edit'])->group(function () {
+
+});
+
+// BACK VIEW OWNER
 Route::middleware(['owner'])->group(function () {
     Route::post('/ajax/admin/visits/delete', [Admin_VisitController::class, 'ajax_delete_visit']);
-    Route::post('/ajax/admin/medias/delete', [Admin_MediaController::class, 'ajax_delete']);
 });
 

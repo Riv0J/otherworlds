@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use App\Models\Message;
-class AdminMiddleware
+
+class AjaxMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,14 +16,8 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next){
         $user = $request->user();
-        if ($user && $user->active == true && ($user->is_guest() || $user->is_admin() || $user->is_owner())) {
+        if ($user && $user->active == true && ($user->is_admin() || $user->is_owner())) {
             return $next($request);
-        }
-
-        if ($request->ajax()) {
-            return response()->json([
-                'message' => new Message(Message::TYPE_ERROR, ucfirst($user->role->name).': '.trans('otherworlds.no_privileges'))
-            ], Response::HTTP_FORBIDDEN);
         }
 
         $locale = $request->route('locale') ?? 'en';
