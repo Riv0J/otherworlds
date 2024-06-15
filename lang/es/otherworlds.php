@@ -133,6 +133,8 @@ return [
     'choose_option' => 'Elige una opción',
 
     // general
+    'config' => 'Configuración',
+    'database' => 'Base de datos',
     'unique' => 'Único',
     'all' => 'Todos',
     'confirm' => 'Confirmar',
