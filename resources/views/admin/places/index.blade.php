@@ -526,7 +526,6 @@
                     const index = modal_object.data.place.sources.findIndex(s => s.locale === selected_locale);
                     modal_object.data.place.sources[index] = response_data['source'];
                     modal_object._setplace(modal_object.data.place);
-                    send_search();
                 }
             },
             after_func: function(){
@@ -579,14 +578,15 @@
                 if(response_data['success'] && response_data['success'] == true){
                     const index = modal_object.data.place.medias.findIndex(media => media.id === media_id);
                     modal_object.data.place.medias.splice(index, 1);
-                    modal_object._setplace(modal_object.data.place);
+                    const mediabox = modal_object.query(`[media_id='${media_id}']`);
+                    mediabox.parentElement.removeChild(mediabox);
                 }
             },
             after_func: function(){
                 modal_object._enable();
             }
         }
-        ajax(ajax_data);
+        ajax(ajax_data, "Deleting media...");
     }
     function place_delete(modal_object){
         const place_id = modal_object.data.place.id;
@@ -597,7 +597,6 @@
                 place_id: place_id,
             },
             success_func: function(response_data) {
-                console.log(response_data);
                 if(response_data['success'] && response_data['success'] == true){
                     const row = document.querySelector(`tr[place_id="${place_id}"]`)
                     row.parentElement.removeChild(row);
