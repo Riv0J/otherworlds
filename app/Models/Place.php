@@ -48,14 +48,14 @@ class Place extends Model{
     }
 
     /**
-     *  Get this place's full public path
+     *  Get this place's full public slug directory path
      */
     public function get_path(){
         return public_path('places/'.$this->public_slug);
     }
 
     /**
-     * Update this place's public slug
+     * Update this place's public slug directory
      */
     public function update_public_slug($new_value){
         $old_path = $this->get_path();
@@ -65,7 +65,15 @@ class Place extends Model{
             File::move($old_path, $new_path);
         }
     }
-
+    /**
+     * Delete this place's public slug directory
+     */
+    public function delete_public_slug(){
+        $path = $this->get_path();
+        if (File::exists($path)) {
+            return File::deleteDirectory($path);
+        }
+    }
     /*
      * Deletes this places's saved thumbnail image
      */

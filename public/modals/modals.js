@@ -88,7 +88,7 @@ class Confirm_Modal extends Modal {
             <p class="text-center mb-2">${this.data.body}</p>
             <div class="w-100 modal_input_box flex-column gap-2 align-items-center">
                 <label></label>
-                <input class="w-100" type="text">
+                <input class="w-100">
             </div>
             <div class="modal_options justify-content-around d-flex flex-row mt-4">
                 <button class="modal_cancel">${this.data.cancel}</button>
@@ -148,7 +148,7 @@ class Choice_Modal extends Modal {
             <p class="text-center mb-2">${this.data.body}</p>
             <div class="w-100 modal_input_box flex-column gap-2 align-items-center">
                 <label></label>
-                <input class="w-100" type="text">
+                <input class="w-100" value="https://es.wikipedia.org/wiki/Capilla_de_M%C3%A1rmol">
             </div>
             <div class="modal_options">
                 <button class="modal_cancel modal_choice_2">${this.data.cancel}</button>

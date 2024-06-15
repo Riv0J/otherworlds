@@ -195,7 +195,6 @@ class Admin_PlaceController extends Controller{
      * Ajax, update a place's basic info in a specific locale
      */
     public function ajax_place_update(Request $request){
-
         $data = $request->all();
 
         app()->setLocale($data['locale']);
@@ -253,6 +252,7 @@ class Admin_PlaceController extends Controller{
                 'message' => new Message(Message::TYPE_ERROR, "Could not find this place"),
             ], 200);
         }
+        $place->delete_public_slug();
         $place->delete();
         $variables = [
             'success' => true,
