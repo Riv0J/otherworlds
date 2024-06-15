@@ -15,6 +15,13 @@ Dev | Otherworlds
     </h3>
     <div class="notes">
         <fieldset>
+            <legend>Middlewares</legend>
+            <ul>
+                <li>Back[guest,admin,owner]</li>
+                <li>Back edit[admin,owner]</li>
+            </ul>
+        </fieldset>
+        <fieldset>
             <legend>[ADMIN] Place</legend>
             <ul>
                 <li>Index(ajax + filters)*</li>

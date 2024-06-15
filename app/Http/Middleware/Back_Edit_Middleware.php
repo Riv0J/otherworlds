@@ -4,9 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-
-class AjaxMiddleware
-{
+use Illuminate\Http\Response;
+use App\Models\Message;
+class Back_Edit_Middleware{
     /**
      * Handle an incoming request.
      *
@@ -18,6 +18,12 @@ class AjaxMiddleware
         $user = $request->user();
         if ($user && $user->active == true && ($user->is_admin() || $user->is_owner())) {
             return $next($request);
+        }
+
+        if ($request->ajax()) {
+            return response()->json([
+                'message' => new Message(Message::TYPE_ERROR, ucfirst($user->role->name).': Can\'t make changes')
+            ], 200);
         }
 
         $locale = $request->route('locale') ?? 'en';

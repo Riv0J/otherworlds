@@ -6,8 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Message;
-class AdminMiddleware
-{
+class Back_Middleware{
     /**
      * Handle an incoming request.
      *
@@ -24,7 +23,7 @@ class AdminMiddleware
         if ($request->ajax()) {
             return response()->json([
                 'message' => new Message(Message::TYPE_ERROR, ucfirst($user->role->name).': '.trans('otherworlds.no_privileges'))
-            ], Response::HTTP_FORBIDDEN);
+            ], 200);
         }
 
         $locale = $request->route('locale') ?? 'en';

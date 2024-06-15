@@ -80,7 +80,7 @@ Route::prefix('{locale}')->middleware('visits')->group(function () {
         Route::get('/profile/reset_img/{user_id}', [Front_UserController::class, 'reset_img'])->name('reset_img');
 
         // ADMIN routes
-        Route::middleware(['admin'])->group(function () { //admin middleware in kernel.php $routeMiddleware
+        Route::middleware(['back'])->group(function () { //kernel.php
             Route::get('/admin/users', [Admin_UserController::class, 'index'])->name('user_index');
             Route::get('/admin/users/edit/{username}', [Admin_UserController::class, 'edit'])->name('user_edit');
             Route::post('/admin/users/update', [Admin_UserController::class, 'update'])->name('user_update');
@@ -101,8 +101,8 @@ Route::post('/ajax/places/favorite', [Front_PlaceController::class, 'ajax_place_
 // ajax place request
 Route::post('/ajax/places/request', [Front_PlaceController::class, 'ajax_place_request']);
 
-// BACK VIEW routes for admins
-Route::middleware(['admin'])->group(function () {
+// BACK VIEW routes for guests/admins/owner
+Route::middleware(['back'])->group(function () {
     // ajax toggles, single click
     Route::post('/ajax/admin/users/reset_img', [Admin_UserController::class, 'ajax_reset_img']);
     Route::post('/ajax/admin/users/toggle_ban', [Admin_UserController::class, 'ajax_toggle_ban']);
@@ -122,16 +122,17 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/ajax/admin/sources/update', [Admin_SourceController::class, 'ajax_update']);
     Route::post('/ajax/admin/sources/delete', [Admin_SourceController::class, 'ajax_delete']);
 
+
+});
+
+// BACK EDIT routes for admins/owner
+Route::middleware(['back_edit'])->group(function () {
+
     //ajax medias
     Route::post('/ajax/admin/medias/delete', [Admin_MediaController::class, 'ajax_delete']);
 });
 
-// BACK EDIT routes for admins($user->has_admin_privileges())
-Route::middleware(['ajax_edit'])->group(function () {
-
-});
-
-// BACK VIEW OWNER
+// BACK VIEW routes OWNER ONLY
 Route::middleware(['owner'])->group(function () {
     Route::post('/ajax/admin/visits/delete', [Admin_VisitController::class, 'ajax_delete_visit']);
 });

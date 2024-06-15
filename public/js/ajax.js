@@ -10,17 +10,18 @@ function ajax(ajax_data, loading_text){
 
     // check if request_data is a FormData instance
     let body;
-    let headers = {};
+    let headers = {
+        'X-Requested-With': 'XMLHttpRequest'
+    };
     if (request_data instanceof FormData) {
         headers['X-CSRF-TOKEN'] = request_data.get('_token'); // Agrega CSRF token al header si es FormData
         body = request_data;
     } else {
-        headers = {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': request_data['_token']
-        };
+        headers['Content-Type'] = 'application/json';
+        headers['X-CSRF-TOKEN'] = '_token';
         body = JSON.stringify(request_data);
     }
+    console.log(headers);
     // fetch send
     fetch(ajax_data['url'], {
         method: "POST",
