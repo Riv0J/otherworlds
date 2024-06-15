@@ -127,13 +127,16 @@ Route::middleware(['back'])->group(function () {
 
 // BACK EDIT routes for admins/owner
 Route::middleware(['back_edit'])->group(function () {
+    // places
+    Route::post('/ajax/admin/places/delete', [Admin_PlaceController::class, 'ajax_delete']);
 
-    //ajax medias
+    // medias
     Route::post('/ajax/admin/medias/delete', [Admin_MediaController::class, 'ajax_delete']);
 });
 
 // BACK VIEW routes OWNER ONLY
 Route::middleware(['owner'])->group(function () {
+    // visits
     Route::post('/ajax/admin/visits/delete', [Admin_VisitController::class, 'ajax_delete_visit']);
 });
 

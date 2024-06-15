@@ -248,18 +248,16 @@ class Admin_PlaceController extends Controller{
         $data = $request->all();
         $place = Place::find($data['place_id']);
 
-        if(auth()->user()->has_admin_privileges() == false){
-            return response()->json([
-                'message' => new Message(Message::TYPE_ERROR, "Not enough privileges to edit"),
-            ], 200);
-        }
-
         if(!$place){
             return response()->json([
                 'message' => new Message(Message::TYPE_ERROR, "Could not find this place"),
             ], 200);
         }
         $place->delete();
-        return response()->json(['success' => true]);
+        $variables = [
+            'success' => true,
+            'message' => new Message(Message::TYPE_SUCCESS, "Place deleted"),
+        ];
+        return response()->json($variables);
     }
 }

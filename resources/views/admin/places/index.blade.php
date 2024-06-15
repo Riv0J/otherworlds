@@ -186,7 +186,7 @@
         const country = countries[place.country_id];
         const cat = categories[place.category_id];
         const row = document.createElement('tr');
-
+        row.setAttribute('place_id', place.id);
         row.innerHTML += `
             <td class="number text-end">${counter}</td>
             <td title="${cat.keyword} (${cat.name})">
@@ -438,6 +438,10 @@
             on_delete_media: function(modal_object, media_id){
                 console.log('called on_delete_media');
                 media_delete(modal_object, media_id);
+            },
+            on_delete_place: function(modal_object){
+                console.log('called on_delete_place');
+                place_delete(modal_object);
             }
             }
         )
@@ -583,6 +587,25 @@
             }
         }
         ajax(ajax_data);
+    }
+    function place_delete(modal_object){
+        const place_id = modal_object.data.place.id;
+        const ajax_data = {
+            url: '{{ URL("/ajax/admin/places/delete") }}',
+            request_data: {
+                _token: csrf_token,
+                place_id: place_id,
+            },
+            success_func: function(response_data) {
+                console.log(response_data);
+                if(response_data['success'] && response_data['success'] == true){
+                    const row = document.querySelector(`tr[place_id="${place_id}"]`)
+                    row.parentElement.removeChild(row);
+                    modal_object._close();
+                }
+            }
+        }
+        ajax(ajax_data, "Deleting place...");
     }
 </script>
 @endsection

@@ -324,7 +324,7 @@ class Place_Edit_Modal extends Modal {
     _body(){
         return `
         <div class="modal_tab_content" id="content_danger_zone">
-            <button id="delete_place" class="button red">Delete this place<i class="fa-solid fa-trash"></i></button>
+            <button id="delete_place" class="button red">Delete place<i class="fa-solid fa-trash"></i></button>
         </div>
         <div class="modal_tab_content" id="content_medias">
             <div class="form_row w-100 justify-content-between gap-3 mb-3">
@@ -558,6 +558,10 @@ class Place_Edit_Modal extends Modal {
 
         this.query('#delete_source').addEventListener('click', (event)=>{
             this.data['on_delete_source'](this);
+        });
+
+        this.query('#delete_place').addEventListener('click', (event)=>{
+            this.data['on_delete_place'](this);
         });
 
         const tabs = this.element.querySelectorAll('.modal_tabs li');

@@ -15,7 +15,7 @@ Dev | Otherworlds
     </h3>
     <div class="notes">
         <fieldset>
-            <legend>Middlewares</legend>
+            <legend>Middleware</legend>
             <ul>
                 <li>Back[guest,admin,owner]</li>
                 <li>Back edit[admin,owner]</li>
