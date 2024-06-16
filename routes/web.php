@@ -128,6 +128,7 @@ Route::middleware(['back'])->group(function () {
 Route::middleware(['back_edit'])->group(function () {
     // places
     Route::post('/ajax/admin/places/create', [Admin_PlaceController::class, 'ajax_create']);
+    Route::post('/ajax/admin/places/wiki_create', [Admin_PlaceController::class, 'ajax_wiki_create']);
     Route::post('/ajax/admin/places/delete', [Admin_PlaceController::class, 'ajax_delete']);
 
     // medias

@@ -2,16 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpClient\HttpClient;
 
-class OHelper extends Model
-{
-    use HasFactory;
-
+class OHelper extends Model{
     public static function sluggify(string $string){
         // replace weird characters with underscore
         $string = preg_replace('/[\/?%*:|"<>\\.]/', '_', $string);
@@ -75,6 +72,7 @@ class OHelper extends Model
             $variables = [
                 'title' => $title_container->text(),
                 'content' => $html_content,
+                'gallery_url' => null,
                 'latitude' => null,
                 'longitude' => null,
             ];
@@ -88,9 +86,22 @@ class OHelper extends Model
 
                 $variables['latitude'] = OHelper::DMSToDecimal($latitude_parts['degrees'], $latitude_parts['minutes'], $latitude_parts['seconds'], $latitude_parts['direction']);
                 $variables['longitude'] = OHelper::DMSToDecimal($longitude_parts['degrees'], $longitude_parts['minutes'], $longitude_parts['seconds'], $longitude_parts['direction']);
-
             }
 
+            //try to get gallery_url
+            $gallery_link = $crawler->filter('a')->reduce(function (Crawler $node) {
+                return strpos($node->attr('href'), 'https://commons.wikimedia.org/wiki/Category:') !== false;
+            })->first();
+
+            //assign gallery_url
+            if ($gallery_link->count() > 0) {
+                $variables['gallery_url'] = $gallery_link->attr('href');
+            } else {
+                //try again with source title
+                $gallery_link = $crawler->filter('a')->reduce(function (Crawler $node) use ($variables) {
+                    return strpos($node->attr('href'), 'https://commons.wikimedia.org/wiki/' . $variables['title']) !== false;
+                })->first();
+            }
             return $variables;
 
         } else {
@@ -197,6 +208,38 @@ class OHelper extends Model
             $variables['direction'] = $ultima_letra;
         }
         return $variables;
+    }
+
+    /**
+     * Download an image to the server, returns an UploadedFile
+     * @param string $url
+     * @return array|null
+     */
+    public static function download_image($url) {
+        $client = HttpClient::create();
+        $response = $client->request('GET', $url);
+
+        if ($response->getStatusCode() !== 200) {
+            error_log('url '.$url);
+            error_log('CODE '.$response->getStatusCode());
+            return null;
+        }
+
+        $imageContent = $response->getContent();
+
+        // Obtén la información de la URL
+        $urlInfo = parse_url($url);
+        $pathInfo = pathinfo($urlInfo['path']);
+        $extension = $pathInfo['extension'] ?? '';
+
+        // Crea un archivo temporal con la extensión correcta
+        $tempFilePath = tempnam(sys_get_temp_dir(), 'img') . '.' . $extension;
+        file_put_contents($tempFilePath, $imageContent);
+
+        return [
+            'temp_path' => $tempFilePath,
+            'extension' => $extension
+        ];
     }
 
 }

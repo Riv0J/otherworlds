@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\CategoryTranslation;
+use App\Models\CountryTranslation;
 use App\Models\PlaceTranslation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,6 +14,7 @@ use App\Models\Place;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Media;
+use App\Models\Source;
 use App\Models\Message;
 use App\Models\OHelper;
 class Admin_PlaceController extends Controller{
@@ -122,7 +125,7 @@ class Admin_PlaceController extends Controller{
                 'messages' => $validator->errors()->all(),
             ], 422);
         }
-        if(PlaceTranslation::where('name', $data['name'])->exists()){
+        if(Place::name_exists($data['name'])){
             return response()->json([
                 'message' => new Message(Message::TYPE_ERROR, "A place with that name already exists"),
             ], 200);
@@ -188,6 +191,94 @@ class Admin_PlaceController extends Controller{
                 'message' => new Message(Message::TYPE_ERROR, "Generic error, please try again"),
             ], 500);
         }
+        return response()->json($variables);
+    }
+
+    /**
+     * Ajax, create a place given a Wikipedia URL
+     */
+    public function ajax_wiki_create(Request $request){
+        $messages = [];
+        $data = $request->all();
+        $locale = $data['locale'];
+        app()->setLocale($locale);
+
+        // extract the content from wikipedia page
+        $scrape_data = OHelper::getWikiContent($data['wikipedia_url']);
+
+        // use content to create the place
+        $slug = OHelper::sluggify($scrape_data['title']);
+        $place_name = $scrape_data['title'];
+
+        if(Place::name_exists($place_name)){
+            return response()->json([
+                'message' => new Message(Message::TYPE_ERROR, "A place with that name already exists"),
+            ], 200);
+        }
+
+        $place_data = [
+            'public_slug' => $slug,
+            'country_id' => (CountryTranslation::where('name', 'Unknown')->first())->country_id,
+            'category_id' => (CategoryTranslation::where('name', 'Unknown')->first())->category_id,
+            'gallery_url' => null,
+        ];
+
+        // add latitude and longitude (if they were scraped)
+        if($scrape_data['latitude'] != null && $scrape_data['longitude'] != null){
+            $place_data['latitude'] = $scrape_data['latitude'];
+            $place_data['longitude'] = $scrape_data['longitude'];
+        }
+
+        $place_data[$locale] = [
+            'slug' => $slug,
+            'name' => $place_name,
+            'synopsis' => '',
+        ];
+
+        // create translated attributes for this place in each locale
+        foreach (config('translatable.locales') as $loc) {
+            if($loc == $locale){ continue; }
+
+            $locale_str = '['.strtoupper($loc).']';
+            $place_data[$loc] = [
+                'slug' => $slug.'-'.$loc,
+                'name' => $place_name.' '.$locale_str,
+                'synopsis' => 'Placeholder '.$locale_str,
+            ];
+        }
+
+        // create place using $place_data
+        $new_place = Place::create($place_data);
+
+        // create source from content data
+        $source = Source::create([
+            'locale' => $locale,
+            'place_id' => $new_place->id,
+            'url' => $data['wikipedia_url'],
+            'title' => $scrape_data['title'],
+            'content' => $scrape_data['content'],
+        ]);
+
+        $messages[] = new Message(Message::TYPE_SUCCESS, 'Created place + source from wikipedia');
+
+        //attempt to get create medias
+        if($new_place->attempt_create_medias($scrape_data['gallery_url'])){
+            $messages[] = new Message(Message::TYPE_SUCCESS, 'Created medias automatically');
+
+            if($new_place->media_thumbnail()){
+                $messages[] = new Message(Message::TYPE_SUCCESS, 'Auto-assigned thumbnail');
+            } else {
+                $messages[] = new Message(Message::TYPE_ERROR, 'Could not assign thumbnail');
+            }
+        } else {
+            $messages[] = new Message(Message::TYPE_ERROR, 'Could not create medias automatically');
+        }
+
+        $variables =[
+            'success' => true,
+            'place' => Place::with('medias')->with('sources')->where('id', $new_place->id)->first(),
+            'messages' => $messages,
+        ];
         return response()->json($variables);
     }
 

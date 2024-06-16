@@ -179,16 +179,24 @@ class Choice_Modal extends Modal {
         this.element.querySelector('.modal_confirm').addEventListener('click', (event) => {
             super._close();
             if (this.data['on_confirm']) {
-                this.data['on_confirm'](input.value);
+                this.data['on_confirm'](this, input.value);
             }
         });
 
         this.element.querySelector('.modal_cancel').addEventListener('click', (event) => {
             super._close();
             if(this.data['on_cancel']){
-                this.data['on_cancel'](input.value);
+                this.data['on_cancel'](this, input.value);
             }
         });
+    }
+    _disable(){
+        this.query('.modal_confirm').disabled = true;
+        this.query('.modal_cancel').disabled = true;
+    }
+    _enable(){
+        this.query('.modal_confirm').disabled = false;
+        this.query('.modal_cancel').disabled = false;
     }
 }
 
@@ -328,7 +336,7 @@ class Place_Edit_Modal extends Modal {
         </div>
         <div class="modal_tab_content" id="content_medias">
             <div class="form_row w-100 justify-content-between gap-3 mb-3">
-                <input class="flex-grow-1" name="media_url" placeholder="Wikimedia image or gallery URL">
+                <input class="flex-grow-1" name="media_url" placeholder="Create from Wikimedia image or gallery URL">
                 <div class="d-inline-flex gap-3">
                     <button class="button" class="button" id="media_add_one">
                         <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add one

@@ -305,7 +305,7 @@
     const country_data = create_country_select_data(Object.values(countries));
     document.querySelector("#create_place").addEventListener('click', function(){
         const modal_data = {
-            title: '@lang('otherworlds.create_place_options')',
+            title: '@lang('otherworlds.create_place_options')'+' [{{$locale}}]'.toUpperCase(),
             body: '@lang('otherworlds.choose_option')',
             cancel: '@lang('otherworlds.from_scratch')',
             confirm: '@lang('otherworlds.from_wikipedia')',
@@ -314,15 +314,15 @@
                 placeholder: '@lang('otherworlds.wikipedia_link')',
                 label: '@lang('otherworlds.wikipedia_link')'
             },
-            on_confirm: function(input_value){
-                show_create_place_modal(input_value);
+            on_confirm: function(modal_object, input_value){
+                place_wiki_create(modal_object, input_value);
             },
             on_cancel: show_create_place_modal
         }
         const modal = new Choice_Modal(modal_data);
     })
 
-    function show_create_place_modal(input_value){
+    function show_create_place_modal(){
         const create_modal = new Place_Create_Modal({
             title: 'Create Place '+'[{{$locale}}]'.toUpperCase(),
             thumbnail: "{{asset('places/_placeholders/t.png')}}",
@@ -343,6 +343,30 @@
             }
             }
         )
+    }
+    function place_wiki_create(modal_object, wikipedia_url){
+        const ajax_data = {
+            url: '{{ URL('/ajax/admin/places/wiki_create') }}',
+            request_data: {
+                _token: csrf_token,
+                locale: '{{$locale}}',
+                wikipedia_url: wikipedia_url
+            },
+            before_func: function(){
+                modal_object._disable();
+            },
+            success_func: function(response_data) {
+                console.log(response_data);
+                if(response_data['success'] && response_data['success'] == true){
+                    send_search();
+                    show_edit_place_modal(response_data['place']);
+                }
+            },
+            after_func: function(){
+                modal_object._enable();
+            }
+        }
+        ajax(ajax_data,'Creating Source');
     }
     function create_place(modal_object){
         modal_object._disable();

@@ -36,7 +36,7 @@ function ajax(ajax_data, loading_text){
         }
         // error response
         else {
-            throw new Error('Error on response ' + response.statusText);
+            throw new Error('AJAX, Error on response: ' + response.statusText);
         }
     })
     // fetch handle data
@@ -56,7 +56,7 @@ function ajax(ajax_data, loading_text){
     })
     // fetch error
     .catch(error => {
-        console.error('AJAX Request Error:', error);
+        console.error('AJAX, Request Error:', error);
         show_message({type:'danger', icon:'fa-exclamation', text: error});
     })
     // fetch complete

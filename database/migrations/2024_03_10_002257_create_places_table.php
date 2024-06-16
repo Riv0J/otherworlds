@@ -40,11 +40,11 @@ return new class extends Migration{
             $table->id();
 
             $table->string('locale');
+            $table->string('slug');
 
             //translatable attributes
             $table->string('name');
-            $table->text('synopsis');
-            $table->string('slug');
+            $table->text('synopsis')->nullable();
 
             //foreign place_id
             $table->unsignedBigInteger('place_id');

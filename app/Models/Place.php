@@ -2,12 +2,14 @@
 
 namespace App\Models;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
-use Astrotomic\Translatable\Translatable;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
+
+use Astrotomic\Translatable\Translatable;
 
 use \App\Models\Crawly;
+
 class Place extends Model{
     use Translatable;
     protected $table = 'places';
@@ -104,6 +106,61 @@ class Place extends Model{
     }
 
     /**
+     * Set this place's thumbnail to first media
+     */
+    public function media_thumbnail(){
+        for ($i=0; $i < count($this->medias); $i++) {
+            $media_url = $this->medias[$i]->url;
+            if($this->thumbnail == basename($media_url)){
+                continue;
+            }
+
+            $image_data = OHelper::download_image($media_url);
+            $destination = public_path('places/' . $this->public_slug);
+
+            if (!file_exists($destination)) {
+                mkdir($destination, 0777, true);
+            }
+
+            $filename = 't.' . $image_data['extension'];
+            error_log($image_data['temp_path']);
+            if(!rename($image_data['temp_path'], $destination . '/' . $filename)){
+                unlink($image_data['temp_path']);
+            } else {
+                $this->thumbnail = $filename;
+                $this->save();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Attempt to create medias for this place
+     * Assumes this place has already a source at the current locale
+     */
+    public function attempt_create_medias($gallery_url){
+        try {
+            //attempt given the gallery url
+            $first_attempt = $this->create_medias($gallery_url);
+            if($first_attempt == true){
+                return true;
+            }
+
+            //fabricate the gallery url
+            $locale = null;
+            $gallery_url = $this->create_gallery_url($locale, false);
+            if(!$gallery_url){
+                $gallery_url = $this->create_gallery_url($locale, true);
+            }
+            return $this->create_medias($gallery_url);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return false;
+        }
+    }
+
+    /**
      * Generates the Wikimedia URL for this place's gallery
      *
      * Examples:
@@ -114,7 +171,7 @@ class Place extends Model{
      * @param bool $alternate (Optional) Whether to generate an alternate URL. Default is false
      * @return string|null The generated Wikimedia URL, or null if the source is not available
      */
-    public function create_gallery_url(string $locale, bool $alternate = false){
+    public function create_gallery_url(?string $locale, bool $alternate = false){
         // get the place's source in english
         $source = $this->getSource($locale);
 
@@ -144,8 +201,11 @@ class Place extends Model{
         // try crawling $wikimedia_url
         $images_count = 20;
         try {
+            $this->gallery_url = $wikimedia_url;
+            $this->save();
             // get the urls of all the images in the wikimedia_url
             $gallery_urls = Crawly::get_gallery_urls($wikimedia_url, $images_count);
+
         } catch (\Throwable $th) {
             error_log("---".$this->name.": Error while fetching ".$wikimedia_url.". Either does not exist or: " . $th->getMessage());
             return false;
@@ -193,6 +253,13 @@ class Place extends Model{
             error_log("---NO IMAGES IN WIKI GALLERY: ".$wikimedia_url);
         }
         return false;
+    }
+
+    /**
+     * Check if a given name already exists in the database
+     */
+    public static function name_exists($name){
+        return PlaceTranslation::where('name', $name)->exists();
     }
 }
 
