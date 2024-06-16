@@ -22,20 +22,18 @@ Dev | Otherworlds
             </ul>
         </fieldset>
         <fieldset>
-            <legend>[ADMIN] Place</legend>
-            <ul>
-                <li>Index(ajax + filters)*</li>
-                <li>Create(from scratch*, from wikipedia)</li>
-                <li>Edit Basic Info*</li>
-                <li>Delete*</li>
-            </ul>
-        </fieldset>
-        <fieldset>
             <legend>[ADMIN] Media</legend>
             <ul>
                 <li>Create(upload, single, gallery)</li>
                 <li>Edit(url, translations)</li>
                 <li>Delete*</li>
+            </ul>
+        </fieldset>
+        <fieldset>
+            <legend>Implementations</legend>
+            <ul>
+                <li>Email verification & password reset</li>
+                <li>Admin home (dashboard)</li>
             </ul>
         </fieldset>
         <fieldset>
@@ -52,18 +50,11 @@ Dev | Otherworlds
     <h3>Low Prio</h3>
     <div class="notes">
         <fieldset>
-            <legend>Implementations</legend>
-            <ul>
-                <li>Email verification & password reset</li>
-                <li>Admin home (dashboard)</li>
-            </ul>
-        </fieldset>
-        <fieldset>
             <legend>[Front] Place</legend>
             <ul>
                 <li>Total 75 Places</li>
                 <li>Index search + filters</li>
-                <li>Show comments</li>
+                <li>Comments</li>
                 <li>Media order</li>
             </ul>
         </fieldset>
@@ -87,6 +78,15 @@ Dev | Otherworlds
 
     <h3>Complete</h3>
     <div class="notes">
+        <fieldset>
+            <legend>[ADMIN] Place</legend>
+            <ul>
+                <li>Index(ajax + filters)*</li>
+                <li>Create(from scratch*, from wikipedia*)</li>
+                <li>Edit Basic Info*</li>
+                <li>Delete*</li>
+            </ul>
+        </fieldset>
         <fieldset>
             <legend>[ADMIN] Source</legend>
             <ul>
@@ -119,7 +119,7 @@ Dev | Otherworlds
             </ul>
         </fieldset>
         <fieldset>
-            <legend>[Admin] User</legend>
+            <legend>[ADMIN] User</legend>
             <ul>
                 <li>Index (+ajax)</li>
                 <li>Create</li>
@@ -128,7 +128,7 @@ Dev | Otherworlds
             </ul>
         </fieldset>
         <fieldset>
-            <legend>[Admin] Visit</legend>
+            <legend>[ADMIN] Visit</legend>
             <ul>
                 <li>Index (+ajax)</li>
                 <li>Delete</li>
