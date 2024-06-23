@@ -10,7 +10,7 @@ use App\Models\Message;
 class Admin_MediaController extends Controller{
 
     /**
-     * Ajax, delete a specific Media
+     * Ajax, DELETE a specific Media
      */
     public function ajax_delete(Request $request){
         $data = $request->all();
@@ -24,5 +24,12 @@ class Admin_MediaController extends Controller{
             $response['message'] = new Message(Message::TYPE_SUCCESS, 'Media deleted');
         }
         return response()->json($response);
+    }
+
+    /**
+     * Ajax, CREATE a specific Media via upload
+     */
+    public function ajax_create(Request $request){
+        return response()->json($request);
     }
 }

@@ -50,6 +50,14 @@ Dev | Otherworlds
     <h3>Low Prio</h3>
     <div class="notes">
         <fieldset>
+            <legend>[ADMIN] Visit</legend>
+            <ul>
+                <li>Clump per place</li>
+                <li>Artisan command</li>
+                <li>Schedule cronjob clump</li>
+            </ul>
+        </fieldset>
+        <fieldset>
             <legend>[Front] Place</legend>
             <ul>
                 <li>Total 75 Places</li>
