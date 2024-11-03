@@ -4,8 +4,8 @@
     <div class="container p-4 flex_center align-items-lg-start flex-column flex-lg-row gap-3">
 
         {{-- brand --}}
-        <a class="brand_anchor white gap-2 p-3" href="{{ route('home',['locale' => $locale]) }}">
-            @include('icons.moon_white')
+        <a class="brand_anchor white p-3" href="{{ route('home',['locale' => $locale]) }}">
+            <img src="{{asset('img/logo.png')}}" alt="Otherworlds Planet Logo">
             <span>therworlds</span>
         </a>
 

@@ -3,8 +3,8 @@
 <header class="bg_gradient_black">
     <div class="py-1 py-lg-2 px-3 px-lg-5 white">
         {{-- home anchor --}}
-        <a class="brand_anchor white gap-2" href="{{ route('home',['locale' => $locale]) }}">
-            @include('icons.moon_white')
+        <a class="brand_anchor white" href="{{ route('home',['locale' => $locale]) }}">
+            <img src="{{asset('img/logo.png')}}" alt="Otherworlds Planet Logo">
             <span>therworlds</span>
         </a>
 
@@ -24,11 +24,11 @@
             flex-column flex-lg-row">
 
             {{-- development link --}}
-            <a class="nav_link regular
+            <!-- <a class="nav_link regular
                 @php if(isset($slug_key) && $slug_key == 'dev_slug'){ echo('active_link'); } @endphp"
                 href="{{ route('development',['locale' => $locale]) }}">
                 [Development]
-            </a>
+            </a> -->
 
             {{-- places link --}}
             <a class="nav_link regular

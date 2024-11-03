@@ -205,31 +205,54 @@ fieldset{
     letter-spacing: 0.1rem;
 
     color: white;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 0.2rem;
     transition: all 0.5s;
-}
-.brand_anchor>span{
-    position: relative;
+    display: flex;
 }
 .brand_anchor:hover{
     transform: scale(1.05);
 }
-.brand_anchor>svg{
-    transition: all 5s;
+@keyframes tilt {
+    0% {
+        rotate: -5deg;
+    }
+    50% {
+        rotate: 5deg;
+    }
+    100% {
+        rotate: -5deg;
+    }
 }
-.brand_anchor:hover>svg{
-    transform: rotate(90deg);
+
+@keyframes flip {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(-1, 1);
+    }
+    100% {
+        transform: scale(-1, 1);
+    }
 }
-.brand_anchor:hover>span::after{
-    left: 0;
-    width: 100%;
+
+@keyframes flip-back {
+    0% {
+        transform: scale(-1, 1);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+.brand_anchor>img {
+    width: 3rem;
+    animation: flip-back 0.5s forwards, tilt 5s infinite alternate;
+}
+
+.brand_anchor:hover>img {
+    animation: flip 0.5s forwards, tilt 5s infinite alternate;
 }
 /* brand anchor end*/
-
 
 /* media queries */
 /* pantallas mayores de 1921px */

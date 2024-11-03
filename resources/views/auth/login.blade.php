@@ -27,12 +27,6 @@
                 </label>
 
                 <div class="flex_center gap-2">
-                    <button type="button" class="app_button" onclick="login('user@gmail.com', 'user')">
-                        User
-                    </button>
-                    <button type="button" class="app_button" onclick="login('admin@gmail.com', 'admin')">
-                        Admin
-                    </button>
                     <button type="button" class="app_button" onclick="login('guest@gmail.com', 'guest')">
                         Guest
                     </button>

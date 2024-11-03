@@ -6,7 +6,7 @@
         </a>
         <div class="div_h"></div>
         <a id="home_anchor" href="{{route('home', ['locale' => $locale])}}" class="flex_center">
-            @include('icons.moon_white')
+            <img src="{{asset('img/logo.png')}}">
             <h5 class="regular quicksand text-center">therworlds</h5>
         </a>
         <div class="div_h"></div>
@@ -93,8 +93,9 @@
         font-size: 1rem;
         min-width: 18px;
     }
-    #admin_aside svg{
+    #admin_aside img{
         width: 1.25rem;
+        scale: 1.75;
     }
     #admin_aside .div_h{
         transform: scaleX(0.85);

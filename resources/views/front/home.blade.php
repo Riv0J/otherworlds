@@ -164,9 +164,9 @@
 
 <section class="col-12 px-md-5 py-5 flex_center flex-column gap-5 light white">
 
-    <h1 class="semibold text-center flex_center gap-3 col-12 py-4 app_bg">
+    <h1 class="semibold text-center flex_center gap-2 col-12 py-4 app_bg">
         <span class="spin_anim">
-            @include('icons.moon_white')
+            <img style="width: 4rem" src="{{asset('img/logo.png')}}" alt="Otherworlds Planet Logo">
         </span>
         therworlds
     </h1>
@@ -184,7 +184,7 @@
     <style>
         .spin_anim {
             display: flex;
-            animation: spin 40s linear alternate;
+            animation: spin 60s linear alternate;
             scale: 1.25;
         }
         @keyframes spin {

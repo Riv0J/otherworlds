@@ -24,9 +24,9 @@ class UserSeeder extends Seeder{
         $user_role_id = (Role::where('name', 'user')->first())->id;
 
         $owner = User::create([
-            'name' => 'rivito',
-            'email' => 'rivitoy@gmail.com',
-            'password' => Hash::make('rivitoy'),
+            'name' => 'owner',
+            'email' => 'info@otherworlds.es',
+            'password' => Hash::make('GOtherworldsRMU1652'),
             'role_id' => $owner_role_id,
             'country_id' => 1,
             'img' => 'premade/1.gif'

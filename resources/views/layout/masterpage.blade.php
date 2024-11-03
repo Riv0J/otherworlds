@@ -44,7 +44,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet">
 
         {{-- custom CSS --}}
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}"/>
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=1"/>
         <link rel="stylesheet" href="{{ asset('css/alerts.css') }}"/>
         <link rel="stylesheet" href="{{ asset('css/search.css') }}"/>
 

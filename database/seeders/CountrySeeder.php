@@ -309,6 +309,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Costa Rica'
             ],
+            'code' => 'cri'
         ],
         [
             'en' => [
@@ -983,6 +984,7 @@ class CountrySeeder extends Seeder
             'en' => [
                 'name' => 'Panama'
             ],
+            'code' => 'pan'
         ],
         [
             'es' => [
