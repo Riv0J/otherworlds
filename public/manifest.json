@@ -1,0 +1,26 @@
+{
+    "name": "Otherworlds",
+    "short_name": "Otherworlds",
+    "description": "Explora lugares únicos alrededor del mundo y fomenta la conservación ambiental.",
+    "start_url": "/home",
+    "display": "standalone",
+    "background_color": "#1E222B",
+    "theme_color": "#2F4472",
+    "icons": [
+        {
+            "src": "/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/apple-icon-180x180.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ]
+}
