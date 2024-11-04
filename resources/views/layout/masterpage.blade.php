@@ -12,7 +12,7 @@
 
         {{-- favicon --}}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icons/apple-icon-180x180.png') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('icon-apple-180.png') }}">
 
         {{-- manifest --}}
         <link rel="manifest" href="{{ asset('manifest.json') }}">
