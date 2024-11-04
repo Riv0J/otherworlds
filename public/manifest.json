@@ -4,7 +4,7 @@
     "description": "Explora lugares únicos alrededor del mundo y fomenta la conservación ambiental.",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#2F4472",
+    "background_color": "#141F38",
     "theme_color": "#2F4472",
     "icons": [
         {
