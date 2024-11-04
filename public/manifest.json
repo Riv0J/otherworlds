@@ -8,13 +8,13 @@
     "theme_color": "#2F4472",
     "icons": [
         {
-            "src": "/icons/icon-512x512.png",
+            "src": "icons/icon-512x512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
         },
         {
-            "src": "/icons/apple-icon-180x180.png",
+            "src": "icons/apple-icon-180x180.png",
             "sizes": "180x180",
             "type": "image/png",
             "purpose": "maskable"
