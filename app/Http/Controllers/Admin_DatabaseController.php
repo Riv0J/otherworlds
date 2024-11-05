@@ -126,9 +126,11 @@ public function git_pull()
 
     // Verificar si el comando fue exitoso
     if ($returnVar === 0) {
-        return response()->json(['success' => 'App updated successfully.', 'output' => $output]);
+        success_message('App updated successfully: '.$output);
     } else {
-        return response()->json(['error' => 'Failed to update the repository.', 'output' => $output], 500);
+        error_message('Error trying to update: '.$output);
     }
+    
+    return redirect()->back();
 }
 }
