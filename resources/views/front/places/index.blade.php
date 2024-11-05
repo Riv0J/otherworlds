@@ -16,9 +16,9 @@
 <link rel="stylesheet" href="{{ asset('css/views/place_index.css') }}"/>
 
 <section class="col-12 py-2 px-3 px-lg-5 app_bg d-inline-flex justify-content-between">
-    <h2 class="semibold display-5">
+    <h1 class="semibold display-5">
         @lang('otherworlds.unique_places')
-    </h2>
+    </h1>
     {{-- <nav class="buttons">
         <i class="fa-solid fa-spinner"></i>
         <div class="search_bar">

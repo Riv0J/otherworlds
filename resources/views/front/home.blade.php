@@ -9,7 +9,7 @@
 @endsection
 
 @section('canonical')
-{{ url($locale.'/home') }}
+{{ request()->url() }}
 @endsection
 
 @section('content')

@@ -23,13 +23,6 @@
             d-none d-lg-flex
             flex-column flex-lg-row">
 
-            {{-- development link --}}
-            <!-- <a class="nav_link regular
-                @php if(isset($slug_key) && $slug_key == 'dev_slug'){ echo('active_link'); } @endphp"
-                href="{{ route('development',['locale' => $locale]) }}">
-                [Development]
-            </a> -->
-
             {{-- places link --}}
             <a class="nav_link regular
                 @php if(isset($slug_key) && $slug_key == 'places_slug'){ echo('active_link'); } @endphp"
