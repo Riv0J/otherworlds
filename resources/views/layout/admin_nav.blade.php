@@ -49,10 +49,12 @@
             <i class="fa-solid fa-gear"></i>
             <h5 class="light">@lang('otherworlds.config')[NYI]</h5>
         </a>
-        <a href="#"
+        <a href="{{route('database')}}"
             @php if(str_ends_with($current_url,'admin/database')){ echo('active'); } @endphp>
             <i class="fa-solid fa-database"></i>
-            <h5 class="light">@lang('otherworlds.database')[NYI]</h5>
+            <h5 class="light">@lang('otherworlds.database')
+                @if($logged->is_guest())<i class="fa-solid fa-ban"></i>@endif
+            </h5>
         </a>
         <a href="javascript:void(0)" class="minimizer">
             <i class="fa-solid fa-arrow-left"></i>

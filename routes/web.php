@@ -16,7 +16,7 @@ use App\Http\Controllers\Admin_VisitController;
 use App\Http\Controllers\Admin_PlaceController;
 use App\Http\Controllers\Admin_MediaController;
 use App\Http\Controllers\Admin_SourceController;
-
+use App\Http\Controllers\Admin_DatabaseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -143,5 +143,11 @@ Route::middleware(['back_edit'])->group(function () {
 Route::middleware(['owner'])->group(function () {
     // visits
     Route::post('/ajax/admin/visits/delete', [Admin_VisitController::class, 'ajax_delete_visit']);
+
+    Route::get('/admin/database', [Admin_DatabaseController::class, 'index'])->name('database');
+    Route::get('/admin/database/download', [Admin_DatabaseController::class, 'download'])->name('database_download');
+    Route::post('/admin/database/upload', [Admin_DatabaseController::class, 'upload'])->name('database_upload');
+    
+    
 });
 
