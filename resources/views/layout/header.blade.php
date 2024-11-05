@@ -75,11 +75,11 @@
             @endif
 
             {{-- lang dropdown START--}}
-            <div class="dropdown">
-                <a href="javascript:void(0)" class="dropdown_toggler gap-2 regular">
+            <div class="nav_link dropdown">
+                <div class="dropdown_toggler gap-2 regular">
                     @lang('otherworlds.lang')
                     <i class="fa-solid fa-angle-down"></i>
-                </a>
+                </div>
 
                 <div class="dropdown_options">
                 @foreach (config('translatable.locales') as $loc)
@@ -181,7 +181,7 @@
         overflow: visible;
     }
 
-    #responsive_nav a {
+    #responsive_nav a, .dropdown_toggler {
         position: relative;
         font-size: 1.3rem;
         transition: all 0.5s;
