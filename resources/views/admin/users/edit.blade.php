@@ -53,7 +53,7 @@
                         checked
                     @endif
 
-                    @if($user->has_admin_privileges() == true)
+                    @if(($user->is_admin() == true && $logged->id == $user->id) || $user->is_owner() == true)
                         checked disabled
                     @endif
                     >
