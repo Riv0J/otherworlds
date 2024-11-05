@@ -11,7 +11,7 @@
         {{-- responsive button --}}
         </button>
         <button id="responsive_nav_toggler" class="d-md-block d-lg-none">
-            <i class="ri-menu-line"></i>
+            <i class="fa-solid fa-bars"></i>
         </button>
 
         {{-- nav --}}

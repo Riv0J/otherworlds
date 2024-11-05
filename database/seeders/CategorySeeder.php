@@ -116,7 +116,7 @@ class CategorySeeder extends Seeder
                 ],
                 'en' => [
                     'keyword' => 'Caves',
-                    'name' => 'Karstic kormations',
+                    'name' => 'Karstic formations',
                     'description' => 'Geological features formed by the dissolution of soluble rocks, such as caves, sinkholes, stalactites, etc',
                 ],
                 'img_name' => 'icicles'
