@@ -95,8 +95,7 @@ class Admin_DatabaseController extends Controller {
         return response()->download(public_path($fileName))->deleteFileAfterSend(true);
     }
     
-    private function addFilesToZip($zip, $source, $basePath)
-    {
+    private function addFilesToZip($zip, $source, $basePath){
         $files = File::allFiles($source);
         
         foreach ($files as $file) {
@@ -116,21 +115,22 @@ class Admin_DatabaseController extends Controller {
         dd(phpinfo());
     }
 
-public function git_pull()
-{
-    // Define el comando para hacer git pull
-    $command = 'cd /var/www/otherworlds && git pull origin main';
+    //verificar que la carpeta de proyecto tenga persmisos
+    //sudo chown -R www-data:www-data /var/www/otherworlds
+    public function git_pull(){
+        // Define el comando para hacer git pull
+        $command = 'cd /var/www/otherworlds && git pull origin main';
 
-    // Ejecutar el comando
-    exec($command, $output, $returnVar);
+        // Ejecutar el comando
+        exec($command, $output, $returnVar);
 
-    // Verificar si el comando fue exitoso
-    if ($returnVar === 0) {
-        success_message('App updated successfully: ' . implode("\n", $output));
-    } else {
-        error_message('Error trying to update: ' . implode("\n", $output));
+        // Verificar si el comando fue exitoso
+        if ($returnVar === 0) {
+            success_message('Command successful. ' . implode("\n", $output));
+        } else {
+            error_message('Command error. ' . implode("\n", $output));
+        }
+        
+        return redirect()->back();
     }
-    
-    return redirect()->back();
-}
 }
