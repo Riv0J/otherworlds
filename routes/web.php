@@ -81,17 +81,21 @@ Route::prefix('{locale}')->middleware('visits')->group(function () {
 
         // ADMIN routes
         Route::middleware(['back'])->group(function () { //kernel.php
-            Route::get('/admin/users', [Admin_UserController::class, 'index'])->name('user_index');
+            
             Route::get('/admin/users/edit/{username}', [Admin_UserController::class, 'edit'])->name('user_edit');
             Route::post('/admin/users/update', [Admin_UserController::class, 'update'])->name('user_update');
             Route::get('/admin/users/create', [Admin_UserController::class, 'create'])->name('user_create');
             Route::post('/admin/users/store', [Admin_UserController::class, 'store'])->name('user_store');
             Route::delete('/admin/users/delete', [Admin_UserController::class, 'delete'])->name('user_delete');
 
-            Route::get('/admin/visits', [Admin_VisitController::class, 'index'])->name('visit_index');
             Route::get('/admin/places', [Admin_PlaceController::class, 'index'])->name('place_index');
             Route::get('/admin/places/create', [Admin_PlaceController::class, 'create'])->name('place_create');
             Route::post('/admin/places/store', [Admin_PlaceController::class, 'store'])->name('place_store');
+        });
+
+        Route::middleware(['back_edit'])->group(function () {
+        Route::get('/admin/users', [Admin_UserController::class, 'index'])->name('user_index');
+        Route::get('/admin/visits', [Admin_VisitController::class, 'index'])->name('visit_index');
         });
     });
 });
@@ -103,33 +107,33 @@ Route::post('/ajax/places/request', [Front_PlaceController::class, 'ajax_place_r
 
 // BACK VIEW routes for guests/admins/owner
 Route::middleware(['back'])->group(function () {
-    // ajax toggles, single click
-    Route::post('/ajax/admin/users/reset_img', [Admin_UserController::class, 'ajax_reset_img']);
-    Route::post('/ajax/admin/users/toggle_ban', [Admin_UserController::class, 'ajax_toggle_ban']);
-
     // ajax paginated requests
-    Route::post('/ajax/admin/users/request', [Admin_UserController::class, 'ajax_user_request']);
     Route::post('/ajax/admin/visits/request', [Admin_VisitController::class, 'ajax_visit_request']);
 
     // ajax places
     Route::post('/ajax/admin/places/request', [Admin_PlaceController::class, 'ajax_place_request']);
     Route::post('/ajax/admin/places/get', [Admin_PlaceController::class, 'ajax_place_get']);
-    Route::post('/ajax/admin/places/update', [Admin_PlaceController::class, 'ajax_place_update']);
-
-    // ajax sources
-    Route::post('/ajax/admin/sources/create', [Admin_SourceController::class, 'ajax_create']);
-    Route::post('/ajax/admin/sources/update', [Admin_SourceController::class, 'ajax_update']);
-    Route::post('/ajax/admin/sources/delete', [Admin_SourceController::class, 'ajax_delete']);
-
 
 });
 
 // BACK EDIT routes for admins/owner
 Route::middleware(['back_edit'])->group(function () {
+    //ajax user
+    Route::post('/ajax/admin/users/request', [Admin_UserController::class, 'ajax_user_request']);
+    // ajax toggles, single click
+    Route::post('/ajax/admin/users/reset_img', [Admin_UserController::class, 'ajax_reset_img']);
+    Route::post('/ajax/admin/users/toggle_ban', [Admin_UserController::class, 'ajax_toggle_ban']);
+
     // places
+    Route::post('/ajax/admin/places/update', [Admin_PlaceController::class, 'ajax_place_update']);
     Route::post('/ajax/admin/places/create', [Admin_PlaceController::class, 'ajax_create']);
     Route::post('/ajax/admin/places/wiki_create', [Admin_PlaceController::class, 'ajax_wiki_create']);
     Route::post('/ajax/admin/places/delete', [Admin_PlaceController::class, 'ajax_delete']);
+    
+    // ajax sources
+    Route::post('/ajax/admin/sources/create', [Admin_SourceController::class, 'ajax_create']);
+    Route::post('/ajax/admin/sources/update', [Admin_SourceController::class, 'ajax_update']);
+    Route::post('/ajax/admin/sources/delete', [Admin_SourceController::class, 'ajax_delete']);
 
     // medias
     Route::post('/ajax/admin/medias/delete', [Admin_MediaController::class, 'ajax_delete']);

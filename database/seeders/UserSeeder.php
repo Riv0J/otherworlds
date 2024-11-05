@@ -25,8 +25,8 @@ class UserSeeder extends Seeder{
 
         $owner = User::create([
             'name' => 'owner',
-            'email' => 'info@otherworlds.es',
-            'password' => Hash::make('GOtherworldsRMU1652'),
+            'email' => 'owner@gmail.com',
+            'password' => Hash::make('owner'),
             'role_id' => $owner_role_id,
             'country_id' => 1,
             'img' => 'premade/1.gif'
@@ -39,14 +39,6 @@ class UserSeeder extends Seeder{
             'role_id' => $admin_role_id,
             'country_id' => 1,
             'img' => 'premade/2.gif'
-        ]);
-        $admin2 = User::create([
-            'name' => 'admin2',
-            'email' => 'admin2@gmail.com',
-            'password' => Hash::make('admin2'),
-            'role_id' => $admin_role_id,
-            'country_id' => 1,
-            'img' => 'premade/3.gif'
         ]);
 
         $user = User::create([

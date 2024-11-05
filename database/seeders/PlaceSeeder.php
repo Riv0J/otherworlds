@@ -418,7 +418,6 @@ class PlaceSeeder extends Seeder{
                 'en' => [
                     'name' => 'Colca Canyon',
                     'synopsis' => "Mountains with a depth of 3250 meters along the Colca River",
-
                 ],
                 'sources' => [
                     [
@@ -1223,9 +1222,53 @@ class PlaceSeeder extends Seeder{
                 'category_keyword' => 'Nature',
                 'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Mammals_of_the_Okavango_Delta'
             ],
-
+            [
+                'es' => [
+                    'name' => 'Acantilados Vermilion',
+                    'synopsis' => 'Estratos de roca profundamente erosionados de un llamativo color rojo intenso',
+                ],
+                'en' => [
+                    'name' => 'Vermilion Cliffs',
+                    'synopsis' => 'Deeply eroded and red-colored rock strata',
+                ],
+                'sources' => [
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Vermilion_Cliffs_National_Monument',
+                    ],
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Acantilados_Vermilion',
+                    ],
+                ],
+                'country_name' => 'United States',
+                'category_keyword' => 'Valleys',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Vermilion_Cliffs_National_Monument'
+            ],
+            [
+            'es' => [
+                'name' => 'Cataratas del Iguazú',
+                'synopsis' => 'Impresionantes cascadas que forman un majestuoso sistema de 275 saltos de agua, rodeadas de exuberante selva subtropical.',
+            ],
+            'en' => [
+                'name' => 'Iguazu Falls',
+                'synopsis' => 'Stunning waterfalls that form a majestic system of 275 water jumps, surrounded by lush subtropical rainforest.',
+            ],
+                'sources' => [
+                    [
+                        'locale' => 'en',
+                        'url' => 'https://en.wikipedia.org/wiki/Iguazu_Falls',
+                    ],
+                    [
+                        'locale' => 'es',
+                        'url' => 'https://es.wikipedia.org/wiki/Cataratas_del_Iguaz%C3%BA',
+                    ],
+                ],
+                'country_name' => 'Argentina',
+                'category_keyword' => 'Water',
+                'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Iguazu_Falls_in_the_2010s'
+            ],
         ];
-
 
     }
 }

@@ -24,7 +24,7 @@ class RoleSeeder extends Seeder
 
         Role::create([
             'name' => 'admin',
-            'icon' => 'fa-user-astronaut'
+            'icon' => 'fa-user-gear'
         ]);
 
         Role::create([

@@ -23,6 +23,9 @@
                 <h3 class="regular">@lang('otherworlds.edit_profile')</h3>
             </div>
             <nav class="buttons">
+                <a href="{{route("user_index",['locale'=>$locale])}}" id="return" class="button d-none d-lg-flex button info border">
+                    <i class="fa-solid fa-angles-left"></i> Return
+                </a>
                 <button type="submit" class="button square info">
                     <i class="fa-solid fa-floppy-disk"></i>
                 </button>
@@ -49,6 +52,10 @@
                     @if($user->active == true)
                         checked
                     @endif
+
+                    @if($user->has_admin_privileges() == true)
+                        checked disabled
+                    @endif
                     >
                     <small>(Uncheck to ban)</small>
                 </div>
@@ -59,12 +66,13 @@
                 <label class="col-md-4 col-form-label text-md-end white" for="birth_date">
                     @lang('otherworlds.role')*
                 </label>
+
                 <div class="col-md-2 d-inline-flex">
                     <select class="p-2 p-md-0" name="role" required>
 
-                        @if($user->role->name == 'owner')
-                            <option value="{{$user->role->id}}" selected>OWNER</option>
-                        @else
+                        @if($user->has_admin_privileges() && $user->id == $logged->id)
+                            <option value="{{$user->role->id}}" selected >{{strtoupper($user->role->name)}}</option>
+                        @elseif($user->is_editable($logged))
                             @foreach ($roles as $role)
                                 <option value="{{$role->id}}"
                                     @if ($user->role->name == $role->name)
@@ -198,19 +206,6 @@
         </div>
 
     </form>
-
-    {{-- return START --}}
-    <a href="{{route("user_index",['locale'=>$locale])}}" id="return" class="button d-none d-lg-flex button info border">
-        <i class="fa-solid fa-angles-left"></i>
-    </a>
-    <style>
-        #return {
-            position: fixed;
-            top: 50%;
-            left: 10%
-        }
-    </style>
-    {{-- return END --}}
 @endsection
 
 @section('script')

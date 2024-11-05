@@ -1,4 +1,5 @@
 <nav id="admin_aside">
+    @php $logged = auth()->user() @endphp
     <div>
         <a href="javascript:void(0)" class="minimizer">
             <i class="fa-solid fa-arrow-left"></i>
@@ -11,26 +12,36 @@
         </a>
         <div class="div_h"></div>
         @php $current_url = url()->current(); @endphp
-        <a href="#"
+
+        <!-- <a href="#"
             @php if(str_ends_with($current_url,'admin/dashboard')){ echo('active'); } @endphp>
             <i class="fa-solid fa-house-chimney"></i>
             <h5 class="light">Dashboard</h5>
-        </a>
+        </a> -->
+
         <a href="{{route('user_index', ['locale' => $locale])}}"
             @php if(str_ends_with($current_url,'admin/users')){ echo('active'); } @endphp>
             <i class="fa-solid fa-users"></i>
-            <h5 class="light">@lang('otherworlds.users')</h5>
+            <h5 class="light">
+                @lang('otherworlds.users')
+                @if($logged->is_guest())<i class="fa-solid fa-ban"></i>@endif
+            </h5>
         </a>
+        
         <a href="{{route('place_index', ['locale' => $locale])}}"
             @php if(str_ends_with($current_url,'admin/places')){ echo('active'); } @endphp>
             <i class="fa-solid fa-panorama"></i>
             <h5 class="light">@lang('otherworlds.places')</h5>
         </a>
+
         <a href="{{route('visit_index', ['locale' => $locale])}}"
             @php if(str_ends_with($current_url,'admin/visits')){ echo('active'); } @endphp>
             <i class="fa-solid fa-chart-line"></i>
-            <h5 class="light">@lang('otherworlds.visits')</h5>
+            <h5 class="light">@lang('otherworlds.visits')
+                @if($logged->is_guest())<i class="fa-solid fa-ban"></i>@endif
+            </h5> 
         </a>
+
     </div>
     <div>
         <a href="#"
@@ -87,11 +98,16 @@
         background: var(--gray_opacity)
     }
     #admin_aside h5{
+        display: inline-flex;
         overflow: hidden;
     }
     #admin_aside i{
         font-size: 1rem;
         min-width: 18px;
+    }
+    #admin_aside h5 i{
+        font-size: 0.75rem;
+        margin-left: 0.25rem
     }
     #admin_aside img{
         width: 1.25rem;

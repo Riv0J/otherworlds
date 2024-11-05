@@ -57,7 +57,8 @@ class Admin_UserController extends Controller{
         $user = User::find($data['user_id']);
         if(!$user){ return redirect()->back()->withErrors("User not found"); }
 
-        $can_edit = $user->is_editable(Auth::user());
+        $editor = Auth::user();
+        $can_edit = $user->is_editable($editor);
         if(!$can_edit){ return redirect()->back()->withErrors("You cannot edit this user"); }
 
         $country = Country::find($data['country_id']);
@@ -88,19 +89,31 @@ class Admin_UserController extends Controller{
         $user->country_id = $country->id;
         $user->birth_date = $data['birth_date'];
         $user->active = $request->has('active');
-        $user->password = Hash::make($data['password']);
 
+        if($data['password'] != null){
+            $user->password = Hash::make($data['password']);
+        }
+        
         // can change role if current user role is user or admin
         if($user->is_owner() == false){
+
             $role = Role::find($data['role']);
             if(!$role || $role->name == 'owner'){ return redirect()->back()->withErrors("Setting of owner role not permitted")->withInput(); }
+            
             $user->role_id = $role->id;
+        }elseif($user->is_owner() == true){
+            $user->role_id = (Role::where('name','owner')->first())->id;
         }
 
         if ($request->hasFile('profile_img')) {
             $user->save_img($request->file('profile_img'));
         }
-
+        
+        //cannot self-deactivate
+        if($user->id == $editor->id){
+            $user->active = true;
+        }
+        
         $user->save();
         Session::flash('message', new Message(Message::TYPE_SUCCESS, trans('otherworlds.user_edit_success')));
         return redirect()->route('user_edit',['locale'=> $locale, 'username'=> $user->name]);

@@ -23,7 +23,7 @@
         <div class="row col-12 mb-4">
             <fieldset class="flex_center gap-3 offset-md-4 col-md-6">
                 <label for="email">
-                    Logins
+                    Login as
                 </label>
 
                 <div class="flex_center gap-2">

@@ -97,7 +97,7 @@ class User extends Authenticatable{
      * Check if this user is editable by another
      */
     public function is_editable(?User $user){
-        if($user == null){ return false; }
+        if($user == null || $user->is_guest()){ return false; }
 
         //if the user editing is an owner
         if($user->is_owner()){

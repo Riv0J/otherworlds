@@ -42,7 +42,6 @@
             <a class="nav_link regular
                 @php if(isset($slug_key) && $slug_key == 'login_slug'){ echo('active_link'); } @endphp"
                 href="{{ get_url($locale, 'login_slug')}}">
-                <i class="ri-user-3-fill"></i>
                 <span class="mx-1">
                     @lang('otherworlds.sign_in')
                 </span>
