@@ -21,13 +21,11 @@
             <h3>Database</h3>
         </div>
         <nav class="buttons">
-            <!-- Botón para descargar el backup -->
             <button class="button info" onclick="location='{{ route('database_download') }}'">
                 <i class="fa-solid fa-download"></i>
                 <span>Download Backup</span>
             </button>
 
-            <!-- Botón para subir el backup -->
             <button class="button info" id="upload-button">
                 <i class="fa-solid fa-upload"></i>
                 <span>Upload Backup</span>
@@ -37,6 +35,25 @@
 
     <h2>Warning!</h2>
     <p>Please save a backup before making any changes!</p>
+
+    <h2 class="mt-5">
+            Actions
+    </h2>
+
+    <div class="d-inline-flex gap-3 mt-3">
+        <button class="button info" onclick="location='{{route('places_folder')}}'">
+            <i class="fa-regular fa-folder-open"></i>
+            <span>Download places folder</span>
+        </button>
+        <a href="{{route('php_info')}}"  target="_blank" class="button info">
+            <i class="fa-brands fa-php"></i>
+            <span>Ver PHP info</span>
+        </a>
+        <button class="button info" onclick="location='{{route('git_pull')}}'">
+            <i class="fa-solid fa-code-pull-request"></i>
+            <span>Git pull</span>
+        </button>
+    </div>
 </section>
 @endsection
 

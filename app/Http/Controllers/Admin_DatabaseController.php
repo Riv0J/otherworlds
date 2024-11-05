@@ -8,6 +8,8 @@ use Symfony\Component\Process\Process;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use ZipArchive;
+use File;
 
 class Admin_DatabaseController extends Controller {
     
@@ -74,4 +76,59 @@ class Admin_DatabaseController extends Controller {
         success_message('Backup cargado y ejecutado correctamente');
         return redirect()->back();
     }
+    public function places_folder()
+    {
+        $zip = new ZipArchive();
+        $fileName = 'places_backup.zip';
+        $filePath = public_path('places');
+    
+        // Crear el archivo ZIP
+        if ($zip->open(public_path($fileName), ZipArchive::CREATE | ZipArchive::OVERWRITE) === TRUE) {
+            // Recorrer todos los archivos y subdirectorios en el directorio 'places'
+            $this->addFilesToZip($zip, $filePath, 'places');
+            $zip->close();
+        } else {
+            return response()->json(['error' => 'No se pudo crear el archivo ZIP.'], 500);
+        }
+    
+        // Devolver el archivo ZIP para su descarga
+        return response()->download(public_path($fileName))->deleteFileAfterSend(true);
+    }
+    
+    private function addFilesToZip($zip, $source, $basePath)
+    {
+        $files = File::allFiles($source);
+        
+        foreach ($files as $file) {
+            // Añadir el archivo al ZIP, manteniendo la estructura de carpetas
+            $zip->addFile($file->getRealPath(), $basePath . '/' . $file->getRelativePathname());
+        }
+    
+        // Recorrer los subdirectorios
+        $directories = File::directories($source);
+        foreach ($directories as $directory) {
+            // Llamar recursivamente para añadir archivos de subdirectorios
+            $this->addFilesToZip($zip, $directory, $basePath . '/' . basename($directory));
+        }
+    }
+
+    public function php_info(){
+        dd(phpinfo());
+    }
+
+public function git_pull()
+{
+    // Define el comando para hacer git pull
+    $command = 'cd /var/www/otherworlds && git pull origin main';
+
+    // Ejecutar el comando
+    exec($command, $output, $returnVar);
+
+    // Verificar si el comando fue exitoso
+    if ($returnVar === 0) {
+        return response()->json(['success' => 'App updated successfully.', 'output' => $output]);
+    } else {
+        return response()->json(['error' => 'Failed to update the repository.', 'output' => $output], 500);
+    }
+}
 }
