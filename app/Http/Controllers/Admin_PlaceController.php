@@ -316,6 +316,19 @@ class Admin_PlaceController extends Controller{
             'message' => new Message(Message::TYPE_SUCCESS, "Updated place basic info"),
             'thumbnail_edited' => $request->hasFile('thumbnail')
         ];
+
+        //si se edita en 'en' entonces, cambiar el public slug del place, y a su vez, mover la carpeta al nuevo nombre
+        if($data['locale'] == 'en'){
+            
+            $old_folder = $place->public_path();
+            $place->public_slug = OHelper::sluggify($data['name']);
+            $new_folder = $place->public_path();
+
+            if(file_exists($old_folder)){
+                rename($old_folder, $new_folder);
+            }
+            $place->save();
+        }
         return response()->json($variables);
     }
     /**

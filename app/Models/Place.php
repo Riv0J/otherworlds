@@ -27,7 +27,9 @@ class Place extends Model{
     public function medias(){
         return $this->hasMany(Media::class);
     }
-
+    public function public_path(){
+        return public_path('places/'.$this->public_slug);
+    }
     /*
      *  Determine if this place is a user's favorite
      */
