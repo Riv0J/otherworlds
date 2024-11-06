@@ -58,7 +58,9 @@
     
     async function create_place_cards(places_json) {
         for (let i = 0; i < Object.keys(places_json).length; i++) {
-            create_card(places_json[i]);
+            const anchor = create_card(places_json[i]);
+            anchor.style.animationDelay = i * 0.2 + 's';
+            anchor.classList.add('appear');
         }
     }
     function create_card(place){
@@ -96,6 +98,7 @@
         });
 
         card_container.appendChild(card);
+        return anchor;
     }
     function organize_dic(dic) {
         const organized_dic = {};

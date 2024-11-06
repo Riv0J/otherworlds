@@ -164,4 +164,5 @@ return [
     'return' => 'Return',
     'cancel' => 'Cancel',
     'no_privileges' => 'Not enough privileges to access this url',
+    'open_menu' => 'Open menu',
 ];

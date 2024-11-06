@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/views/place_index.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/views/place_index.css') }}?{{now()}}"/>
 
 <section class="col-12 py-2 px-3 px-lg-5 app_bg d-inline-flex justify-content-between">
     <h1 class="semibold display-5">
@@ -37,13 +37,6 @@
 @endsection
 
 @section('script')
-<script>
-document.querySelector('#places_container').innerHTML += `
-    <div class="pl_card" id="ajax_loading" style="order: 10000; display: none;">
-        <div class="img_bg" style="background-image: url('{{asset('img/loading.gif')}}'); background-size: contain; background-repeat: no-repeat;"></div>
-    </div>
-`;
-</script>
 <script>
     //ajax variables
     let current_page = 1;
@@ -81,8 +74,6 @@ document.querySelector('#places_container').innerHTML += `
             },
             before_func: function(){
                 requesting = true;
-                const ajax_loading = document.getElementById('ajax_loading'); //show #ajax_loading
-                ajax_loading.style.display = 'flex';
             },
             success_func: function (response_data){
                 current_page = response_data['current_page'];
@@ -97,7 +88,6 @@ document.querySelector('#places_container').innerHTML += `
                 create_place_cards(response_data['places']); //create the place cards
             },
             after_func: function(){
-                ajax_loading.style.display = 'none'; //hide #ajax_loading
                 request_cooldown();
             }
         }

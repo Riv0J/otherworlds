@@ -8,6 +8,20 @@
         grid-template-columns: repeat(6, 1fr); /* Máximo de 6 elementos por fila */
     }
 }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.appear {
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+.pl_card a{
+    opacity: 0;
+}
 .pl_card h2{
     font-family: 'Lato';
     font-size: 1.75rem;

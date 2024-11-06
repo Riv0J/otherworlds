@@ -163,5 +163,6 @@ return [
     'location' => 'Ubicación',
     'return' => 'Volver',
     'cancel' => 'Cancelar',
-    'no_privileges' => 'No tienes privilegios para acceder a esta dirección'
+    'no_privileges' => 'No tienes privilegios para acceder a esta dirección',
+    'open_menu' => 'Abrir menú',
 ];

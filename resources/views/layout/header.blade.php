@@ -10,9 +10,9 @@
 
         {{-- responsive button --}}
         </button>
-        <button id="responsive_nav_toggler" class="d-md-block d-lg-none">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+        <button id="responsive_nav_toggler" class="d-md-block d-lg-none" aria-label="@lang('otherworlds.open_menu')">
+        <i class="fa-solid fa-bars"></i>
+    </button>
 
         {{-- nav --}}
         <nav id="responsive_nav"
@@ -22,6 +22,8 @@
             py-3 py-lg-0
             d-none d-lg-flex
             flex-column flex-lg-row">
+
+            <i class="fa-solid fa-spinner"></i>
 
             {{-- places link --}}
             <a class="nav_link regular

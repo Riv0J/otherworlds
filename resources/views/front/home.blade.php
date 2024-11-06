@@ -25,9 +25,9 @@
     <h2 class="sans medium mb-2">
         {{$place->name}}
     </h2>
-    <h4 class="light mb-5 flex_center gap-2">
+    <p class="light mb-5 flex_center gap-2">
         <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
-    </h4>
+    </p>
     <p>
         <a class="py-1" href="{{places_url($locale).'/'.$place->slug}}">
             @lang('otherworlds.visit_place')

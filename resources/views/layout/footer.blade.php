@@ -16,7 +16,7 @@
         <nav class="text-center flex_center flex-column flex-lg-row align-items-center align-items-lg-start justify-content-around mt-lg-4 gap-5 gap-lg-1">
 
             <div class="flex_center flex-column gap-2">
-                <h5 class="my-2 my-lg-0">@lang('otherworlds.sections')</h5>
+                <h2 class="my-2 my-lg-0">@lang('otherworlds.sections')</h2>
 
                 {{-- places link --}}
                 <a class="regular p-2"
@@ -32,7 +32,7 @@
             </div>
 
             <div class="flex_center flex-column gap-2">
-                <h5 class="my-2 my-lg-0">@lang('otherworlds.resources')</h5>
+                <h2 class="my-2 my-lg-0">@lang('otherworlds.resources')</h2>
 
                 <a class="regular p-2"
                     href="https://{{app()->getLocale()}}.wikipedia.org/">
@@ -47,7 +47,7 @@
             </div>
 
             <div class="flex_center flex-column gap-2">
-                <h5 class="my-2 mt-lg-0">@lang('otherworlds.development')</h5>
+                <h2 class="my-2 mt-lg-0">@lang('otherworlds.development')</h2>
 
                 <div class="d-flex flex-row gap-5 gap-lg-3">
                     <a class="regular p-2 icon_button" title="Laravel"
@@ -104,11 +104,8 @@
         gap: 1rem;
         scale: 1.25;
     }
-    .icon_button:hover{
-        color: var(--main);
-        fill: var(--main);
-    }
     .icon_button:hover svg, .icon_button:hover path{
+        fill: var(--main);
         stroke: var(--main);
     }
     /* icon button end */
@@ -124,7 +121,7 @@
     }
     footer nav a{
         position: relative;
-        font-size: 1.75rem !important;
+        font-size: 1.5rem !important;
         letter-spacing: 0.1rem !important;
     }
     footer nav a:not(.icon_button)::after{
@@ -140,7 +137,11 @@
     footer nav a:not(.icon_button):hover::after{
         opacity: 0.25;
     }
-
+    footer h2{
+        letter-spacing: 0;
+        font-size: 1.75rem;
+        color: gray;
+    }
 
     /* desktop */
     @media screen and (min-width: 993px) {
