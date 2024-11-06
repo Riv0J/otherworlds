@@ -1,6 +1,6 @@
 {{-- needs a collection of $places, $countries and $all_categories to function --}}
 <script src='{{asset('js/ajax.js')}}'></script>
-<div class="gap-2 gap-md-3 justify-content-center align-items-stretch" id="places_container">
+<div class="" id="places_container">
     <div class="pl_card" id="no_places" style="display: none;">
         @lang('otherworlds.no_favorites_user').
         <a href="{{ url($locale.'/'.trans('places_slug',[],$locale)) }}">
@@ -8,6 +8,36 @@
         </a>
     </div>
 </div>
+<template>
+<div class="pl_card">
+    <a href="">
+        <div class="img_bg"></div>
+
+        <div class="card_top">
+            <div class="trait" title="">
+                <i class="small_i fa-solid"></i>
+            </div>
+            <div class="views" title="@lang('otherworlds.views')">
+                <span class="short_number"></span>
+                <i class="small_i fa-solid fa-eye"></i>
+            </div>
+        </div>
+        
+        <div class="card_bot">
+            <div class="pl_info">
+                <h2 class="regular mb-2"></h2>
+                <p class="flex_center gap-2">
+                    <span class="flag-icon"></span>
+                    <span class="country"></span>
+                </p>
+                <div class="card_sinopsis" style="height: 0px;">
+                    <p class="light"></p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+</template>
 <script>
     //on load event
     document.addEventListener('DOMContentLoaded', function(){
@@ -18,129 +48,55 @@
         }
 
         create_place_cards({!! $places->values()->toJson() !!});
-
-        //format every .short_number
-        document.querySelectorAll('.short_number').forEach(element => {
-            element.textContent = format_number(element.textContent);
-        });
     });
 
     const places_route = "{{places_url($locale)}}"
     const loaded_countries = organize_dic({!! json_encode($countries) !!});
     const loaded_categories = organize_dic({!! json_encode($all_categories) !!});
     const favorite_ids = {!! json_encode($fav_places_ids) !!};
-
+    const card_container = document.querySelector('#places_container');
+    
     async function create_place_cards(places_json) {
         for (let i = 0; i < Object.keys(places_json).length; i++) {
-            const place = places_json[i];
-            const category = loaded_categories[place.category_id];
-            const country = loaded_countries[place.country_id];
-
-            const pl_card = document.createElement('div');
-            pl_card.className = "pl_card";
-
-            const pl_link = document.createElement('a');
-            pl_link.className = "border-0";
-            pl_link.href = places_route + '/' + place.slug;
-
-            const card_top = document.createElement('div');
-            card_top.className = 'card_top';
-
-            card_top.innerHTML += `
-                <div title="${category.keyword} (${category.name})" class="trait">
-                    <i class='small_i fa-solid fa-${category.img_name}'></i>
-                </div>
-            `;
-
-            //fav_button
-            const fav_button = document.createElement('button');
-            fav_button.className = 'button border-0 fav_button';
-            fav_button.id = place.id;
-            card_top.appendChild(fav_button);
-
-            const star_icon = document.createElement('i');
-            star_icon.className = 'fa-star';
-            if(favorite_ids.includes(place.id) == false){
-                star_icon.className += ' fa-regular';
-            }else{
-                star_icon.className += ' fa-solid';
-                fav_button.className += ' yellow';
-            }
-
-            const fav_count = document.createElement('h5');
-            fav_count.textContent = format_number(place.favorites_count);
-
-            //add fav_count and star_icon to fav_button
-            fav_button.appendChild(fav_count);
-            fav_button.appendChild(star_icon);
-
-            const pl_info = document.createElement('div');
-            pl_info.className = 'pl_info';
-
-            const synopsis = document.createElement('div');
-            synopsis.className = 'card_sinopsis';
-            synopsis.innerHTML += `<p class="light col-12">${place.synopsis}</p>`;
-
-            //add to pl_info
-            pl_info.innerHTML += `<h3 class="regular mb-2">${place.name}</h3>`;
-            pl_info.innerHTML += `<p class="flex_center gap-2">
-                    <span class='flag-icon flag-icon-${country.code}'></span>
-                    <span>${country.name}</span>
-                </p>
-            `;
-            pl_info.appendChild(synopsis);
-
-            //add to pl_link
-            const url = '{{asset('places/')}}' + '/' + place.public_slug + '/'+ place.thumbnail;
-            pl_link.innerHTML += `<div class='img_bg' style='background-image:url(${url})'></div>`;
-            pl_link.appendChild(pl_info);
-
-            //add to pl_card
-            pl_card.appendChild(card_top);
-            pl_card.appendChild(pl_link);
-
-            @if(Auth::check() === true)
-            const ajax_data = {
-                method: 'POST',
-                url: '{{ URL('/ajax/places/favorite') }}',
-                request_data : {
-                    _token: '{{ csrf_token() }}',
-                    place_id: place.id
-                },
-                success_func: function (response_data){
-                    if(response_data['is_fav'] == false){
-                        star_icon.className = 'fa-regular fa-star';
-                        fav_button.classList.remove('yellow');
-                    }else{
-                        star_icon.className = 'fa-solid fa-star';
-                        fav_button.classList.add('yellow');
-                    }
-                    fav_count.textContent = format_number(response_data['favorites_count']);
-                }
-            }
-            //on click fav_button when logged in
-            fav_button.addEventListener('click', function(){
-                ajax(ajax_data);
-            });
-
-            @else
-            //on click fav_button when not logged in
-            fav_button.addEventListener('click', function(){
-                window.location.href = '{{ route("login", ["locale" => $locale]) }}';
-            });
-            @endif
-
-            //add listeners on hover
-            pl_card.addEventListener('mouseover', function(){
-                synopsis.style.height = synopsis.scrollHeight+'px';
-            });
-            pl_card.addEventListener('mouseout', function(){
-                synopsis.style.height = 0;
-            });
-            document.getElementById('places_container').appendChild(pl_card);
+            create_card(places_json[i]);
         }
     }
+    function create_card(place){
+        const card = document.querySelector('template').content.cloneNode(true);
+        const category = loaded_categories[place.category_id];
+        const country = loaded_countries[place.country_id];
 
+        const anchor = card.querySelector('a');
+        anchor.setAttribute('href',places_route + '/' + place.slug);
+        
+        const trait = card.querySelector('.trait')
+        trait.title = `${category.keyword} (${category.name})`;
+        trait.querySelector('i').className += ` fa-${category.img_name}`;
+
+        const views = card.querySelector('.views span')
+        views.textContent = format_number(place.views_count);
+
+        const bg = card.querySelector('.img_bg');
+        const url = '{{asset('places/')}}' + '/' + place.public_slug + '/'+ place.thumbnail;
+        bg.style.backgroundImage = `url(${url})`;
+
+        card.querySelector('h2').textContent = place.name;
+        card.querySelector('.flag-icon').className += ` flag-icon-${country.code}`;
+        card.querySelector('.country').textContent = country.name;
+
+        const synopsis = card.querySelector('.card_sinopsis');
+        synopsis.querySelector('p').textContent = place.synopsis;
+
+        //add listeners on hover
+        anchor.addEventListener('mouseover', function(){
+            synopsis.style.height = synopsis.scrollHeight+'px';
+        });
+        anchor.addEventListener('mouseout', function(){
+            synopsis.style.height = 0;
+        });
+
+        card_container.appendChild(card);
+    }
     function organize_dic(dic) {
         const organized_dic = {};
         for (let i = 0; i < Object.keys(dic).length; i++) {

@@ -196,7 +196,7 @@ class Front_PlaceController extends Controller{
         //         ->get('places.*');
 
         // get the places ordered by favorites
-        $places = Place::orderBy('favorites_count', 'desc')
+        $places = Place::orderBy('views_count', 'desc')
             ->skip($startIndex)
             ->take(Front_PlaceController::PER_PAGE)
             ->get('places.*');
