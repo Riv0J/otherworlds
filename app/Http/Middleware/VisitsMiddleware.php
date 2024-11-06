@@ -21,21 +21,28 @@ class VisitsMiddleware{
      */
     public function handle(Request $request, Closure $next){
         $ip = $request->ip();
-        $country_id = $this->get_country_id($ip);
 
-        $agent = new Agent();
-        $browser = $agent->browser();
-        $platform = $agent->platform();
+        if($ip == '::1'){ return $next($request); }
 
-        Visit::create([
-            'ip' => $ip,
-            'browser' => $browser." ".$agent->version($browser),
-            'os' => $platform." ".$agent->version($platform),
-            'route' => $request->path(),
-            'country_id' => $country_id,
-            'created_at' => now()
-        ]);
+        try {
+            $country_id = $this->get_country_id($ip);
 
+            $agent = new Agent();
+            $browser = $agent->browser();
+            $platform = $agent->platform();
+    
+            Visit::create([
+                'ip' => $ip,
+                'browser' => $browser." ".$agent->version($browser),
+                'os' => $platform." ".$agent->version($platform),
+                'route' => $request->path(),
+                'country_id' => $country_id,
+                'created_at' => now()
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        
         return $next($request);
     }
 
