@@ -17,7 +17,7 @@
 <section class="window col-12 my-3 flex_center flex-column white">
 
     <div class="app_bg_overlay" id=home_window_container>
-        <img class="rounded-4" src="{{asset('places/'.$place->public_slug.'/t.png')}}" alt="">
+        <img class="rounded-4" src="{{asset('places/'.$place->public_slug.'/'.$place->thumbnail)}}" alt="">
         <div class="translucent rounded-3 px-4 py-2 overflow-hidden" id="home_window_title_container">
             <h2 class="text-center semibold display-6" id="home_window_title"></h2>
         </div>
