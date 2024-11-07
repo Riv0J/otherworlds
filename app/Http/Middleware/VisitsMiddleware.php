@@ -21,8 +21,10 @@ class VisitsMiddleware{
      */
     public function handle(Request $request, Closure $next){
         $ip = $request->ip();
-
-        if($ip == '::1'){ return $next($request); }
+        $user = auth()->user();
+        if ($ip == '::1' || ($user && $user->is_owner())) {
+            return $next($request);
+        }
 
         try {
             $country_id = $this->get_country_id($ip);
