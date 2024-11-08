@@ -24,4 +24,12 @@
         <changefreq>monthly</changefreq>
         <priority>1.0</priority>
     </url>
+    @foreach($urls as $url)
+        <url>
+            <loc>{{ $url }}</loc>
+            <lastmod>{{ now() }}</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.8</priority>
+        </url>
+    @endforeach
 </urlset>

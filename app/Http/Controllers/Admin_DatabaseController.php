@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use File;
-
+use \App\Models\Place;
 class Admin_DatabaseController extends Controller {
     
     public function index(){
@@ -132,5 +132,22 @@ class Admin_DatabaseController extends Controller {
         }
         
         return redirect()->back();
+    }
+
+    public function sitemap(){
+        
+        $start_locale = app()->getLocale();
+        $urls = [];
+        foreach (config('translatable.locales') as $locale) {
+            app()->setLocale($locale);
+
+            $url = 'https://otherworlds.es/'.$locale.'/'.trans('otherworlds.places_slug', [], $locale);
+            foreach (Place::all() as $place) {
+                $urls[] = $url.'/'.$place->slug;
+            }
+        }
+        app()->setLocale($start_locale);
+        return response()->view('sitemap_template', compact('urls'))
+        ->header('Content-Type', 'application/xml');
     }
 }

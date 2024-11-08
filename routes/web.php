@@ -28,6 +28,9 @@ use App\Http\Controllers\Admin_DatabaseController;
 |
 */
 // absolute routes
+Route::get('/sitemap.xml', [Admin_DatabaseController::class, 'sitemap']);
+Route::redirect('/sitemap', '/sitemap.xml');
+
 Route::get('/', function () {
     return (new Front_Controller())->home('en');
 });
@@ -148,7 +151,6 @@ Route::middleware(['owner'])->group(function () {
     Route::get('/admin/database/download', [Admin_DatabaseController::class, 'download'])->name('database_download');
     Route::post('/admin/database/upload', [Admin_DatabaseController::class, 'upload'])->name('database_upload');
     Route::get('/admin/database/places_folder', [Admin_DatabaseController::class, 'places_folder'])->name('places_folder');
-
 
     Route::get('/admin/php_info', [Admin_DatabaseController::class, 'php_info'])->name('php_info');
     Route::get('/admin/git_pull', [Admin_DatabaseController::class, 'git_pull'])->name('git_pull');
