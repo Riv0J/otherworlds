@@ -15,20 +15,20 @@
     <url>
         <loc>https://otherworlds.es/en/places</loc>
         <lastmod>2024-11-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://otherworlds.es/es/lugares</loc>
         <lastmod>2024-11-05</lastmod>
-        <changefreq>monthly</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     @foreach($urls as $url)
         <url>
             <loc>{{ $url }}</loc>
             <lastmod>{{ now()->toDateString() }}</lastmod>
-            <changefreq>monthly</changefreq>
+            <changefreq>weekly</changefreq>
             <priority>0.8</priority>
         </url>
     @endforeach

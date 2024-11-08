@@ -23,10 +23,10 @@
             d-none d-lg-flex
             flex-column flex-lg-row">
 
-            <i class="fa-solid fa-spinner"></i>
+            <i class="fa-solid fa-spinner d-none d-lg-flex"></i>
 
             {{-- places link --}}
-            <a class="nav_link regular
+            <a class="nav_link
                 @php if(isset($slug_key) && $slug_key == 'places_slug'){ echo('active_link'); } @endphp"
                 href="{{places_url($locale)}}">
                 @lang('otherworlds.places')
@@ -34,7 +34,7 @@
 
             {{-- login button --}}
             @if (Route::has('login') && $logged_user == null)
-            <a class="nav_link regular
+            <a class="nav_link
                 @php if(isset($slug_key) && $slug_key == 'login_slug'){ echo('active_link'); } @endphp"
                 href="{{ get_url($locale, 'login_slug')}}">
                 <span class="mx-1">
@@ -49,11 +49,11 @@
                 @csrf
             </form>
 
-            <div class="dropdown">
-                <a href="javascript:void(0)" class="dropdown_toggler gap-2 regular">
+            <div class="nav_link dropdown">
+                <div class="dropdown_toggler gap-2">
                     {{ $logged_user->name }}
                     <i class="fa-solid fa-angle-down"></i>
-                </a>
+                    </div>
 
                 <div class="dropdown_options">
                     <a href="{{ get_url($locale,'profile_slug').'/'.$logged_user->name }}">
@@ -71,7 +71,7 @@
 
             {{-- lang dropdown START--}}
             <div class="nav_link dropdown">
-                <div class="dropdown_toggler gap-2 regular">
+                <div class="dropdown_toggler gap-2">
                     @lang('otherworlds.lang')
                     <i class="fa-solid fa-angle-down"></i>
                 </div>
@@ -79,7 +79,9 @@
                 <div class="dropdown_options">
                 @foreach (config('translatable.locales') as $loc)
                     @if ($loc != $locale)
-                        <a href="{{route('setLocale', ['locale' => $locale, 'new_locale' => $loc, 'slug_key' => $slug_key ?? 'home_slug'])}}">{{strtoupper($loc)}}</a>
+                        <a href="{{route('setLocale', ['locale' => $locale, 'new_locale' => $loc, 'slug_key' => $slug_key ?? 'home_slug'])}}">
+                        {{strtoupper($loc)}}
+                        </a>
                     @endif
                 @endforeach
                 </div>
@@ -89,11 +91,8 @@
     </div>
 </header>
 <script>
-    const responsive_nav_toggler = document.getElementById('responsive_nav_toggler');
-    const responsive_nav = document.getElementById('responsive_nav');
-
-    responsive_nav_toggler.addEventListener('click', function() {
-
+    document.getElementById('responsive_nav_toggler').addEventListener('click', function() {
+        const responsive_nav = document.getElementById('responsive_nav');
         responsive_nav.classList.toggle('d-flex');
         responsive_nav.classList.toggle('d-none');
     });
@@ -152,7 +151,7 @@
     }
 
     .dropdown_options a:hover {
-        background-color: rgba(80, 80, 80, 0.45) !important;
+        background-color: rgba(0, 0, 0, 0.45) !important;
     }
 
     .dropdown_divider {
@@ -166,17 +165,19 @@
             position: relative;
             background-color: unset;
         }
+        .nav_link.dropdown{
+            flex-direction: column;
+        }
     }
 </style>
 <style>
-    /* header - nav styles */
     #responsive_nav {
         border: none;
         color: white;
         overflow: visible;
     }
 
-    #responsive_nav a, .dropdown_toggler {
+    #responsive_nav a, .dropdown {
         position: relative;
         font-size: 1.3rem;
         transition: all 0.5s;
@@ -209,7 +210,6 @@
         z-index: 1000;
         pointer-events: none
     }
-
     .active_link {
         position: relative;
     }
@@ -229,13 +229,13 @@
             background: rgb(29, 29, 29) !important;
         }
 
-        header a {
+        header a, .dropdown{
             font-size: 1.75rem !important;
             letter-spacing: 0.1rem !important;
             text-align: right;
         }
 
-        header nav a:hover{
+        header nav a:hover, .dropdown:hover{
             background-color: rgba(80, 80, 80, 0.75);
         }
 
@@ -260,6 +260,7 @@
             justify-content: flex-end;
             padding: 1.25rem;
             padding-bottom: 1.25rem !important;
+            font-weight: 400;
         }
         #responsive_nav a{
             padding: 1.25rem;
