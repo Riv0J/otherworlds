@@ -13,66 +13,108 @@
 @endsection
 
 @section('content')
-{{-- window welcome --}}
-<section class="window col-12 my-3 flex_center flex-column white">
-
-    <div class="app_bg_overlay" id=home_window_container>
-        <img class="rounded-4" src="{{asset('places/'.$place->public_slug.'/'.$place->thumbnail)}}" alt="">
-        <div class="translucent rounded-3 px-4 py-2 overflow-hidden" id="home_window_title_container">
-            <h2 class="text-center semibold display-6" id="home_window_title"></h2>
+<section class="col-12 my-3 mt-5 pt-2 flex-row align-items-stretch justify-content-center">
+    @foreach($places as $place)
+    <a class="slide p-4" style="background-image: url('{{asset('places/'.$place->public_slug.'/'.$place->thumbnail)}}')"
+    href="{{places_url($locale).'/'.$place->slug}}">
+        <div class="slide-content">
+            <h2 class="sans medium mb-2">{{$place->name}}</h2>
+            <p class="flex_center gap-2">
+                <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
+            </p>
         </div>
-    </div>
-    <h2 class="sans medium mb-2">
-        {{$place->name}}
-    </h2>
-    <p class="light mb-5 flex_center gap-2">
-        <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
-    </p>
-    <p>
-        <a class="py-1" href="{{places_url($locale).'/'.$place->slug}}">
-            @lang('otherworlds.visit_place')
-        </a>
-    </p>
+    </a>
+    @endforeach
 </section>
+<div class="write_container">
+    <p class="text-center semibold display-6 mt-4" id="write"></p>
+</div>
 <style>
-    #home_window_container img {
-        max-height: 60svh;
-        height: auto;
+    .write_container{
+        position: relative;
+        margin-block: 3rem;
     }
-    #home_window_title_container{
+    #write{
         position: absolute;
-        /* center */
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         text-wrap: nowrap;
+        font-size: 1.5rem;
     }
-    .app_bg_overlay{
+    .slider{
         position: relative;
+        gap: 1rem;        
     }
-    .app_bg_overlay::before{
-        content: '';
-        display: block;
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(rgba(255, 255, 255, 0.01) 30%, var(--main_dark_bg_color) 65%);
-        outline: 1px solid var(--main_dark_bg_color);
-        scale: 1.05 1;
+    .slide{
+        clip-path: polygon(0 0, 80% 0%, 100% 100%, 20% 100%);
+        background-position: center;
+        background-size: cover;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+
+        width: 80%;
+        aspect-ratio: 1.5;
+
+        padding-inline: 4rem !important;
+        transition: all 0.5s;
+    }
+    .slide:hover{
+        z-index: 99;
+        scale: 1.05;
+    }
+    .slide h2{
+        font-size: 1.5rem;
+        letter-spacing: 0.1rem;
+    }
+    .slide p{
+        translate: 10% 0;
+        font-size: 1rem;
     }
 
-    /* desktop */
-    @media screen and (min-width: 993px) {
+.slide:first-child {
+    transform: translateX(10%);
+}
+.slide:nth-child(2) {
+    scale: 1.25;
+    z-index: 1;
+}
+.slide:nth-child(2):hover {
+    scale: 1.3;
+    z-index: 1;
+}
+.slide:nth-child(3) {
+    transform: translateX(-10%);
+}
+    .slide-content{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+        width: 90%;
     }
-
-    /* mobile */
-    @media screen and (max-width: 992px) {
+    .slide-content h2, .slide-content p, .slide-content a{
+        padding: 0.2rem; 
+        padding-inline: 0.5rem;
+        background-color: #6D6D6DAA;
+        border-radius: 0.2rem;
+    }
+    @media screen and (max-width: 600px) {
+        .slide:nth-child(2) {
+            scale: 1;
+        }
+        .slide:nth-child(2):hover{
+            scale: 1;
+        }
+        .slide:not(:nth-child(2)) {
+            display: none;
+        }
     }
 </style>
 
 <script>
-    const home_window_title = document.getElementById('home_window_title');
+    const write = document.getElementById('write');
 
     let phrases = {
         'en': [
@@ -103,8 +145,8 @@
     const lang = `{{app()->getLocale()}}`;
     let lang_phrases = phrases[lang];
 
-    escribirCodigo(pickPhrase(), home_window_title);
-
+    escribirCodigo(pickPhrase(), write);
+    
     async function escribirCodigo(texto, elementoHTML) {
         elementoHTML.innerHTML = '';
         let indice = 0;
@@ -171,7 +213,7 @@
         therworlds
     </h1>
 
-    <div class="px-4 d-flex flex-column gap-5 col-12 col-lg-8">
+    <div class="px-lg-4 d-flex flex-column gap-5 col-10 col-lg-8">
         <p>@lang('otherworlds.about_1')</p>
         <p>@lang('otherworlds.about_2')</p>
         <p class="text-center">

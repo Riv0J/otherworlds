@@ -69,6 +69,10 @@ main>*{
     justify-content: center;
     align-items: center;
 }
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
 .navbar-brand{
     letter-spacing: 0.05rem;
 }

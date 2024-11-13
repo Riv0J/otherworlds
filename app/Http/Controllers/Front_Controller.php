@@ -9,8 +9,7 @@ class Front_Controller extends Controller{
         $variables = [
             'slug_key' => 'home_slug',
             'locale' => $locale,
-
-            'place' => Place::random(),
+            'places' => Place::inRandomOrder()->take(3)->get(),
         ];
         return view('front.home', $variables);
     }
