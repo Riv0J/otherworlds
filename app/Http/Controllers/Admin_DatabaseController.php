@@ -110,7 +110,7 @@ class Admin_DatabaseController extends Controller {
             $this->addFilesToZip($zip, $directory, $basePath . '/' . basename($directory));
         }
     }
-
+    //open in blank
     public function php_info(){
         dd(phpinfo());
     }
