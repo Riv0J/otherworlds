@@ -59,19 +59,19 @@
     
     async function create_place_cards(places_json) {
         for (let i = 0; i < Object.keys(places_json).length; i++) {
-            const anchor = create_card(places_json[i]);
+            const place = places_json[i];
+            if (place_ids.includes(place.id)) {
+                console.log("repe: " + place.name);
+                return;
+            }
+            place_ids[] = place.id;
+
+            const anchor = create_card(place);
             anchor.style.animationDelay = i * 0.2 + 's';
             anchor.classList.add('appear');
         }
     }
     function create_card(place){
-        if (place_ids.includes(place.id)) {
-            console.log("repe: " + place.name);
-            return;
-        }
-        place_ids[place.id];
-        
-        
         const card = document.querySelector('template').content.cloneNode(true);
         const category = loaded_categories[place.category_id];
         const country = loaded_countries[place.country_id];
