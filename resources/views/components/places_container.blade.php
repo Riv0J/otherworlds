@@ -64,7 +64,7 @@
                 console.log("repe: " + place.name);
                 return;
             }
-            place_ids[] = place.id;
+            place_ids.push(place.id);
 
             const anchor = create_card(place);
             anchor.style.animationDelay = i * 0.2 + 's';
