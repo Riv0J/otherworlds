@@ -39,6 +39,7 @@
 </div>
 </template>
 <script>
+    const place_ids = [];
     //on load event
     document.addEventListener('DOMContentLoaded', function(){
         const initial_places = {!! $places->values()->toJson() !!};
@@ -64,6 +65,13 @@
         }
     }
     function create_card(place){
+        if (place_ids.includes(place.id)) {
+            console.log("repe: " + place.name);
+            return;
+        }
+        place_ids[place.id];
+        
+        
         const card = document.querySelector('template').content.cloneNode(true);
         const category = loaded_categories[place.category_id];
         const country = loaded_countries[place.country_id];
