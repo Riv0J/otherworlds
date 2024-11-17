@@ -29,7 +29,6 @@ class Admin_MediaController extends Controller{
     /**
      * Ajax, CREATE a specific Media via upload
      */
-    //protected $fillable = ['url', 'thumbnail_url', 'page_url', 'place_id'];
     public function ajax_create(Request $request){
         $validated = $request->validate([
             'place_id' => 'required|exists:places,id',

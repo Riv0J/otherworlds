@@ -35,7 +35,7 @@ return [
     'sections'=> 'Sections',
     'resources'=> 'Resources',
     'development'=> 'Development',
-    'special_thanks'=> 'Special thanks to Wikipedia and its corresponding photographers for their invaluable contributions, providing freely usable content for everyone to enjoy.',
+    'special_thanks'=> 'Special thanks to Wikipedia and corresponding photographers for their invaluable contributions, providing freely usable content for everyone to enjoy.',
 
     // user options
     'sign_in' => 'Login',
