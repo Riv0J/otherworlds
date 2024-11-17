@@ -56,11 +56,17 @@ class Crawly extends Model{
     }
 
     /*
-     * crawl wikimedia media page url and get media data, for example,
+     * Crawl wikimedia media page url and get media data, for example,
      * https://commons.wikimedia.org/wiki/File:USA_10096-7-8_HDR_Antelope_Canyon_Luca_Galuzzi_2007.jpg
      * and extract the image url
      */
     public static function get_media_data(string $file_url){
+        // clean invisible characters
+        $file_url = preg_replace('/^[\x00-\x1F\x7F]+/', '', $file_url);
+
+        // remove spaces
+        $file_url = trim($file_url);
+        
         // make the request
         $httpClient = HttpClient::create();
         $response = $httpClient->request('GET', $file_url);

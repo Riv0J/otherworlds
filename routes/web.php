@@ -140,6 +140,7 @@ Route::middleware(['back_edit'])->group(function () {
 
     // medias
     Route::post('/ajax/admin/medias/delete', [Admin_MediaController::class, 'ajax_delete']);
+    Route::post('/ajax/admin/medias/create', [Admin_MediaController::class, 'ajax_create']);
 });
 
 // BACK VIEW routes OWNER ONLY

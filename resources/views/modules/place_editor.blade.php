@@ -62,6 +62,10 @@
                 console.log('called on_delete_media');
                 media_delete(modal_object, media_id);
             },
+            on_media_add_one: function(modal_object, media_id){
+                console.log('called on_media_add_one');
+                media_add(modal_object, place);
+            },
         };
 
         return new Place_Editor(editor_data);
@@ -230,6 +234,31 @@
             }
         }
         ajax(ajax_data, "Deleting media...");
+    }
+
+    function media_add(modal_object, place){
+        const input = modal_object.query('input[name="media_url"]');
+        if(input.value == ''){ return; }
+        const ajax_data = {
+            url: '{{ URL("/ajax/admin/medias/create") }}',
+            request_data: {
+                _token: csrf_token,
+                place_id: place.id,
+                page_url: input.value,
+            },
+            before_func: function(){
+            },
+            success_func: function(response_data) {
+                console.log(response_data);
+                if(response_data['success'] && response_data['success'] == true){
+                    modal_object._add_media(response_data['new_media']);
+                }
+            },
+            after_func: function(){
+            }
+        }
+        console.log(ajax_data);
+        ajax(ajax_data, "Adding media...");
     }
     console.log('Place Editor Loaded.');
 </script>

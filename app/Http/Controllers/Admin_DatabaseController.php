@@ -26,7 +26,7 @@ class Admin_DatabaseController extends Controller {
 
         // Generar el comando mysqldump
         $command = "mysqldump --user={$username} --password={$password} --host={$host} {$database} > " . storage_path("app/{$filename}");
-
+        
         // Ejecutar el comando
         $process = Process::fromShellCommandline($command);
         $process->run();

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Media;
 use App\Models\Message;
-
+use App\Models\Crawly;
 class Admin_MediaController extends Controller{
 
     /**
@@ -29,7 +29,27 @@ class Admin_MediaController extends Controller{
     /**
      * Ajax, CREATE a specific Media via upload
      */
+    //protected $fillable = ['url', 'thumbnail_url', 'page_url', 'place_id'];
     public function ajax_create(Request $request){
-        return response()->json($request);
+        $validated = $request->validate([
+            'place_id' => 'required|exists:places,id',
+            'page_url' => 'required|string|max:255',
+        ]);
+
+        $data_result = Crawly::get_media_data($validated['page_url']);
+
+        // obtener la url y thumbnail url a partir de 'page_url' para la media
+        $new_media = Media::create([
+            'place_id' => $validated['place_id'],
+            'url' => $data_result['url'],
+            'thumbnail_url' => $data_result['url'],
+            'page_url' => $validated['page_url']
+        ]);
+        $response = [
+            'new_media' => $new_media,
+            'success' => true,
+            'message' => new Message(Message::TYPE_SUCCESS, 'Media added'),
+        ];
+        return response()->json($response);
     }
 }

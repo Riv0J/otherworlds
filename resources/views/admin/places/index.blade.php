@@ -416,8 +416,7 @@
         ajax(ajax_data,'Creating place');
     }
 </script>
-
-<!-- Place Editor -->
+{{-- Place Editor --}}
 @include('modules.place_editor')
 
 @endsection

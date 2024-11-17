@@ -52,7 +52,7 @@ class Place_Editor{
         </div>
         <div class="modal_tab_content" id="content_medias">
             <div class="form_row w-100 justify-content-between gap-3 mb-3">
-                <input class="flex-grow-1" name="media_url" placeholder="Create from Wikimedia image or gallery URL">
+                <input class="flex-grow-1" name="media_url" placeholder="https://commons.wikimedia.org/wiki/File:...">
                 <div class="d-inline-flex gap-3">
                     <button class="button" class="button" id="media_add_one">
                         <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add one
@@ -228,6 +228,14 @@ class Place_Editor{
             });
         });
     }
+    async _add_media(media){
+        toggle_spinners(true);
+        
+        load_image(media.url, () => {
+            document.querySelector('.medias').appendChild(this._media_template(media));
+            toggle_spinners(false);
+        });
+    }
     _media_template(media){
         const media_element = document.createElement('div');
         media_element.className = 'media';
@@ -300,6 +308,10 @@ class Place_Editor{
             this.data['on_delete_place'](this);
         });
 
+        this.query('#media_add_one').addEventListener('click', (event)=>{
+            this.data['on_media_add_one'](this);
+        });
+        
         const tabs = this.element.querySelectorAll('.modal_tabs li');
         this._tab(tabs[0].getAttribute('name'))
         tabs.forEach(element=>{

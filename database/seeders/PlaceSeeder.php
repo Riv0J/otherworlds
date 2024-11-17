@@ -1269,8 +1269,5 @@ class PlaceSeeder extends Seeder{
                 'gallery_url' => 'https://commons.wikimedia.org/wiki/Category:Iguazu_Falls_in_the_2010s'
             ],
         ];
-
     }
 }
-
-//potential:
