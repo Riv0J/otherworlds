@@ -29,7 +29,7 @@ class Place_Editor{
                             <i class="fa-solid fa-spinner"></i><span>Please wait</span>
                         </div>
                         <button class="button" id="checked-button">
-                            <input type="checkbox" name="place_checked" id="place_checked" class="">
+                            <input type="checkbox" name="place_checked" id="place_checked" class="d-none">
                             <span>Place revised</span>
                             <i class="fa-solid fa-check d-none" style="color:var(--green_light)"></i>
                             <i class="fa-solid fa-xmark d-none" style="color:red"></i>
