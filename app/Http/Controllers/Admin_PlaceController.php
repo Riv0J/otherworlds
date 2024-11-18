@@ -314,7 +314,7 @@ class Admin_PlaceController extends Controller{
             'locale' => $data['locale'],
             'place' => $place,
             'success' => true,
-            'messages' => [new Message(Message::TYPE_SUCCESS, "Updated place basic info"),new Message(Message::TYPE_SUCCESS, $data['checked'])],
+            'messages' => [new Message(Message::TYPE_SUCCESS, "Updated place basic info")],
             'thumbnail_edited' => $request->hasFile('thumbnail')
         ];
         if($place->checked){
