@@ -1,4 +1,4 @@
-<script src='{{ asset('modules/Place_Editor.js') }}?v=2'></script>
+<script src='{{ asset('modules/Place_Editor.js') }}?v=3'></script>
 <script>
     function show_place_editor(place){
         const editor_data = {
