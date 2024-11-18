@@ -71,6 +71,11 @@
                                 <i class="fa-solid fa-image"></i>
                             </div>
                         </th>
+                        <th class="medium" title="Checked">
+                            <div class="aligner">
+                                <i class="fa-solid fa-clipboard-check"></i>
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -201,7 +206,20 @@
             <td class="number text-end">${format_number(place.favorites_count)}</td>
             <td class="number text-end">${place.medias.length}</td>
         `;
-
+        if(place.checked){
+            console.log(place);
+            row.innerHTML += `
+            <td>
+                <div class="aligner"><i class="fa-solid fa-check" style="color:var(--green_light)"></i></div>
+            </td>
+            `;
+        } else{
+            row.innerHTML += `
+            <td>
+                <div class="aligner"><i class="fa-solid fa-xmark" style="color:red"></i></div>
+            </td>
+            `;
+        }
         results.appendChild(row);
         row.addEventListener('click',function(){
             // show_edit_place_modal(place);

@@ -84,6 +84,7 @@
         form_data.append('synopsis', modal.querySelector('textarea[name="synopsis"]').value);
         form_data.append('gallery_url', modal.querySelector('input[name="gallery_url"]').value);
         form_data.append('thumbnail', modal.querySelector('input[name="thumbnail"]').files[0]);
+        form_data.append('checked', modal.querySelector('input[name="place_checked"]').checked);
         modal.querySelector('input[name="thumbnail"]').value= '';
         const ajax_data = {
             url: '{{ URL('/ajax/admin/places/update') }}',
@@ -99,7 +100,8 @@
                 modal_object._enable();
             }
         }
-
+        console.log(modal.querySelector('input[name="place_checked"]').checked);
+        
         ajax(ajax_data);
     }
 

@@ -13,7 +13,7 @@ use \App\Models\Crawly;
 class Place extends Model{
     use Translatable;
     protected $table = 'places';
-    protected $fillable = ['category_id', 'country_id', 'public_slug', 'views_count','favorites_count','natural', 'gallery_url', 'latitude', 'longitude'];
+    protected $fillable = ['category_id', 'country_id', 'public_slug', 'views_count','favorites_count','natural', 'gallery_url', 'latitude', 'longitude','checked'];
     public $translatedAttributes = ['name', 'synopsis', 'slug'];
     public function country(){
         return $this->belongsTo(Country::class, 'country_id');

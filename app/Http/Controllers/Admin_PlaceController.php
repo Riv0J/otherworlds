@@ -303,6 +303,7 @@ class Admin_PlaceController extends Controller{
         $place->slug = OHelper::sluggify($data['name']);
         $place->gallery_url = $data['gallery_url'];
         $place->synopsis = $data['synopsis'];
+        $place->checked = $data['checked'] == 'false' ? false : true; //the input arrives as boolean
 
         if($request->hasFile('thumbnail')){
             $place->save_thumbnail($request->file('thumbnail'));
@@ -313,10 +314,14 @@ class Admin_PlaceController extends Controller{
             'locale' => $data['locale'],
             'place' => $place,
             'success' => true,
-            'message' => new Message(Message::TYPE_SUCCESS, "Updated place basic info"),
+            'messages' => [new Message(Message::TYPE_SUCCESS, "Updated place basic info"),new Message(Message::TYPE_SUCCESS, $data['checked'])],
             'thumbnail_edited' => $request->hasFile('thumbnail')
         ];
-
+        if($place->checked){
+            $variables['messages'][] = new Message(Message::TYPE_SUCCESS, "Place is checked");
+        } else {
+            $variables['messages'][] = new Message(Message::TYPE_ERROR, "Place is unchecked");
+        }
         //si se edita en 'en' entonces, cambiar el public slug del place, y a su vez, mover la carpeta al nuevo nombre
         if($data['locale'] == 'en'){
             

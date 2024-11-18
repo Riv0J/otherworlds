@@ -28,6 +28,12 @@ class Place_Editor{
                         <div class="working d-inline-flex align-items-center gap-2" style="display: none; visibility: hidden">
                             <i class="fa-solid fa-spinner"></i><span>Please wait</span>
                         </div>
+                        <button class="button" id="checked-button">
+                            <input type="checkbox" name="place_checked" id="place_checked" class="">
+                            <span>Place revised</span>
+                            <i class="fa-solid fa-check d-none" style="color:var(--green_light)"></i>
+                            <i class="fa-solid fa-xmark d-none" style="color:red"></i>
+                        </button>
                         <select id="select_locale" name="select_locale"></select>
                         <button class="modal_save button info"><i class="fa-solid fa-floppy-disk"></i></button>
                         <a href='#' target="_blank" class="place_link button info">
@@ -52,13 +58,10 @@ class Place_Editor{
         </div>
         <div class="modal_tab_content" id="content_medias">
             <div class="form_row w-100 justify-content-between gap-3 mb-3">
-                <input class="flex-grow-1" name="media_url" placeholder="https://commons.wikimedia.org/wiki/File:...">
+                <input class="flex-grow-1" name="media_url" placeholder="File URL https://commons.wikimedia.org/wiki/File:...">
                 <div class="d-inline-flex gap-3">
                     <button class="button" class="button" id="media_add_one">
-                        <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add one
-                    </button>
-                    <button class="button" class="button">
-                        <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-images"></i>Add gallery
+                        <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add media
                     </button>
                 </div>
             </div>
@@ -142,6 +145,7 @@ class Place_Editor{
         });
     }
     _setplace(place){
+        this.data.place = place;
         //edit place tab
         this.query('.place_link').setAttribute('href',`${this.data.place_prefix}/${this.data.place.slug}`)
         this.query('.thumbnail_preview').style.backgroundImage = `url('${this.data.thumbnail_prefix}/${place.public_slug}/${place.thumbnail}?_=${new Date().getTime()}')`;
@@ -149,6 +153,7 @@ class Place_Editor{
         this.query('[name="name"]').value = place.name;
         this.query('[name="synopsis"]').value = place.synopsis;
         this.query('[name="gallery_url"]').value = place.gallery_url;
+        this._setcheck(place.checked);
 
         //sources tab
         if(!this.data.place.sources){
@@ -280,9 +285,11 @@ class Place_Editor{
             this._close();
         });
         this.query('.modal_save').addEventListener('click', (event) => {
-            const tab_name = this._active_tab().getAttribute('name');
-            console.log('on submit active tab = '+tab_name);
-            this.data['on_submit_'+tab_name](this);
+            this._save();
+        });
+        this.query('#checked-button').addEventListener('click', (event)=>{
+            this._setcheck(!this.data.place.checked);
+            this._save();
         });
         this.query('#thumbnail').addEventListener('change', function() {
             const file = this.files[0];
@@ -311,7 +318,7 @@ class Place_Editor{
         this.query('#media_add_one').addEventListener('click', (event)=>{
             this.data['on_media_add_one'](this);
         });
-        
+
         const tabs = this.element.querySelectorAll('.modal_tabs li');
         this._tab(tabs[0].getAttribute('name'))
         tabs.forEach(element=>{
@@ -321,6 +328,27 @@ class Place_Editor{
 
             });
         });
+    }
+    _save(){
+        const tab_name = this._active_tab().getAttribute('name');
+        console.log('Modal Editor: On submit active tab = '+tab_name);
+        this.data['on_submit_'+tab_name](this);
+    }
+    _setcheck(new_value){
+        console.log("Setting new value= "+new_value);
+        
+        const input = this.query('input[name="place_checked"]');
+        const check = this.query('#checked-button .fa-check');
+        const xmark = this.query('#checked-button .fa-xmark');
+        if(new_value){
+            check.classList.remove("d-none");
+            xmark.classList.add("d-none");
+            input.setAttribute('checked', true);
+        } else {
+            check.classList.add("d-none");
+            xmark.classList.remove("d-none");
+            input.removeAttribute('checked');
+        }
     }
     _selected_locale(){
         return this.query('#select_locale').value;
