@@ -289,7 +289,7 @@ class Admin_PlaceController extends Controller{
         $data = $request->all();
 
         app()->setLocale($data['locale']);
-        $place = Place::with('medias')->where('id',$data['place_id'])->first();
+        $place = Place::with('medias')->with('sources')->where('id',$data['place_id'])->first();
 
         if(PlaceTranslation::where('name', $data['name'])->where('place_id','!=',$place->id)->exists()){
             return response()->json([
