@@ -344,7 +344,7 @@ class Admin_PlaceController extends Controller{
         app()->setLocale($data['locale']);
         $variables =[
             'locale' => $data['locale'],
-            'place' => Place::with('medias')->where('id',$data['place_id'])->first()
+            'place' => Place::with('medias')->with('sources')->where('id',$data['place_id'])->first()
         ];
         return response()->json($variables);
     }
