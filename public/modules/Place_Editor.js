@@ -59,11 +59,15 @@ class Place_Editor{
         <div class="modal_tab_content" id="content_medias">
             <div class="form_row w-100 justify-content-between gap-3 mb-3">
                 <input class="flex-grow-1" name="media_url" placeholder="File URL https://commons.wikimedia.org/wiki/File:...">
-                <div class="d-inline-flex gap-3">
-                    <button class="button" class="button" id="media_add_one">
-                        <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add media
-                    </button>
-                </div>
+                <button type="button" class="button" id="media_add_one">
+                    <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add wiki File
+                </button>
+            </div>
+            <div class="form_row w-100 justify-content-between gap-3 mb-3">
+                <input class="flex-grow-1" name="page_url" placeholder="The image source page url, in case of Wiki File, leave empty">
+                <button type="button" class="button" id="media_add_source">
+                    <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add media with source
+                </button>
             </div>
             <div class="medias"></div>
         </div>
