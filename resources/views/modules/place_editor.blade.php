@@ -253,6 +253,7 @@
                 console.log(response_data);
                 if(response_data['success'] && response_data['success'] == true){
                     modal_object._add_media(response_data['new_media']);
+                    input.value = "";
                 }
             },
             after_func: function(){
