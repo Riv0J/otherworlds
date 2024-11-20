@@ -65,7 +65,7 @@ class Place_Editor{
             </div>
             <div class="form_row w-100 justify-content-between gap-3 mb-3">
                 <input class="flex-grow-1" name="page_url" placeholder="The image's page URL. In case of Wiki File URL, leave empty">
-                <button type="button" class="button" id="media_add_source">
+                <button type="button" class="button" id="media_add_page">
                     <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add 3rd party
                 </button>
             </div>
@@ -322,7 +322,11 @@ class Place_Editor{
         this.query('#media_add_one').addEventListener('click', (event)=>{
             this.data['on_media_add_one'](this);
         });
-
+        
+        this.query('#media_add_page').addEventListener('click', (event)=>{
+            this.data['on_media_add_page'](this);
+        });
+        
         const tabs = this.element.querySelectorAll('.modal_tabs li');
         this._tab(tabs[0].getAttribute('name'))
         tabs.forEach(element=>{
