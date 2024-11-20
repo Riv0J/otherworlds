@@ -64,7 +64,7 @@ class Place_Editor{
                 </button>
             </div>
             <div class="form_row w-100 justify-content-between gap-3 mb-3">
-                <input class="flex-grow-1" name="page_url" placeholder="The image's page URL. In case of Wiki File URL, leave empty">
+                <input class="flex-grow-1" name="page_url" placeholder="The image's page URL for CC attribution. In case of Wiki File URL, leave empty">
                 <button type="button" class="button" id="media_add_page">
                     <i class="small_i fa-solid fa-plus"></i><i class="fa-solid fa-image"></i>Add 3rd party
                 </button>
