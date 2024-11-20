@@ -1,4 +1,4 @@
-<script src='{{ asset('modules/Place_Editor.js') }}?v=7'></script>
+<script src='{{ asset('modules/Place_Editor.js') }}?v=8'></script>
 <script>
     function show_place_editor(place){
         const editor_data = {
@@ -270,7 +270,7 @@
     function media_add_page(modal_object, place){
         const input_src = modal_object.query('input[name="media_url"]');
         const input_page = modal_object.query('input[name="page_url"]');
-        if(input_src.value == '' || input.page.value == ""){ return; }
+        if(input_src.value == '' || input_page.value == ""){ return; }
         const ajax_data = {
             url: '{{ URL("/ajax/admin/medias/create") }}',
             request_data: {
