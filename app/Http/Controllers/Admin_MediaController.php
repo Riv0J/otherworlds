@@ -57,6 +57,19 @@ class Admin_MediaController extends Controller{
             'src_url' => 'required|string|max:255',                            
             'page_url' => 'required|string|max:255'
         ]);
-        return response()->json($validated);
+
+        $new_media = Media::create([
+            'place_id' => $validated['place_id'],
+            'url' => $validated['src_url'],
+            'thumbnail_url' => $validated['src_url'],
+            'page_url' => $validated['page_url']
+        ]);
+        
+        $response = [
+            'new_media' => $new_media,
+            'success' => true,
+            'message' => new Message(Message::TYPE_SUCCESS, 'Media added'),
+        ];
+        return response()->json($response);
     }
 }
