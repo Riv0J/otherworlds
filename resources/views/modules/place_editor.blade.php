@@ -61,9 +61,13 @@
                 console.log('called on_delete_media');
                 media_delete(modal_object, media_id);
             },
-            on_media_add_one: function(modal_object, media_id){
+            on_media_add_one: function(modal_object){
                 console.log('called on_media_add_one');
                 media_add(modal_object, place);
+            },
+            on_media_add_page: function(modal_object){
+                console.log('called on_media_add_page');
+                media_add_page(modal_object, place);
             },
         };
 
@@ -261,6 +265,30 @@
         }
         console.log(ajax_data);
         ajax(ajax_data, "Adding media...");
+    }
+
+    function media_add_page(modal_object, place){
+        const input_src = modal_object.query('input[name="media_url"]');
+        const input_page = modal_object.query('input[name="page_url"]');
+        if(input_src.value == '' || input.page.value == ""){ return; }
+        const ajax_data = {
+            url: '{{ URL("/ajax/admin/medias/create") }}',
+            request_data: {
+                _token: csrf_token,
+                place_id: place.id,
+                src_url: input_src.value,
+                page_url: input_page.value,
+            },
+            success_func: function(response_data) {
+                console.log(response_data);
+                if(response_data['success'] && response_data['success'] == true){
+                    modal_object._add_media(response_data['new_media']);
+                    input.value = "";
+                }
+            },
+        }
+        console.log(ajax_data);
+        //ajax(ajax_data, "Adding media with page URL...");
     }
     console.log('Place Editor Loaded.');
 </script>
