@@ -51,4 +51,12 @@ class Admin_MediaController extends Controller{
         ];
         return response()->json($response);
     }
+    public function ajax_create_page(Request $request){
+        $validated = $request->validate([
+            'place_id' => 'required|exists:places,id',
+            'src_url' => 'required|string|max:255',                            
+            'page_url' => 'required|string|max:255'
+        ]);
+        return response()->json($validated);
+    }
 }
