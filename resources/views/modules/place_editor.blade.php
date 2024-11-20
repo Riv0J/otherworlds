@@ -1,4 +1,4 @@
-<script src='{{ asset('modules/Place_Editor.js') }}?v=8'></script>
+<script src='{{ asset('modules/Place_Editor.js') }}?v=9'></script>
 <script>
     function show_place_editor(place){
         const editor_data = {
@@ -272,7 +272,7 @@
         const input_page = modal_object.query('input[name="page_url"]');
         if(input_src.value == '' || input_page.value == ""){ return; }
         const ajax_data = {
-            url: '{{ URL("/ajax/admin/medias/create") }}',
+            url: '{{ URL("/ajax/admin/medias/create/page") }}',
             request_data: {
                 _token: csrf_token,
                 place_id: place.id,
@@ -283,12 +283,13 @@
                 console.log(response_data);
                 if(response_data['success'] && response_data['success'] == true){
                     modal_object._add_media(response_data['new_media']);
-                    input.value = "";
+                    input_src.value = "";
+                    input_page.value = "";
                 }
             },
         }
         console.log(ajax_data);
-        //ajax(ajax_data, "Adding media with page URL...");
+        ajax(ajax_data, "Adding media with page URL...");
     }
     console.log('Place Editor Loaded.');
 </script>
