@@ -1,7 +1,7 @@
 @extends('layout.masterpage')
 
 @section('title')
-    Database | Admin {{ config('app.name') }}
+    @lang('otherworlds.commands') | Admin {{ config('app.name') }}
 @endsection
 
 @section('canonical')
@@ -17,8 +17,8 @@
 <section class="wrapper col-12 col-lg-10">
     <div class="title">
         <div class="text">
-            <i class="fa-solid fa-database"></i>
-            <h3>Database</h3>
+            <i class="fa-solid fa-terminal"></i>
+            @lang('otherworlds.commands')
         </div>
         <nav class="buttons">
             <button class="button info" onclick="location='{{ route('database_download') }}'">
@@ -33,12 +33,10 @@
         </nav>
     </div>
 
-    <h2>Warning!</h2>
-    <p>Please save a backup before making any changes!</p>
-
-    <h2 class="mt-5">
-            Actions
-    </h2>
+    <div class="bg-warning rounded-3 p-2 black">
+        <h2 style="letter-spacing:0" class="mb-2">Warning!</h2>
+        <p>Save a backup before making changes!</p>
+    </div>
 
     <div class="d-inline-flex gap-3 mt-3">
         <button class="button info" onclick="location='{{route('places_folder')}}'">
