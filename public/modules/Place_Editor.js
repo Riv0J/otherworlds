@@ -106,8 +106,8 @@ class Place_Editor{
                     <div id="thumbnail_preview_buttons">
                         <input type="file" class="d-none custom-file-input" id="thumbnail" name="thumbnail">
                         <label id="thumbnail_preview_upload" class="button border" for="thumbnail">
-                            <i class="fa-solid fa-file-arrow-up"></i>
                             <span></span>
+                            <i class="fa-solid fa-file-arrow-up"></i>
                         </label>
                     </div>
                 </div>
