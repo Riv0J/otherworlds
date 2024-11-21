@@ -90,9 +90,6 @@
         gap: 0.5rem;
         background-color: var(--black);
     }
-    fieldset:not(:first-of-type){
-        margin-top: 1rem;
-    }
 </style>
 @endsection
 
