@@ -186,7 +186,7 @@ class Admin_CommandController extends Controller {
     
         // Datos a enviar a la vista
         $data = [
-            'locale' => 'en';
+            'locale' => 'en',
             'cpuLoad' => array_merge($cpuLoadData, ['cores' => (int)$cpuCores]),
             'ram' => [
                 'total' => round($totalRam, 2), // Total de RAM en MB
