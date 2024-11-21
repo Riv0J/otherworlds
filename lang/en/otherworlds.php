@@ -35,6 +35,7 @@ return [
     'sections'=> 'Sections',
     'resources'=> 'Resources',
     'development'=> 'Development',
+    'commands'=> 'Commands',
     'special_thanks'=> 'Special thanks to Wikipedia and corresponding photographers for their invaluable contributions, providing freely usable content for everyone to enjoy.',
 
     // user options
