@@ -46,9 +46,10 @@
     <div>
         <a href="{{ route('development',['locale' => $locale]) }}">
             @php if(str_ends_with($current_url,'admin/development')){ echo('active'); } @endphp
-            <i class="fa-solid fa-code"></i>
+            <i class="fa-solid fa-laptop-code"></i>
             <h5 class="light">Development</h5>
         </a>
+        
         <a href="{{route('server')}}"
             @php if(str_ends_with($current_url,'admin/server')){ echo('active'); } @endphp>
             <i class="fa-solid fa-server"></i>
