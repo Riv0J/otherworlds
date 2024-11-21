@@ -53,11 +53,6 @@
                 <span>Download Backup</span>
             </button>
 
-            <button class="button info" onclick="location='{{route('places_folder')}}'">
-                <i class="fa-regular fa-folder-open"></i>
-                <span>Download places folder</span>
-            </button>
-
             <button class="button info" id="upload-button">
                 <i class="fa-solid fa-upload"></i>
                 <span>Upload Backup</span>
@@ -66,6 +61,19 @@
                     <input type="file" id="backup-file" name="backup" accept=".sql" required>
                 </form>
             </button>
+
+        </fieldset>
+        <fieldset>
+            <legend>
+                <i class="fa-solid fa-hard-drive"></i>
+                <span>Disk</span>
+            </legend>
+
+            <button class="button info" onclick="location='{{route('places_folder')}}'">
+                <i class="fa-regular fa-folder-open"></i>
+                <span>Download places folder</span>
+            </button>
+
         </fieldset>
 
     </div>
