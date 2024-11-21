@@ -17,12 +17,11 @@
             <i class="fa-solid fa-terminal"></i>
             <h3>@lang('otherworlds.commands')</h3>
         </div>
-        <nav class="buttons">
-
-        </nav>
     </div>
 
-    <span class="bg-warning p-2 rounded-2"> 
+    <span class="bg-warning p-2 rounded-2" style="display: inline-flex;
+    gap: 0.5rem;
+    color: black;"> 
         <i class="fa-solid fa-triangle-exclamation"></i> 
         Warning: Make a backup before making changes!
     </span>
@@ -84,9 +83,15 @@
     }
     legend{
         position: absolute;
-        top: -30%;
+        top: -25%;
         padding-inline: 0.5rem;
         width: max-content;
+        display: inline-flex;
+        gap: 0.5rem;
+        background-color: var(--black);
+    }
+    fieldset:not(:first-of-type){
+        margin-top: 1rem;
     }
 </style>
 @endsection
