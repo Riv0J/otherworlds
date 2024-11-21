@@ -136,6 +136,7 @@ return [
     // general
     'config' => 'Settings',
     'database' => 'Database',
+    'server' => 'Server',
     'unique' => 'Unique',
     'all' => 'All',
     'confirm' => 'Confirm',
