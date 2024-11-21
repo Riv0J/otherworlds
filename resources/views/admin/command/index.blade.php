@@ -73,7 +73,7 @@
 <style>
     fieldset{
         position: relative;
-        border: 2px solid var(--alt_dark);
+        border: 1px solid var(--alt_dark);
         padding: 1rem;
         padding-top: 1.5rem;
         display: flex;
