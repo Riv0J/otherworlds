@@ -149,10 +149,10 @@ Route::middleware(['owner'])->group(function () {
     // visits
     Route::post('/ajax/admin/visits/delete', [Admin_VisitController::class, 'ajax_delete_visit']);
 
-    Route::get('/admin/database', [Admin_CommandController::class, 'index'])->name('database');
-    Route::get('/admin/database/download', [Admin_CommandController::class, 'download'])->name('database_download');
-    Route::post('/admin/database/upload', [Admin_CommandController::class, 'upload'])->name('database_upload');
-    Route::get('/admin/database/places_folder', [Admin_CommandController::class, 'places_folder'])->name('places_folder');
+    Route::get('/admin/commands', [Admin_CommandController::class, 'index'])->name('commands');
+    Route::get('/admin/commands/database/download', [Admin_CommandController::class, 'download'])->name('database_download');
+    Route::post('/admin/commands/database/upload', [Admin_CommandController::class, 'upload'])->name('database_upload');
+    Route::get('/admin/commands/places_folder', [Admin_CommandController::class, 'places_folder'])->name('places_folder');
 
     Route::get('/admin/php_info', [Admin_CommandController::class, 'php_info'])->name('php_info');
     Route::get('/admin/git_pull', [Admin_CommandController::class, 'git_pull'])->name('git_pull');
