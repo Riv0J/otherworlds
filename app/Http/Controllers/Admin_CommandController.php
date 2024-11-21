@@ -150,4 +150,57 @@ class Admin_CommandController extends Controller {
         return response()->view('sitemap_template', compact('urls'))
         ->header('Content-Type', 'application/xml');
     }
+
+    public function server() {
+        // Información de la CPU
+        $cpuLoad = shell_exec("uptime"); // Alternativa para obtener la carga de la CPU
+        preg_match("/load average: ([\d.]+), ([\d.]+), ([\d.]+)/", $cpuLoad, $matchesLoad);
+    
+        $cpuLoadData = [
+            'last1Min' => $matchesLoad[1] ?? 0,
+            'last5Min' => $matchesLoad[2] ?? 0,
+            'last15Min' => $matchesLoad[3] ?? 0
+        ];
+    
+        $cpuCores = shell_exec("nproc"); // Número de núcleos de CPU
+    
+        // Verifica que `shell_exec` esté habilitado y que los comandos sean compatibles con tu entorno.
+    
+        // Uso de RAM
+        $memInfo = file_get_contents("/proc/meminfo");
+        preg_match("/MemTotal:\s+(\d+) kB/i", $memInfo, $matchesTotal);
+        preg_match("/MemAvailable:\s+(\d+) kB/i", $memInfo, $matchesAvailable);
+    
+        $totalRam = ($matchesTotal[1] / 1024) / 1024; // Convertir a GB
+        $availableRam = ($matchesAvailable[1] / 1024) / 1024; // Convertir a GB
+        $usedRam = $totalRam - $availableRam; // En GB
+    
+        // Uso de disco
+        $diskTotal = disk_total_space("/") / (1024 * 1024 * 1024); // Convertir a GB
+        $diskFree = disk_free_space("/") / (1024 * 1024 * 1024); // Convertir a GB
+        $diskUsed = $diskTotal - $diskFree;
+    
+        // Sesiones activas
+        $sessionsPath = storage_path('framework/sessions');
+        $activeSessions = count(glob("$sessionsPath/*")); // Contar archivos de sesión
+    
+        // Datos a enviar a la vista
+        $data = [
+            'cpuLoad' => array_merge($cpuLoadData, ['cores' => (int)$cpuCores]),
+            'ram' => [
+                'total' => round($totalRam, 2), // Total de RAM en MB
+                'used' => round($usedRam, 2), // RAM usada en MB
+                'available' => round($availableRam, 2) // RAM disponible en MB
+            ],
+            'disk' => [
+                'total' => round($diskTotal, 2), // Disco total en GB
+                'used' => round($diskUsed, 2), // Disco usado en GB
+                'free' => round($diskFree, 2) // Disco libre en GB
+            ],
+            'activeSessions' => $activeSessions
+        ];
+    
+        
+            return view('admin.server.index', $data);
+        }
 }

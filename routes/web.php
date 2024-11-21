@@ -148,7 +148,8 @@ Route::middleware(['back_edit'])->group(function () {
 Route::middleware(['owner'])->group(function () {
     // visits
     Route::post('/ajax/admin/visits/delete', [Admin_VisitController::class, 'ajax_delete_visit']);
-
+    
+    Route::get('/admin/server', [Admin_CommandController::class, 'server'])->name('server');
     Route::get('/admin/commands', [Admin_CommandController::class, 'index'])->name('commands');
     Route::get('/admin/commands/database/download', [Admin_CommandController::class, 'download'])->name('database_download');
     Route::post('/admin/commands/database/upload', [Admin_CommandController::class, 'upload'])->name('database_upload');
