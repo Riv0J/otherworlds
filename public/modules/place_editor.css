@@ -1,0 +1,16 @@
+.thumbnail_preview{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    width: 18rem;
+    border-radius: 0.5rem;
+}
+#thumbnail_preview_buttons{
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 1rem;
+}

@@ -103,10 +103,13 @@ class Place_Editor{
         <div class="modal_tab_content" id="content_edit_place">
             <div class="d-inline-flex gap-3 w-100">
                 <div class="thumbnail_preview">
-                    <input type="file" class="d-none custom-file-input" id="thumbnail" name="thumbnail">
-                    <label class="button border" for="thumbnail">
-                        <i class="fa-solid fa-file-arrow-up"></i>
-                    </label>
+                    <div id="thumbnail_preview_buttons">
+                        <input type="file" class="d-none custom-file-input" id="thumbnail" name="thumbnail">
+                        <label class="button border" for="thumbnail">
+                            <i class="fa-solid fa-file-arrow-up"></i>
+                        </label>
+                        <label class="border" id="thumbnail_preview_extension"><label>
+                    </div>
                 </div>
                 <div class="flex-grow-1">
                     <div class="form_row w-100">
@@ -153,6 +156,7 @@ class Place_Editor{
         //edit place tab
         this.query('.place_link').setAttribute('href',`${this.data.place_prefix}/${this.data.place.slug}`)
         this.query('.thumbnail_preview').style.backgroundImage = `url('${this.data.thumbnail_prefix}/${place.public_slug}/${place.thumbnail}?_=${new Date().getTime()}')`;
+        this.query('#thumbnail_preview_extension').textContent = place.thumbnail.split('.').pop()
         this.query('[name="slug"]').value = place.slug;
         this.query('[name="name"]').value = place.name;
         this.query('[name="synopsis"]').value = place.synopsis;

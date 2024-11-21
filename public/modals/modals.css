@@ -118,20 +118,6 @@
 .modal_choice_2:hover {
     background-color: var(--bg_gray_office_hover) !important; /* Color de fondo al pasar el mouse (gris medio) */
 }
-.thumbnail_preview{
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    width: 18rem;
-    border-radius: 0.5rem;
-}
-.thumbnail_preview label{
-    cursor: pointer;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-}
 .medias{
     width: 100%;
     display: grid;
