@@ -459,7 +459,8 @@ fieldset{
     margin: 0
 }
 .button:hover{
-    background-color: var(--gray_opacity)
+    background-color: var(--gray_opacity);
+    cursor:pointer
 }
 .button.info:hover{
     color: var(--cyan_light);
