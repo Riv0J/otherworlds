@@ -18,7 +18,7 @@
     <div class="title">
         <div class="text">
             <i class="fa-solid fa-terminal"></i>
-            @lang('otherworlds.commands')
+            <h3>@lang('otherworlds.commands')</h3>
         </div>
         <nav class="buttons">
             <button class="button info" onclick="location='{{ route('database_download') }}'">
@@ -33,10 +33,7 @@
         </nav>
     </div>
 
-    <div class="bg-warning rounded-3 p-2 black">
-        <h2 style="letter-spacing:0" class="mb-2">Warning!</h2>
-        <p>Save a backup before making changes!</p>
-    </div>
+    <p class="bg-warning rounded-3 p-2 black">Warning: Make a backup before making changes!</p>
 
     <div class="d-inline-flex gap-3 mt-3">
         <button class="button info" onclick="location='{{route('places_folder')}}'">
