@@ -1,5 +1,5 @@
 <script src='{{ asset('modules/Place_Editor.js') }}?v=14'></script>
-<link rel="stylesheet" href="{{ asset('modules/place_editor.css') }}?v=1">
+<link rel="stylesheet" href="{{ asset('modules/place_editor.css') }}?v=2">
 <script>
     function show_place_editor(place){
         const editor_data = {
