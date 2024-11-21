@@ -108,7 +108,7 @@ class Place_Editor{
                         <label class="button border" for="thumbnail">
                             <i class="fa-solid fa-file-arrow-up"></i>
                         </label>
-                        <label class="border" id="thumbnail_preview_extension"><label>
+                        <label class="button border" id="thumbnail_preview_extension"><label>
                     </div>
                 </div>
                 <div class="flex-grow-1">

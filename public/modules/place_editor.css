@@ -14,3 +14,6 @@
     display: flex;
     gap: 1rem;
 }
+#thumbnail_preview_extension{
+    cursor: default;
+}

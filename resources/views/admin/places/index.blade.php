@@ -10,7 +10,7 @@
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('css/tables.css') }}"/>
-    <link rel="stylesheet" href="{{asset('modals/modals.css')}}">
+    <link rel="stylesheet" href="{{asset('modals/modals.css?v=1')}}">
     <script src="{{asset('modals/modals.js')}}"></script>
 
     <section class="wrapper col-12 col-lg-10">
