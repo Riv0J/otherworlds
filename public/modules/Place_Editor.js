@@ -156,7 +156,7 @@ class Place_Editor{
         //edit place tab
         this.query('.place_link').setAttribute('href',`${this.data.place_prefix}/${this.data.place.slug}`)
         this.query('.thumbnail_preview').style.backgroundImage = `url('${this.data.thumbnail_prefix}/${place.public_slug}/${place.thumbnail}?_=${new Date().getTime()}')`;
-        this.query('.thumbnail_preview_upload span').textContent = "."+place.thumbnail.split('.').pop()
+        this.query('#thumbnail_preview_upload span').textContent = "."+place.thumbnail.split('.').pop()
         this.query('[name="slug"]').value = place.slug;
         this.query('[name="name"]').value = place.name;
         this.query('[name="synopsis"]').value = place.synopsis;
