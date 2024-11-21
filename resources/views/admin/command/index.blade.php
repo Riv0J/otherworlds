@@ -33,7 +33,7 @@
         </nav>
     </div>
 
-    <p class="bg-warning rounded-3 p-2 black">Warning: Make a backup before making changes!</p>
+    <p class="bg-warning rounded-3 p-2 black" style="width:max-content; display: inline-flex">Warning: Make a backup before making changes!</p>
 
     <div class="d-inline-flex gap-3 mt-3">
         <button class="button info" onclick="location='{{route('places_folder')}}'">

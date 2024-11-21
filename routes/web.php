@@ -16,7 +16,7 @@ use App\Http\Controllers\Admin_VisitController;
 use App\Http\Controllers\Admin_PlaceController;
 use App\Http\Controllers\Admin_MediaController;
 use App\Http\Controllers\Admin_SourceController;
-use App\Http\Controllers\Admin_DatabaseController;
+use App\Http\Controllers\Admin_CommandController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,7 +28,7 @@ use App\Http\Controllers\Admin_DatabaseController;
 |
 */
 // absolute routes
-Route::get('/sitemap.xml', [Admin_DatabaseController::class, 'sitemap']);
+Route::get('/sitemap.xml', [Admin_CommandController::class, 'sitemap']);
 Route::redirect('/sitemap', '/sitemap.xml');
 
 Route::get('/', function () {
@@ -149,12 +149,12 @@ Route::middleware(['owner'])->group(function () {
     // visits
     Route::post('/ajax/admin/visits/delete', [Admin_VisitController::class, 'ajax_delete_visit']);
 
-    Route::get('/admin/database', [Admin_DatabaseController::class, 'index'])->name('database');
-    Route::get('/admin/database/download', [Admin_DatabaseController::class, 'download'])->name('database_download');
-    Route::post('/admin/database/upload', [Admin_DatabaseController::class, 'upload'])->name('database_upload');
-    Route::get('/admin/database/places_folder', [Admin_DatabaseController::class, 'places_folder'])->name('places_folder');
+    Route::get('/admin/database', [Admin_CommandController::class, 'index'])->name('database');
+    Route::get('/admin/database/download', [Admin_CommandController::class, 'download'])->name('database_download');
+    Route::post('/admin/database/upload', [Admin_CommandController::class, 'upload'])->name('database_upload');
+    Route::get('/admin/database/places_folder', [Admin_CommandController::class, 'places_folder'])->name('places_folder');
 
-    Route::get('/admin/php_info', [Admin_DatabaseController::class, 'php_info'])->name('php_info');
-    Route::get('/admin/git_pull', [Admin_DatabaseController::class, 'git_pull'])->name('git_pull');
+    Route::get('/admin/php_info', [Admin_CommandController::class, 'php_info'])->name('php_info');
+    Route::get('/admin/git_pull', [Admin_CommandController::class, 'git_pull'])->name('git_pull');
 });
 

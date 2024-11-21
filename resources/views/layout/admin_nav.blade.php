@@ -54,8 +54,8 @@
             <i class="fa-solid fa-gear"></i>
             <h5 class="light">@lang('otherworlds.config')[NYI]</h5>
         </a> --}}
-        <a href="{{route('database')}}"
-            @php if(str_ends_with($current_url,'admin/database')){ echo('active'); } @endphp>
+        <a href="{{route('commands')}}"
+            @php if(str_ends_with($current_url,'admin/commands')){ echo('active'); } @endphp>
             <i class="fa-solid fa-terminal"></i>
             <h5 class="light">@lang('otherworlds.commands')
                 @if($logged->is_guest())<i class="fa-solid fa-ban"></i>@endif

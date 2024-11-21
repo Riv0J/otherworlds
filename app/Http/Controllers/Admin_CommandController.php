@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use File;
 use \App\Models\Place;
-class Admin_DatabaseController extends Controller {
+class Admin_CommandController extends Controller {
     
     public function index(){
-        return view('admin.database.index', ['locale' => 'en']);
+        return view('admin.command.index', ['locale' => 'en']);
     }
 
     public function download(){
