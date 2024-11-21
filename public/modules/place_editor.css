@@ -6,11 +6,29 @@
     width: 18rem;
     border-radius: 0.5rem;
 }
-#thumbnail_preview_buttons{
-    cursor: pointer;
+.buttons{
     position: absolute;
     top: 1rem;
     right: 1rem;
     display: flex;
-    gap: 1rem;
+    gap: 1rem
+}
+.medias{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.5rem;
+}
+.media{
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    aspect-ratio: 1;
+    border-radius: 0.5rem;
+}
+.media .delete_button{
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
 }

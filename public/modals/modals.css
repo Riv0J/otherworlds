@@ -118,25 +118,6 @@
 .modal_choice_2:hover {
     background-color: var(--bg_gray_office_hover) !important; /* Color de fondo al pasar el mouse (gris medio) */
 }
-.medias{
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 0.5rem;
-}
-.media{
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    aspect-ratio: 1;
-    border-radius: 0.5rem;
-    position: relative;
-}
-.media .delete_button{
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-}
 .modal_tab_content{
     display: none;
 }

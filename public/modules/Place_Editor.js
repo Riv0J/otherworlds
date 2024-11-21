@@ -103,7 +103,7 @@ class Place_Editor{
         <div class="modal_tab_content" id="content_edit_place">
             <div class="d-inline-flex gap-3 w-100">
                 <div class="thumbnail_preview">
-                    <div id="thumbnail_preview_buttons">
+                    <div class="buttons">
                         <input type="file" class="d-none custom-file-input" id="thumbnail" name="thumbnail">
                         <label id="thumbnail_preview_upload" class="button border" for="thumbnail">
                             <span></span>
