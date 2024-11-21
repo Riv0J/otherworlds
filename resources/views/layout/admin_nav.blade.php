@@ -49,15 +49,15 @@
             <i class="fa-solid fa-code"></i>
             <h5 class="light">Development</h5>
         </a>
-        <a href="#"
+        {{-- <a href="#"
             @php if(str_ends_with($current_url,'admin/config')){ echo('active'); } @endphp>
             <i class="fa-solid fa-gear"></i>
             <h5 class="light">@lang('otherworlds.config')[NYI]</h5>
-        </a>
+        </a> --}}
         <a href="{{route('database')}}"
             @php if(str_ends_with($current_url,'admin/database')){ echo('active'); } @endphp>
-            <i class="fa-solid fa-database"></i>
-            <h5 class="light">@lang('otherworlds.database')
+            <i class="fa-solid fa-terminal"></i>
+            <h5 class="light">@lang('otherworlds.commands')
                 @if($logged->is_guest())<i class="fa-solid fa-ban"></i>@endif
             </h5>
         </a>
