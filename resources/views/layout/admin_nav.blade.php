@@ -53,7 +53,7 @@
         <a href="{{route('server')}}"
             @php if(str_ends_with($current_url,'admin/server')){ echo('active'); } @endphp>
             <i class="fa-solid fa-server"></i>
-            <h5 class="light">Servidor</h5>
+            <h5 class="light">@lang('otherworlds.server')</h5>
         </a>
         {{-- <a href="#"
             @php if(str_ends_with($current_url,'admin/config')){ echo('active'); } @endphp>
