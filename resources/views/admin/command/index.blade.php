@@ -66,7 +66,7 @@
         <fieldset>
             <legend>
                 <i class="fa-solid fa-hard-drive"></i>
-                <span>Disk</span>
+                <span>Files</span>
             </legend>
 
             <button class="button info" onclick="location='{{route('places_folder')}}'">
