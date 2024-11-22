@@ -81,7 +81,7 @@
                     <small>
                         @if($source != null)
                         <a  href="{{$source->url}}" target="_blank">
-                            {{$source->title ?? $place->name}} <i class="small_i ri-external-link-line"></i>
+                            {{$source->title ?? $place->name}} <i class="small_i fa-solid fa-arrow-up-right-from-square"></i>
                         </a>
                         @else
                         -
@@ -90,7 +90,7 @@
                     <small>
                         <a href="https://www.google.com/maps?q={{$place->name}}&t=k" target="_blank">
                             <span>@lang('otherworlds.view_in_maps')</span>
-                            <i class="small_i ri-external-link-line"></i>
+                            <i class="small_i fa-solid fa-arrow-up-right-from-square"></i>
                         </a>
                     </small>
                 </div>
@@ -110,7 +110,7 @@
             {!! $source->content !!}
             <a href="{{$source->url}}" target="_blank">
                 <span>@lang('otherworlds.learn_more', ['place_name' => $place->name])</span>
-                <i class="small_i ri-external-link-line"></i>
+                <i class="small_i fa-solid fa-arrow-up-right-from-square"></i>
             </a>
         @else
             @lang('otherworlds.no_source').
@@ -129,7 +129,7 @@
         </h4>
         <p class="m-4 mx-md-2 d-flex flex-row gap-2">
             @lang('otherworlds.view_place_maps_description',
-            ['link' => "<a href='https://www.google.com/maps?q=".$place->name." ".$place->country->name."&t=k' target='_blank'>".$place->name." Maps <i class='small_i ri-external-link-line'></i></a>"])
+            ['link' => "<a href='https://www.google.com/maps?q=".$place->name." ".$place->country->name."&t=k' target='_blank'>".$place->name." Maps <i class='small_i fa-solid fa-arrow-up-right-from-square'></i></a>"])
         </p>
 
         <div style="height: 300px; position: relative">
@@ -140,7 +140,7 @@
                 <h3 class="mb-4 text-center">@lang('otherworlds.no_location').</h3>
                 <a href="https://www.google.com/maps?q={{$place->name.' '.$place->country->name}}&t=k" target="_blank">
                     <span>@lang('otherworlds.view_in_maps')</span>
-                    <i class="small_i ri-external-link-line"></i>
+                    <i class="small_i fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
             </div>
             <style>
@@ -186,7 +186,7 @@
         <h3 class="text-center">@lang('otherworlds.gallery')</h3>
         <p class="m-4 mx-md-2 d-flex flex-row gap-2">
             @if($place->gallery_url != null)
-                @lang('otherworlds.view_place_gallery',['link' => "<a href='$place->gallery_url' target='_blank'>".$place->name." Wikimedia <i class='small_i ri-external-link-line'></i></a>" ])
+                @lang('otherworlds.view_place_gallery',['link' => "<a href='$place->gallery_url' target='_blank'>".$place->name." Wikimedia <i class='small_i fa-solid fa-arrow-up-right-from-square'></i></a>" ])
             @else
                 @lang('otherworlds.no_gallery').
             @endif
