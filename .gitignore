@@ -13,4 +13,4 @@ yarn-error.log
 
 /public/users
 .env
-/database/seeders/UserSeeder.php
+database/seeders/UserSeeder.php
