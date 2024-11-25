@@ -18,63 +18,6 @@ class UserSeeder extends Seeder{
      * @return void
      */
     public function run(){
-        $owner_role_id = (Role::where('name', 'owner')->first())->id;
-        $admin_role_id = (Role::where('name', 'admin')->first())->id;
-        $guest_role_id = (Role::where('name', 'guest')->first())->id;
-        $user_role_id = (Role::where('name', 'user')->first())->id;
-
-        $owner = User::create([
-            'name' => 'owner',
-            'email' => 'owner@gmail.com',
-            'password' => Hash::make('owner'),
-            'role_id' => $owner_role_id,
-            'country_id' => 1,
-            'img' => 'premade/1.gif'
-        ]);
-
-        $admin = User::create([
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin'),
-            'role_id' => $admin_role_id,
-            'country_id' => 1,
-            'img' => 'premade/2.gif'
-        ]);
-
-        $user = User::create([
-            'name' => 'user',
-            'email' => 'user@gmail.com',
-            'password' => Hash::make('user'),
-            'role_id' => $user_role_id,
-            'country_id' => Country::random()->id,
-            'img' => 'premade/2.gif'
-        ]);
-
-        $guest = User::create([
-            'name' => 'guest',
-            'email' => 'guest@gmail.com',
-            'password' => Hash::make('guest'),
-            'role_id' => $guest_role_id,
-            'country_id' => Country::random()->id,
-            'img' => 'premade/2.gif'
-        ]);
-
-
-        //create 50 random users
-        User::factory()->count(100)->create();
-
-        //create random favorites
-        foreach(User::all() as $user){
-
-            for ($i=0; $i < rand(1,10); $i++) {
-                $random_place = Place::random();
-
-                // prevent a duplicate favorite
-                if($random_place->is_favorite($user) == false){
-                    $user->favorites()->attach($random_place->id);
-                }
-
-            }
-        }
+       
     }
 }
