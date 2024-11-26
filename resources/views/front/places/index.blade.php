@@ -61,9 +61,12 @@
 
     function request_places(){
         if (current_page == -1){
+            console.log("Requests done");
             //means there are no more places for this query
             return;
         }
+        console.log("Requesting page: "+current_page);
+        
         const ajax_data = {
             method: 'POST',
             url: '{{ URL('/ajax/places/request') }}',
