@@ -60,6 +60,8 @@
         for (let i = 0; i < Object.keys(places_json).length; i++) {
             const place = places_json[i];
             if (place_ids.includes(place.id)) {
+                console.log("Already in: "+place);
+                
                 return;
             }
             place_ids.push(place.id);
