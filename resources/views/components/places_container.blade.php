@@ -61,8 +61,7 @@
             const place = places_json[i];
             if (place_ids.includes(place.id)) {
                 console.log("Already in: "+place);
-                
-                return;
+                continue;
             }
             place_ids.push(place.id);
             console.log("Places: "+place_ids.length+". Added"+place.id);
