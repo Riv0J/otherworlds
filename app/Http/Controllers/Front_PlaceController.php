@@ -10,14 +10,8 @@ use App\Models\Place;
 use App\Models\Category;
 class Front_PlaceController extends Controller{
     protected const PER_PAGE = 10;
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    function index($locale){
-        // check if this section_slug is valid
 
+    function index($locale){
         //get the places in the first page
         $places = Front_PlaceController::getPlaces($page = 1);
 
@@ -42,33 +36,6 @@ class Front_PlaceController extends Controller{
         return view('front.places.index', $variables);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     function show($locale, $place_slug){
         // try to get the place
         $place = Place::whereHas('translations', function ($query) use ($place_slug) {
@@ -96,39 +63,6 @@ class Front_PlaceController extends Controller{
         return view('front.places.show', $variables);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
     //---------------------------------------------------------------------------------------AJAX
     function ajax_place_request(Request $request){
         $request_data = $request->all(); //get request data

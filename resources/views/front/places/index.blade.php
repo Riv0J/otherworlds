@@ -82,6 +82,14 @@
                 response_data['countries'].forEach(function(country) {
                     if(loaded_countries[country.id] == null){
                         loaded_countries[country.id] = country;
+
+                        console.log("Countries count: " + Object.keys(loaded_countries).length);
+
+
+const sizeInBytes = new TextEncoder().encode(JSON.stringify(loaded_countries)).length;
+const sizeInKB = (sizeInBytes / 1024).toFixed(2); // Convierte a KB con 2 decimales
+
+console.log("Tamaño actual: " + sizeInBytes + " bytes (" + sizeInKB + " KB)");
                     }
                 });
 
