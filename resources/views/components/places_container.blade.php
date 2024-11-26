@@ -63,7 +63,8 @@
                 return;
             }
             place_ids.push(place.id);
-
+            console.log("Places : "+place_ids.length);
+            
             const anchor = create_card(place);
             anchor.style.animationDelay = i * 0.2 + 's';
             anchor.classList.add('appear');
