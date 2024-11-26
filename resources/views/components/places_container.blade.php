@@ -65,7 +65,7 @@
                 return;
             }
             place_ids.push(place.id);
-            console.log("Places : "+place_ids.length);
+            console.log("Places: "+place_ids.length+". Added"+place.id);
             
             const anchor = create_card(place);
             anchor.style.animationDelay = i * 0.2 + 's';
