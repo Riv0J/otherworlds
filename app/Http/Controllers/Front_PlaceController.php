@@ -119,7 +119,7 @@ class Front_PlaceController extends Controller{
         $places = Place::orderBy('views_count', 'desc')
             ->skip($startIndex)
             ->take(Front_PlaceController::PER_PAGE)
-            ->get('places.*');
+            ->get();
         return $places;
     }
 }
