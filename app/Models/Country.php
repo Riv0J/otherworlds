@@ -10,6 +10,14 @@ class Country extends Model{
     protected $table = "countries";
     public $timestamps = false;
     public $translatedAttributes = ['name'];
+
+    public function places(){
+        return $this->hasMany(Place::class);
+    }
+
+    /*
+     *  Get Countries that are not unknown
+     */
     public static function getAvailableCountries(){
         $unknown = Country::find(CountryTranslation::where('name','Unknown')->first()->country_id)->first();
 

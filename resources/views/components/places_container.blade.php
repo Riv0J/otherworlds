@@ -1,4 +1,4 @@
-{{-- needs a collection of $places, $countries and $all_categories to function --}}
+{{-- needs a collection of $places, $countries and $categories to function --}}
 <script src='{{asset('js/ajax.js')}}'></script>
 <div class="" id="places_container">
     <div class="pl_card" id="no_places" style="display: none;">
@@ -52,9 +52,8 @@
     });
 
     const places_route = "{{places_url($locale)}}"
-    const loaded_countries = organize_dic({!! json_encode($countries) !!});
-    const loaded_categories = organize_dic({!! json_encode($all_categories) !!});
-    const favorite_ids = {!! json_encode($fav_places_ids) !!};
+    const countries = organize_dic({!! json_encode($countries) !!});
+    const categories = organize_dic({!! json_encode($categories) !!});
     const card_container = document.querySelector('#places_container');
     
     async function create_place_cards(places_json) {
@@ -72,8 +71,8 @@
     }
     function create_card(place){
         const card = document.querySelector('template').content.cloneNode(true);
-        const category = loaded_categories[place.category_id];
-        const country = loaded_countries[place.country_id];
+        const category = categories[place.category_id];
+        const country = countries[place.country_id];
 
         const anchor = card.querySelector('a');
         anchor.setAttribute('href',places_route + '/' + place.slug);

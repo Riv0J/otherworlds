@@ -7,31 +7,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Place;
+use App\Models\Country;
 use App\Models\Category;
 class Front_PlaceController extends Controller{
     protected const PER_PAGE = 10;
 
     function index($locale){
-        //get the places in the first page
-        $places = Front_PlaceController::getPlaces($page = 1);
-
-        //get the countries of the places
-        $countries = $places->pluck('country')->unique()->values()->all();
-
-        $fav_places_ids = [];
-        $user = Auth::user();
-        if($user){
-            $fav_places_ids = $user->favorites->pluck('id');
-        }
         $variables = [
             'slug_key' => 'places_slug',
             'locale' => $locale,
 
             //#places_container variables
-            'places' => $places,
-            'countries' => $countries,
-            'all_categories' => Category::all(),
-            'fav_places_ids' => $fav_places_ids
+            //get the places in the first page
+            'places' => Front_PlaceController::getPlaces($page = 1),
+            'countries' => Country::has('places')->get(),
+            'categories' => Category::all(),
         ];
         return view('front.places.index', $variables);
     }
@@ -72,9 +62,6 @@ class Front_PlaceController extends Controller{
         //get the places for next page
         $places = Front_PlaceController::getPlaces($page = $next_page);
 
-        //get the countries for these places
-        $countries = $places->pluck('country')->unique()->values()->all();
-
         if (count($places) === 0) {
             //if no places, means there is no next page
             $next_page = -1;
@@ -83,7 +70,6 @@ class Front_PlaceController extends Controller{
         $variables = [
             'current_page' => $next_page,
             'places' => $places,
-            'countries' => $countries,
         ];
 
         return response()->json($variables); //convert vars to json

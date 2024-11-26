@@ -20,18 +20,13 @@ class Front_UserController extends Controller{
         $user = User::where('name', $username)->first();
         if ($user == null) { redirect()->route('home', ['locale', $locale]); }
 
-        //get the favorites
+        //get the favorite places
         $places = $user->favorites;
 
-        //get the favorites of the loggeed
+        //get the logged in user
         $logged = Auth::user();
-        $fav_places_ids = [];
-        if($logged){
-            $fav_places_ids = $logged->favorites->pluck('id');
-        }
 
         //get the countries of the places
-        $countries = $places->pluck('country')->unique()->values()->all();
         $variables = [
             'slug_key' => 'profile_slug',
             'locale' => $locale,
@@ -42,9 +37,8 @@ class Front_UserController extends Controller{
 
             //#places_container variables
             'places' => $places,
-            'countries' => $countries,
-            'all_categories' => Category::all(),
-            'fav_places_ids' => $fav_places_ids
+            'countries' => $places->pluck('country')->unique()->values()->all(),
+            'categories' => Category::all(),
         ];
         return view('front.users.show', $variables);
     }
