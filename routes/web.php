@@ -34,12 +34,6 @@ Route::redirect('/sitemap', '/sitemap.xml');
 
 Route::redirect('/', 'en/home');
 Route::redirect('/home', 'en/home');
-// Route::get('/', function () {
-//     return (new Front_Controller())->home('en');
-// });
-// Route::get('/home', function () {
-//     return (new Front_Controller())->home('en');
-// });
 
 // front routes with $locale slug
 Route::prefix('{locale}')->middleware('visits')->group(function () {
@@ -49,9 +43,9 @@ Route::prefix('{locale}')->middleware('visits')->group(function () {
     // routes that automatically update app locale with the $locale prefix
     Route::middleware(['locale_updater'])->group(function () {
 
-        // /en/
-        Route::get('/', [Front_Controller::class,'home']);
-        
+        // /en/ -> /en/home
+        Route::redirect('/', '/home');
+
         // /en/home
         Route::get('/home', [Front_Controller::class,'home'])->name('home');
         
