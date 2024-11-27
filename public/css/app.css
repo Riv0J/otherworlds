@@ -70,8 +70,12 @@ main>*{
     align-items: center;
 }
 .flex-row{
-    display: flex;
-    flex-direction: row;
+    display:flex;
+    flex-direction:row;
+}
+.flex-column{
+    display:flex;
+    flex-direction:column;
 }
 .navbar-brand{
     letter-spacing: 0.05rem;

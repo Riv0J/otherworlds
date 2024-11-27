@@ -58,36 +58,60 @@
             <p class="text-center m-2">{{$place->synopsis}}.</p>
 
             <div class="div_h div_gray m-3"></div>
-
             {{-- place stats START --}}
-            <div class="d-flex gap-3">
-                <div class="col-4 d-flex flex-column align-items-end gap-1 text-end">
-                    <small>@lang('otherworlds.country'):</small>
-                    <small>@lang('otherworlds.category'):</small>
-                    <small>@lang('otherworlds.views'):</small>
-                    <small>@lang('otherworlds.date_added'):</small>
-                    <small>@lang('otherworlds.source'):</small>
-                    <small>@lang('otherworlds.location'):</small>
-                </div>
-                <div class="col-8 d-flex flex-column align-items-start gap-1">
-                    <small class="flex_center gap-2">
+            <div class="flex-column gap-2">
+                <div class="stat-line">
+                    <small class="stat-header">
+                        @lang('otherworlds.country'):
+                    </small>
+                    <small class="stat-body">
                         <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
                     </small>
-                    <small class="flex_center gap-2"><i class="small_i fa-solid fa-{{$place->category->img_name}}"></i>
+                </div>
+                <div class="stat-line">
+                    <small class="stat-header">
+                        @lang('otherworlds.category'):
+                    </small>
+                    <small class="stat-body">
+                        <i class="small_i fa-solid fa-{{$place->category->img_name}}"></i>
                         {{$place->category->name}}
                     </small>
-                    <small class="short_number">{{$place->views_count}}</small>
-                    <small>{{$place->created_at->format('d-m-Y')}}</small>
-                    <small style="width:90%">
-                        @if($source != null)
-                        <a class="w-100" href="{{$source->url}}" target="_blank">
+                </div>
+                <div class="stat-line">
+                    <small class="stat-header">
+                        @lang('otherworlds.views'):
+                    </small>
+                    <small class="stat-body short_number">
+                        {{$place->views_count}}
+                    </small>
+                </div>
+                <div class="stat-line">
+                    <small class="stat-header">
+                        @lang('otherworlds.date_added'):
+                    </small>
+                    <small class="stat-body">
+                        {{$place->created_at->format('d-m-Y')}}
+                    </small>
+                </div>
+                <div class="stat-line">
+                    <small class="stat-header">
+                        @lang('otherworlds.source'):
+                    </small>
+                    <small class="stat-body">
+                    @if($source != null)
+                        <a href="{{$source->url}}" target="_blank">
                             {{$source->title ?? $place->name}} <i class="small_i fa-solid fa-arrow-up-right-from-square"></i>
                         </a>
                         @else
                         -
                         @endif
                     </small>
-                    <small>
+                </div>
+                <div class="stat-line">
+                    <small class="stat-header">
+                        @lang('otherworlds.location'):
+                    </small>
+                    <small class="stat-body">
                         <a href="https://www.google.com/maps?q={{$place->name}}&t=k" target="_blank">
                             <span>@lang('otherworlds.view_in_maps')</span>
                             <i class="small_i fa-solid fa-arrow-up-right-from-square"></i>
@@ -207,6 +231,21 @@
 
 @include('components.modal_inspector')
 <style>
+    .stat-line{
+        width:100%;
+        display:inline-flex;
+        justify-content:center;
+        gap:1rem;
+    }
+    .stat-header{
+        width:30%;
+        text-align:right;
+    }
+    .stat-body{
+        width:60%;
+        display:inline-flex;
+        gap:0.5rem;
+    }
     #medias_container{
         display: grid;
         grid-template-columns: repeat(3, 1fr);
