@@ -62,7 +62,8 @@ class Admin_PlaceController extends Controller{
         ->where('places_translations.locale', $locale)
         ->where('places_translations.name', 'like', '%' . $search . '%')
         // ->orderBy('places.views_count', 'desc');
-        ->orderBy('places.created_at', 'desc');
+        ->orderBy('places.created_at', 'desc')
+        ->orderBy('places.id', 'asc');
         if($category_id != null && $category_id != 0){
             $query->where('category_id',$category_id);
         }
