@@ -13,23 +13,15 @@
 @endsection
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/views/place_index.css') }}?v=1"/>
+<link rel="stylesheet" href="{{ asset('css/views/place_index.css') }}?v=5"/>
 
 <section class="col-12 py-2 px-3 px-lg-5 app_bg d-inline-flex justify-content-between">
     <h1 class="semibold display-5">
         @lang('otherworlds.unique_places')
     </h1>
-    {{-- <nav class="buttons">
-        <i class="fa-solid fa-spinner"></i>
-        <div class="search_bar">
-            <button class="search_button button"><i class="fa-solid fa-magnifying-glass"></i></button>
-            <input type="text" placeholder="@lang('otherworlds.search_user')" name="search">
-            <button class="clear_button button"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-        <a href="{{ route('user_create', ['locale' => $locale]) }}" class="button info">
-            <i class="fa-regular fa-add"></i>@lang('otherworlds.create_user')
-        </a>
-    </nav> --}}
+    <nav class="buttons align-items-center">
+    <select id="select_country" name="country" required></select>
+    </nav>
 </section>
 <section class="col-12 px-1 px-lg-2 py-3">
     @include('components.places_container')
@@ -37,6 +29,57 @@
 @endsection
 
 @section('script')
+{{-- select country --}}
+<link rel="stylesheet" href="{{asset('dynamic_selects/dynamic_selects.css')}}?v=2"></link>
+<script src="{{asset('dynamic_selects/dynamic_selects.js')}}?v=8"></script>
+<style>
+    .dynamic-select a{
+        border: none;
+    }
+    .dynamic-select, .dynamic-select-options, .dynamic-select input{
+        background-color:var(--black) !important;
+    }
+    .dynamic-select-option:hover{
+        background-color:var(--gray_opacity) !important;
+    }
+    .dynamic-select *{
+        color: white !important;
+    }
+</style>
+<script>
+    const countries_select_data = [];
+    Object.values(countries).forEach(function(country){
+        countries_select_data.push({
+            value: country.id,
+            keyword: country.name,
+            html: `
+            <a href="{{countries_url($locale)}}/${country.name}">
+                <span class="big-icon flag-icon flag-icon-${country.code}"></span>
+                ${country.name}
+            </a>
+            `
+        });
+    });
+    
+    countries_select_data.unshift({
+        value: 0,
+        keyword: '@lang('otherworlds.all')',
+        html: `
+            <a href="{{places_url($locale)}}">
+                <i class="fa-solid fa-location-dot small_i"></i>
+                @lang('otherworlds.all_countries')
+            </a>
+        `
+    });
+    const selected_country = {{$selected_country ?? 0}};
+    const select = new DynamicSelect('#select_country', {
+        placeholder: "@lang('otherworlds.select_country')",
+        data: countries_select_data
+    });
+    select.select_option(selected_country);
+</script>
+
+{{-- ajax on scroll --}}
 <script>
     //ajax variables
     let current_page = 1;
@@ -45,6 +88,7 @@
 
     //on scroll event check if the end of the places container is visible
     window.addEventListener('scroll', function() {
+        if(selected_country != 0){ return; }
         var container = document.getElementById('places_container');
 
         //check if scroll is not low enough return
@@ -80,7 +124,7 @@
             },
             success_func: function (response_data){
                 current_page = response_data['current_page'];
-                create_place_cards(response_data['places']); //create the place cards
+                create_place_cards(response_data['places']);
             },
             after_func: function(){
                 request_cooldown();

@@ -1,18 +1,22 @@
 #places_container{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, 250px);
     gap: 0.5rem
 }
-@media screen and (min-width: 1921px) {
+@media (max-width: 600px) {
     #places_container {
-        grid-template-columns: repeat(6, 1fr); /* Máximo de 6 elementos por fila */
+        grid-template-columns: 1fr;
+    }
+}
+@media (min-width: 1921px) {
+    #places_container {
+        grid-template-columns: repeat(6, 1fr);
     }
 }
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-
 .appear {
     animation-name: fadeIn;
     animation-duration: 1s;

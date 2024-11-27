@@ -7,7 +7,9 @@ function get_url($locale,$slug_key){
 function places_url($locale){
     return get_url($locale, 'places_slug');
 }
-
+function countries_url($locale){
+    return get_url($locale, 'countries_slug');
+}
 use App\Models\Message;
 
 function success_message($message) {

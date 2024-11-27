@@ -44,6 +44,7 @@ class DynamicSelect {
         this.selectElement.replaceWith(this.element);
         this._updateSelected();
         this._eventHandlers();
+        this.element.querySelector('.fa-chevron-down').classList.remove('d-none');
     }
 
     _template() {
@@ -54,14 +55,15 @@ class DynamicSelect {
                     <div class="dynamic-selected d-none">
                     </div>
                     <span class="dynamic-select-header-placeholder">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <i class="fa-solid fa-magnifying-glass small_i"></i>
                         ${this.placeholder}
                     </span>
                     <span class="dynamic-select-header-input d-none">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <i class="fa-solid fa-magnifying-glass small_i"></i>
                         <input style="width:100%" type="text" placeholder="${this.options.placeholder}">
-                        <i class="fa-solid fa-xmark dynamic-select-quit"></i>
+                        <i class="fa-solid fa-xmark dynamic-select-quit small_i"></i>
                     </span>
+                    <i class="fa-solid fa-chevron-down small_i"></i>
                 </div>
                 <div class="dynamic-select-options" style="${this.options.dropdownWidth ? 'width:' + this.options.dropdownWidth + ';' : ''}${this.options.dropdownHeight ? 'height:' + this.options.dropdownHeight + ';' : ''}"></div>
                 </div>
@@ -122,10 +124,6 @@ class DynamicSelect {
         });
     }
 
-    search(){
-
-    }
-
     refresh_options(options_array){
         let optionsHTML = '';
         for (let i = 0; i < options_array.length; i++) {
@@ -147,7 +145,14 @@ class DynamicSelect {
             option.onclick = () => {
                 this.element.querySelectorAll('.dynamic-select-selected').forEach(selected => selected.classList.remove('dynamic-select-selected'));
                 option.classList.add('dynamic-select-selected');
-                this.element.querySelector('.dynamic-selected').innerHTML = option.innerHTML;
+
+                const clon = option.cloneNode(true);
+                const anchor = clon.querySelector('a');
+                if(anchor){
+                    anchor.click();
+                }
+                this.element.querySelector('.dynamic-selected').innerHTML = clon.innerHTML;
+
                 this.toggleComponent('dynamic-selected', true);
                 this.toggleComponent('dynamic-select-header-placeholder', false);
                 this.toggleSearch(false);
@@ -176,7 +181,14 @@ class DynamicSelect {
         }
         this.element.querySelectorAll('.dynamic-select-selected').forEach(selected => selected.classList.remove('dynamic-select-selected'));
         option.classList.add('dynamic-select-selected');
-        this.element.querySelector('.dynamic-selected').innerHTML = option.innerHTML;
+
+        const clon = option.cloneNode(true);
+        const anchor = clon.querySelector('a');
+        if(anchor){
+            anchor.href="#"
+        }
+        this.element.querySelector('.dynamic-selected').innerHTML = clon.innerHTML;
+
         this.toggleComponent('dynamic-selected', true);
         this.toggleComponent('dynamic-select-header-placeholder', false);
         this.toggleSearch(false);
@@ -200,16 +212,18 @@ class DynamicSelect {
     toggleSearch(show){
         const text_input_container = this.element.querySelector('.dynamic-select-header-input');
         const dynamic_selected = this.element.querySelector('.dynamic-selected');
-
+        const chevron = this.element.querySelector('.fa-chevron-down');
         const text_input = this.element.querySelector('input[type=text]');
         text_input.value = '';
         if(show == true){
             text_input_container.classList.remove('d-none');
             text_input.focus();
             dynamic_selected.classList.add('d-none');
+            chevron.classList.add('d-none');
         } else {
             text_input_container.classList.add('d-none');
             dynamic_selected.classList.remove('d-none');
+            chevron.classList.remove('d-none');
         }
     }
     scroll_to_options(){
@@ -301,7 +315,6 @@ function scrollToElement(element) {
         console.error("Elemento no encontrado");
     }
 }
-
 function create_country_select_data(countries){
     const data = [];
     countries.forEach(function(country){

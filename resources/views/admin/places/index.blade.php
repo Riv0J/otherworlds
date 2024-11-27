@@ -279,7 +279,7 @@
 
 {{-- dynamic select assets --}}
 <link rel="stylesheet" href="{{asset('dynamic_selects/dynamic_selects.css')}}"></link>
-<script src="{{asset('dynamic_selects/dynamic_selects.js')}}"></script>
+<script src="{{asset('dynamic_selects/dynamic_selects.js')}}?v=3"></script>
 <script>
     const csrf_token = '{{ csrf_token() }}';
     const countries_select_data = create_country_select_data(Object.values(countries));

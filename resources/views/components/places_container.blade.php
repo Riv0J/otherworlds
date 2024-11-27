@@ -1,5 +1,4 @@
 {{-- needs a collection of $places, $countries and $categories to function --}}
-<script src='{{asset('js/ajax.js')}}'></script>
 <div class="" id="places_container">
     <div class="pl_card" id="no_places" style="display: none;">
         @lang('otherworlds.no_favorites_user').

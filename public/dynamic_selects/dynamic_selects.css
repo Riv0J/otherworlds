@@ -15,6 +15,9 @@
     transform: translateY(-50%);
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23949ba3' viewBox='0 0 16 16'%3E%3Cpath d='M8 13.1l-8-8 2.1-2.2 5.9 5.9 5.9-5.9 2.1 2.2z'/%3E%3C/svg%3E");
   }
+  .dynamic-select a:hover{
+    background-color: transparent;
+  }
   .dynamic-select .dynamic-select-header.dynamic-select-header-active{
     border-color: #c1c9d0;
   }
@@ -73,6 +76,7 @@
     align-items: center;
     width: 100%;
     color: #212529;
+    gap:0.5rem;
   }
   .dynamic-select .dynamic-select-header img, .dynamic-select .dynamic-select-option img {
     object-fit: contain;

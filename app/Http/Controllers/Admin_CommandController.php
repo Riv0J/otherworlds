@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use File;
 use \App\Models\Place;
+use \App\Models\Country;
 class Admin_CommandController extends Controller {
     
     public function index(){
@@ -135,15 +136,20 @@ class Admin_CommandController extends Controller {
     }
 
     public function sitemap(){
-        
         $start_locale = app()->getLocale();
         $urls = [];
         foreach (config('translatable.locales') as $locale) {
             app()->setLocale($locale);
 
+            //generate an url for each place
             $url = 'https://otherworlds.es/'.$locale.'/'.trans('otherworlds.places_slug', [], $locale);
             foreach (Place::all() as $place) {
                 $urls[] = $url.'/'.$place->slug;
+            }
+
+            $url = 'https://otherworlds.es/'.$locale.'/'.trans('otherworlds.countries_slug', [], $locale);
+            foreach (Country::has('places')->get() as $country) {
+                $urls[] = $url.'/'.$country->name;
             }
         }
         app()->setLocale($start_locale);

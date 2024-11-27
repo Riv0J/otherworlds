@@ -10,6 +10,7 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\Front_Controller;
 use App\Http\Controllers\Front_UserController;
 use App\Http\Controllers\Front_PlaceController;
+use App\Http\Controllers\Front_CountryController;
 
 use App\Http\Controllers\Admin_UserController;
 use App\Http\Controllers\Admin_VisitController;
@@ -59,10 +60,16 @@ Route::prefix('{locale}')->middleware('visits')->group(function () {
 
         // $slug_key routes
         foreach (config('translatable.locales') as $locale) {
+            $places_slug = trans('otherworlds.places_slug', [], $locale);
+            $countries_slug = trans('otherworlds.countries_slug', [], $locale);
+
+            // /{locale}/{countries}/{country}
+            Route::get('/'.$countries_slug.'/{country_slug}', [Front_CountryController::class,'show']);
+            
             // /{locale}/{places}
-            Route::get('/'.trans('otherworlds.places_slug', [], $locale), [Front_PlaceController::class,'index']);
+            Route::get('/'.$places_slug, [Front_PlaceController::class,'index']);
             // /{locale}/{places}/{place_slug}
-            Route::get('/'.trans('otherworlds.places_slug', [], $locale).'/{place_slug}', [Front_PlaceController::class,'show']);
+            Route::get('/'.$places_slug.'/{place_slug}', [Front_PlaceController::class,'show']);
 
             // /{locale}/{login}
             Route::get('/'.trans('otherworlds.login_slug', [], $locale), [LoginController::class, 'show_login']);

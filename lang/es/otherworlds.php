@@ -4,6 +4,7 @@ return [
     // section slugs
     'home_slug' => 'home',
     'places_slug' => 'lugares',
+    'countries_slug' => 'paises',
     'profile_slug' => 'perfil',
     'login_slug' => 'acceder',
     'register_slug' => 'registrarse',
@@ -139,6 +140,7 @@ return [
     'server' => 'Servidor',
     'unique' => 'Único',
     'all' => 'Todos',
+    'all_countries' => 'Todos los países',
     'confirm' => 'Confirmar',
     'name' => 'Nombre',
     'visits' => 'Visitas',
