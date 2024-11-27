@@ -11,7 +11,7 @@
             <p></p>
             <a class="mx-2" href="" target="_blank">
                 <span>@lang('otherworlds.view_image_source')</span>
-                <i class="small_i ri-external-link-line"></i>
+                <i class="small_i fa-solid fa-arrow-up-right-from-square">
             </a>
         </div>
 
