@@ -78,9 +78,9 @@
                     </small>
                     <small class="short_number">{{$place->views_count}}</small>
                     <small>{{$place->created_at->format('d-m-Y')}}</small>
-                    <small>
+                    <small style="width:90%">
                         @if($source != null)
-                        <a  href="{{$source->url}}" target="_blank">
+                        <a class="w-100" href="{{$source->url}}" target="_blank">
                             {{$source->title ?? $place->name}} <i class="small_i fa-solid fa-arrow-up-right-from-square"></i>
                         </a>
                         @else
