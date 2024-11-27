@@ -28,10 +28,11 @@ use App\Http\Controllers\Admin_CommandController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// absolute routes
+// sitemap
 Route::get('/sitemap.xml', [Admin_CommandController::class, 'sitemap']);
 Route::redirect('/sitemap', '/sitemap.xml');
 
+// home defaults
 Route::redirect('/', 'en/home');
 Route::redirect('/home', 'en/home');
 
