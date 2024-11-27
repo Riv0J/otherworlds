@@ -32,8 +32,8 @@ use App\Http\Controllers\Admin_CommandController;
 Route::get('/sitemap.xml', [Admin_CommandController::class, 'sitemap']);
 Route::redirect('/sitemap', '/sitemap.xml');
 
-// Route::redirect('/', 'en/home');
-// Route::redirect('/home', 'en/home');
+Route::redirect('/', 'en/home');
+Route::redirect('/home', 'en/home');
 // Route::get('/', function () {
 //     return (new Front_Controller())->home('en');
 // });
