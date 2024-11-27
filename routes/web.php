@@ -32,12 +32,14 @@ use App\Http\Controllers\Admin_CommandController;
 Route::get('/sitemap.xml', [Admin_CommandController::class, 'sitemap']);
 Route::redirect('/sitemap', '/sitemap.xml');
 
-Route::get('/', function () {
-    return (new Front_Controller())->home('en');
-});
-Route::get('/home', function () {
-    return (new Front_Controller())->home('en');
-});
+// Route::redirect('/', 'en/home');
+// Route::redirect('/home', 'en/home');
+// Route::get('/', function () {
+//     return (new Front_Controller())->home('en');
+// });
+// Route::get('/home', function () {
+//     return (new Front_Controller())->home('en');
+// });
 
 // front routes with $locale slug
 Route::prefix('{locale}')->middleware('visits')->group(function () {
@@ -46,12 +48,13 @@ Route::prefix('{locale}')->middleware('visits')->group(function () {
 
     // routes that automatically update app locale with the $locale prefix
     Route::middleware(['locale_updater'])->group(function () {
+
         // /en/
         Route::get('/', [Front_Controller::class,'home']);
-
+        
         // /en/home
         Route::get('/home', [Front_Controller::class,'home'])->name('home');
-
+        
         // /en/development
         Route::get('/development', [Front_Controller::class, 'show_development'])->name('development');
 
