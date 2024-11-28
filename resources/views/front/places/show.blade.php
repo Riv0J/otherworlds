@@ -203,7 +203,13 @@
     </style>
     {{-- return END --}}
 
+    {{-- country link START --}}
     <div class="div_h my-5"></div>
+    <a href ="{{countries_url($locale).'/'.$place->country->name}}">
+        @lang('otherworlds.country_view', ['country' => $place->country->name])
+    </a>
+    <div class="div_h my-5"></div>
+    {{-- country link END --}}
 
     {{-- gallery START --}}
     <div class="my-3">
