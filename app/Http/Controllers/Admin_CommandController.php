@@ -8,6 +8,7 @@ use Symfony\Component\Process\Process;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Artisan;
 use ZipArchive;
 use File;
 use \App\Models\Place;
@@ -128,6 +129,7 @@ class Admin_CommandController extends Controller {
         // Verificar si el comando fue exitoso
         if ($returnVar === 0) {
             success_message('Command successful. ' . implode("\n", $output));
+            Artisan::call('cache:clear');
         } else {
             error_message('Command error. ' . implode("\n", $output));
         }
