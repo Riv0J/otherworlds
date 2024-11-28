@@ -206,7 +206,6 @@
     {{-- return END --}}
 
     {{-- country link START --}}
-    <div class="div_h my-5"></div>
 
     <div class="flex_center">
         <a href ="{{countries_url($locale).'/'.$place->country->name}}">

@@ -88,6 +88,7 @@
 </script>
 
 {{-- ajax on scroll --}}
+<script src="{{ asset('js/ajax.js') }}"></script>
 <script>
     //ajax variables
     let current_page = 1;
