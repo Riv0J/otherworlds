@@ -21,16 +21,17 @@ return [
     // page titles
     'title_home' => 'Otherworlds | Lugares únicos del mundo',
     'title_places' => 'Explora lugares increíbles',
+    'title_country' => 'Lugares para visitar en :country',
 
     // page descriptions
     'keywords' => 'vacaciones, viaje, destino, visitar, maravillas naturales, natural, lugar, lugares, paisaje, montaña, cascada, valle, lago, ubicaciones',
     'learn_more_about' => 'Saber más sobre',
     'description_home' => 'Explorar una colección de lugares naturales extraordinarios de todo el mundo. Asómbrate con estos sitios maravillosos y planea tus siguientes vacaciones',
-
-    'description_places' => 'Explorar una colección de lugares naturales extraordinarios de todo el mundo Puedes buscar lugares por su país, categoría y nombre',
-
+    'description_places' => 'Explorar una colección de lugares naturales extraordinarios de todo el mundo. Puedes buscar lugares por su país, y descubrir las gemas inexploradas del mundo.',
+    'description_country' => 'Explora lugares naturales y sitios turísticos para visitar en :country. Planea tu siguiente viaje a :country y disfruta de momentos inolvidables',
     'description_login' => 'Iniciar sesión en Otherworlds',
     'description_register' => 'Registrarse en Otherworlds',
+    
 
     // footer titles
     'sections'=> 'Secciones',

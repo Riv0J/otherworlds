@@ -1,15 +1,23 @@
 @extends('layout.masterpage')
 
 @section('title')
-@lang('otherworlds.title_places') | Otherworlds
+@if(isset($selected_country))
+    @lang('otherworlds.title_country', ['country' => $selected_country->name])
+@else{
+    @lang('otherworlds.title_places') | Otherworlds
+}
 @endsection
 
 @section('description')
-@lang('otherworlds.description_places')
+@if(isset($selected_country))
+    @lang('otherworlds.description_country', ['country' => $selected_country->name])
+@else{
+    @lang('otherworlds.description_places')
+}
 @endsection
 
 @section('canonical')
-{{ places_url($locale)}}
+{{ url()->current() }}
 @endsection
 
 @section('content')
@@ -71,7 +79,7 @@
             </a>
         `
     });
-    const selected_country = {{$selected_country ?? 0}};
+    const selected_country = {{$selected_country->id ?? 0}};
     const select = new DynamicSelect('#select_country', {
         placeholder: "@lang('otherworlds.select_country')",
         data: countries_select_data

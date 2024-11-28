@@ -10,10 +10,15 @@ use App\Models\CountryTranslation;
 class Front_CountryController extends Controller
 {
     public function show($locale, $country_name){
-        // try to get the country
+        // try to get the country, is null
         $country = Country::whereHas('translations', function ($query) use ($country_name) { 
                     $query->where('name', $country_name);
                 })->first();
+
+        if($country == null){
+            return redirect()->route('place_index');
+        }
+        
         //return places index view
         $variables = [
             'slug_key' => 'places_slug',
@@ -23,7 +28,7 @@ class Front_CountryController extends Controller
             'places' => $country->places()->orderBy('views_count','desc')->orderBy('id','desc')->get(),
             'countries' => Country::has('places')->get(),
             'categories' => Category::all(),
-            'selected_country' => $country->id
+            'selected_country' => $country
         ];
         return view('front.places.index', $variables);
     }

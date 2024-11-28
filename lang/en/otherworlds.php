@@ -21,13 +21,14 @@ return [
     // page titles
     'title_home' => 'Otherworlds | Unique places around the world',
     'title_places' => 'Explore extraordinary places',
+    'title_country' => 'Places to visit in :country',
 
     // page descriptions
     'keywords' => 'vacation, travel, destination, visit, natural wonders, natural, place, places, landscape, mountain, waterfall, valley, lakes, locations',
     'learn_more_about' => 'Learn more about',
-    'description_home' => 'Explore extraordinary natural locations from all around the world. Be amazed at the diversity and plan your next vacations to admire the place we call Earth',
-
-    'description_places' => "Explore a collection of extraordinary natural locations from around the world with Otherworlds' search engine. Filter places by country, category, and name",
+    'description_home' => 'Explore extraordinary natural locations from all around the world. Be amazed at the diversity and plan your next vacations to admire the place we call Earth.',
+    'description_places' => "Explore a collection of extraordinary natural locations from around the world. Filter places by country and discover beautiful hidden gems.",
+    'description_country' => 'Explore natural spots and tourist destinations in :country. Plan your next trip to :country and enjoy unforgettable moments and places.',
 
     'description_login' => 'Login to Otherworlds',
     'description_register' => 'Register in Otherworlds',
