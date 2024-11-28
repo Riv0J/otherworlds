@@ -3,7 +3,7 @@
 @section('title')
 @if(isset($selected_country))
     @lang('otherworlds.title_country', ['country' => $selected_country->name])
-@else{
+@else
     @lang('otherworlds.title_places') | Otherworlds
 }
 @endsection
@@ -11,9 +11,9 @@
 @section('description')
 @if(isset($selected_country))
     @lang('otherworlds.description_country', ['country' => $selected_country->name])
-@else{
+@else
     @lang('otherworlds.description_places')
-}
+
 @endsection
 
 @section('canonical')
