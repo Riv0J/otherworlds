@@ -61,14 +61,14 @@
             {{-- place stats START --}}
             <div class="flex-column gap-2">
                 <div class="stat-line">
-                <a href ="{{countries_url($locale).'/'.$place->country->name}}">
                     <small class="stat-header">
                         @lang('otherworlds.country'):
                     </small>
                     <small class="stat-body">
+                    <a href ="{{countries_url($locale).'/'.$place->country->name}}">
                         <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
+                    </a>
                     </small>
-                </a>
                 </div>
                 <div class="stat-line">
                     <small class="stat-header">
@@ -208,7 +208,7 @@
     {{-- country link START --}}
     <div class="div_h my-5"></div>
 
-    <div class="flex_Center">
+    <div class="flex_center">
         <a href ="{{countries_url($locale).'/'.$place->country->name}}">
             @lang('otherworlds.view_country')
             <span class="flag-icon flag-icon-{{$place->country->code}}"></span>

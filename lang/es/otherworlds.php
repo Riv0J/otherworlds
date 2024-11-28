@@ -99,7 +99,7 @@ return [
     'view_place_gallery' => 'Mira la galería oficial aquí: :link',
     'view_image_source' => 'Ver el origen de la imagen',
     'view_all_images' => 'Ver todas las imágenes',
-    'view_country' => 'Ver los lugares en',
+    'view_country' => 'Ver todos los lugares en',
 
     // user controller
     'users' => 'Usuarios',
