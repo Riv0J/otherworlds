@@ -99,6 +99,7 @@ return [
     'view_place_gallery' => 'View the source gallery here: :link',
     'view_image_source' => 'View image source',
     'view_all_images' => 'View all images',
+    'view_country' => 'View places in',
 
     // user controller
     'users' => 'Users',
