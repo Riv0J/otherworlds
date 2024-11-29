@@ -2,7 +2,7 @@
 
 @section('title')
 @if(isset($selected_country))
-    @lang('otherworlds.title_country', ['country' => $selected_country->name])
+    @lang('otherworlds.title_country', ['country' => $selected_country->name]) | Otherworlds
 @else
     @lang('otherworlds.title_places') | Otherworlds
 @endif
