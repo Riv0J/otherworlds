@@ -299,6 +299,10 @@
         }
     }
     b{ font-weight: 600; }
+    #overview p a{
+        display:inline-flex;
+        padding-inline:0;
+    }
     #overview>*{
         font-size: 1.1rem;
     }
