@@ -1,6 +1,6 @@
 #places_container{
     display: grid;
-    grid-template-columns: repeat(auto-fit, 250px);
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 0.5rem
 }
 @media (max-width: 600px) {
