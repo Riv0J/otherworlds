@@ -146,17 +146,19 @@ class Place_Editor{
         </div>
 
         <div class="modal_tab_content " id="content_countries">
-            <div class="form_line">
-                <label>Country 1</label>
-                <select id="countries_select_country_1" name="countries_select_country_1"></select>
-            </div>
-            <div class="form_line">
-                <label>Country 2</label>
-                <select id="countries_select_country_2" name="countries_select_country_2"></select>
-            </div>
-            <div class="form_line">
-                <label>Country 3</label>
-                <select id="countries_select_country_3" name="countries_select_country_3"></select>
+            <div class="flex-row flex-wrap gap-3">
+                <div class="form_line" style="width: max-content">
+                    <label>Country 1</label>
+                    <select id="countries_select_country_1" name="countries_select_country_1"></select>
+                </div>
+                <div class="form_line" style="width: max-content">
+                    <label>Country 2</label>
+                    <select id="countries_select_country_2" name="countries_select_country_2"></select>
+                </div>
+                <div class="form_line" style="width: max-content">
+                    <label>Country 3</label>
+                    <select id="countries_select_country_3" name="countries_select_country_3"></select>
+                </div>
             </div>
         </div>
         `;
