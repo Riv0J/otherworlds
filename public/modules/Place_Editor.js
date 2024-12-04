@@ -18,6 +18,7 @@ class Place_Editor{
                 <li name="edit_place" save_button="true">Edit Place</li>
                 <li name="medias" save_button="false">Medias</li>
                 <li name="sources" save_button="true">Sources</li>
+                <li name="countries" save_button="true">Countries</li>
                 <li name="danger_zone" save_button="false">Danger zone</li>
                 <li fill class="flex-grow-1"></li>
             </ul>
@@ -143,6 +144,21 @@ class Place_Editor{
                 </div>
             </div>
         </div>
+
+        <div class="modal_tab_content " id="content_countries">
+            <div class="form_line">
+                <label>Country 1</label>
+                <select id="countries_select_country_1" name="countries_select_country_1"></select>
+            </div>
+            <div class="form_line">
+                <label>Country 2</label>
+                <select id="countries_select_country_2" name="countries_select_country_2"></select>
+            </div>
+            <div class="form_line">
+                <label>Country 3</label>
+                <select id="countries_select_country_3" name="countries_select_country_3"></select>
+            </div>
+        </div>
         `;
     }
     _textareas(){
@@ -266,7 +282,7 @@ class Place_Editor{
         return media_element;
     }
     _tab(tab_name){
-        console.log('activating TAB: '+tab_name);
+        console.log('Activating tab: '+tab_name);
         //hide current tab
         const active_tab = this._active_tab();
         if(active_tab){

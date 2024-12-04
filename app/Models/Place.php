@@ -15,8 +15,17 @@ class Place extends Model{
     protected $table = 'places';
     protected $fillable = ['category_id', 'country_id', 'public_slug', 'views_count','favorites_count','natural', 'gallery_url', 'latitude', 'longitude','checked'];
     public $translatedAttributes = ['name', 'synopsis', 'slug'];
-    public function country(){
+    public function country(){ //about to be deprecated
         return $this->belongsTo(Country::class, 'country_id');
+    }
+    public function countries(){
+        return $this->belongsToMany(Country::class, 'places_countries')
+                    ->withPivot('order')
+                    ->orderBy('places_countries.order', 'asc'); // ordered
+    }
+    public function add_country(Country $country){
+        $next = ($this->countries()->max('order') ?? 0) + 1;
+        $this->countries()->attach($country->id, ['order' => $next]);
     }
     public function category(){
         return $this->belongsTo(Category::class, 'category_id');

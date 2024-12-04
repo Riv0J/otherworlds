@@ -9,18 +9,35 @@
             locales: locales,
             thumbnail_prefix: "{{asset('places')}}"+'/',
             on_load: function(){
+                const cat_select = new DynamicSelect('#edit_select_category', {
+                    placeholder: "@lang('otherworlds.select_category')",
+                    data: category_data
+                });
+
                 const cselect = new DynamicSelect('#edit_select_country',{
                     placeholder: "@lang('otherworlds.select_country')",
                     data: country_data
                 });
 
-                const cselect2 = new DynamicSelect('#edit_select_category', {
-                    placeholder: "@lang('otherworlds.select_category')",
-                    data: category_data
+                const cselect1 = new DynamicSelect('#countries_select_country_1',{
+                    placeholder: "@lang('otherworlds.select_country')",
+                    data: country_data
                 });
 
+                const cselect2 = new DynamicSelect('#countries_select_country_2',{
+                    placeholder: "@lang('otherworlds.select_country')",
+                    data: country_data
+                });
+
+                const cselect3 = new DynamicSelect('#countries_select_country_3',{
+                    placeholder: "@lang('otherworlds.select_country')",
+                    data: country_data
+                });
+
+
+                cat_select.select_option(place.category_id);
                 cselect.select_option(place.country_id);
-                cselect2.select_option(place.category_id);
+                cselect1.select_option(place.country_id);
             },
             on_locale_change: function(modal_object, new_locale){
                 console.log('called on_locale_change');
