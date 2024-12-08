@@ -23,9 +23,9 @@ class Place extends Model{
                     ->withPivot('order')
                     ->orderBy('places_countries.order', 'asc'); // ordered
     }
-    public function add_country(Country $country){
+    public function add_country($country_id){
         $next = ($this->countries()->max('order') ?? 0) + 1;
-        $this->countries()->attach($country->id, ['order' => $next]);
+        $this->countries()->attach($country_id, ['order' => $next]);
     }
     public function category(){
         return $this->belongsTo(Category::class, 'category_id');

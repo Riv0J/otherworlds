@@ -32,4 +32,12 @@ class Country extends Model{
     public static function random(){
         return Country::inRandomOrder()->first();
     }
+
+    /**
+     * Determine if the place is unknown
+     */
+    public function is_unknown(){
+        $unknown = CountryTranslation::where('name', 'Unknown')->first();
+        return $this->id == $unknown->country_id;
+    }
 }

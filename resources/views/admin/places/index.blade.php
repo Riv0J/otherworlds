@@ -207,7 +207,6 @@
             <td class="number text-end">${place.medias.length}</td>
         `;
         if(place.checked){
-            console.log(place);
             row.innerHTML += `
             <td>
                 <div class="aligner"><i class="fa-solid fa-check" style="color:var(--green_light)"></i></div>

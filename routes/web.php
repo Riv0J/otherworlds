@@ -137,6 +137,7 @@ Route::middleware(['back_edit'])->group(function () {
     Route::post('/ajax/admin/places/create', [Admin_PlaceController::class, 'ajax_create']);
     Route::post('/ajax/admin/places/wiki_create', [Admin_PlaceController::class, 'ajax_wiki_create']);
     Route::post('/ajax/admin/places/delete', [Admin_PlaceController::class, 'ajax_delete']);
+    Route::post('/ajax/admin/places/countries', [Admin_PlaceController::class, 'ajax_countries']);
     
     // ajax sources
     Route::post('/ajax/admin/sources/create', [Admin_SourceController::class, 'ajax_create']);

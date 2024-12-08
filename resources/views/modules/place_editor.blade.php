@@ -1,6 +1,11 @@
-<script src='{{ asset('modules/Place_Editor.js') }}?v=14'></script>
+<script src='{{ asset('modules/Place_Editor.js') }}?v=20'></script>
 <link rel="stylesheet" href="{{ asset('modules/place_editor.css') }}?v=2">
 <script>
+    let cselect;
+    let cselect1;
+    let cselect2;
+    let cselect3;
+
     function show_place_editor(place){
         const editor_data = {
             place: place,
@@ -13,31 +18,35 @@
                     placeholder: "@lang('otherworlds.select_category')",
                     data: category_data
                 });
-
-                const cselect = new DynamicSelect('#edit_select_country',{
-                    placeholder: "@lang('otherworlds.select_country')",
-                    data: country_data
-                });
-
-                const cselect1 = new DynamicSelect('#countries_select_country_1',{
-                    placeholder: "@lang('otherworlds.select_country')",
-                    data: country_data
-                });
-
-                const cselect2 = new DynamicSelect('#countries_select_country_2',{
-                    placeholder: "@lang('otherworlds.select_country')",
-                    data: country_data
-                });
-
-                const cselect3 = new DynamicSelect('#countries_select_country_3',{
-                    placeholder: "@lang('otherworlds.select_country')",
-                    data: country_data
-                });
-
-
                 cat_select.select_option(place.category_id);
+
+                cselect = new DynamicSelect('#edit_select_country',{
+                    placeholder: "@lang('otherworlds.select_country')",
+                    data: country_data
+                });
+
+                cselect1 = new DynamicSelect('#countries_select_country_1',{
+                    placeholder: "@lang('otherworlds.select_country')",
+                    data: country_data
+                });
+
+                cselect2 = new DynamicSelect('#countries_select_country_2',{
+                    placeholder: "@lang('otherworlds.select_country')",
+                    data: country_data
+                });
+
+                cselect3 = new DynamicSelect('#countries_select_country_3',{
+                    placeholder: "@lang('otherworlds.select_country')",
+                    data: country_data
+                });
                 cselect.select_option(place.country_id);
                 cselect1.select_option(place.country_id);
+                if(place.countries[1]){
+                    cselect2.select_option(place.countries[1].id);
+                }
+                if(place.countries[2]){
+                    cselect3.select_option(place.countries[2].id);
+                }
             },
             on_locale_change: function(modal_object, new_locale){
                 console.log('called on_locale_change');
@@ -87,11 +96,40 @@
                 console.log('called on_media_add_page');
                 media_add_page(modal_object, place);
             },
+
+            //countries
+            on_submit_countries: function(modal_object){
+                console.log('called on_submit_countries');
+                countries_update(modal_object, place);
+            },
         };
 
         return new Place_Editor(editor_data);
     }
-
+    function countries_update(modal_object, place){
+        modal_object._disable();
+        
+        const ajax_data = {
+            url: '{{ URL("/ajax/admin/places/countries") }}',
+            request_data: {
+                _token: csrf_token,
+                place_id: place.id,
+                country1: modal_object.query('[name="countries_select_country_1"]').value,
+                country2: modal_object.query('[name="countries_select_country_2"]').value,
+                country3: modal_object.query('[name="countries_select_country_3"]').value
+            },
+            success_func: function(response_data) {
+                if(response_data['success'] && response_data['success'] == true){
+                }
+            },
+            after_func: function(response_data){
+                modal_object._enable();
+            }
+        }
+        ajax(ajax_data);
+        console.log(ajax_data);
+    }
+    
     function place_update(modal_object, place){
         modal_object._disable();
         const modal = modal_object.element;

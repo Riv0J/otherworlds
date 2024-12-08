@@ -57,7 +57,7 @@ class Admin_PlaceController extends Controller{
         // calculate the start index based on the page, and per page
         $per_page = 30;
         $start_index = ($page - 1) * $per_page;
-        $query = Place::with('medias')->with('sources')
+        $query = Place::with('medias')->with('sources')->with('countries')
         ->join('places_translations', 'places_translations.place_id', 'places.id')
         ->where('places_translations.locale', $locale)
         ->where('places_translations.name', 'like', '%' . $search . '%')
@@ -370,4 +370,46 @@ class Admin_PlaceController extends Controller{
         ];
         return response()->json($variables);
     }
+
+    /**
+     * Ajax, SET a place's countries
+     */
+    public function ajax_countries(Request $request){
+        try {
+            $validated = $request->validate([
+                'place_id' => 'required|integer|exists:places,id',
+                'country1' => 'required|integer|exists:countries,id',
+                'country2' => 'nullable|integer|exists:countries,id',
+                'country3' => 'nullable|integer|exists:countries,id'
+            ]);
+
+            $place = Place::find($validated['place_id']);
+            $place->countries()->detach();
+            $place->country_id = $validated['country1'];
+            $place->save();
+    
+            $countries = [$validated['country1'], $validated['country2'], $validated['country3']];
+            foreach ($countries as $country_id) {
+                if($country_id == null || $place->countries()->where('countries.id', $country_id)->exists()){
+                    continue;
+                }
+                $country = Country::find($country_id);
+                if($country->is_unknown() == false){
+                    $place->add_country($country_id);
+                }
+            }
+            $variables = [
+                'success' => true,
+                'message' => new Message(Message::TYPE_SUCCESS, "Countries updated"),
+                'place' => Place::where('id', $place['place_id'])->with('medias')->with('sources')->with('countries')->first()
+            ];
+        } catch (\Throwable $th) {
+            $variables = [
+                'success' => true,
+                'message' => new Message(Message::TYPE_ERROR, "Countries error: ".$th->getMessage()),
+            ];
+        }
+        return response()->json($variables);
+    }
+    
 }

@@ -145,8 +145,8 @@ class Place_Editor{
             </div>
         </div>
 
-        <div class="modal_tab_content " id="content_countries">
-            <div class="flex-row flex-wrap gap-3">
+        <div class="modal_tab_content" id="content_countries">
+            <div class="flex-row flex-wrap gap-3 align-items-center">
                 <div class="form_line" style="width: max-content">
                     <label>Country 1</label>
                     <select id="countries_select_country_1" name="countries_select_country_1"></select>
@@ -159,6 +159,10 @@ class Place_Editor{
                     <label>Country 3</label>
                     <select id="countries_select_country_3" name="countries_select_country_3"></select>
                 </div>
+                <button class="button" id="countries_add_country">
+                    <i class="fa-solid fa-plus"></i>
+                    Add country
+                </button>
             </div>
         </div>
         `;
@@ -348,7 +352,10 @@ class Place_Editor{
         this.query('#media_add_page').addEventListener('click', (event)=>{
             this.data['on_media_add_page'](this);
         });
-        
+        this.query('#countries_add_country').addEventListener('click', function (){
+            console.log('a');
+            
+        });
         const tabs = this.element.querySelectorAll('.modal_tabs li');
         this._tab(tabs[0].getAttribute('name'))
         tabs.forEach(element=>{
@@ -365,8 +372,6 @@ class Place_Editor{
         this.data['on_submit_'+tab_name](this);
     }
     _setcheck(new_value){
-        console.log("Setting new value= "+new_value);
-        
         const input = this.query('input[name="place_checked"]');
         const check = this.query('#checked-button .fa-check');
         const xmark = this.query('#checked-button .fa-xmark');
