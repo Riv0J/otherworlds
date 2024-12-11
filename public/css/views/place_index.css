@@ -10,7 +10,10 @@
 }
 @media (min-width: 1921px) {
     #places_container {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    }
+    .pl_card a {
+        min-height: 800px !important;
     }
 }
 @keyframes fadeIn {
@@ -79,11 +82,6 @@
     padding: 0;
     border: 2px solid rgba(255, 255, 255, 0);
     box-shadow: 0px 0px 20px rgb(29, 29, 29);
-}
-@media screen and (min-width: 1921px) {
-    .pl_card {
-        min-height: 700px;
-    }
 }
 .pl_card a:hover{
     outline: 2px solid rgb(88, 88, 88);
