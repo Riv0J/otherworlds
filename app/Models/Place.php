@@ -18,15 +18,15 @@ class Place extends Model{
     public function country(){ //about to be deprecated
         return $this->belongsTo(Country::class, 'country_id');
     }
-    public function countries(){
-        return $this->belongsToMany(Country::class, 'places_countries')
-                    ->withPivot('order')
-                    ->orderBy('places_countries.order', 'asc'); // ordered
-    }
-    public function add_country($country_id){
-        $next = ($this->countries()->max('order') ?? 0) + 1;
-        $this->countries()->attach($country_id, ['order' => $next]);
-    }
+    // public function countries(){
+    //     return $this->belongsToMany(Country::class, 'places_countries')
+    //                 ->withPivot('order')
+    //                 ->orderBy('places_countries.order', 'asc'); // ordered
+    // }
+    // public function add_country($country_id){
+    //     $next = ($this->countries()->max('order') ?? 0) + 1;
+    //     $this->countries()->attach($country_id, ['order' => $next]);
+    // }
     public function category(){
         return $this->belongsTo(Category::class, 'category_id');
     }
