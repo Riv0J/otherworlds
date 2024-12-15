@@ -95,6 +95,7 @@ return [
     'share_button' => 'Copy place link',
     'view_in_maps' => 'View in Maps',
     'place_location' => 'Place location',
+    'view_places_shared' => 'View places in the same country|View places in the same countries',
     'view_place_maps_description' => 'Click the following link to view in maps: :link',
     'view_place_gallery' => 'View the source gallery here: :link',
     'view_image_source' => 'View image source',

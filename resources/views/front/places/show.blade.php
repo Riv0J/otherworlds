@@ -128,8 +128,8 @@
         </div>
         {{-- img container END--}}
 
-        <h4 class="mb-4 semibold flex-row gap-2">
-            <i class="ri-arrow-right-s-line"></i>
+        <h4 class="mb-4 semibold d-inline-flex gap-2">
+            <i class="fa-solid fa-chevron-right"></i>
             <span class="mx-1">@lang('otherworlds.place_overview')</span>
         </h4>
 
@@ -152,7 +152,7 @@
     {{-- location START --}}
     <div class="mb-5 mt-2 mt-md-5">
         <h4 class="semibold d-flex flex-row gap-2">
-            <i class="ri-arrow-right-s-line"></i>
+            <i class="fa-solid fa-chevron-right"></i>
             <span class="mx-1">@lang('otherworlds.place_location')</span>
         </h4>
         <p class="m-4 mx-md-2 d-flex flex-row gap-2">
@@ -208,11 +208,15 @@
     {{-- return END --}}
 
     {{-- country link START --}}
-
-    <div class="flex_center flex-wrap gap-4">
+    <h4 class="flex-row gap-2">
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="mx-1">
+            {{trans_choice('otherworlds.view_places_shared',$place->countries->count())}}
+        </span>
+    </h4>
+    <div class="mt-3 flex_center flex-wrap gap-4">
         @foreach($place->countries as $country)
         <a href ="{{countries_url($locale).'/'.$country->name}}">
-            @lang('otherworlds.view_country')
             <span class="flag-icon flag-icon-{{$country->code}}"></span>
             {{$country->name}}
         </a>
