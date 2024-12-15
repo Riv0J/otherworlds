@@ -39,7 +39,7 @@
 @section('script')
 {{-- select country --}}
 <link rel="stylesheet" href="{{asset('dynamic_selects/dynamic_selects.css')}}?v=2"></link>
-<script src="{{asset('dynamic_selects/dynamic_selects.js')}}?v=8"></script>
+<script src="{{asset('dynamic_selects/dynamic_selects.js')}}?v=10"></script>
 <style>
     .dynamic-select a{
         border: none;

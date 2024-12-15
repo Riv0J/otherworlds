@@ -62,12 +62,14 @@
             <div class="flex-column gap-2">
                 <div class="stat-line">
                     <small class="stat-header">
-                        @lang('otherworlds.country'):
-                    </small>
-                    <small class="stat-body">
-                    <a href ="{{countries_url($locale).'/'.$place->country->name}}">
-                        <span class="flag-icon flag-icon-{{$place->country->code}}"></span>{{$place->country->name}}
-                    </a>
+                        {{ trans_choice('otherworlds.country', $place->countries->count()) }}                    </small>
+                    <small class="stat-body flex-column">
+                        @foreach($place->countries as $country)
+                        <a href ="{{countries_url($locale).'/'.$country->name}}">
+                            <span class="flag-icon flag-icon-{{$country->code}}"></span>{{$country->name}}
+                        </a>
+                        @endforeach
+
                     </small>
                 </div>
                 <div class="stat-line">
@@ -207,12 +209,14 @@
 
     {{-- country link START --}}
 
-    <div class="flex_center">
-        <a href ="{{countries_url($locale).'/'.$place->country->name}}">
+    <div class="flex_center gap-4">
+        @foreach($place->countries as $country)
+        <a href ="{{countries_url($locale).'/'.$country->name}}">
             @lang('otherworlds.view_country')
-            <span class="flag-icon flag-icon-{{$place->country->code}}"></span>
-            {{$place->country->name}}
+            <span class="flag-icon flag-icon-{{$country->code}}"></span>
+            {{$country->name}}
         </a>
+        @endforeach
     </div>
 
     <div class="div_h my-5"></div>

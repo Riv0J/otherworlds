@@ -1,9 +1,9 @@
 {{-- needs a collection of $places, $countries and $categories to function --}}
-<div class="" id="places_container">
-    <div class="pl_card" id="no_places" style="display: none;">
-        @lang('otherworlds.no_favorites_user').
-        <a href="{{ url($locale.'/'.trans('places_slug',[],$locale)) }}">
-            @lang('otherworlds.browse_places')
+<div id="places_container">
+    <div class="pl_card" id="no_places" style="display:none">
+        <a href="{{places_url($locale)}}" style="opacity:1">
+            <div class="img_bg" style="background-image:url('{{asset("img/logo.png")}}')"></div>
+            <p class="mt-4">@lang('otherworlds.no_places')</p>
         </a>
     </div>
 </div>
@@ -73,7 +73,7 @@
     function create_card(place){
         const card = document.querySelector('template').content.cloneNode(true);
         const category = categories[place.category_id];
-        const country = countries[place.country_id];
+        const country =  @json($selected_country ?? null) ?? countries[place.country_id];
 
         const anchor = card.querySelector('a');
         anchor.setAttribute('href',places_route + '/' + place.slug);

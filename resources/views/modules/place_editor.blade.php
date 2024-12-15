@@ -1,18 +1,16 @@
-<script src='{{ asset('modules/Place_Editor.js') }}?v=20'></script>
+<script src='{{ asset('modules/Place_Editor.js') }}?v={{now()}}'></script>
 <link rel="stylesheet" href="{{ asset('modules/place_editor.css') }}?v=2">
 <script>
-    let cselect;
-    let cselect1;
-    let cselect2;
-    let cselect3;
-
     function show_place_editor(place){
+        console.log(place);
+        
         const editor_data = {
             place: place,
             place_prefix: '{{places_url($locale)}}',
             locale: '{{$locale}}',
             locales: locales,
             thumbnail_prefix: "{{asset('places')}}"+'/',
+            country_data: country_data,
             on_load: function(){
                 const cat_select = new DynamicSelect('#edit_select_category', {
                     placeholder: "@lang('otherworlds.select_category')",
@@ -20,33 +18,11 @@
                 });
                 cat_select.select_option(place.category_id);
 
-                cselect = new DynamicSelect('#edit_select_country',{
+                const cselect = new DynamicSelect('#edit_select_country',{
                     placeholder: "@lang('otherworlds.select_country')",
                     data: country_data
                 });
-
-                cselect1 = new DynamicSelect('#countries_select_country_1',{
-                    placeholder: "@lang('otherworlds.select_country')",
-                    data: country_data
-                });
-
-                cselect2 = new DynamicSelect('#countries_select_country_2',{
-                    placeholder: "@lang('otherworlds.select_country')",
-                    data: country_data
-                });
-
-                cselect3 = new DynamicSelect('#countries_select_country_3',{
-                    placeholder: "@lang('otherworlds.select_country')",
-                    data: country_data
-                });
-                cselect.select_option(place.country_id);
-                cselect1.select_option(place.country_id);
-                if(place.countries[1]){
-                    cselect2.select_option(place.countries[1].id);
-                }
-                if(place.countries[2]){
-                    cselect3.select_option(place.countries[2].id);
-                }
+                cselect.select_option(place.countries[0].id);
             },
             on_locale_change: function(modal_object, new_locale){
                 console.log('called on_locale_change');
@@ -108,26 +84,29 @@
     }
     function countries_update(modal_object, place){
         modal_object._disable();
-        
         const ajax_data = {
             url: '{{ URL("/ajax/admin/places/countries") }}',
             request_data: {
                 _token: csrf_token,
                 place_id: place.id,
-                country1: modal_object.query('[name="countries_select_country_1"]').value,
-                country2: modal_object.query('[name="countries_select_country_2"]').value,
-                country3: modal_object.query('[name="countries_select_country_3"]').value
+                countries: []
             },
             success_func: function(response_data) {
+                console.log(response_data);
                 if(response_data['success'] && response_data['success'] == true){
+                    modal_object._setplace(response_data['place']);
                 }
             },
             after_func: function(response_data){
                 modal_object._enable();
             }
         }
+
+        modal_object.selected_countries.forEach(select =>{
+            ajax_data.request_data.countries.push(select.hidden_input.value);
+        });
+
         ajax(ajax_data);
-        console.log(ajax_data);
     }
     
     function place_update(modal_object, place){

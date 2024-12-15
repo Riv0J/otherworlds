@@ -1,7 +1,7 @@
 class Place_Editor{
     constructor(data) {
         this.data = data;
-
+        this.selected_countries = [];
         this._template();
         this._body();
 
@@ -146,18 +146,9 @@ class Place_Editor{
         </div>
 
         <div class="modal_tab_content" id="content_countries">
-            <div class="flex-row flex-wrap gap-3 align-items-center">
-                <div class="form_line" style="width: max-content">
-                    <label>Country 1</label>
-                    <select id="countries_select_country_1" name="countries_select_country_1"></select>
-                </div>
-                <div class="form_line" style="width: max-content">
-                    <label>Country 2</label>
-                    <select id="countries_select_country_2" name="countries_select_country_2"></select>
-                </div>
-                <div class="form_line" style="width: max-content">
-                    <label>Country 3</label>
-                    <select id="countries_select_country_3" name="countries_select_country_3"></select>
+            <small>Select Unknown to leave empty</small>
+            <div class="mt-3 flex-row flex-wrap gap-3">
+                <div class="flex-row flex-wrap gap-3 align-items-center" id="countries_container">
                 </div>
                 <button class="button" id="countries_add_country">
                     <i class="fa-solid fa-plus"></i>
@@ -205,7 +196,11 @@ class Place_Editor{
         this.query('[name="source_content"]').value = format_html(source?.content ?? '');
         this._textareas();
 
+        //medias tab
         this._show_medias();
+
+        //countries tab
+        this._set_countries();
     }
 
     _onload(){
@@ -271,6 +266,36 @@ class Place_Editor{
             toggle_spinners(false);
         });
     }
+
+    _set_countries(){
+        this.query('#countries_container').innerHTML = "";
+        this.selected_countries = [];
+        this.data.place.countries.forEach(country => {
+            this._add_country(country.id);
+        });
+    }
+    _add_country(country_id){
+        //create a new select dropdown
+        const selector = 'countries_selector_'+this.selected_countries.length; 
+        const select = document.createElement('select');
+        select.setAttribute('id', selector);
+
+        this.query('#countries_container').appendChild(select);
+        
+        //create a new dynamic select
+        const new_select = new DynamicSelect('#'+selector,{
+            data: this.data.country_data,
+            on_change: function(){
+                console.log('a');
+                
+            }
+        });
+        new_select.select_option(country_id);
+
+        //add to selected_countries
+        this.selected_countries.push(new_select);
+    }
+
     _media_template(media){
         const media_element = document.createElement('div');
         media_element.className = 'media';
@@ -352,9 +377,8 @@ class Place_Editor{
         this.query('#media_add_page').addEventListener('click', (event)=>{
             this.data['on_media_add_page'](this);
         });
-        this.query('#countries_add_country').addEventListener('click', function (){
-            console.log('a');
-            
+        this.query('#countries_add_country').addEventListener('click', (event)=>{
+            this._add_country();
         });
         const tabs = this.element.querySelectorAll('.modal_tabs li');
         this._tab(tabs[0].getAttribute('name'))

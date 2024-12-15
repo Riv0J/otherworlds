@@ -45,6 +45,7 @@ class DynamicSelect {
         this._updateSelected();
         this._eventHandlers();
         this.element.querySelector('.fa-chevron-down').classList.remove('d-none');
+        this.hidden_input = this.element.querySelector('input[name='+this.name+']');
     }
 
     _template() {
@@ -94,7 +95,7 @@ class DynamicSelect {
                 this.element.querySelector('.dynamic-select-header').classList.remove('dynamic-select-header-active'); //header remove active
 
                 this.toggleSearch(false); //search off
-                const select = this.element.querySelector('input[name='+this.name+']');
+                const select = this.hidden_input;
 
                 if(select && select.value === ""){ //if nothing is selected, turn ph on
                     this.toggleComponent('dynamic-select-header-placeholder', true); //placeholder on
@@ -157,7 +158,7 @@ class DynamicSelect {
                 this.toggleComponent('dynamic-select-header-placeholder', false);
                 this.toggleSearch(false);
 
-                this.element.querySelector('input[name='+this.name+']').value = option.getAttribute('data-value');
+                this.hidden_input.value = option.getAttribute('data-value');
                 this.data.forEach(data => data.selected = false);
                 this.data.filter(data => data.value == option.getAttribute('data-value'))[0].selected = true;
                 this.element.querySelector('.dynamic-select-header').classList.remove('dynamic-select-header-active');
@@ -193,7 +194,7 @@ class DynamicSelect {
         this.toggleComponent('dynamic-select-header-placeholder', false);
         this.toggleSearch(false);
 
-        this.element.querySelector('input[name='+this.name+']').value = option.getAttribute('data-value');
+        this.hidden_input.value = option.getAttribute('data-value');
         this.data.forEach(data => data.selected = false);
         this.data.filter(data => data.value == option.getAttribute('data-value'))[0].selected = true;
         this.element.querySelector('.dynamic-select-header').classList.remove('dynamic-select-header-active');

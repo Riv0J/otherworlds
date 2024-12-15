@@ -11,12 +11,12 @@ class Country extends Model{
     public $timestamps = false;
     public $translatedAttributes = ['name'];
 
-    public function places(){ //about to be deprecated
+    public function main_places(){ //about to be deprecated
         return $this->hasMany(Place::class);
     }
-    // public function places(){
-    //     return $this->belongsToMany(Place::class, 'places_countries');
-    // }
+    public function places(){
+        return $this->belongsToMany(Place::class, 'places_countries');
+    }
     /*
      *  Get Countries that are not unknown
      */

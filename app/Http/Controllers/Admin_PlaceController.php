@@ -277,7 +277,7 @@ class Admin_PlaceController extends Controller{
 
         $variables =[
             'success' => true,
-            'place' => Place::with('medias')->with('sources')->where('id', $new_place->id)->first(),
+            'place' => Place::with('medias')->with('sources')->with('countries')->where('id', $new_place->id)->first(),
             'messages' => $messages,
         ];
         return response()->json($variables);
@@ -290,7 +290,7 @@ class Admin_PlaceController extends Controller{
         $data = $request->all();
 
         app()->setLocale($data['locale']);
-        $place = Place::with('medias')->with('sources')->where('id',$data['place_id'])->first();
+        $place = Place::with('medias')->with('sources')->with('countries')->where('id',$data['place_id'])->first();
 
         if(PlaceTranslation::where('name', $data['name'])->where('place_id','!=',$place->id)->exists()){
             return response()->json([
@@ -345,7 +345,7 @@ class Admin_PlaceController extends Controller{
         app()->setLocale($data['locale']);
         $variables =[
             'locale' => $data['locale'],
-            'place' => Place::with('medias')->with('sources')->where('id',$data['place_id'])->first()
+            'place' => Place::with('medias')->with('sources')->with('countries')->where('id',$data['place_id'])->first()
         ];
         return response()->json($variables);
     }
@@ -378,22 +378,22 @@ class Admin_PlaceController extends Controller{
         try {
             $validated = $request->validate([
                 'place_id' => 'required|integer|exists:places,id',
-                'country1' => 'required|integer|exists:countries,id',
-                'country2' => 'nullable|integer|exists:countries,id',
-                'country3' => 'nullable|integer|exists:countries,id'
+                'countries' => 'required|array|min:1', // Validar que sea un array con al menos un elemento
+                'countries.*' => 'integer|exists:countries,id', // Validar que cada elemento del array sea un ID válido
             ]);
 
-            $place = Place::find($validated['place_id']);
+            $place = Place::findOrFail($validated['place_id']);
+            $countries = $validated['countries'];
+
             $place->countries()->detach();
-            $place->country_id = $validated['country1'];
+            $place->country_id = $countries[0];
             $place->save();
-    
-            $countries = [$validated['country1'], $validated['country2'], $validated['country3']];
+            
             foreach ($countries as $country_id) {
                 if($country_id == null || $place->countries()->where('countries.id', $country_id)->exists()){
                     continue;
                 }
-                $country = Country::find($country_id);
+                $country = Country::findOrFail($country_id);
                 if($country->is_unknown() == false){
                     $place->add_country($country_id);
                 }
@@ -401,7 +401,7 @@ class Admin_PlaceController extends Controller{
             $variables = [
                 'success' => true,
                 'message' => new Message(Message::TYPE_SUCCESS, "Countries updated"),
-                'place' => Place::where('id', $place['place_id'])->with('medias')->with('sources')->with('countries')->first()
+                'place' => Place::where('id', $place->id)->with('medias')->with('sources')->with('countries')->first()
             ];
         } catch (\Throwable $th) {
             $variables = [
