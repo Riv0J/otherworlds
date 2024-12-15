@@ -62,18 +62,6 @@
             <div class="flex-column gap-2">
                 <div class="stat-line">
                     <small class="stat-header">
-                        {{ trans_choice('otherworlds.country', $place->countries->count()) }}                    </small>
-                    <small class="stat-body flex-column">
-                        @foreach($place->countries as $country)
-                        <a href ="{{countries_url($locale).'/'.$country->name}}">
-                            <span class="flag-icon flag-icon-{{$country->code}}"></span>{{$country->name}}
-                        </a>
-                        @endforeach
-
-                    </small>
-                </div>
-                <div class="stat-line">
-                    <small class="stat-header">
                         @lang('otherworlds.category'):
                     </small>
                     <small class="stat-body">
@@ -83,18 +71,25 @@
                 </div>
                 <div class="stat-line">
                     <small class="stat-header">
-                        @lang('otherworlds.views'):
+                        {{ trans_choice('otherworlds.country', $place->countries->count()) }}:
                     </small>
-                    <small class="stat-body short_number">
-                        {{$place->views_count}}
+                    <small class="stat-body flex-wrap">
+                        @foreach($place->countries as $country)
+                        <a href ="{{countries_url($locale).'/'.$country->name}}">
+                            <span class="flag-icon flag-icon-{{$country->code}}"></span>{{$country->name}}
+                        </a>
+                        @endforeach
                     </small>
                 </div>
                 <div class="stat-line">
                     <small class="stat-header">
-                        @lang('otherworlds.date_added'):
+                        @lang('otherworlds.location'):
                     </small>
                     <small class="stat-body">
-                        {{$place->created_at->format('d-m-Y')}}
+                        <a href="https://www.google.com/maps?q={{$place->name}}&t=k" target="_blank">
+                            <span>@lang('otherworlds.view_in_maps')</span>
+                            <i class="small_i fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
                     </small>
                 </div>
                 <div class="stat-line">
@@ -113,13 +108,18 @@
                 </div>
                 <div class="stat-line">
                     <small class="stat-header">
-                        @lang('otherworlds.location'):
+                        @lang('otherworlds.views'):
+                    </small>
+                    <small class="stat-body short_number">
+                        {{$place->views_count}}
+                    </small>
+                </div>
+                <div class="stat-line">
+                    <small class="stat-header">
+                        @lang('otherworlds.date_added'):
                     </small>
                     <small class="stat-body">
-                        <a href="https://www.google.com/maps?q={{$place->name}}&t=k" target="_blank">
-                            <span>@lang('otherworlds.view_in_maps')</span>
-                            <i class="small_i fa-solid fa-arrow-up-right-from-square"></i>
-                        </a>
+                        {{$place->created_at->format('d-m-Y')}}
                     </small>
                 </div>
             </div>
@@ -128,7 +128,7 @@
         </div>
         {{-- img container END--}}
 
-        <h4 class="mb-4 semibold d-flex flex-row gap-2">
+        <h4 class="mb-4 semibold flex-row gap-2">
             <i class="ri-arrow-right-s-line"></i>
             <span class="mx-1">@lang('otherworlds.place_overview')</span>
         </h4>
@@ -209,7 +209,7 @@
 
     {{-- country link START --}}
 
-    <div class="flex_center gap-4">
+    <div class="flex_center flex-wrap gap-4">
         @foreach($place->countries as $country)
         <a href ="{{countries_url($locale).'/'.$country->name}}">
             @lang('otherworlds.view_country')
