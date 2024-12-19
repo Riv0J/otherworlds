@@ -13,17 +13,23 @@ class Api_Controller extends Controller
 {
     public function api_get_countries(Request $request){
         $response = [];
-        $status = 422;
         try {
-            $validated = $request->validate([
-                'lang' => ['required',Rule::in(config('translatable.locales'))],
-            ]);
+            $lang = $request->input('lang');
+            $locales = config('translatable.locales');
 
-            app()->setLocale($validated['lang']);
+            if(!in_array($lang, $locales)){
+                $response = [
+                    'success' => false,
+                    'message' => "Lenguaje proporcionado '".$lang."' incorrecto. Lenguajes disponibles: ".implode(', ', $locales)
+                ];
+                return response()->json($response, 422);
+            }
+
+            app()->setLocale($lang);
 
             $response = [
                 'success' => true,
-                'countries' => Country::all()
+                'countries' => Country::all()->makeHidden('translations'),
             ];
 
         } catch (ValidationException $e) {
@@ -32,7 +38,7 @@ class Api_Controller extends Controller
                 'errors' => $e->errors()
             ];
         }
-        return response()->json($response, $status);
+        return response()->json($response);
     }
 
     public function api_get_places(Request $request){
@@ -55,7 +61,7 @@ class Api_Controller extends Controller
                 'errors' => $e->errors()
             ];
         }
-        return response()->json($response, $status);
+        return response()->json($response);
 
     }
 }
