@@ -11,15 +11,15 @@ use Illuminate\Validation\ValidationException;
 
 class Api_Controller extends Controller
 {
-    public function get_countries(Request $request){
+    public function api_get_countries(Request $request){
         $response = [];
         $status = 422;
         try {
-            // $validated = $request->validate([
-            //     'lang' => ['required',Rule::in(config('translatable.locales'))],
-            // ]);
+            $validated = $request->validate([
+                'lang' => ['required',Rule::in(config('translatable.locales'))],
+            ]);
 
-            app()->setLocale($request->input('lang'));
+            app()->setLocale($validated['lang']);
 
             $response = [
                 'success' => true,
