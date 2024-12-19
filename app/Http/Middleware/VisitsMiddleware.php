@@ -23,7 +23,9 @@ class VisitsMiddleware{
     public function handle(Request $request, Closure $next){
         $ip = $request->ip();
         $user = auth()->user();
+
         if ($ip == '::1' || ($user && $user->is_owner())) {
+            Log::info('Visita de localhost o owner.');
             return $next($request);
         }
 
@@ -43,7 +45,6 @@ class VisitsMiddleware{
                 'created_at' => now()
             ]);
         } catch (\Throwable $th) {
-            // Registrar el error en el log
             Log::error('Error logging visit', [
             'exception' => $th,
             'message' => $th->getMessage(),
