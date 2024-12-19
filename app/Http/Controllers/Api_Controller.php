@@ -32,7 +32,7 @@ class Api_Controller extends Controller
                 'errors' => $e->errors()
             ];
         }
-        return response()->json($response);
+        return response()->json($response, $status);
     }
 
     public function api_get_places(Request $request){
