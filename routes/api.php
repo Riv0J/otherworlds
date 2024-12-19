@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //api
-Route::post('/countries', [Api_Controller::class, 'api_get_countries']);
+Route::middleware('visits')->post('/countries', [Api_Controller::class, 'api_get_countries']);
