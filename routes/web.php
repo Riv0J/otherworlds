@@ -11,6 +11,7 @@ use App\Http\Controllers\Front_Controller;
 use App\Http\Controllers\Front_UserController;
 use App\Http\Controllers\Front_PlaceController;
 use App\Http\Controllers\Front_CountryController;
+use App\Http\Controllers\Api_Controller;
 
 use App\Http\Controllers\Admin_UserController;
 use App\Http\Controllers\Admin_VisitController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\Admin_CommandController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 // sitemap
 Route::get('/sitemap.xml', [Admin_CommandController::class, 'sitemap']);
 Route::redirect('/sitemap', '/sitemap.xml');
@@ -49,7 +51,7 @@ Route::prefix('{locale}')->middleware('visits')->group(function () {
 
         // /en/home
         Route::get('/home', [Front_Controller::class,'home'])->name('home');
-        
+
         // /en/development
         Route::get('/development', [Front_Controller::class, 'show_development'])->name('development');
 
@@ -63,7 +65,7 @@ Route::prefix('{locale}')->middleware('visits')->group(function () {
 
             // /{locale}/{countries}/{country}
             Route::get('/'.$countries_slug.'/{country_slug}', [Front_CountryController::class,'show']);
-            
+
             // /{locale}/{places}
             Route::get('/'.$places_slug, [Front_PlaceController::class,'index']);
             // /{locale}/{places}/{place_slug}
@@ -89,7 +91,7 @@ Route::prefix('{locale}')->middleware('visits')->group(function () {
 
         // ADMIN routes
         Route::middleware(['back'])->group(function () { //kernel.php
-            
+
             Route::get('/admin/users/edit/{username}', [Admin_UserController::class, 'edit'])->name('user_edit');
             Route::post('/admin/users/update', [Admin_UserController::class, 'update'])->name('user_update');
             Route::get('/admin/users/create', [Admin_UserController::class, 'create'])->name('user_create');
@@ -138,7 +140,7 @@ Route::middleware(['back_edit'])->group(function () {
     Route::post('/ajax/admin/places/wiki_create', [Admin_PlaceController::class, 'ajax_wiki_create']);
     Route::post('/ajax/admin/places/delete', [Admin_PlaceController::class, 'ajax_delete']);
     Route::post('/ajax/admin/places/countries', [Admin_PlaceController::class, 'ajax_countries']);
-    
+
     // ajax sources
     Route::post('/ajax/admin/sources/create', [Admin_SourceController::class, 'ajax_create']);
     Route::post('/ajax/admin/sources/update', [Admin_SourceController::class, 'ajax_update']);
@@ -154,7 +156,7 @@ Route::middleware(['back_edit'])->group(function () {
 Route::middleware(['owner'])->group(function () {
     // visits
     Route::post('/ajax/admin/visits/delete', [Admin_VisitController::class, 'ajax_delete_visit']);
-    
+
     Route::get('/admin/server', [Admin_CommandController::class, 'server'])->name('server');
     Route::get('/admin/commands', [Admin_CommandController::class, 'index'])->name('commands');
     Route::get('/admin/commands/database/download', [Admin_CommandController::class, 'download'])->name('database_download');
