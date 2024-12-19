@@ -15,11 +15,11 @@ class Api_Controller extends Controller
         $response = [];
         $status = 422;
         try {
-            $validated = $request->validate([
-                'lang' => ['required',Rule::in(config('translatable.locales'))],
-            ]);
+            // $validated = $request->validate([
+            //     'lang' => ['required',Rule::in(config('translatable.locales'))],
+            // ]);
 
-            app()->setLocale($validated['lang']);
+            app()->setLocale($request->input('lang'));
 
             $response = [
                 'success' => true,
