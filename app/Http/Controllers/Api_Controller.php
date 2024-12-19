@@ -14,6 +14,8 @@ class Api_Controller extends Controller
     public function api_get_countries(Request $request){
         $response = [];
         try {
+            Log::info('Consulta de API: '.$request->ip());
+
             $lang = $request->input('lang');
             $locales = config('translatable.locales');
 
