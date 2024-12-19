@@ -10,6 +10,7 @@ use Jenssegers\Agent\Agent;
 use Stevebauman\Location\Facades\Location;
 use App\Models\Visit;
 use App\Models\CountryTranslation;
+use Illuminate\Support\Facades\Log;
 
 class VisitsMiddleware{
     /**
@@ -42,7 +43,13 @@ class VisitsMiddleware{
                 'created_at' => now()
             ]);
         } catch (\Throwable $th) {
-            //throw $th;
+            // Registrar el error en el log
+            Log::error('Error logging visit', [
+            'exception' => $th,
+            'message' => $th->getMessage(),
+            'file' => $th->getFile(),
+            'line' => $th->getLine(),
+            ]);
         }
         
         return $next($request);
