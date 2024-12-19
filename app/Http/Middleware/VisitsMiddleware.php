@@ -25,7 +25,7 @@ class VisitsMiddleware{
         $user = auth()->user();
 
         if ($ip == '::1' || ($user && $user->is_owner())) {
-            Log::info('Visita de localhost o owner.');
+            Log::info('Visita de localhost o owner. IP: '.$ip);
             return $next($request);
         }
 
