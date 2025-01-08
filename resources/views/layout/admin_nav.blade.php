@@ -27,7 +27,7 @@
                 @if($logged->is_guest())<i class="fa-solid fa-ban"></i>@endif
             </h5>
         </a>
-        
+
         <a href="{{route('place_index', ['locale' => $locale])}}"
             @php if(str_ends_with($current_url,'admin/places')){ echo('active'); } @endphp>
             <i class="fa-solid fa-panorama"></i>
@@ -39,7 +39,7 @@
             <i class="fa-solid fa-chart-line"></i>
             <h5 class="light">@lang('otherworlds.visits')
                 @if($logged->is_guest())<i class="fa-solid fa-ban"></i>@endif
-            </h5> 
+            </h5>
         </a>
 
     </div>
@@ -49,11 +49,13 @@
             <i class="fa-solid fa-laptop-code"></i>
             <h5 class="light">Development</h5>
         </a>
-        
+
         <a href="{{route('server')}}"
             @php if(str_ends_with($current_url,'admin/server')){ echo('active'); } @endphp>
             <i class="fa-solid fa-server"></i>
-            <h5 class="light">@lang('otherworlds.server')</h5>
+            <h5 class="light">@lang('otherworlds.server')
+                @if($logged->is_guest())<i class="fa-solid fa-ban"></i>@endif
+            </h5>
         </a>
         {{-- <a href="#"
             @php if(str_ends_with($current_url,'admin/config')){ echo('active'); } @endphp>
