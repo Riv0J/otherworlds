@@ -17,6 +17,15 @@ class Country extends Model{
     public function places(){
         return $this->belongsToMany(Place::class, 'places_countries');
     }
+
+    /**
+     * Determine if the place is unknown
+     */
+    public function is_unknown(){
+        $unknown = CountryTranslation::where('name', 'Unknown')->first();
+        return $this->id == $unknown->country_id;
+    }
+    
     /*
      *  Get Countries that are not unknown
      */
@@ -33,11 +42,10 @@ class Country extends Model{
         return Country::inRandomOrder()->first();
     }
 
-    /**
-     * Determine if the place is unknown
+    /*
+     *  Get the unknown country
      */
-    public function is_unknown(){
-        $unknown = CountryTranslation::where('name', 'Unknown')->first();
-        return $this->id == $unknown->country_id;
+    public static function unknown_id(){
+        return (CountryTranslation::where('name', 'Unknown')->first())->country_id;
     }
 }

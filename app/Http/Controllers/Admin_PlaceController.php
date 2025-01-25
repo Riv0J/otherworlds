@@ -219,8 +219,8 @@ class Admin_PlaceController extends Controller{
 
         $place_data = [
             'public_slug' => $slug,
-            'country_id' => (CountryTranslation::where('name', 'Unknown')->first())->country_id,
-            'category_id' => (CategoryTranslation::where('name', 'Unknown')->first())->category_id,
+            'country_id' => Country::unknown_id(),
+            'category_id' => Category::unknown_id(),
             'gallery_url' => null,
         ];
 
@@ -250,6 +250,7 @@ class Admin_PlaceController extends Controller{
 
         // create place using $place_data
         $new_place = Place::create($place_data);
+        $new_place->add_country(Country::unknown_id());
 
         // create source from content data
         $source = Source::create([
