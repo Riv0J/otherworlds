@@ -20,12 +20,19 @@ class Api_Controller extends Controller
             $lang = $request->input('lang');
             $locales = config('translatable.locales');
 
-            if(!in_array($lang, $locales)){
+            if(!$lang || $lang == null){
+                $response = [
+                    'success' => false,
+                    'message' => "El cuerpo de la petición debe contener el campo 'lang' de lenguaje. Lenguajes disponibles: ".implode(', ', $locales)
+                ];
+                return response()->json($response, 200);
+
+            } else if(!in_array($lang, $locales)){
                 $response = [
                     'success' => false,
                     'message' => "Lenguaje proporcionado '".$lang."' incorrecto. Lenguajes disponibles: ".implode(', ', $locales)
                 ];
-                return response()->json($response, 422);
+                return response()->json($response, 200);
             }
 
             app()->setLocale($lang);
