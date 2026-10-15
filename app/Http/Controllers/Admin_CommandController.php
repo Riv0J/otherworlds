@@ -19,19 +19,27 @@ class Admin_CommandController extends Controller {
         return view('admin.command.index', ['locale' => 'en']);
     }
 
-    public function download(){
-        $database = env('DB_DATABASE');
-        $username = env('DB_USERNAME');
-        $password = env('DB_PASSWORD');
-        $host = env('DB_HOST');
-        $filename = env('APP_NAME')."-backup-" . date('Y-m-d_H-i-s') . ".sql";
+    // Credenciales de BD desde config(): env() devuelve null si la config está cacheada
+    private function db_env(){
+        $db = config('database.connections.' . config('database.default'));
+        return [
+            'DB_USER' => $db['username'],
+            'MYSQL_PWD' => $db['password'],
+            'DB_HOST' => $db['host'],
+            'DB_PORT' => $db['port'],
+            'DB_NAME' => $db['database'],
+        ];
+    }
 
-        // Generar el comando mysqldump
-        $command = "mysqldump --user={$username} --password={$password} --host={$host} {$database} > " . storage_path("app/{$filename}");
-        
+    public function download(){
+        $filename = config('app.name')."-backup-" . date('Y-m-d_H-i-s') . ".sql";
+
+        // Generar el comando mysqldump (la contraseña va por MYSQL_PWD)
+        $command = 'mysqldump --user="${:DB_USER}" --host="${:DB_HOST}" --port="${:DB_PORT}" "${:DB_NAME}" > "${:OUTPUT}"';
+
         // Ejecutar el comando
         $process = Process::fromShellCommandline($command);
-        $process->run();
+        $process->run(null, $this->db_env() + ['OUTPUT' => storage_path("app/{$filename}")]);
 
         // Verificar si el proceso fue exitoso
         if (!$process->isSuccessful()) {
@@ -51,18 +59,12 @@ class Admin_CommandController extends Controller {
         // Guardar el archivo SQL subido temporalmente
         $filePath = $request->file('backup')->storeAs('backups', 'uploaded_backup.sql');
 
-        // Obtener las credenciales de la base de datos desde el archivo .env
-        $database = env('DB_DATABASE');
-        $username = env('DB_USERNAME');
-        $password = env('DB_PASSWORD');
-        $host = env('DB_HOST');
-
-        // Comando para restaurar la base de datos usando el archivo SQL
-        $command = "mysql --user={$username} --password={$password} --host={$host} {$database} < " . storage_path("app/{$filePath}");
+        // Comando para restaurar la base de datos usando el archivo SQL (la contraseña va por MYSQL_PWD)
+        $command = 'mysql --user="${:DB_USER}" --host="${:DB_HOST}" --port="${:DB_PORT}" "${:DB_NAME}" < "${:INPUT}"';
 
         // Ejecutar el comando
         $process = Process::fromShellCommandline($command);
-        $process->run();
+        $process->run(null, $this->db_env() + ['INPUT' => storage_path("app/{$filePath}")]);
 
         // Verificar si el proceso fue exitoso
         if (!$process->isSuccessful()) {
